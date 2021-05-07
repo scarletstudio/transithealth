@@ -6,6 +6,8 @@ export default {
   basePath: "transithealth",
   stagingSiteRoot: "https://scarletstudio.github.io",
   stagingBasePath: "transithealth",
+  devSiteRoot: "http://localhost:3000",
+  devBasePath: "transithealth",
   getSiteData: () => ({
     title: "TransitHealth"
   }),

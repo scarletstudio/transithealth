@@ -10,10 +10,10 @@ function App() {
   return (
     <Root>
       <nav>
-        <Link to="/">TransitHealth</Link>
-        <Link to="/about">About</Link>
-        <Link to="/explorer">Explorer</Link>
-        <Link to="/questions">Questions</Link>
+        <Link to="./">TransitHealth</Link>
+        <Link to="./about">About</Link>
+        <Link to="./explorer">Explorer</Link>
+        <Link to="./questions">Questions</Link>
       </nav>
       <div className="page">
         <React.Suspense fallback={<em>Loading...</em>}>
