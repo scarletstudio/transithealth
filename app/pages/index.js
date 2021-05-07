@@ -41,7 +41,7 @@ export default function Home({ communityAreas }) {
   const [ clickArea, setClickArea ] = useState({});
 
   useEffect(async () => {
-    const req = await fetch("http://localhost:5000/rideshare/total_trips_by_pickup_area");
+    const req = await fetch(`${process.env.NEXT_PUBLIC_API}/rideshare/total_trips_by_pickup_area`);
     const res = await req.json();
     const tripsByArea = getTripsByArea(res);
     setMapData(tripsByArea);

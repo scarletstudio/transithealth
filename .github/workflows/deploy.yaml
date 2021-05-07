@@ -13,10 +13,12 @@ jobs:
       - name: Install and Build 🔧
         run: |
           cd app
+          echo "NEXT_PUBLIC_API=http://localhost:5000" > .env.local
           yarn install
           yarn build
           yarn export
           touch transithealth/.nojekyll
+          rm .env.local
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
