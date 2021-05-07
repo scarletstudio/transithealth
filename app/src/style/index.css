@@ -1,0 +1,8 @@
+.ChicagoMap .CommunityArea {
+    fill: var(--color-main);
+}
+
+.CommunityArea:hover {
+    cursor: pointer;
+    opacity: 1.0;
+}
