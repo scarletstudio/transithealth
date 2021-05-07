@@ -5,6 +5,7 @@ on:
     branches:
       - main
     paths:
+      - .github/workflows/deploy.yaml
       - app/*
 
 jobs:
@@ -17,7 +18,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           cd app
-          echo "NEXT_PUBLIC_API=https://localhost:5000" > .env.local
+          echo "NEXT_PUBLIC_API=https://transithealth.herokuapp.com" > .env.local
           yarn install
           yarn build
           yarn export

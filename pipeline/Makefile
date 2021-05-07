@@ -13,6 +13,9 @@ latest:
 compressed: database.db
 	tar cfz compressed.db.tgz database.db
 
+uncompressed:
+	tar -xf compressed.db.tgz
+
 # Load Operations
 
 database.db: data/transformed/rideshare.csv
