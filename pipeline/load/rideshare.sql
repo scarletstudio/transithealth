@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS rideshares;
-CREATE TABLE rideshares (
+DROP TABLE IF EXISTS rideshare;
+CREATE TABLE rideshare (
     ymd TEXT,
     week TEXT,
     pickup_community_area INTEGER,
