@@ -19,8 +19,4 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install -r requirements.txt
-
-      - name: Run Tests
-        uses: cclauss/GitHub-Action-for-pytest@master
-        with:
-          args: source .venv/bin/activate && pytest -v
+          pytest -v
