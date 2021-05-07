@@ -14,6 +14,12 @@ transithealth
 └── pipeline/           Offline pipeline for the backend.
 ```
 
+## View the App
+
+- **Production:** [scarletstudio.github.io/transithealth](https://scarletstudio.github.io/transithealth)
+- **Staging:** [bit.ly/transithealth-staging](http://bit.ly/transithealth-staging)
+- **Local:** [localhost:8001/transithealth](http://localhost:8001/transithealth)
+
 ## Getting Started
 
 Follow the [setup instructions](docs/setup.md).
