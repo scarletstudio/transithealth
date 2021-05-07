@@ -16,7 +16,7 @@ jobs:
           yarn install
           yarn build
           yarn export
-          touch out/.nojekyll
+          touch transithealth/.nojekyll
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.1
