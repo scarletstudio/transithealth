@@ -35,7 +35,9 @@ export default {
     ],
     [ require.resolve("react-static-plugin-reach-router"),
       {
-        basename: "transithealth",
+        RouterProps: {
+          basename: "transithealth",
+        },
       },
     ],
     require.resolve("react-static-plugin-sitemap"),
