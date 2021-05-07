@@ -2,6 +2,8 @@ import path from "path"
 import fs from "fs"
 
 export default {
+  siteRoot: "https://scarletstudio.github.io",
+  basePath: "transithealth",
   getSiteData: () => ({
     title: "TransitHealth"
   }),
