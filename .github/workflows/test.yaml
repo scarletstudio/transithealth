@@ -1,6 +1,18 @@
 name: Run Tests
 
-on: [push]
+on:
+  push:
+    paths:
+      - .github/workflows/test.yaml
+      - requirements.txt
+      - pytest.ini
+      - *.py
+  pull_request:
+    paths:
+      - .github/workflows/test.yaml
+      - requirements.txt
+      - pytest.ini
+      - *.py
 
 jobs:
   test-pytest:
@@ -14,7 +26,7 @@ jobs:
         with:
           python-version: "3.7"
 
-      - name: Install Dependencies
+      - name: Install and Test 🧪
         run: |
           echo "PORT=5000" >> .env
           echo "ALLOW=http://localhost:8001" >> .env
