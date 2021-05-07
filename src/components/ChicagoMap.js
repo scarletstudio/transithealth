@@ -36,6 +36,8 @@ export default function ChicagoMap(props) {
 	const areas = props.communityAreas.features;
 	const data = props.data || {};
 
+	const [ selectedArea, setSelectedArea ] = useState(-1);
+
 	return (
 		<div className="ChicagoMap">
 			<svg width={ width } height={ height } viewBox={`0 0 ${width} ${height}`}>
@@ -48,14 +50,15 @@ export default function ChicagoMap(props) {
 							const payload = { name: p.community, number: areaNumber };
 							return (
 								<path
-									className="CommunityArea"
+									className={`CommunityArea ${selectedArea === i ? "Selected" : ""}`}
 									key={ `path-${ i }` }
 									d={ geoPath().projection(projection)(area) }
 									fill={ d.fill || defaultFill }
 									stroke={ d.stroke || defaultStroke }
-									opacity={ d.opacity || defaultOpacity }
+									fillOpacity={ d.opacity || defaultOpacity }
 									strokeWidth={ 0.5 }
 									onClick={(e) => {
+										setSelectedArea(i);
 										if (onAreaClick) {
 											onAreaClick(payload);
 										}

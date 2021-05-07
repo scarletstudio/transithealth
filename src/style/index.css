@@ -4,5 +4,11 @@
 
 .CommunityArea:hover {
     cursor: pointer;
-    opacity: 1.0;
+    stroke: var(--color-main);
+    stroke-width: 2;
+}
+
+.CommunityArea.Selected {
+    stroke: var(--color-main);
+    stroke-width: 2;
 }

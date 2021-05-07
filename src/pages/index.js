@@ -27,8 +27,7 @@ function getTripsByArea(rows) {
 export default () => {
 	const { communityAreas } = useRouteData();
 	const [ mapData, setMapData ] = useState(null);
-  const [ clickArea, setClickArea ] = useState({});
-  const [ hoverArea, setHoverArea ] = useState({});
+	const [ clickArea, setClickArea ] = useState({});
 
 	const { data } = useFetch("http://localhost:5000/rideshare/total_trips_by_pickup_area", {}, { json: true });
 	if (data && !mapData) {
@@ -47,8 +46,7 @@ export default () => {
 				<h2>Total Rideshare Trips</h2>
 				<p>Total number of trips, by community area of pickup.</p>
 				<h3>{clickArea.name}</h3>
-				<p>{clickRow.total_trips || "?"} total rideshare pickups.</p>
-				<p>Hovering over community area: {hoverArea.name}</p>
+				<p>{clickRow.total_trips ? clickRow.total_trips.toLocaleString() : "?"} total rideshare pickups.</p>
 			</div>
 			<div className="column">
 				<ChicagoMap
@@ -56,8 +54,7 @@ export default () => {
 					communityAreas={communityAreas}
 					width={450}
 					defaultOpacity={minAlpha}
-	        onAreaClick={setClickArea}
-	        onAreaHover={setHoverArea}
+			        onAreaClick={setClickArea}
 				/>
 			</div>
 		</div>
