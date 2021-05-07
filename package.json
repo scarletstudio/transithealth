@@ -8,7 +8,8 @@
     "analyze": "react-static build --analyze",
     "serve": "serve dist -p 3000",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "clean": "rm -rf artifacts && rm -rf dist && rm -rf tmp"
   },
   "dependencies": {
     "@reach/router": "^1.3.4",

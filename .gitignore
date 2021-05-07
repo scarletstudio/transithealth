@@ -3,10 +3,10 @@
 .env
 .venv/
 
-app/artifacts/
-app/dist/
-app/node_modules/
-app/tmp/
+artifacts/
+dist/
+node_modules/
+tmp/
 
 pipeline/data/*
 *.db
