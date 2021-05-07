@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{63:function(e,t,n){"use strict";n.r(t);var a=n(0),l=n.n(a);t.default=function(){return l.a.createElement("div",null,l.a.createElement("h1",null,"About"),l.a.createElement("p",null,"TransitHealth is developed by students at Scarlet Data Studio."))}}}]);
