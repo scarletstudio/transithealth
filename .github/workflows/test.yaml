@@ -16,6 +16,9 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          echo "PORT=5000" >> .env
+          echo "ALLOW=http://localhost:8001" >> .env
+          echo "DATABASE=:memory:" >> .env
           python3 -m venv .venv
           source .venv/bin/activate
           pip install -r requirements.txt
