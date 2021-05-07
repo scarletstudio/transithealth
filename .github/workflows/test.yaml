@@ -6,13 +6,13 @@ on:
       - .github/workflows/test.yaml
       - requirements.txt
       - pytest.ini
-      - *.py
+      - '*.py'
   pull_request:
     paths:
       - .github/workflows/test.yaml
       - requirements.txt
       - pytest.ini
-      - *.py
+      - '*.py'
 
 jobs:
   test-pytest:
