@@ -5,6 +5,7 @@
 
 app/build/
 app/node_modules/
+app/out/
 
 pipeline/data/*
 *.db
