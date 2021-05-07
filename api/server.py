@@ -40,4 +40,4 @@ app.register_blueprint(rideshare.make_blueprint(cur))
 # Start the server on the default host.
 if __name__ == "__main__":
     print("Starting server...")
-    app.run(host="0.0.0.0", port=int(config("API_PORT")))
+    app.run(host="0.0.0.0", port=int(config("PORT")))
