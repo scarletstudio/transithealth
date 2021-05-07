@@ -33,3 +33,12 @@ FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
 ```bash
 cd app && yarn start
 ```
+
+## Upload Database
+
+Make sure you have an updated `.env` file with the variable `DROPLET`. Run this command to copy your local database file to the Digital Ocean droplet. You will be asked to enter the droplet password. You can ask Vinesh for the password, but you must keep it safe!
+
+```bash
+source .env
+scp pipeline/database.db root@$DROPLET:storage/transithealth
+```

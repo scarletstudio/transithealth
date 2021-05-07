@@ -34,8 +34,9 @@ Then add these contents:
 
 ```
 API_PORT=5000
-ALLOW=http://localhost:5000,http://104.236.21.173:5000
+ALLOW=http://localhost:3000,http://104.236.21.173:3000
 DATABASE=pipeline/database.db
+DROPLET=104.236.21.173
 ```
 
 ## Frontend Development

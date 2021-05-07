@@ -6,20 +6,17 @@ Static React app for the frontend.
 
 ```
 app
-├── artifacts/          (Ignore, not committed) Files produced to help with build process.
-├── dist/               (Ignore, not committed) Built version of the app to deploy.
+├── build/              (Ignore, not committed) Files produced to help with build process.
+├── components/         React components to be reused throughout the app.
 ├── node_modules/       (Ignore, not committed) Dependencies for frontend.
+├── pages/              React components to be used as layouts for main pages.
 ├── public/             Public files served from the website root directory.
 |   ├── resources/      Files and data that does not need to be served by the API.
 |   └── mock/           Data representing mock API responses.
-├── src/                App source code.
-|   ├── components/     React components to be reused throughout the app.
-|   ├── containers/     React components to be used as layouts for child pages.
-|   ├── pages/          React components to be used as layouts for main pages.
-|   ├── questions/      React components to be used as layouts and content for question pages.
-|   └── style/          CSS stylesheets.
-├── tmp/                (Ignore, not committed) Temporary folder for serving app while developing.
-└── static.config.js    Configuration file for the static site.
+└── styles/             CSS stylesheets.
+├── transithealth/      (Ignore, not committed) Built version of the app to deploy.
+├── package.json        Lists development scripts and dependencies.
+└── next.config.js      Configuration file for the static site.
 ```
 
 ## Common Commands
@@ -33,7 +30,7 @@ cd app
 Start the local development server.
 
 ```bash
-yarn start
+yarn dev
 ```
 
-Created with `react-static create`, using the `basic` template.
+Created with Next.js using `yarn create next-app`.

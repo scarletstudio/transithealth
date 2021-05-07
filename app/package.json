@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "next export"
+    "export": "next export -o transithealth",
+    "clean": "rm -rf build && rm -rf transithealth"
   },
   "dependencies": {
     "d3-geo": "^2.0.1",
