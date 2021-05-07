@@ -23,4 +23,4 @@ jobs:
       - name: Run Tests
         uses: cclauss/GitHub-Action-for-pytest@master
         with:
-          args: pytest -v
+          args: source .venv/bin/activate && pytest -v
