@@ -3,6 +3,7 @@
 :root {
     --color-main: rgb(9, 145, 120);
     --color-light-gray: rgb(232, 232, 232);
+    --color-dark-gray: rgb(38, 50, 56);
     --font-size: 18px;
 }
 
@@ -52,6 +53,7 @@ nav {
     background: var(--color-main);
     width: 100%;
     padding: 0 1em;
+    text-align: center;
 }
 
 nav a {

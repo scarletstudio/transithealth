@@ -3,10 +3,8 @@
 .env
 .venv/
 
-artifacts/
-dist/
-node_modules/
-tmp/
+app/build/
+app/node_modules/
 
 pipeline/data/*
 *.db
