@@ -71,7 +71,7 @@ export default function Home({ communityAreas }) {
           <ChicagoMap
             data={mapData}
             communityAreas={communityAreas}
-            width={400}
+            height={400}
             defaultOpacity={1.0}
             onAreaClick={setClickArea}
           />

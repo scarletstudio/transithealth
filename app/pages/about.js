@@ -15,7 +15,7 @@ export default function About() {
         <Link href="/explorer">Explorer</Link>
         <Link href="/questions">Questions</Link>
       </nav>
-      <main className="Home">
+      <main className="About">
         <div className="page">
           <h1>About</h1>
           <p>TransitHealth is developed by students at Scarlet Data Studio.</p>
