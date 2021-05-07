@@ -10,6 +10,9 @@ latest:
 	rm -f database.db
 	make
 
+compressed: database.db
+	tar cfz compressed.db.tgz database.db
+
 # Load Operations
 
 database.db: data/transformed/rideshare.csv
