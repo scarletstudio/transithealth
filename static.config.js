@@ -4,6 +4,8 @@ import fs from "fs"
 export default {
   siteRoot: "https://scarletstudio.github.io",
   basePath: "transithealth",
+  stagingSiteRoot: "https://scarletstudio.github.io",
+  stagingBasePath: "transithealth",
   getSiteData: () => ({
     title: "TransitHealth"
   }),
