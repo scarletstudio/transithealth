@@ -39,6 +39,10 @@ html {
     margin: 0 1em;
 }
 
+.nowrap {
+    white-space: nowrap;
+}
+
 p {
     font-size: 1em;
     margin: var(--font-size);
@@ -118,6 +122,14 @@ nav a:hover {
 
     .column {
         width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 960px) {
+    
+    .recharts-responsive-container {
+        width: 100% !important;
     }
 
 }
