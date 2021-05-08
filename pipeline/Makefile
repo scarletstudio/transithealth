@@ -18,7 +18,7 @@ reload:
 	mkdir data/loaded
 	make
 
-uncompressed: compressed.db.tgz
+uncompressed:
 	tar -xf compressed.db.tgz
 
 compressed:
