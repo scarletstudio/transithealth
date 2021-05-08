@@ -46,6 +46,7 @@ const supportedMetrics = {
 };
 
 const defaultMetricX = "total_population_2000";
+const defaultMetricY = "total_population_2010";
 
 async function getScatterMetrics(metricX, metricY) {
   const req = await fetch(
@@ -177,7 +178,7 @@ function MetricSelector({ label, defaultValue, onChange }) {
 export default function CommunityScatterExplorer({ communityAreas }) {
   const [ scatterData, setScatterData ] = useState(null);
   const [ metricX, setMetricX ] = useState(defaultMetricX);
-  const [ metricY, setMetricY ] = useState("total_population_2010");
+  const [ metricY, setMetricY ] = useState(defaultMetricY);
   const [ isLoading, setIsLoading ] = useState(false);
   const [ areaNumber, setAreaNumber ] = useState(-1);
   const [ mapData, setMapData ] = useState({});
