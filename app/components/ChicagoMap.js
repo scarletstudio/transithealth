@@ -45,9 +45,7 @@ export default function ChicagoMap(props) {
                     {
                         areas.map((area, i) => {
                             const p = area.properties;
-                            const areaNumber = p.area_numbe; // not a typo haha
-                            const d = data[areaNumber] || {};
-                            const payload = { name: p.community, number: areaNumber };
+                            const d = data[p.number] || {};
                             return (
                                 <path
                                     className={`CommunityArea ${selectedArea === i ? "Selected" : ""}`}
@@ -60,12 +58,12 @@ export default function ChicagoMap(props) {
                                     onClick={(e) => {
                                         setSelectedArea(i);
                                         if (onAreaClick) {
-                                            onAreaClick(payload);
+                                            onAreaClick(p);
                                         }
                                     }}
                                     onMouseEnter={(e) => {
                                         if (onAreaHover) {
-                                            onAreaHover(payload);
+                                            onAreaHover(p);
                                         }
                                     }}
                                 />

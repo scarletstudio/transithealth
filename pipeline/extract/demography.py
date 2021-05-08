@@ -20,7 +20,7 @@ df_areas = pd.read_csv(args.areas_file)
 
 # Request endpoint for each area
 rows = []
-community_areas = list(zip(df_areas["area_number"].values, df_areas["slug"].values))
+community_areas = list(zip(df_areas["area_number"].values, df_areas["area_slug"].values))
 for number, slug in tqdm(community_areas):
     r = requests.get(f"{API}/place/demography/{slug}")
     data = r.json()

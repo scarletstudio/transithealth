@@ -36,17 +36,18 @@ print(f"{len(df_joined)} community areas in the joined data, with {n_null_cells}
 # Finalize columns
 df_areas = df_joined.reset_index()
 df_areas["area_number"] = df_areas["properties"].apply(lambda p: p["area_numbe"]) # not a typo haha
+df_areas["area_slug"] = df_areas["slug"]
 df_areas["order"] = df_areas["area_number"].apply(lambda s: s.zfill(2))
 df_areas["centroid_longitude"] = df_areas["centroid"].apply(lambda p: p[0])
 df_areas["centroid_latitude"] = df_areas["centroid"].apply(lambda p: p[1])
 df_areas = df_areas.sort_values(by="order", ascending=True)
 df_areas = df_areas.drop([
     "geo_type",
-    "geometry_geojson",
     "type",
     "order",
     "resource_cnt",
-    "name_upper"
+    "name_upper",
+    "slug"
 ], axis=1)
 df_areas.to_csv(args.output_file, index=False)
 

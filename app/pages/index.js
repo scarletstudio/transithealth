@@ -8,7 +8,7 @@ import ChicagoMap from '../components/ChicagoMap'
 
 export async function getStaticProps() {
     const communityAreas = JSON.parse(fs.readFileSync(
-      "./public/resources/chicago_community_areas.geojson"
+      "./public/resources/community_area.json"
     ));
     return {
       props: {

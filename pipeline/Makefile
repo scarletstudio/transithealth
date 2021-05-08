@@ -33,8 +33,8 @@ database.db: data/loaded/all_tables.txt
 
 data/loaded/all_tables.txt:
 	make data/loaded/community_area.txt
-	make data/loaded/rideshare.txt
 	make data/loaded/demography.txt
+	make data/loaded/rideshare.txt
 	touch "data/loaded/all_tables.txt"
 
 data/loaded/community_area.txt: data/transformed/community_area.csv
@@ -44,19 +44,19 @@ data/loaded/community_area.txt: data/transformed/community_area.csv
 		--create_sql="load/community_area.sql" \
 		--table_name="community_area"
 
-data/loaded/rideshare.txt: data/transformed/rideshare.csv
-	python3 load/create_table.py \
-		--database="database.db" \
-		--input_file="data/transformed/rideshare.csv" \
-		--create_sql="load/rideshare.sql" \
-		--table_name="rideshare"
-
 data/loaded/demography.txt: data/transformed/demography.csv
 	python3 load/create_table.py \
 		--database="database.db" \
 		--input_file="data/transformed/demography.csv" \
 		--create_sql="load/demography.sql" \
 		--table_name="demography"
+
+data/loaded/rideshare.txt: data/transformed/rideshare.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/rideshare.csv" \
+		--create_sql="load/rideshare.sql" \
+		--table_name="rideshare"
 
 # Transform Operations
 
@@ -66,15 +66,15 @@ data/transformed/community_area.csv: data/extracted/community_area.geojson data/
 		--places_file="data/extracted/health_atlas_places.json" \
 		--output_file="data/transformed/community_area.csv"
 
-data/transformed/rideshare.csv: data/extracted/daily_rideshare.csv
-	python3 transform/daily_rideshare.py \
-		--input_file="data/extracted/daily_rideshare.csv" \
-		--output_file="data/transformed/rideshare.csv"
-
 data/transformed/demography.csv: data/extracted/demography.csv
 	python3 transform/demography.py \
 		--input_file="data/extracted/demography.csv" \
 		--output_file="data/transformed/demography.csv"
+
+data/transformed/rideshare.csv: data/extracted/daily_rideshare.csv
+	python3 transform/daily_rideshare.py \
+		--input_file="data/extracted/daily_rideshare.csv" \
+		--output_file="data/transformed/rideshare.csv"
 
 # Extract Operations
 
@@ -86,16 +86,26 @@ data/extracted/health_atlas_places.json:
 	curl "$(CHICAGO_HEALTH_ATLAS_API)/places" \
 		--create-dirs -o "data/extracted/health_atlas_places.json"
 
+data/extracted/demography.csv: data/transformed/community_area.csv
+	python3 extract/demography.py \
+		--areas_file="data/transformed/community_area.csv" \
+		--output_file="data/extracted/demography.csv"
+
 data/extracted/daily_rideshare.csv:
 	python3 extract/from_data_portal.py \
 		--json_url="$(PORTAL_RIDESHARES)" \
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
 
-data/extracted/demography.csv: data/transformed/community_area.csv
-	python3 extract/demography.py \
-		--areas_file="data/transformed/community_area.csv" \
-		--output_file="data/extracted/demography.csv"
+# Exports For Frontend App
+
+resources:
+	make ../app/public/resources/community_area.json
+
+../app/public/resources/community_area.json: data/transformed/community_area.csv
+	python3 load/resource_community_area.py \
+		--input_file="data/transformed/community_area.csv" \
+		--output_file="../app/public/resources/community_area.json"
 
 # Clean
 
@@ -106,3 +116,7 @@ clean:
 	mkdir data/extracted
 	mkdir data/transformed
 	mkdir data/loaded
+
+clean-resources:
+	rm -f ../app/public/resources/community_area.json
+	rm -f data/transformed/community_area.csv
