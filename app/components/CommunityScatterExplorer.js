@@ -25,8 +25,8 @@ function numberInMillions(val) {
 }
 
 const supportedMetrics = {
-  rideshare_total_pickups: {
-    name: "Total Rideshare Pickups",
+  rideshare_pickups_covid: {
+    name: "Rideshare Pickups Since March 2020",
     units: "trips",
     format: numberInMillions,
     fullFormat: numberWithCommas,
@@ -43,10 +43,16 @@ const supportedMetrics = {
     format: numberInThousands,
     fullFormat: numberWithCommas,
   },
+  total_covid_cases: {
+    name: "Total COVID Cases",
+    units: "cases",
+    format: numberInThousands,
+    fullFormat: numberWithCommas,
+  },
 };
 
-const defaultMetricX = "total_population_2000";
-const defaultMetricY = "total_population_2010";
+const defaultMetricX = "total_population_2010";
+const defaultMetricY = "total_covid_cases";
 
 async function getScatterMetrics(metricX, metricY) {
   const req = await fetch(
@@ -54,7 +60,7 @@ async function getScatterMetrics(metricX, metricY) {
     {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         metrics: [metricX, metricY],

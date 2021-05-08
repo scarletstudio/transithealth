@@ -1,7 +1,11 @@
+import sys
+sys.path.append("./")
+
 import argparse
 import json
 import pandas as pd
 from timeit import default_timer as timer
+from utils.data import double_quote_json
 
 
 cli = argparse.ArgumentParser(description="Download and link community area datasets into one reference file.")
@@ -33,16 +37,23 @@ df_joined = df_left.join(df_right, rsuffix="_geojson")
 n_null_cells = df_joined.isnull().sum(axis=0).sum(axis=0)
 print(f"{len(df_joined)} community areas in the joined data, with {n_null_cells} null cells.")
 
-# Finalize columns
+# Get primary keys
 df_areas = df_joined.reset_index()
 df_areas["area_number"] = df_areas["properties"].apply(lambda p: p["area_numbe"]) # not a typo haha
 df_areas["area_slug"] = df_areas["slug"]
-df_areas["order"] = df_areas["area_number"].apply(lambda s: s.zfill(2))
+
+# Parse GeoJSON columns
+df_areas["geometry"] = df_areas["geometry_geojson"].apply(lambda g: json.dumps(g))
+df_areas["centroid"] = df_areas["centroid"].apply(lambda s: json.loads(double_quote_json(s)))
 df_areas["centroid_longitude"] = df_areas["centroid"].apply(lambda p: p[0])
 df_areas["centroid_latitude"] = df_areas["centroid"].apply(lambda p: p[1])
+
+# Finalize columns and sort order
+df_areas["order"] = df_areas["area_number"].apply(lambda s: s.zfill(2))
 df_areas = df_areas.sort_values(by="order", ascending=True)
 df_areas = df_areas.drop([
     "geo_type",
+    "geometry_geojson",
     "type",
     "order",
     "resource_cnt",

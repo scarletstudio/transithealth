@@ -1,8 +1,10 @@
 # Makefile Variables
 
 COMMUNITY_AREAS_GEOJSON_URL := https://data.cityofchicago.org/api/geospatial/cauq-8yn6?method=export&format=GeoJSON
+ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7sDlpZmCvymCg0mcd_bDBj-tn8oorsOmuo8odZI/export?format=csv&gid=0
 
 PORTAL_RIDESHARES := https://data.cityofchicago.org/resource/m6dm-c72p.json
+PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 
 # Environment Variables
 
@@ -34,6 +36,7 @@ database.db: data/loaded/all_tables.txt
 data/loaded/all_tables.txt:
 	make data/loaded/community_area.txt
 	make data/loaded/demography.txt
+	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
 	touch "data/loaded/all_tables.txt"
 
@@ -51,6 +54,13 @@ data/loaded/demography.txt: data/transformed/demography.csv
 		--create_sql="load/demography.sql" \
 		--table_name="demography"
 
+data/loaded/covid_spread.txt: data/transformed/covid_spread.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/covid_spread.csv" \
+		--create_sql="load/covid_spread.sql" \
+		--table_name="covid_spread"
+
 data/loaded/rideshare.txt: data/transformed/rideshare.csv
 	python3 load/create_table.py \
 		--database="database.db" \
@@ -66,10 +76,21 @@ data/transformed/community_area.csv: data/extracted/community_area.geojson data/
 		--places_file="data/extracted/health_atlas_places.json" \
 		--output_file="data/transformed/community_area.csv"
 
+data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_community_area.csv
+	python3 transform/zip_code_to_community_area.py \
+		--input_file="data/extracted/zip_code_to_community_area.csv" \
+		--output_file="data/transformed/zip_code_to_community_area.csv"
+
 data/transformed/demography.csv: data/extracted/demography.csv
 	python3 transform/demography.py \
 		--input_file="data/extracted/demography.csv" \
 		--output_file="data/transformed/demography.csv"
+
+data/transformed/covid_spread.csv: data/extracted/covid_spread.csv data/transformed/zip_code_to_community_area.csv
+	python3 transform/covid_spread.py \
+		--zip_to_area_file="data/transformed/zip_code_to_community_area.csv" \
+		--input_file="data/extracted/covid_spread.csv" \
+		--output_file="data/transformed/covid_spread.csv"
 
 data/transformed/rideshare.csv: data/extracted/daily_rideshare.csv
 	python3 transform/daily_rideshare.py \
@@ -86,10 +107,23 @@ data/extracted/health_atlas_places.json:
 	curl "$(CHICAGO_HEALTH_ATLAS_API)/places" \
 		--create-dirs -o "data/extracted/health_atlas_places.json"
 
+data/extracted/zip_code_to_community_area.csv:
+	# -L tells curl to follow redirects until it reaches a file
+	# -J tells curl to get the file type from the file content instead of the URL
+	# https://unix.stackexchange.com/a/74337
+	curl -J -L "$(ZIP_CODE_TO_COMMUNITY_AREA_URL)" \
+		--create-dirs -o "data/extracted/zip_code_to_community_area.csv"
+
 data/extracted/demography.csv: data/transformed/community_area.csv
 	python3 extract/demography.py \
 		--areas_file="data/transformed/community_area.csv" \
 		--output_file="data/extracted/demography.csv"
+
+data/extracted/covid_spread.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_COVID_SPREAD)" \
+		--soql_file="extract/covid_spread.sql" \
+		--output_file="data/extracted/covid_spread.csv"
 
 data/extracted/daily_rideshare.csv:
 	python3 extract/from_data_portal.py \

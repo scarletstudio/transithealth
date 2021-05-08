@@ -1,7 +1,7 @@
 import fs from 'fs'
 import Head from 'next/head'
 import Nav from '../components/Nav'
-import TotalTripsDemo from '../components/TotalTripsDemo'
+import HomeDemo from '../components/HomeDemo'
 
 export async function getStaticProps() {
   const communityAreas = JSON.parse(fs.readFileSync(
@@ -27,7 +27,7 @@ export default function Home({ communityAreas }) {
       <main className="Home">
         <div className="page">
           <h1>TransitHealth</h1>
-          <TotalTripsDemo communityAreas={communityAreas} />
+          <HomeDemo communityAreas={communityAreas} />
         </div>
       </main>
     </div>

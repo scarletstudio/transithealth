@@ -12,9 +12,10 @@ def make_blueprint(con):
     metric = CommunityMetrics(con)
 
     supported_metrics = {
-        "rideshare_total_pickups": metric.rideshare_total_pickups,
+        "rideshare_pickups_covid": metric.rideshare_total_pickups,
         "total_population_2000": lambda: metric.demography("total_population_2000"),
-        "total_population_2010": lambda: metric.demography("total_population_2010")
+        "total_population_2010": lambda: metric.demography("total_population_2010"),
+        "total_covid_cases": lambda: metric.covid_spread_sum_by_area("cases_weekly")
     }
 
 
@@ -36,6 +37,5 @@ def make_blueprint(con):
                     if number in res:
                         res[number][metric_name] = row["value"]
         return jsonify({ "metrics": [ v for v in res.values() ] })
-
 
     return app

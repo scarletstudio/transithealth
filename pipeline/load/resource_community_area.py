@@ -1,11 +1,7 @@
-import sys
-sys.path.append("./")
-
 import argparse
 import json
 import pandas as pd
 from timeit import default_timer as timer
-from utils.data import double_quote_json
 
 
 cli = argparse.ArgumentParser(description="Create community area resource for the frontend app.")
@@ -22,17 +18,15 @@ df_areas = df_areas[[
     "area_slug",
     "name",
     "part",
-    "geometry_geojson",
+    "geometry",
     "centroid"
 ]]
-df_areas["geometry_geojson"] = df_areas["geometry_geojson"].apply(lambda s: json.loads(double_quote_json(s)))
-
 
 # Match GeoJSON format
 features = [
     {
         "type": "Feature",
-        "geometry": r["geometry_geojson"],
+        "geometry": json.loads(r["geometry"]),
         "properties": {
             "name": r["name"],
             "number": r["area_number"],

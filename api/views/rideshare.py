@@ -22,7 +22,7 @@ def make_blueprint(con):
     @app.route("/rideshare/total_trips_by_pickup_area")
     def total_trips_by_pickup_area():
         """
-        Returns the maximum number of trips of any record.
+        Returns the total number of trips by pickup area.
         """
         return jsonify(metric.get_total_trips_by_pickup_area())
 
