@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify
 from api.utils.database import is_valid_table_name
 
 
-def make_blueprint(cur):
+def make_blueprint(con):
     """
     Creates blueprint for main endpoints.
     """
@@ -23,6 +23,7 @@ def make_blueprint(cur):
         """
         Count the number of rows in a given table.
         """
+        cur = con.cursor()
         if not is_valid_table_name(cur, table_name):
             raise ValueError(f"Invalid table name: {table_name}")
         query = """

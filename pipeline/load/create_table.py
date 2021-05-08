@@ -29,7 +29,7 @@ with open(args.create_sql) as create_script:
     
     # Insert data into table from file, using only columns in the schema
     df = pd.read_csv(args.input_file)[cols]
-    df.to_sql(table_name, con, schema=table_name, if_exists="append", index=False)
+    df.to_sql(table_name, con, schema=table_name, if_exists="replace", index=False)
 
     with open(f"data/loaded/{table_name}.txt", "w") as done_file:
         done_file.write("\n".join([

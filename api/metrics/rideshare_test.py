@@ -11,7 +11,7 @@ def test_max_trips():
             "./pipeline/load/rideshare.sql"
         ],
         tables={
-            "rideshares": [
+            "rideshare": [
                 { "n_trips": 7 },
                 { "n_trips": 14 },
                 { "n_trips": 3 }
@@ -19,7 +19,7 @@ def test_max_trips():
         }
     )
 
-    metric = RideshareMetrics(cur)
+    metric = RideshareMetrics(con)
     actual = metric.get_max_trips()
 
     expected = { "max_trips": 14 }
@@ -32,7 +32,7 @@ def test_total_trips_by_pickup_area():
             "./pipeline/load/rideshare.sql"
         ],
         tables={
-            "rideshares": [
+            "rideshare": [
                 { "pickup_community_area": 30, "n_trips": 17 },
                 { "pickup_community_area": 17, "n_trips": 10 },
                 { "pickup_community_area": 17, "n_trips": 5 },
@@ -41,7 +41,7 @@ def test_total_trips_by_pickup_area():
         }
     )
 
-    metric = RideshareMetrics(cur)
+    metric = RideshareMetrics(con)
     actual = metric.get_total_trips_by_pickup_area()
 
     expected = [

@@ -2,13 +2,13 @@ from flask import Blueprint, jsonify
 from api.metrics.rideshare import RideshareMetrics
 
 
-def make_blueprint(cur):
+def make_blueprint(con):
     """
     Creates blueprint for endpoints related to rideshare data.
     """
 
     app = Blueprint('rideshare', __name__)
-    metric = RideshareMetrics(cur)
+    metric = RideshareMetrics(con)
 
 
     @app.route("/rideshare/max_trips")

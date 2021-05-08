@@ -31,13 +31,11 @@ cors = CORS(app, resource={"/*": {"origins": allow_list}})
 
 # Initialize database connection in read-only mode
 con = sqlite3.connect(config("DATABASE"), uri=True, check_same_thread=False)
-# con.row_factory = sqlite3.Row
-cur = con.cursor()
 
 # Register blueprints for endpoint views
-app.register_blueprint(index.make_blueprint(cur))
-app.register_blueprint(rideshare.make_blueprint(cur))
-app.register_blueprint(community.make_blueprint(cur))
+app.register_blueprint(index.make_blueprint(con))
+app.register_blueprint(rideshare.make_blueprint(con))
+app.register_blueprint(community.make_blueprint(con))
 
 # Start the server on the default host.
 if __name__ == "__main__":

@@ -2,14 +2,14 @@ from flask import Blueprint, jsonify, request
 from api.metrics.community import CommunityMetrics
 
 
-def make_blueprint(cur):
+def make_blueprint(con):
     """
     Creates blueprint for endpoints related to community areas.
     """
 
     app = Blueprint('community', __name__)
     
-    metric = CommunityMetrics(cur)
+    metric = CommunityMetrics(con)
 
     supported_metrics = {
         "rideshare_total_pickups": metric.rideshare_total_pickups,

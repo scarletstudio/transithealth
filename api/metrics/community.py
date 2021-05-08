@@ -6,8 +6,8 @@ class CommunityMetrics:
     Metrics for community area data.
     """
 
-    def __init__(self, cur):
-        self.cur = cur
+    def __init__(self, con):
+        self.con = con
 
     def community_areas(self):
         """
@@ -20,8 +20,10 @@ class CommunityMetrics:
             part
         FROM community_area
         """
-        self.cur.execute(query)
-        return rows_to_dicts(self.cur, self.cur.fetchall())
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
 
     def rideshare_total_pickups(self):
         """
@@ -34,8 +36,10 @@ class CommunityMetrics:
         FROM rideshare
         GROUP BY area_number
         """
-        self.cur.execute(query)
-        return rows_to_dicts(self.cur, self.cur.fetchall())
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
     
     def demography(self, column_name):
         """
@@ -47,5 +51,7 @@ class CommunityMetrics:
             {column_name} as value
         FROM demography
         """.format(column_name=column_name)
-        self.cur.execute(query)
-        return rows_to_dicts(self.cur, self.cur.fetchall())
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows

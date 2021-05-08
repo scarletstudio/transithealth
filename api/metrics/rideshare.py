@@ -6,8 +6,8 @@ class RideshareMetrics:
     Metrics for rideshare data.
     """
 
-    def __init__(self, cur):
-        self.cur = cur
+    def __init__(self, con):
+        self.con = con
 
     def get_max_trips(self):
         """
@@ -17,8 +17,9 @@ class RideshareMetrics:
         SELECT max(n_trips)
         FROM rideshare
         """
-        self.cur.execute(query)
-        val = self.cur.fetchone()[0]
+        cur = self.con.cursor()
+        cur.execute(query)
+        val = cur.fetchone()[0]
         return { "max_trips": val }
 
     def get_total_trips_by_pickup_area(self):
@@ -32,5 +33,7 @@ class RideshareMetrics:
         FROM rideshare
         GROUP BY pickup_community_area
         """
-        self.cur.execute(query)
-        return rows_to_dicts(self.cur, self.cur.fetchall())
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
