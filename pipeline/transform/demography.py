@@ -21,6 +21,7 @@ df["total_population_data_json"] = df["total_population_data"].apply(lambda s: j
 
 # Pull out population data
 df["total_population_2010"] = df["total_population_data_json"].apply(lambda d: d["pop_2010"])
+df["total_population_2000"] = df["total_population_data_json"].apply(lambda d: d["pop_2000"])
 df.to_csv(args.output_file, index=False)
 
 # Show summary

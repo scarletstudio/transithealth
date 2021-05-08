@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
+import Nav from '../components/Nav'
 
 export default function About() {
   return (
@@ -9,12 +9,7 @@ export default function About() {
         <meta name="description" content="Explore transit and public health data across Chicago." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav>
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
-        <Link href="/explorer">Explorer</Link>
-        <Link href="/questions">Questions</Link>
-      </nav>
+      <Nav />
       <main className="About">
         <div className="page">
           <h1>About</h1>

@@ -40,4 +40,4 @@ with open(args.create_sql) as create_script:
     # Show summary
     end = timer()
     secs = end - start
-    print(f"Wrote {len(df):,d} rows to table `{table_name}` in {secs:.1f} secs.")
+    print(f"Wrote {len(df):,d} rows and {len(cols)} cols to table `{table_name}` in {secs:.1f} secs.")

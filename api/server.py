@@ -19,7 +19,8 @@ import sqlite3
 
 from api.views import (
     index,
-    rideshare
+    rideshare,
+    community
 )
 
 
@@ -36,6 +37,7 @@ cur = con.cursor()
 # Register blueprints for endpoint views
 app.register_blueprint(index.make_blueprint(cur))
 app.register_blueprint(rideshare.make_blueprint(cur))
+app.register_blueprint(community.make_blueprint(cur))
 
 # Start the server on the default host.
 if __name__ == "__main__":

@@ -1,9 +1,7 @@
 import fs from 'fs'
-
-import { useState, useEffect } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
-
+import { useState, useEffect } from 'react'
+import Nav from '../components/Nav'
 import ChicagoMap from '../components/ChicagoMap'
 
 export async function getStaticProps() {
@@ -66,12 +64,7 @@ export default function Home({ communityAreas }) {
         <meta name="description" content="Explore transit and public health data across Chicago." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <nav>
-        <Link href="/">Home</Link>
-        <Link href="/about">About</Link>
-        <Link href="/explorer">Explorer</Link>
-        <Link href="/questions">Questions</Link>
-      </nav>
+      <Nav />
       <main className="Home">
         <div className="page">
           <h1>TransitHealth</h1>

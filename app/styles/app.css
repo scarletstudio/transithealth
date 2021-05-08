@@ -2,9 +2,13 @@
 
 :root {
     --color-main: rgb(9, 145, 120);
+    --color-accent: rgb(255, 79, 152);
     --color-light-gray: rgb(232, 232, 232);
     --color-dark-gray: rgb(38, 50, 56);
     --font-size: 18px;
+    --color-empty: var(--color-light-gray);
+    --color-data: var(--color-main);
+    --color-highlight: var(--color-accent);
 }
 
 html {
@@ -14,6 +18,26 @@ html {
 }
 
 /* Typography */
+
+.bold {
+    font-weight: bold;
+}
+
+.center {
+    text-align: center;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.spacer {
+    margin: 0 1em;
+}
 
 p {
     font-size: 1em;
@@ -46,6 +70,9 @@ h4 {
     font-size: 1em;
 }
 
+select, option {
+    font-size: 1em;
+}
 
 /* Navigation Header */
 
@@ -93,4 +120,81 @@ nav a:hover {
         width: 100%;
     }
 
+}
+
+/* Home Page */
+
+.Home .page {
+    text-align: center;
+}
+
+/* Map */
+
+.CommunityArea {
+    fill: var(--color-data);
+    stroke: white;
+    stroke-width: 1;
+}
+
+.NoData .CommunityArea {
+    fill: var(--color-empty);
+}
+
+.CommunityArea:hover {
+    cursor: pointer;
+}
+
+.CommunityArea:hover, .CommunityArea.Selected {
+    fill: var(--color-highlight);
+    stroke: var(--color-highlight);
+    stroke-width: 2;
+    z-index: 2;
+}
+
+/* Plots */
+
+.PlotRow div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.CustomToolTip {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--color-light-gray);
+}
+
+.recharts-symbols {
+    fill: var(--color-data);
+}
+
+.recharts-symbols:hover {
+    cursor: pointer;
+}
+
+.recharts-symbols:hover, .recharts-symbols.selected {
+    fill: var(--color-highlight);
+    stroke: var(--color-highlight);
+    stroke-width: 10;
+    z-index: 2;
+    opacity: 0.9;
+}
+
+/* Forms */
+
+.SelectorContainer {
+    margin: var(--font-size);
+}
+
+.MetricSelector {
+    display: inline-block;
+    padding: 0.5em 0;
+    padding-right: 1em;
+}
+
+select {
+    padding: 0.1em;
+}
+
+select:hover {
+    cursor: pointer;
 }
