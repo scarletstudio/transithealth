@@ -45,6 +45,8 @@ const supportedMetrics = {
   },
 };
 
+const defaultMetricX = "total_population_2000";
+
 async function getScatterMetrics(metricX, metricY) {
   const req = await fetch(
     `${process.env.NEXT_PUBLIC_API}/community/metrics`,
@@ -174,7 +176,7 @@ function MetricSelector({ label, defaultValue, onChange }) {
 
 export default function CommunityScatterExplorer({ communityAreas }) {
   const [ scatterData, setScatterData ] = useState(null);
-  const [ metricX, setMetricX ] = useState("total_population_2000");
+  const [ metricX, setMetricX ] = useState(defaultMetricX);
   const [ metricY, setMetricY ] = useState("total_population_2010");
   const [ isLoading, setIsLoading ] = useState(false);
   const [ areaNumber, setAreaNumber ] = useState(-1);
@@ -219,10 +221,10 @@ export default function CommunityScatterExplorer({ communityAreas }) {
       <h2>{mapData && areaNumber > 0 ? selectedAreaData.name : "By Community Area"}</h2>
       <div className="SelectorContainer">
         <MetricSelector label="X Axis" onChange={setMetricX} defaultValue={metricX} />
-        <span className="nowrap">{selectedAreaData[metricX] ? `${metricXDetails.fullFormat(selectedAreaData[metricX])} ${metricXDetails.units}` : ""}</span>
+        <span className="">{selectedAreaData[metricX] ? `${metricXDetails.fullFormat(selectedAreaData[metricX])} ${metricXDetails.units}` : ""}</span>
         <span className="spacer"> </span>
         <MetricSelector label="Y Axis" onChange={setMetricY} defaultValue={metricY} />
-        <span className="nowrap">{selectedAreaData[metricY] ? `${metricYDetails.fullFormat(selectedAreaData[metricY])} ${metricYDetails.units}` : ""}</span>
+        <span className="">{selectedAreaData[metricY] ? `${metricYDetails.fullFormat(selectedAreaData[metricY])} ${metricYDetails.units}` : ""}</span>
         <span className="spacer"> </span>
         <span>{ isLoading ? "Loading data..." : "" }</span>
       </div>
