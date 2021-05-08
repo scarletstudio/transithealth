@@ -40,11 +40,20 @@ export default function Home({ communityAreas }) {
   const [ mapData, setMapData ] = useState(null);
   const [ clickArea, setClickArea ] = useState({});
 
-  useEffect(async () => {
-    const req = await fetch(`${process.env.NEXT_PUBLIC_API}/rideshare/total_trips_by_pickup_area`);
-    const res = await req.json();
-    const tripsByArea = getTripsByArea(res);
-    setMapData(tripsByArea);
+  useEffect(() => {
+    let isSubscribed = true;
+
+    async function getData() {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_API}/rideshare/total_trips_by_pickup_area`);
+      const res = await req.json();
+      const tripsByArea = getTripsByArea(res);
+      if (isSubscribed) {
+        setMapData(tripsByArea);
+      }      
+    }
+
+    getData();
+    return () => isSubscribed = false;
   }, []);
 
   const clickRow = mapData && clickArea.number ? mapData[clickArea.number] : {};
