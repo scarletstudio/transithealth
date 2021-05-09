@@ -71,8 +71,8 @@ export default function HomeDemo({ communityAreas }) {
     </div>
   ) : null;
   return (
-    <div>
-      <h2>Total Rideshare Trips</h2>
+    <div className="center">
+      <h2>COVID Cases per Thousand Rideshare Pickups</h2>
       <p>Pick a community area from the map.</p>
       <ChicagoMap
         data={mapData}
@@ -81,6 +81,7 @@ export default function HomeDemo({ communityAreas }) {
         defaultOpacity={1.0}
         onAreaClick={setClickArea}
       />
+      
       <h3>{clickArea.name}</h3>
       {dataMsg}
     </div>

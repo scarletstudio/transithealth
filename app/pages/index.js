@@ -26,7 +26,11 @@ export default function Home({ communityAreas }) {
       <Nav />
       <main className="Home">
         <div className="page">
-          <h1>TransitHealth</h1>
+          <div className="center">
+            <h1>TransitHealth</h1>
+            <p>Explore public transit and public health data across Chicago.</p>
+          </div>
+          <br />
           <HomeDemo communityAreas={communityAreas} />
         </div>
       </main>
