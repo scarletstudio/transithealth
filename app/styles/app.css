@@ -81,6 +81,7 @@ select, option {
 /* Navigation Header */
 
 nav {
+    box-sizing: border-box;
     background: var(--color-main);
     width: 100%;
     text-align: center;
@@ -102,6 +103,7 @@ nav a:hover {
 /* Page Layout */
 
 .page {
+    box-sizing: border-box;
     background: white;
     margin: 1em auto;
     padding: 1em;
@@ -157,6 +159,50 @@ nav a:hover {
     z-index: 2;
 }
 
+/* Forms */
+
+.SelectorContainer {
+    margin: var(--font-size);
+}
+
+.SelectorContainer .MetricSelector {
+    display: inline-block;
+    padding: 0.5em 0;
+    padding-right: 1em;
+}
+
+button {
+    font-family: 'Noto Sans SC', sans-serif;
+    font-size: 1em;
+}
+
+select {
+    box-sizing: border-box;
+    padding: 0.1em;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+button {
+    box-sizing: border-box;
+    background: var(--color-main);
+    border: 1px solid var(--color-main);
+    color: white;
+    padding: 0.5em;
+    height: 2em;
+    line-height: 0.75em;
+    vertical-align: middle;
+
+}
+
+button:hover {
+    background: var(--color-highlight);
+    border: 1px solid var(--color-highlight);
+    cursor: pointer;
+}
+
 /* Plots */
 
 .PlotRow div {
@@ -185,22 +231,50 @@ nav a:hover {
     opacity: 0.9;
 }
 
-/* Forms */
+/* Timeline Explorer */
 
-.SelectorContainer {
-    margin: var(--font-size);
+.TimelineMetrics {
+    margin: 1em;
 }
 
-.MetricSelector {
-    display: inline-block;
-    padding: 0.5em 0;
-    padding-right: 1em;
+.TimelineMetrics .MetricEditor {
+    display: block;
+    margin: 0.5em 0;
 }
 
-select {
-    padding: 0.1em;
+.TimelineMetrics .ColorSelector,
+.TimelineMetrics .AxisSelector,
+.TimelineMetrics .RemoveMetric {
+    margin-right: 1em;
 }
 
-select:hover {
+.TimelineMetrics .RemoveMetric:hover {
     cursor: pointer;
 }
+
+.TimelineMetrics .MetricSelector select,
+.TimelineMetrics .MetricSelector button {
+    margin: 0.5em 0;
+}
+
+.TimelineMetrics .MetricSelector select {
+    height: 2em;
+    line-height: 2em;
+    margin-right: 0.5em;
+}
+
+.TimelineMetrics .MetricSelector {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.TimelineMetrics .ColorSelector input {
+    box-sizing: border-box;
+    appearance: auto;
+    border: none;
+    padding: 0;
+    height: 2.5em;
+    width: 5em;
+    vertical-align: middle;
+}
+

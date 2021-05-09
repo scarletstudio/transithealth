@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import ChicagoMap from '../components/ChicagoMap'
+import { MetricSelector } from '../components/Common'
 import {
   ResponsiveContainer,
   ScatterChart,
@@ -158,29 +159,6 @@ function CustomScatterPlot(props) {
   );
 }
 
-function MetricSelector({ label, defaultValue, onChange }) {
-  return (
-    <div className="MetricSelector">
-      { label ? (<span className="bold">{label}: </span>) : null }
-      <span>
-        <select
-          defaultValue={defaultValue}
-          onChange={(e) => {
-            const value = e.target.value;
-            if (onChange) {
-              onChange(value);
-            }
-          }}
-        >
-        {Object.keys(supportedMetrics).map((k, i) => (
-          <option key={i} value={k}>{supportedMetrics[k].name}</option>
-        ))}
-        </select>
-      </span>
-    </div>
-  )
-}
-
 export default function CommunityScatterExplorer({ communityAreas }) {
   const [ scatterData, setScatterData ] = useState(null);
   const [ metricX, setMetricX ] = useState(defaultMetricX);
@@ -227,11 +205,29 @@ export default function CommunityScatterExplorer({ communityAreas }) {
     <div>
       <h2>{mapData && areaNumber > 0 ? selectedAreaData.name : "By Community Area"}</h2>
       <div className="SelectorContainer">
-        <MetricSelector label="X Axis" onChange={setMetricX} defaultValue={metricX} />
-        <span className="">{selectedAreaData[metricX] ? `${metricXDetails.fullFormat(selectedAreaData[metricX])} ${metricXDetails.units}` : ""}</span>
+        <MetricSelector
+          label="X Axis"
+          supportedMetrics={supportedMetrics}
+          defaultValue={metricX}
+          onChange={setMetricX}
+        />
+        <span>{
+          selectedAreaData[metricX]
+            ? `${metricXDetails.fullFormat(selectedAreaData[metricX])} ${metricXDetails.units}`
+            : ""
+        }</span>
         <span className="spacer"> </span>
-        <MetricSelector label="Y Axis" onChange={setMetricY} defaultValue={metricY} />
-        <span className="">{selectedAreaData[metricY] ? `${metricYDetails.fullFormat(selectedAreaData[metricY])} ${metricYDetails.units}` : ""}</span>
+        <MetricSelector
+          label="Y Axis"
+          supportedMetrics={supportedMetrics}
+          defaultValue={metricY}
+          onChange={setMetricY}
+        />
+        <span>{
+          selectedAreaData[metricY]
+            ? `${metricYDetails.fullFormat(selectedAreaData[metricY])} ${metricYDetails.units}`
+            : ""
+        }</span>
         <span className="spacer"> </span>
         <span>{ isLoading ? "Loading data..." : "" }</span>
       </div>

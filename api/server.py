@@ -20,7 +20,8 @@ import sqlite3
 from api.views import (
     index,
     rideshare,
-    community
+    community,
+    weekly
 )
 
 
@@ -36,6 +37,7 @@ con = sqlite3.connect(config("DATABASE"), uri=True, check_same_thread=False)
 app.register_blueprint(index.make_blueprint(con))
 app.register_blueprint(rideshare.make_blueprint(con))
 app.register_blueprint(community.make_blueprint(con))
+app.register_blueprint(weekly.make_blueprint(con))
 
 # Start the server on the default host.
 if __name__ == "__main__":

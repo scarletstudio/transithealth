@@ -5,7 +5,7 @@ export default function Nav() {
     <nav>
       <Link href="/">Home</Link>
       <Link href="/explorer">Explorer</Link>
-      <Link href="/questions">Questions</Link>
+      <Link href="/timeline">Timeline</Link>
       <Link href="/about">About</Link>
     </nav>
   );
