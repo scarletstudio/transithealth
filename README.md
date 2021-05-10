@@ -1,17 +1,26 @@
 # TransitHealth
 
-Help people explore data about transit and public health in Chicago.
+Help people explore data about public transit and public health across Chicago.
 
 ## Directory Structure
 
 ```
 transithealth
+├── .github             Contains GitHub actions, automated tasks that runb after commits.
+├── .pytest_cache       (Ignore, not committed) Stores information for Python unit test runs.
+├── .venv               (Not committed) Details for your virtual environment.
 ├── api/                RESTful API server for the backend.
 ├── app/                Static React app for the frontend.
-├── common/             Python modules to be reused through the backend and notebooks.
 ├── docs/               Documentation for the project.
-├── notebooks/          Jupyter notebooks for each engineer to do analysis and prototyping.
-└── pipeline/           Offline pipeline for the backend.
+├── notebooks/          Jupyter notebooks for each team member to do analysis and prototyping.
+├── pipeline/           Offline pipeline for the backend.
+├── .env                (Not committed) Specifies secret variables to use during development.
+├── .gitignore          Tells git what files and folders not to commit.
+├── LICENSE             Tells others the terms under which they can use this software.
+├── Procfile            Tells Heroku how to run the server at deploy time.
+├── pytest.ini          Settings for Python unit tests.
+├── README.md           (This file!) Helps explain the project.
+└── requirements.txt    Dependencies for Python modules and scripts.
 ```
 
 ## View the App
@@ -38,46 +47,4 @@ cd app && yarn start
 
 ```bash
 FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
-```
-
-## Run Staging
-
-The staging environment is designed to match production as closely as possible.
-
-You will need two terminal windows to start the app. In each terminal, `ssh` into the staging environment.
-
-```bash
-source .env
-ssh root@$DROPLET
-# Enter droplet password
-cd transithealth
-```
-
-In one of the terminals, get the latest version of the repository.
-
-```bash
-git checkout main
-git fetch
-git pull
-```
-
-Now start the app and API.
-
-**Terminal 1: Frontend**
-
-```bash
-cd app
-yarn install
-yarn build
-yarn export
-python3 -m http.server 8001
-```
-
-**Terminal 2: Backend**
-
-```bash
-source .venv/bin/activate
-pip3 install -r requirements.txt
-tar -xf pipeline/compressed.db.tgz -C pipeline
-gunicorn --bind 0.0.0.0:$PORT api:app
 ```

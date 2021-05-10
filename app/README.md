@@ -2,6 +2,9 @@
 
 Static React app for the frontend.
 
+- Allows the user to visualize data
+- Sends requests to the backend API
+
 ## Directory Structure
 
 ```
@@ -12,11 +15,16 @@ app
 ├── pages/              React components to be used as layouts for main pages.
 ├── public/             Public files served from the website root directory.
 |   ├── resources/      Files and data that does not need to be served by the API.
+|   ├── images/         Images to host on the site.
 |   └── mock/           Data representing mock API responses.
-└── styles/             CSS stylesheets.
+├── site/               Data or functions to access site-wide, such as metrics metadata.
+├── styles/             CSS stylesheets.
 ├── transithealth/      (Ignore, not committed) Built version of the app to deploy.
+├── .env.local          Stores variables to access site-wide or configure the app.
+├── next.config.js      Configuration file for the static site.
 ├── package.json        Lists development scripts and dependencies.
-└── next.config.js      Configuration file for the static site.
+├── README.md           (This file!) Helps explain the frontend app.
+└── yarn-lock           (Ignore) Helps configure dependencies and installations.
 ```
 
 ## Common Commands

@@ -2,10 +2,20 @@
 
 RESTful API server for the backend.
 
+- Handles requests from the frontend app
+- Accesses the database
+- Computes metrics
+
 ## Directory Structure
 
 ```
 api
+├── __pycache__         (Ignore, not committed) Stores information to help run with Python.
+├── endpoints/          Specifies groups of endpoints for the API.
+├── metrics/            Implementations of metrics.
+├── utils/              Helper functions.
+├── __init__.py         File that tells Python that this folder is a module, also exports the Flask app.
+├── README.txt          (This file!) Helps explain the backend API.
 └── server.py           Main file for running API server.
 ```
 

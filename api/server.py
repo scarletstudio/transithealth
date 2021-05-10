@@ -17,7 +17,7 @@ from flask import (
 from flask_cors import CORS
 import sqlite3
 
-from api.views import (
+from api.endpoints import (
     index,
     rideshare,
     community,
@@ -33,7 +33,7 @@ cors = CORS(app, resource={"/*": {"origins": allow_list}})
 # Initialize database connection in read-only mode
 con = sqlite3.connect(config("DATABASE"), uri=True, check_same_thread=False)
 
-# Register blueprints for endpoint views
+# Register blueprints for groups of endpoints
 app.register_blueprint(index.make_blueprint(con))
 app.register_blueprint(rideshare.make_blueprint(con))
 app.register_blueprint(community.make_blueprint(con))
