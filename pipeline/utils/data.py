@@ -20,6 +20,17 @@ def double_quote_json(s):
     s = p.sub('\"', s)
     return s
 
+def week_num_to_week_date(week_num):
+    """
+    Converts from an ISO year and week number string to a date that
+    represents the last date of that week with year, month, and day.
+    """
+    # Get Sunday as the last day of the week (%u = 7)
+    week_with_day = f"{week_num}-7"
+    week_date = dt.strptime(week_with_day, "%G-%V-%u")
+    week_date_str = dt.strftime(week_date, "%Y-%m-%d")
+    return week_date_str
+
 def extract_data_portal_dates(df_input, col, prefix=None):
     """
     Parses a given data portal timestamp field by column and adds columns for
@@ -35,5 +46,6 @@ def extract_data_portal_dates(df_input, col, prefix=None):
     df = pd.DataFrame(df_input)
     df[col] = df[col].apply(lambda s: s.split("T")[0])
     df[f"{pre}dt"] = df[col].apply(lambda s: dt.strptime(s, "%Y-%m-%d"))
-    df[f"{pre}week"] = df[f"{pre}dt"].apply(lambda d: dt.strftime(d, "%G-%V"))
+    df[f"{pre}week_num"] = df[f"{pre}dt"].apply(lambda d: dt.strftime(d, "%G-%V"))
+    df[f"{pre}week"] = df[f"{pre}week_num"].apply(week_num_to_week_date)
     return df

@@ -25,6 +25,11 @@ const defaultColors = [
   "#a453f5",
   "#f5cd53",
 ];
+const weekFormat = new Intl.DateTimeFormat("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
 
 async function getTimelineMetrics(metrics) {
   const req = await fetch(
@@ -48,9 +53,10 @@ function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
     return null;
   }
   const d = payload[0].payload;
+  const date = new Date(d.week);
   return (
     <div className="CustomToolTip">
-      <h4>{d.week}</h4>
+      <h4>{weekFormat.format(new Date(d.week))}</h4>
       {metrics.filter(({ id: m}) => d[m]).map(({ id: m }, i) => (
         <p key={i}>
           <span>{supportedMetrics[m].name}: </span>
@@ -77,8 +83,8 @@ function TimelineChart({ data, metrics }) {
             offset={10}
           />
         </XAxis> 
-        <YAxis yAxisId="left" />
-        <YAxis yAxisId="right" orientation="right" />
+        <YAxis yAxisId="left"  type="number" />
+        <YAxis yAxisId="right"  type="number" orientation="right" />
         {metrics.filter((m) => m.axis !== "none").map((m, i) => {
           const color = m.color || defaultColors[i % defaultColors.length];
           return (

@@ -33,6 +33,7 @@ def make_blueprint(con):
                     if key not in res:
                         res[key] = { "week": key }
                     res[key][metric_name] = row["value"]
-        return jsonify({ "metrics": [ v for v in res.values() ] })
+        vals = list(sorted(res.values(), key=lambda r: r["week"]))
+        return jsonify({ "metrics": vals })
 
     return app

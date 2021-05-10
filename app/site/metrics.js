@@ -1,4 +1,4 @@
-const numberEn = Intl.NumberFormat("en");
+const numberEn = Intl.NumberFormat("en-US");
 
 export const Formatter = {
   numberWithCommas: (v) => ( numberEn.format(v) ),
