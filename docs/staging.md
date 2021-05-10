@@ -2,6 +2,8 @@
 
 The staging environment is designed to match production as closely as possible.
 
+If you need to use the staging environment, ask Vinesh for the `DROPLET` IP address to add to your `.env` file and the password for logging in via `ssh`.
+
 You will need two terminal windows to start the app. In each terminal, `ssh` into the staging environment.
 
 ```bash

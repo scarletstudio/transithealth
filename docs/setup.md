@@ -1,13 +1,103 @@
-# Setup Instructions
+# Setup
 
-## Virtual Environment
+The project is broken up into three main systems:
+
+1. Frontend App: what the user sees
+2. Backend API: how the app gets data
+3. Offline Pipelines: how we process the data
+
+All three of these systems are part of this codebase. This guide will help you install and run all three parts.
+
+## Using the Command Line
+
+We will set up the project codebase using the command line. Open a terminal window to follow these steps.
+
+When you see a code block like this, unless otherwise stated, each line is a command to enter into your terminal.
+
+```bash
+# This command will list all the folders and files in your current directory.
+ls
+```
+
+## 1. Clone Repository
+
+The code for this project is hosted on GitHub. If you do not have a GitHub account, visit [the website](https://github.com) to create one.
+
+We will use git for version control: tracking different versions of our code and collaborating on development. If git is not installed on your computer, [download it here](https://git-scm.com/downloads).
+
+If you have not used git before, configure your name and email.
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "Your Email"
+```
+
+Clone the repository and use `cd` to enter the folder.
+
+```bash
+git clone git@github.com:scarletstudio/transithealth.git
+cd transithealth
+```
+
+Now that you have the codebase cloned, you can install and run the app. Later, you will make your own changes and **commit** and **push** them, which is how we send our changes to the main repository.
+
+## 2. Set Environment Variables
+
+Environment variables help us configure our programs without changing code.
+
+Run this command to create an environment configuration file:
+
+```bash
+touch .env
+```
+
+Then open the file in the text editor of your choice and add these contents:
+
+```
+# Tells the server what port to serve the API on
+API_PORT=5000
+# Tells the server what origins to accept requests from (comma-separated list, if multiple origins)
+ALLOW=http://localhost:8001
+# Tells the server where to find the SQLite database file
+DATABASE=pipeline/database.db
+```
+
+Our frontend app uses a special kind of environment configuration file, called `.env.local`. Create this file in the `app/` directory.
+
+```bash
+touch app/.env.local
+```
+
+Then open the file in the text editor of your choice and add these contents:
+
+```
+NEXT_PUBLIC_API=http://localhost:5000
+```
+
+Sometimes these files contain secret information (not the case for our project), like database passwords, so we do not want these files to be committed to the repository. If you look at the file `.gitignore` and search for `.env`, you will find that we have told git to ignore both of these files.
+
+## 3. Create Virtual Environment
+
+Now we can set up the Python parts of our project. If Python and its package manager pip are not on your system, visit [the website](https://www.python.org/downloads/) to install them.
 
 Virtual environments allow us to manage the dependencies of our project, without affecting the rest of our computer.
+
+If the virtual environment package for Python is not installed, you can install it with pip:
+
+```bash
+pip3 install virtualenv
+```
 
 Create a virtual environment, which will be stored in a folder called `.venv/`.
 
 ```bash
 virtualenv .venv
+```
+
+If the above command does not work, try this:
+
+```bash
+python3 -m virtualenv .venv
 ```
 
 Activate the virtual environment. You will do this at the start of every session.
@@ -16,30 +106,15 @@ Activate the virtual environment. You will do this at the start of every session
 source .venv/bin/activate
 ```
 
+## 4. Install Backend Dependencies
+
 Install the project Python dependencies.
 
 ```bash
 pip3 install -r requirements.txt
 ```
 
-## Environment Variables
-
-If you do not already have an environment variables file, create one:
-
-```bash
-touch .env
-```
-
-Then add these contents:
-
-```
-API_PORT=5000
-ALLOW=http://localhost:3000,http://104.236.21.173:3000
-DATABASE=pipeline/database.db
-DROPLET=104.236.21.173
-```
-
-## Frontend Development
+## 5. Install Frontend Dependencies
 
 Change directories to the `app/` folder.
 
@@ -47,10 +122,182 @@ Change directories to the `app/` folder.
 cd app
 ```
 
-Install Yarn, a package manager for JavaScript.
+We will use Yarn, a package manager for Node.js. If Node.js is not on your system, visit [the website](https://nodejs.org/en/download) to install it first. Then, if Yarn is not on your system, visit [the website](https://classic.yarnpkg.com/en/docs/install) to install it.
 
-Install the project JavaScript dependencies.
+Now you can install the project JavaScript dependencies.
 
 ```bash
 yarn install
 ```
+
+After the installation succeeds, go back up to the project root directory.
+
+```bash
+cd ..
+```
+
+## 6. Run Offline Pipeline
+
+Our offline pipeline pulls in data from outside sources, processes it, and creates our database. The pipeline is run by a tool called Make.
+
+For more information about the offline pipeline directory structure, visit its [README](../pipeline/README.md).
+
+Make should already be installed on Linux or Mac systems. If it is not installed on your Windows machine, visit [this website](http://gnuwin32.sourceforge.net/packages/make.htm) to install it.
+
+Make sure that your virtual environment is activated and that you are in the `pipeline/` directory.
+
+```bash
+source .venv/bin/activate
+cd pipeline
+```
+
+Run this command to unpack the compressed database into a file that the backend can read.
+
+```bash
+make uncompressed
+```
+
+Running the entire offline pipeline from scratch can take a while. You can skip this step for now:
+
+```bash
+# This will delete the database and run the entire database from scratch, which can take a long time
+make clean && make
+```
+
+After unpacking the compressed database, go back up to the project root directory.
+
+```bash
+cd ..
+```
+
+## 7. Run Backend API
+
+Our backend API serves requests to the frontend and computes metrics from the database produced by the offline pipeline.
+
+For more information about the backend API directory structure, visit its [README](../api/README.md).
+
+You can run the API from the project root directory. Make sure your virtual environment is activated.
+
+```bash
+source .venv/bin/activate
+```
+
+Use this command to run the server in development mode. If you make changes, it will automatically reload.
+
+```bash
+FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+```
+
+Now you can open `http://localhost:5000` in your browser. You get see a welcome message telling you the API is active.
+
+If this command does not succeed, check:
+
+- That your virtual environment is activated (Step 3)
+- That the Python dependencies are installed (Step 4)
+- That your `.env` file is present in the project root directory and has the correct values with no extra whitespace (Step 2)
+
+You can stop the server by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
+
+## 8. Run Frontend App
+
+Our frontend app helps users visualize data and sends requests to the backend API.
+
+For more information about the frontend app directory structure, visit its [README](../app/README.md).
+
+Change to the `app/` directory to run the frontend app.
+
+```bash
+cd app
+```
+
+Use this command to start the app in development mode. If you make changes, it will automatically reload.
+
+```bash
+yarn dev
+```
+
+Now you can open `http://localhost:8001/transithealth` in your browser. You should get the app home page.
+
+If this command does not succeed, check:
+
+- That the Node.js/Yarn dependencies are installed (Step 5)
+- That your `.env.local` file is present in the `app/` directory and has the correct values with no extra whitespace (Step 2)
+
+You can stop the frontend by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
+
+After running the app, go back up to the project root directory.
+
+```bash
+cd ..
+```
+
+## 9. Run Jupyter Notebook
+
+Jupyter notebooks allow us to write Python (and other languages, like SQL!) and interact with the output. They are a great tool for data exploration, debugging, and prototyping.
+
+Create a new folder with your username. This is where your notebooks will live. Change the command below to replace `your_hawk_username` with your Hawk username.
+
+```bash
+mkdir notebooks/your_hawk_username
+```
+
+Copy the example notebook into your folder. Change the command below to replace `your_hawk_username` with your Hawk username.
+
+```bash
+cp "notebooks/example/Example Notebook.ipynb" "notebooks/your_hawk_username/My Example Notebook.ipynb"
+```
+
+You can start the Jupyter notebook server from the project root directory.
+
+```bash
+juypter notebook
+```
+
+This will open a page in your browser with all the folders in our project. Click on the `notebooks/` folder and then open your folder. Click on your example notebook to launch it.
+
+Run through the commands in the sample notebook. Click `Shift + Enter` to execute a cell. You can also do this step later.
+
+Press the save icon in the top left corner of your notebook.
+
+You can stop the notebook server by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
+
+## 10. Create Your First Branch
+
+Now that you have made some changes, you will **commit** and **push** them to the main project repository.
+
+First, we will create a new branch. Putting your change on a different branch allows you to work while others make changes to the repository and lets you submit your work for review, before merging it into the main repository.
+
+Replace `your_branch_name` with `first_branch_your_hawk_username` where `your_hawk_username` is your Hawk username.
+
+```bash
+git checkout -b your_branch_name
+```
+
+Run this command to check what files have been changed. They should show as "not staged for commit." The only change should be the notebooks folder you added and your new example notebook. If you see other changes, ask for help.
+
+```bash
+git status
+```
+
+Use this command to add all of the changes to your commit. When you check the status again, they should show as "to be committed."
+
+```bash
+git add -A
+git status
+```
+
+Create a commit and add a commit message.
+
+```bash
+git commit -m "Create my notebooks folder."
+```
+
+Now try to push the commit to the repository.
+
+```bash
+git push
+```
+
+The first time you push a commit from a new branch, it will fail and tell you that the branch is only on your local machine, not on the remote repository. Git will show you a command in the failure output. Run that command to push your branch to the repository. From then on, you will be able to push commits from this branch.
+
+After this, your mentor will show you how to open a pull request and we can merge your new notebook folder into the main branch.

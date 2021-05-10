@@ -33,6 +33,25 @@ transithealth
 
 Follow the [setup instructions](docs/setup.md).
 
+## Get Latest Version
+
+To get the latest version of the `main` branch, run these commands:
+
+```bash
+git checkout main
+git fetch
+git pull
+```
+
+To merge the latest version of `main` into your branch, make sure all the work on your branch is committed, use the commands above to get the latest version of `main`, then run the commands below.
+
+```bash
+git checkout your_branch_name
+git merge main
+```
+
+You may need to resolve merge conflicts. After a successful merge, you can continue development on your branch with the latest changes.
+
 ## Run Locally
 
 To run the entire application locally, open two separate terminals for these two steps:

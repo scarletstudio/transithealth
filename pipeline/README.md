@@ -33,16 +33,22 @@ source .venv/bin/activate
 cd pipeline
 ```
 
-This command deletes the local database and recreates it from files in `data/`. If files are missing, those steps will run.
+To unpack the compressed database into a file that the server can read, use this command:
+
+```bash
+make uncompressed
+```
+
+To rebuild the entire database from scratch, use these commands (takes a long time!):
+
+```bash
+make clean && make
+```
+
+To rebuild the database from interim files in `data/`, use this command. If any interim files are missing, those steps will run.
 
 You can also delete the `extracted/` or `transformed/` folders and then run this command to rebuild those stages.
 
 ```bash
 make reload
-```
-
-Delete all existing pipeline data and run the entire pipeline from scratch (takes a long time!).
-
-```bash
-make clean && make
 ```
