@@ -147,7 +147,7 @@ function TimelineMetrics({ metrics, setMetrics }) {
           defaultValue={defaultMetricToAdd}
           onChange={setMetricToAdd}
         />
-        <button onClick={addMetric}>Add Metric</button>
+        <button className="btn" onClick={addMetric}>Add Metric</button>
       </div>
     </div>
   );
