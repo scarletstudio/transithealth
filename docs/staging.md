@@ -39,7 +39,9 @@ python3 -m http.server 8001
 source .venv/bin/activate
 source .env
 pip3 install -r requirements.txt
+cat pipeline/compressed/db-part-* > pipeline/compressed.db.tgz
 tar -xf pipeline/compressed.db.tgz -C pipeline
+rm pipeline/compressed.db.tgz
 gunicorn --bind 0.0.0.0:$PORT api:app
 ```
 

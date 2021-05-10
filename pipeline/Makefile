@@ -12,24 +12,28 @@ export CHICAGO_HEALTH_ATLAS_API=https://api.chicagohealthatlas.org/api/v1
 
 # Database Operations
 
-all: compressed.db.tgz
+all: compressed
 
 reload:
 	rm -f database.db
+	rm -rf compressed
 	rm -rf data/loaded
 	mkdir data/loaded
 	make
 
 uncompressed:
+	cat compressed/db-part-* > compressed.db.tgz
 	tar -xf compressed.db.tgz
+	rm compressed.db.tgz
 
-compressed:
-	make compressed.db.tgz
+compressed: database.db
+	rm -rf compressed
+	tar cfz compressed.db.tgz database.db
+	mkdir compressed
+	split -b 10m compressed.db.tgz compressed/db-part-
+	rm compressed.db.tgz
 
 # Load Operations
-
-compressed.db.tgz: database.db
-	tar cfz compressed.db.tgz database.db
 
 database.db: data/loaded/all_tables.txt
 
@@ -146,6 +150,7 @@ resources:
 clean:
 	rm -f database.db
 	rm -rf data
+	rm -rf compressed
 	mkdir data
 	mkdir data/extracted
 	mkdir data/transformed

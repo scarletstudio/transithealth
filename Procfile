@@ -1,1 +1,1 @@
-web: tar -xf pipeline/compressed.db.tgz -C pipeline && gunicorn --bind 0.0.0.0:$PORT api:app
+web: cat pipeline/compressed/db-part-* > pipeline/compressed.db.tgz && tar -xf pipeline/compressed.db.tgz -C pipeline && rm pipeline/compressed.db.tgz && gunicorn --bind 0.0.0.0:$PORT api:app

@@ -52,6 +52,16 @@ git merge main
 
 You may need to resolve merge conflicts. After a successful merge, you can continue development on your branch with the latest changes.
 
+## Build Data
+
+Enter the `pipeline/` directory, run this command to unpack the compressed database files, then return to the project root directory.
+
+```bash
+cd pipeline
+make uncompressed
+cd ..
+```
+
 ## Run Locally
 
 To run the entire application locally, open two separate terminals for these two steps:
