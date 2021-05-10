@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
-import ChicagoMap from '../components/ChicagoMap'
 import { MetricSelector } from '../components/Common'
+import ChicagoMap from '../components/ChicagoMap'
+import {
+  communityMetrics,
+  scatterExplorerDefaults
+} from '../site/metrics'
 import {
   ResponsiveContainer,
   ScatterChart,
@@ -13,47 +17,9 @@ import {
   Cell
 } from 'recharts'
 
-function numberWithCommas(val) {
-  return new Intl.NumberFormat("en").format(val);
-}
-
-function numberInThousands(val) {
-  return new Intl.NumberFormat("en").format((val / 1000).toFixed(1)) + "K";
-}
-
-function numberInMillions(val) {
-  return new Intl.NumberFormat("en").format((val / 1000000).toFixed(1)) + "M";
-}
-
-const supportedMetrics = {
-  rideshare_pickups_covid: {
-    name: "Rideshare Pickups Since March 2020",
-    units: "trips",
-    format: numberInMillions,
-    fullFormat: numberWithCommas,
-  },
-  total_population_2000: {
-    name: "2000 Total Population",
-    units: "people",
-    format: numberInThousands,
-    fullFormat: numberWithCommas,
-  },
-  total_population_2010: {
-    name: "2010 Total Population",
-    units: "people",
-    format: numberInThousands,
-    fullFormat: numberWithCommas,
-  },
-  total_covid_cases: {
-    name: "Total COVID Cases",
-    units: "cases",
-    format: numberInThousands,
-    fullFormat: numberWithCommas,
-  },
-};
-
-const defaultMetricX = "total_population_2010";
-const defaultMetricY = "total_covid_cases";
+const supportedMetrics = communityMetrics;
+const defaultMetricX = scatterExplorerDefaults.metricX;
+const defaultMetricY = scatterExplorerDefaults.metricY;
 
 async function getScatterMetrics(metricX, metricY) {
   const req = await fetch(

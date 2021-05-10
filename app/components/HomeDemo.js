@@ -60,7 +60,7 @@ export default function HomeDemo({ communityAreas }) {
   }, []);
 
   const clickRow = mapData && clickArea.number ? mapData[clickArea.number] : {};
-  const dataMsg = clickArea.name ? (
+  const dataMsg = clickRow.name ? (
     <div>
       <p>{clickRow.cases_per_thousand_trips.toFixed(0)} COVID cases per thousand rideshare pickups</p>
       <p>
@@ -81,7 +81,6 @@ export default function HomeDemo({ communityAreas }) {
         defaultOpacity={1.0}
         onAreaClick={setClickArea}
       />
-      
       <h3>{clickArea.name}</h3>
       {dataMsg}
     </div>

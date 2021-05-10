@@ -1,20 +1,8 @@
-import fs from 'fs'
 import Head from 'next/head'
+import Link from 'next/link'
 import Nav from '../components/Nav'
-import CommunityScatterExplorer from '../components/CommunityScatterExplorer'
 
-export async function getStaticProps() {
-  const communityAreas = JSON.parse(fs.readFileSync(
-    "./public/resources/community_area.json"
-  ));
-  return {
-    props: {
-      communityAreas,
-    },
-  };
-}
-
-export default function Explorer({ communityAreas }) {
+export default function Explorer() {
   return (
     <div>
       <Head>
@@ -28,10 +16,36 @@ export default function Explorer({ communityAreas }) {
         <div className="page">
           <div className="center">
             <h1>Data Explorer</h1>
-            <p>Select a community area to compare transit and public health metrics.</p>
+            <p>Select a view to explore public transit and public health metrics.</p>
+            <br />
+          </div>
+          <div className="columns">
+            <div className="column center">
+              <h2>Timeline View</h2>
+              <p>View data over time, on a weekly basis.</p>
+              <br />
+              <Link href="/timeline">
+                <a className="btn">Timeline View</a>
+              </Link>
+            </div>
+            <div className="column PreviewImage">
+              <img src="/transithealth/images/timeline_preview.png" alt="Preview image for timeline view." />
+            </div>
           </div>
           <br />
-          <CommunityScatterExplorer communityAreas={communityAreas} />
+          <div className="columns">
+            <div className="column center">
+              <h2>Scatter View</h2>
+              <p>Compare different data and community areas.</p>
+              <br />
+              <Link href="/scatter">
+                <a className="btn">Scatter View</a>
+              </Link>
+            </div>
+            <div className="column PreviewImage">
+              <img src="/transithealth/images/scatter_preview.png" alt="Preview image for scatter view." />
+            </div>
+          </div>
         </div>
       </main>
     </div>
