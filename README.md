@@ -33,6 +33,8 @@ transithealth
 
 Follow the [setup instructions](docs/setup.md).
 
+Browse the [project documentation](docs/README.md).
+
 ## Get Latest Version
 
 To get the latest version of the `main` branch, run these commands:

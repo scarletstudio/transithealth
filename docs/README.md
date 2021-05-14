@@ -6,10 +6,10 @@ Welcome to the documentation for TransitHealth!
 
 Guides to help you get started using and contributing to the project.
 
-- Project Overview (Coming Soon)
+- [Project Overview](https://bit.ly/sds-transithealth-slides)
 - [Setup Instructions](setup.md)
 
-## Explanation of Directory Structure For Each System
+## Codebase Overviews
 
 Guides to explain the layout of the codebase and common commands for working with each system.
 
@@ -34,7 +34,10 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 ### Pipeline
 
-- Reading and Writing Makefiles (Coming Soon)
+- [Extract, Transform, and Load (ETL)](etl.md)
+- [Makefiles](makefiles.md)
+- [Socrata Query Language (SoQL)](soql.md)
+- [Adding a New Dataset](new_dataset.md)
 
 ## Deployment
 
