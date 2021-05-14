@@ -71,7 +71,7 @@ To run the entire application locally, open two separate terminals for these two
 **Terminal 1.** Start Frontend
 
 ```bash
-cd app && yarn start
+cd app && yarn dev
 ```
 
 **Terminal 2.** Start Backend
