@@ -14,15 +14,15 @@ These docs make help you while going through this guide:
 
 There are three steps to add a new dataset to our offline pipeline:
 
-- 1. Extract data from external sources
+1. Extract data from external sources
     - Write the code to extact a dataset
     - Add the extract step to `Makefile`
     - Run the extract step to check if it worked
-- 2. Transform data into the desired format
+2. Transform data into the desired format
     - Write the code to transform a dataset
     - Add the transform step to `Makefile`
     - Run the transform step to check if it worked
-- 3. Load data into the database
+3. Load data into the database
     - Write a SQLite schema for the new table
     - Add the load step to `Makefile`
     - Run the transform step to check if it worked
@@ -50,7 +50,7 @@ The Python script `pipeline/extract/from_data_portal.py` helps you extract data 
 
 - Find the dataset you want to extract from [the data portal](https://data.cityofchicago.org/)
 - Get the JSON URL for the dataset
-    - Find the API button in the top right corner, select the JSON endpoint, then click copy
+    - Find the API button in the top-right corner, select the JSON endpoint, then click copy
 
 ![Screenshot showing how to find the JSON URL for a data portal dataset](images/data_portal_json_url.png)
 
@@ -61,6 +61,8 @@ The Python script `pipeline/extract/from_data_portal.py` helps you extract data 
 An example of a dataset extracted from the data portal is the rideshare data. This is its `make` step:
 
 ```make
+PORTAL_RIDESHARES := https://data.cityofchicago.org/resource/m6dm-c72p.json
+
 data/extracted/daily_rideshare.csv:
     python3 extract/from_data_portal.py \
         --json_url="$(PORTAL_RIDESHARES)" \
@@ -78,9 +80,24 @@ Usually, extract steps don't depend on other `make` steps.
 
 ### B. Extracting from the Chicago Health Atlas API
 
-We use the Python `requests` module to make requests to an API. Create a new script under the `pipeline/extract/` directory. You can refer to `pipeline/extract/demography.py` as an example of how to make a request for every community area.
+We use the Python `requests` module to make requests to an API. Create a new script under the `pipeline/extract/` directory.
 
-An example of a dataset extracted from an API is the demography data. This is its `make` step:
+An example of a dataset extracted from an API is the demography data. You can refer to `pipeline/extract/demography.py` as an example of how to make a request for every community area. Here is an example of the code:
+
+```python
+import requests
+
+API = os.environ.get("CHICAGO_HEALTH_ATLAS_API")
+
+slug = "bridgeport"
+r = requests.get(f"{API}/place/demography/{slug}")
+data = r.json()
+print(data)
+```
+
+The API URL is set as an environment variable by `Makefile`. Then we make a `GET` request to the endpoint for a specific community area based on its slug name. Then we get the response data as JSON and save the information we want.
+
+This is the `make` step for the demography:
 
 ```make
 data/extracted/demography.csv: data/transformed/community_area.csv
@@ -96,6 +113,8 @@ This is an example of an extract step that depends on another `make` step. In fa
 An example of a dataset extracted from a raw URL is the ZIP code to community area equivalency file. We download it using `curl`. This is its `make` step:
 
 ```make
+ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7sDlpZmCvymCg0mcd_bDBj-tn8oorsOmuo8odZI/export?format=csv&gid=0
+
 data/extracted/zip_code_to_community_area.csv:
     curl -J -L "$(ZIP_CODE_TO_COMMUNITY_AREA_URL)" \
         --create-dirs -o "data/extracted/zip_code_to_community_area.csv"
