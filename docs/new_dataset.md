@@ -5,8 +5,8 @@ This guide walks you through how to add a new dataset to the offline pipeline.
 ## Contents
 
 - [Tips](#tips)
+    - [Terminology](#terminology)
     - [Terminal Tips](#terminal-tips)
-    - [Related Docs](#related-docs)
     - [Questions to Consider](#questions-to-consider)
     - [Pull Requests](#pull-requests)
 - [Instructions](#instructions)
@@ -15,6 +15,16 @@ This guide walks you through how to add a new dataset to the offline pipeline.
     - [3. Load](#3-load)
 
 ## Tips
+
+### Terminology
+
+- **ETL Pipeline:** Extract, transform, and load pipeline, the way we organize data processing steps
+    - **Pipeline:** a series of data processing steps
+    - **Extract:** to get data from an external source
+    - **Transform:** to convert data from one form to another
+    - **Load:** to export data for other systems to use
+- **CLI:** Command Line Interface, the format for commands that can run in a terminal
+- **SoQL:** Socrata Query Language, a dialect of SQL for accessing data portal datasets
 
 ### Terminal Tips
 
@@ -30,16 +40,6 @@ You can run any `make` command from this folder by typing:
 make NAME_OF_TARGET
 ```
 
-### Related Docs
-
-These docs make help you while going through this guide:
-
-- [Extract, Transform, and Load (ETL)](etl.md)
-- [Makefiles](makefiles.md)
-- [Socrata Query Language (SoQL)](soql.md)
-- [Common Data Transformations](transformations.md)
-- [Creating SQLite Tables](create_table.md)
-
 ### Questions to Consider
 
 Besides coding, you might get stuck on questions about the product and datasets. These are good questions to review with your mentor, to check your understanding and ask for advice:
@@ -51,7 +51,7 @@ Besides coding, you might get stuck on questions about the product and datasets.
 
 ### Pull Requests
 
-The first time you add a new dataset, we recommend you do it over three separate pull requests:
+The first time you add a new dataset, we recommend you do it over three separate pull requests (PRs):
 
 - PR#1 to extract data
 - PR#2 to transform data
@@ -123,7 +123,7 @@ GROUP BY ymd, pickup_community_area, dropoff_community_area
 LIMIT 190000000
 ```
 
-Usually, we don't want to do any transformation in the extract step, but the rideshare trips dataset has over 190 million rows, so it would take too long to download the un-aggregated version. This query gets the total number of trips for each day, pickup community area, and dropoff community area.
+Usually, we don't want to do any transformation in the extract step, but the rideshare trips dataset has over 190 million rows, so it would take too long to download the un-aggregated version. This query gets the total number of trips for each day, pickup community area, and dropoff community area, which results in approximately 3.6 million rows.
 
 This is the `make` step for extracting the rideshare data from the data portal:
 
@@ -227,6 +227,8 @@ Notice that it includes:
 - The input file, both as a `make` dependency and as a CLI flag
 - The output file, both as a `make` target and a CLI flag
 
+If you want to add more CLI flags, read the [Argparse](argparse.md) guide.
+
 ## 3. Load
 
 - Code used to load tables should go in the `pipeline/load/` directory.
@@ -250,11 +252,7 @@ CREATE TABLE rideshare (
 );
 ```
 
-For more information, check out these external tutorials for creating tables in SQLite:
-
-- [Create Table Statements](https://www.sqlitetutorial.net/sqlite-create-table/)
-- [Data Types](https://www.sqlitetutorial.net/sqlite-data-types/)
-- Look under the "SQLite Data Definition" section of the right-hand sidebar for more features to use when creating tables
+For more information, read the [Create SQLite Tables](sqlite.md#create-tables) guide.
 
 This is the `make` step to load the rideshare table into the database:
 
@@ -303,30 +301,12 @@ When all your steps are added, run this command:
 make reload
 ```
 
+This will create both the compressed and non-compressed database. 
+
 ### Verify Your Table
 
-This will create both the compressed and non-compressed database. You can check if your table was added to the database by launching the `sqlite3` command line interface. Run these commands:
-
-```bash
-# Change to the pipeline/ directory if you are not already there
-cd pipeline
-# Start an interactive sqlite3 session in your terminal
-sqlite3
-# Connect to our database
-.open database.db
-# Set sqlite3 to show column headers with output
-.headers on
-# List all the tables
-.tables
-# Show the schema of a table
-.schema TABLE_NAME
-# Show all columns for the first five rows of a table
-select * from TABLE_NAME limit 5;
-```
-
-[The official SQLite guide](https://sqlite.org/cli.html) explains more commands you can use with the `sqlite3` CLI.
-
-You can also use a Jupyter notebook to write SQL queries and inspect the data.
+- You can check if your table was added to the database using [the `sqlite3` CLI](sqlite.md#command-line-interface).
+- You can also use a Jupyter notebook to write SQL queries and inspect the data.
 
 When you are happy with the loaded dataset, commit your changes and open a pull request. The database files are not human-readable, so any pull request that changes the compressed database files requires an explanation of what should be happening, for example you might write something like this:
 

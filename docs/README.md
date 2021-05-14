@@ -17,28 +17,47 @@ Guides to explain the layout of the codebase and common commands for working wit
 - [Backend API](../api/README.md)
 - [Offline Pipeline](../pipeline/README.md)
 
-## General Software Engineering Topics
+## Guides By Schedule
 
+- Week 1
+    - [Add a New Dataset](new_dataset.md)
+- Week 2
+    - Coming soon...
+- Week 3
+    - Coming soon...
+- Week 4
+    - Coming soon...
+
+## Guides By Topic
+
+### General Software Engineering Topics
+
+- [Using Git](git.md)
+- [Merge Conflicts](merge_conflicts.md)
 - Testing (Coming Soon)
 
-## Project-Specific Topics
+### Project-Specific Topics
 
-### Frontend
+#### Frontend
 
 - Using React Hooks (Coming Soon)
 - Using Recharts (Coming Soon)
 
-### Backend
+#### Backend
 
-- Writing SQL (Coming Soon)
+- [Write SQL Queries (Coming Soon)](sqlite.md#write-queries)
 
-### Pipeline
+#### Pipeline
 
 - [Extract, Transform, and Load (ETL)](etl.md)
+- [Add a New Dataset](new_dataset.md)
 - [Makefiles](makefiles.md)
 - [Socrata Query Language (SoQL)](soql.md)
-- [Adding a New Dataset](new_dataset.md)
+- [Create SQLite Tables](sqlite.md#create-tables)
+- [SQLite Command Line Interface](sqlite.md#command-line-interface)
+- [Common Data Transformations](transformations.md)
+- [Argparse](argparse.md)
 
-## Deployment
+### Deployment
 
 - [Run Staging](staging.md)
