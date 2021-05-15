@@ -8,7 +8,7 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 
 # Environment Variables
 
-export CHICAGO_HEALTH_ATLAS_API=https://api.chicagohealthatlas.org/api/v1
+export CHICAGO_HEALTH_ATLAS_API=https://chicagohealthatlas.org/api/v1
 
 # Database Operations
 
@@ -39,7 +39,7 @@ database.db: data/loaded/all_tables.txt
 
 data/loaded/all_tables.txt:
 	make data/loaded/community_area.txt
-	make data/loaded/demography.txt
+	make data/loaded/population.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
 	touch "data/loaded/all_tables.txt"
@@ -51,12 +51,12 @@ data/loaded/community_area.txt: data/transformed/community_area.csv
 		--create_sql="load/community_area.sql" \
 		--table_name="community_area"
 
-data/loaded/demography.txt: data/transformed/demography.csv
+data/loaded/population.txt: data/transformed/population.csv
 	python3 load/create_table.py \
 		--database="database.db" \
-		--input_file="data/transformed/demography.csv" \
-		--create_sql="load/demography.sql" \
-		--table_name="demography"
+		--input_file="data/transformed/population.csv" \
+		--create_sql="load/population.sql" \
+		--table_name="population"
 
 data/loaded/covid_spread.txt: data/transformed/covid_spread.csv
 	python3 load/create_table.py \
@@ -74,10 +74,10 @@ data/loaded/rideshare.txt: data/transformed/rideshare.csv
 
 # Transform Operations
 
-data/transformed/community_area.csv: data/extracted/community_area.geojson data/extracted/health_atlas_places.json
+data/transformed/community_area.csv: data/extracted/community_area.geojson data/extracted/health_atlas_neighborhoods.json
 	python3 transform/community_area.py \
 		--geojson_file="data/extracted/community_area.geojson" \
-		--places_file="data/extracted/health_atlas_places.json" \
+		--neighborhood_file="data/extracted/health_atlas_neighborhoods.json" \
 		--output_file="data/transformed/community_area.csv"
 
 data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_community_area.csv
@@ -85,10 +85,10 @@ data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_comm
 		--input_file="data/extracted/zip_code_to_community_area.csv" \
 		--output_file="data/transformed/zip_code_to_community_area.csv"
 
-data/transformed/demography.csv: data/extracted/demography.csv
-	python3 transform/demography.py \
-		--input_file="data/extracted/demography.csv" \
-		--output_file="data/transformed/demography.csv"
+data/transformed/population.csv: data/extracted/population.csv
+	python3 transform/population.py \
+		--input_file="data/extracted/population.csv" \
+		--output_file="data/transformed/population.csv"
 
 data/transformed/covid_spread.csv: data/extracted/covid_spread.csv data/transformed/zip_code_to_community_area.csv
 	python3 transform/covid_spread.py \
@@ -107,21 +107,27 @@ data/extracted/community_area.geojson:
 	curl "$(COMMUNITY_AREAS_GEOJSON_URL)" \
 		--create-dirs -o "data/extracted/community_area.geojson"
 
-data/extracted/health_atlas_places.json:
-	curl "$(CHICAGO_HEALTH_ATLAS_API)/places" \
-		--create-dirs -o "data/extracted/health_atlas_places.json"
-
-data/extracted/zip_code_to_community_area.csv:
+data/extracted/health_atlas_neighborhoods.json:
 	# -L tells curl to follow redirects until it reaches a file
 	# -J tells curl to get the file type from the file content instead of the URL
 	# https://unix.stackexchange.com/a/74337
+	curl -J -L "$(CHICAGO_HEALTH_ATLAS_API)/geographies/neighborhood?format=json&limit=77" \
+		--create-dirs -o "data/extracted/health_atlas_neighborhoods.json"
+
+data/extracted/zip_code_to_community_area.csv:
 	curl -J -L "$(ZIP_CODE_TO_COMMUNITY_AREA_URL)" \
 		--create-dirs -o "data/extracted/zip_code_to_community_area.csv"
 
-data/extracted/demography.csv: data/transformed/community_area.csv
-	python3 extract/demography.py \
-		--areas_file="data/transformed/community_area.csv" \
-		--output_file="data/extracted/demography.csv"
+data/extracted/population.csv: data/extracted/population_coverage.csv
+	python3 extract/population.py \
+		--coverage_file="data/extracted/population_coverage.csv" \
+		--output_file="data/extracted/population.csv"
+
+data/extracted/population_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/POP" \
+		--create-dirs -o "data/extracted/population_coverage.csv" \
+		-d layers="neighborhood"
 
 data/extracted/covid_spread.csv:
 	python3 extract/from_data_portal.py \
