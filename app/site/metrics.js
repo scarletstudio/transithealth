@@ -25,6 +25,12 @@ export const communityMetrics = {
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberWithCommas,
   },
+  total_population_2019: {
+    name: "2019 Total Population",
+    units: "people",
+    format: Formatter.numberInThousands,
+    fullFormat: Formatter.numberWithCommas,
+  },
   total_covid_cases: {
     name: "Total COVID Cases",
     units: "cases",
@@ -49,7 +55,7 @@ export const weeklyMetrics = {
 };
 
 export const scatterExplorerDefaults = {
-  metricX: "total_population_2010",
+  metricX: "total_population_2019",
   metricY: "total_covid_cases",
 };
 
