@@ -33,6 +33,8 @@ transithealth
 
 Follow the [setup instructions](docs/setup.md).
 
+Browse the [project documentation](docs/README.md).
+
 ## Get Latest Version
 
 To get the latest version of the `main` branch, run these commands:
@@ -69,7 +71,7 @@ To run the entire application locally, open two separate terminals for these two
 **Terminal 1.** Start Frontend
 
 ```bash
-cd app && yarn start
+cd app && yarn dev
 ```
 
 **Terminal 2.** Start Backend

@@ -13,8 +13,9 @@ def make_blueprint(con):
 
     supported_metrics = {
         "rideshare_pickups_covid": metric.rideshare_total_pickups,
-        "total_population_2000": lambda: metric.demography("total_population_2000"),
-        "total_population_2010": lambda: metric.demography("total_population_2010"),
+        "total_population_2000": lambda: metric.population(year=2000, segment="all"),
+        "total_population_2010": lambda: metric.population(year=2010, segment="all"),
+        "total_population_2019": lambda: metric.population(year=2019, segment="all"),
         "total_covid_cases": lambda: metric.covid_spread_sum_by_area("cases_weekly")
     }
 

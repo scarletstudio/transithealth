@@ -15,11 +15,10 @@ start = timer()
 df_areas = pd.read_csv(args.input_file)
 df_areas = df_areas[[
     "area_number",
-    "area_slug",
+    "area_geoid",
     "name",
     "part",
-    "geometry",
-    "centroid"
+    "geometry"
 ]]
 
 # Match GeoJSON format
@@ -30,9 +29,8 @@ features = [
         "properties": {
             "name": r["name"],
             "number": r["area_number"],
-            "slug": r["area_slug"],
-            "part": r["part"],
-            "centroid": r["centroid"]
+            "geoid": r["area_geoid"],
+            "part": r["part"]
         }
         
     }

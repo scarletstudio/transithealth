@@ -34,4 +34,9 @@ jobs:
           python3 -m venv .venv
           source .venv/bin/activate
           pip install -r requirements.txt
+          cd pipeline
+          cat compressed/db-part-* > compressed.db.tgz
+          tar -xf compressed.db.tgz
+          rm compressed.db.tgz
+          cd ..
           pytest -vv

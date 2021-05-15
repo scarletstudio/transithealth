@@ -32,7 +32,7 @@ git config --global user.name "Your Name"
 git config --global user.email "Your Email"
 ```
 
-Clone the repository and use `cd` to enter the folder.
+Clone the repository and use `cd` to enter the folder. This first clone can take 4-10 minutes because you are also cloning the compressed database files.
 
 ```bash
 git clone git@github.com:scarletstudio/transithealth.git
@@ -71,16 +71,22 @@ touch app/.env.local
 Then open the file in the text editor of your choice and add these contents:
 
 ```
+# Tells the frontend app where to send requests to for the backend API (no slash at the end)
 NEXT_PUBLIC_API=http://localhost:5000
 ```
 
 Sometimes these files contain secret information (not the case for our project), like database passwords, so we do not want these files to be committed to the repository. If you look at the file `.gitignore` and search for `.env`, you will find that we have told git to ignore both of these files.
+
+- If you run the frontend app on a different URL or port number, update your `.env` file to make sure it is in the `ALLOW` list for the backend API.
+- If you run the backend API on a different URL or port number, update your `app/.env.local` file to make sure it is set as the `NEXT_PUBLIC_API` so the frontend app can reach it.
 
 ## 3. Create Virtual Environment
 
 Now we can set up the Python parts of our project. If Python and its package manager pip are not on your system, visit [the website](https://www.python.org/downloads/) to install them.
 
 Virtual environments allow us to manage the dependencies of our project, without affecting the rest of our computer.
+
+### Commands to Run the First Session Only
 
 If the virtual environment package for Python is not installed, you can install it with pip:
 
@@ -100,10 +106,20 @@ If the above command does not work, try this:
 python3 -m virtualenv .venv
 ```
 
+### Commands to Run Every Session
+
 Activate the virtual environment. You will do this at the start of every session.
 
 ```bash
 source .venv/bin/activate
+```
+
+If your virtual environment is active, you will see `(.venv)` at the left of your terminal line.
+
+At the end of your session, you can deactive the virtual environment by typing:
+
+```bash
+deactivate
 ```
 
 ## 4. Install Backend Dependencies
@@ -190,13 +206,17 @@ FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
 
 Now you can open `http://localhost:5000` in your browser. You get see a welcome message telling you the API is active.
 
+> If you run the backend API on a different URL or port number, update your `app/.env.local` file to make sure it is set as the `NEXT_PUBLIC_API` so the frontend app can reach it.
+
 If this command does not succeed, check:
 
 - That your virtual environment is activated (Step 3)
 - That the Python dependencies are installed (Step 4)
 - That your `.env` file is present in the project root directory and has the correct values with no extra whitespace (Step 2)
 
-You can stop the server by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
+Keep the server running and open a new terminal to run the frontend app for step 8.
+
+Later, you can stop the server by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
 
 ## 8. Run Frontend App
 
@@ -218,10 +238,13 @@ yarn dev
 
 Now you can open `http://localhost:8001/transithealth` in your browser. You should get the app home page.
 
+> If you run the frontend app on a different URL or port number, update your `.env` file to make sure it is in the `ALLOW` list for the backend API.
+
 If this command does not succeed, check:
 
 - That the Node.js/Yarn dependencies are installed (Step 5)
 - That your `.env.local` file is present in the `app/` directory and has the correct values with no extra whitespace (Step 2)
+- That you put `/transithealth` at the end of your URL
 
 You can stop the frontend by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
 
@@ -231,26 +254,34 @@ After running the app, go back up to the project root directory.
 cd ..
 ```
 
+You can close this terminal and return to the terminal that was running the backend API server. Shut down that server and proceed to step 9 to run the Jupyter notebook server.
+
 ## 9. Run Jupyter Notebook
 
 Jupyter notebooks allow us to write Python (and other languages, like SQL!) and interact with the output. They are a great tool for data exploration, debugging, and prototyping.
 
-Create a new folder with your username. This is where your notebooks will live. Change the command below to replace `your_hawk_username` with your Hawk username.
+Create a new folder with your username. This is where your notebooks will live. Change the command below to replace `YOUR_HAWK_USERNAME` with your Hawk username. By convention, folder names are lowercase.
 
 ```bash
-mkdir notebooks/your_hawk_username
+mkdir notebooks/YOUR_HAWK_USERNAME
 ```
 
-Copy the example notebook into your folder. Change the command below to replace `your_hawk_username` with your Hawk username.
+Copy the example notebook into your folder. Change the command below to replace `YOUR_HAWK_USERNAME` with your Hawk username.
 
 ```bash
-cp "notebooks/example/Example Notebook.ipynb" "notebooks/your_hawk_username/My Example Notebook.ipynb"
+cp "notebooks/example/Example Notebook.ipynb" "notebooks/YOUR_HAWK_USERNAME/My Example Notebook.ipynb"
 ```
 
 You can start the Jupyter notebook server from the project root directory.
 
 ```bash
 juypter notebook
+```
+
+If that command does not work, try this one:
+
+```bash
+python3 -m notebook
 ```
 
 This will open a page in your browser with all the folders in our project. Click on the `notebooks/` folder and then open your folder. Click on your example notebook to launch it.
@@ -263,14 +294,20 @@ You can stop the notebook server by pressing `Cmd + C` or `Ctrl + C`. You may ha
 
 ## 10. Create Your First Branch
 
+### Get Write Access to the Repository
+
+Before starting this step, contact your mentor or Vinesh to get write access to the GitHub repository, which will allow you to push your branch and work on the project. Let them know your GitHub username. You can find this on your GitHub profile or in the URL of your GitHub account page.
+
+### Push Your Branch
+
 Now that you have made some changes, you will **commit** and **push** them to the main project repository.
 
 First, we will create a new branch. Putting your change on a different branch allows you to work while others make changes to the repository and lets you submit your work for review, before merging it into the main repository.
 
-Replace `your_branch_name` with `first_branch_your_hawk_username` where `your_hawk_username` is your Hawk username.
+Replace `YOUR_BRANCH_NAME` with `first_branch_YOUR_HAWK_USERNAME` where `YOUR_HAWK_USERNAME` is your Hawk username. By convention, branch names are lowercase.
 
 ```bash
-git checkout -b your_branch_name
+git checkout -b YOUR_BRANCH_NAME
 ```
 
 Run this command to check what files have been changed. They should show as "not staged for commit." The only change should be the notebooks folder you added and your new example notebook. If you see other changes, ask for help.
@@ -298,6 +335,29 @@ Now try to push the commit to the repository.
 git push
 ```
 
-The first time you push a commit from a new branch, it will fail and tell you that the branch is only on your local machine, not on the remote repository. Git will show you a command in the failure output. Run that command to push your branch to the repository. From then on, you will be able to push commits from this branch.
+The first time you push a commit from a new branch, it will fail and tell you that the branch is only on your local machine, not on the remote repository. Git will show you a command in the failure output. Run that command to push your branch to the repository. From then on, you will be able to push commits from this branch. The command will be like this:
 
-After this, your mentor will show you how to open a pull request and we can merge your new notebook folder into the main branch.
+```bash
+git push --set-upstream origin YOUR_BRANCH_NAME
+```
+
+### Open a Pull Request
+
+After pushing, open a pull request so we can merge your new notebook folder into the main branch.
+
+- Go to [the project repository on GitHub](https://github.com/scarletstudio/transithealth)
+- Click on the **Pull Requests** tab
+- Click **New pull request** in the top-right corner
+- Select your branch name from the dropdown labeled **compare**
+- Leave **main** as the value for the dropdown labeled **base**
+- Click **Create pull request** in the top-right corner
+- Fill out the title and description of your pull request
+- Click **Create pull request** in the bottom-right bellow the description
+- Ask your mentor to review and merge the pull request
+
+![Screenshot showing how to open a new pull request on GitHub](images/setup_pull_request.png)
+
+
+## Congratulations!
+
+You made it through all the setup steps! Now you are ready to start contributing to the project.
