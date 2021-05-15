@@ -7,6 +7,17 @@ import pandas as pd
 import re
 
 
+# Dictionary to rename columns from health atlas data points
+HEALTH_ATLAS_VALUE_COLS = {
+    "a": "topic",
+    "l": "layer",
+    "g": "geoid",
+    "p": "population",
+    "d": "period",
+    "v": "value",
+    "se": "std_error"
+}
+
 def double_quote_json(s):
     """
     Converts JSON to use double quotes instead of single quotes.
