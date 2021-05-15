@@ -149,31 +149,37 @@ Usually, extract steps don't depend on other `make` steps.
 
 We use the Python `requests` module to make requests to an API. Create a new script under the `pipeline/extract/` directory.
 
-An example of a dataset extracted from an API is the demography data. You can refer to `pipeline/extract/demography.py` as an example of how to make a request for every community area. Here is an example of the code:
+An example of a dataset extracted from an API is the population dataset. You can refer to `pipeline/extract/population.py` as an example of how to make a request for every community area. Here is an example of the code:
 
 ```python
 import requests
 
 API = os.environ.get("CHICAGO_HEALTH_ATLAS_API")
 
-slug = "bridgeport"
-r = requests.get(f"{API}/place/demography/{slug}")
+period = "2015-2019"
+r = requests.get(f"{API}/data", params={
+    "layer": "neighborhood",
+    "topic": "POP",
+    "period": period,
+    # empty string = entire population
+    "population": ""
+})
 data = r.json()
 print(data)
 ```
 
-The API URL is set as an environment variable by `Makefile`. Then we make a `GET` request to the endpoint for a specific community area based on its slug name. Then we get the response data as JSON and save the information we want.
+The API URL is set as an environment variable by `Makefile`. Then we make a `GET` request to the data endpoint, using `params` to set the request parameters. Then we get the response data as JSON and save the information we want.
 
-This is the `make` step for extracting the demography data from the Chicago Health Atlas API:
+This is the `make` step for extracting the population dataset from the Chicago Health Atlas API:
 
 ```make
-data/extracted/demography.csv: data/transformed/community_area.csv
-    python3 extract/demography.py \
-        --areas_file="data/transformed/community_area.csv" \
-        --output_file="data/extracted/demography.csv"
+data/extracted/population.csv: data/extracted/population_coverage.csv
+    python3 extract/population.py \
+        --coverage_file="data/extracted/population_coverage.csv" \
+        --output_file="data/extracted/population.csv"
 ```
 
-This is an example of an extract step that depends on another `make` step. In fact, it depends on a transformed dataset.
+This is an example of an extract step that depends on another `make` step. When we request data from the Chicago Health Atlas, we first get the **"coverages"**, a separate API endpoint that tells us what data is available. For more information, check out the step that makes `data/extracted/population_coverage.csv`. That step finds out which time periods and which population segments we can get population data for.
 
 ### C. Extract from a Raw URL
 
@@ -285,7 +291,7 @@ database.db: data/loaded/all_tables.txt
 
 data/loaded/all_tables.txt:
     make data/loaded/community_area.txt
-    make data/loaded/demography.txt
+    make data/loaded/population.txt
     make data/loaded/covid_spread.txt
     make data/loaded/rideshare.txt
     touch "data/loaded/all_tables.txt"
