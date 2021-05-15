@@ -24,7 +24,7 @@ Guides to explain the layout of the codebase and common commands for working wit
 - Week 2
     - Coming soon...
 - Week 3
-    - Coming soon...
+    - [Add a New Question](new_question.md)
 - Week 4
     - Coming soon...
 
@@ -40,6 +40,7 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 #### Frontend
 
+- [Add a New Question](new_question.md)
 - Using React Hooks (Coming Soon)
 - Using Recharts (Coming Soon)
 
@@ -49,8 +50,8 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 #### Pipeline
 
-- [Extract, Transform, and Load (ETL)](etl.md)
 - [Add a New Dataset](new_dataset.md)
+- [Extract, Transform, and Load (ETL)](etl.md)
 - [Makefiles](makefiles.md)
 - [Socrata Query Language (SoQL)](soql.md)
 - [Create SQLite Tables](sqlite.md#create-tables)

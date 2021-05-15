@@ -315,12 +315,13 @@ a.btn {
 /* Questions Page */
 
 .QuestionsSection {
+    display: inline-block;
     margin-bottom: 1em;
 }
 
 .QuestionPreview {
     box-sizing: border-box;
-    margin: 1em 0.5em;
+    margin: 1.5em 0.5em;
     width: 340px;
     display: inline-block;
     vertical-align: top;

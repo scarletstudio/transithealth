@@ -27,8 +27,8 @@ export const questionsParams = {
     title: "Next Row Question",
     author: "Student D",
     component: "nextrow",
-    description: "We have enough to fill another row on some screens."
-  },
+    description: "We have enough to fill another row.",
+  }
 };
 
 export function getAllQuestions() {
