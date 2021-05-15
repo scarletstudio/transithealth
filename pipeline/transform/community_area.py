@@ -14,6 +14,13 @@ cli.add_argument("--neighborhood_file", help="File path to read community area n
 cli.add_argument("--output_file", help="File path to write results to.")
 args = cli.parse_args()
 
+
+def clean_atlas_community_name(s):
+    """
+    Helper method to remove " (Chicago, IL)" from the end of the Health Atlas community area name,
+    as well as remove the apostrophe
+    """
+
 start = timer()
 
 # Get dataset with area geoids
@@ -29,9 +36,11 @@ with open(args.geojson_file) as geojson_file:
     print(f"{len(df_geojson)} community areas in the GeoJSON data.")
 
 # Link by uppercase name
-df_neighborhoods["name"] = df_neighborhoods["name"].apply(lambda s: s.split(" (")[0])
-df_neighborhoods["name_upper"] = df_neighborhoods["name"].apply(lambda s: s.upper())
 df_geojson["name_upper"] = df_geojson["properties"].apply(lambda p: p["community"])
+# Remove " (Chicago, IL)" from the end of the Health Atlas community area name
+df_neighborhoods["name"] = df_neighborhoods["name"].apply(lambda s: s.split(" (")[0])
+# Also remove the apostrophe so that O'Hare can join to the data portal name
+df_neighborhoods["name_upper"] = df_neighborhoods["name"].apply(lambda s: "".join(s.upper().split("'")))
 df_joined = pd.merge(left=df_neighborhoods, right=df_geojson, on="name_upper")
 n_null_cells = df_joined.isnull().sum(axis=0).sum(axis=0)
 print(f"{len(df_joined)} community areas in the joined data, with {n_null_cells} null cells.")

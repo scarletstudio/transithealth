@@ -76,7 +76,8 @@ There are three steps to add a new dataset to our offline pipeline:
 3. Load data into the database
     - Write a SQLite schema for the new table
     - Add the load step to `Makefile`
-    - Run the transform step to check if it worked
+    - Run the load step to check if it worked
+    - Write data quality tests for the real version of the new table
 
 For example, here is how the rideshare dataset fits into the offline pipeline:
 
@@ -313,6 +314,8 @@ This will create both the compressed and non-compressed database.
 
 - You can check if your table was added to the database using [the `sqlite3` CLI](sqlite.md#command-line-interface).
 - You can also use a Jupyter notebook to write SQL queries and inspect the data.
+
+Write data quality tests using `pytest` in the `pipeline/tests/` directory. This directory is specifically for tests that check the real database, while other unit tests under `api/` will only test mock database tables.
 
 When you are happy with the loaded dataset, commit your changes and open a pull request. The database files are not human-readable, so any pull request that changes the compressed database files requires an explanation of what should be happening, for example you might write something like this:
 
