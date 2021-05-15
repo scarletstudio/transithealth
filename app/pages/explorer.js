@@ -25,7 +25,7 @@ export default function Explorer() {
               <p>View data over time, on a weekly basis.</p>
               <br />
               <Link href="/timeline">
-                <a className="btn">Timeline View</a>
+                <a className="btn primary">Timeline View</a>
               </Link>
             </div>
             <div className="column PreviewImage">
@@ -39,7 +39,7 @@ export default function Explorer() {
               <p>Compare different data and community areas.</p>
               <br />
               <Link href="/scatter">
-                <a className="btn">Scatter View</a>
+                <a className="btn primary">Scatter View</a>
               </Link>
             </div>
             <div className="column PreviewImage">

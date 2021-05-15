@@ -199,20 +199,25 @@ select:hover {
 
 .btn {
     box-sizing: border-box;
-    background: var(--color-main);
-    border: 1px solid var(--color-main);
-    color: white;
     padding: 0.5em;
     height: 2em;
     line-height: 0.75em;
     vertical-align: middle;
-
 }
 
 .btn:hover {
-    background: var(--color-highlight);
-    border: 1px solid var(--color-highlight);
     cursor: pointer;
+}
+
+.btn.primary {
+    background: var(--color-main);
+    border: 2px solid var(--color-main);
+    color: white;
+}
+
+.btn.primary:hover {
+    background: var(--color-highlight);
+    border: 2px solid var(--color-highlight);
 }
 
 .btn.secondary {
