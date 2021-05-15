@@ -215,6 +215,18 @@ select:hover {
     cursor: pointer;
 }
 
+.btn.secondary {
+    background: transparent;
+    color: var(--color-main);
+    border: 2px solid var(--color-main);
+}
+
+.btn.secondary:hover {
+    background: var(--color-main);
+    color: white;
+    border: 2px solid var(--color-main);
+}
+
 a.btn {
     margin: 1em;
     text-decoration: none;
@@ -295,3 +307,16 @@ a.btn {
     vertical-align: middle;
 }
 
+/* Questions Page */
+
+.QuestionsSection {
+    margin-bottom: 1em;
+}
+
+.QuestionPreview {
+    box-sizing: border-box;
+    margin: 1em 0.5em;
+    width: 340px;
+    display: inline-block;
+    vertical-align: top;
+}
