@@ -1,12 +1,14 @@
 DROP TABLE IF EXISTS rideshare;
 CREATE TABLE rideshare (
-    ymd TEXT,
-    week TEXT,
-    pickup_community_area INTEGER,
-    dropoff_community_area INTEGER,
-    n_trips INTEGER,
-    n_trips_pooled_authorized INTEGER,
-    n_trips_pooled INTEGER,
-    avg_cost_no_tip_cents INTEGER,
-    std_cost_no_tip_cents INTEGER
+    ymd TEXT NOT NULL,
+    week TEXT NOT NULL,
+    pickup_community_area INTEGER NOT NULL,
+    dropoff_community_area INTEGER NOT NULL,
+    n_trips INTEGER NOT NULL,
+    n_trips_pooled_authorized INTEGER NOT NULL,
+    n_trips_pooled INTEGER NOT NULL,
+    avg_cost_no_tip_cents INTEGER NOT NULL,
+    std_cost_no_tip_cents INTEGER NOT NULL,
+    PRIMARY KEY (ymd, pickup_community_area, dropoff_community_area)
 );
+CREATE INDEX idx_week ON rideshare (week);
