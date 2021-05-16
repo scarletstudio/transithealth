@@ -29,16 +29,12 @@ def make_blueprint(con):
         """
         body = request.get_json()
         metric_list = body["metrics"] if "metrics" in body else []
-        res = {}
-        for area in metric.community_areas():
-            res[area["area_number"]] = area
-        for metric_name in set(metric_list):
-            if metric_name in supported_metrics:
-                metric_fn = supported_metrics[metric_name]
-                for row in metric_fn():
-                    number = row["area_number"]
-                    if number in res:
-                        res[number][metric_name] = row["value"]
-        return jsonify({ "metrics": [ v for v in res.values() ] })
+        metric_fns = {
+            metric_name: supported_metrics[metric_name]
+            for metric_name in metric_list
+            if metric_name in supported_metrics
+        }
+        metrics = metric.merge_metrics(metric_fns)
+        return jsonify({ "metrics": metrics })
 
     return app

@@ -9,6 +9,24 @@ class CommunityMetrics:
     def __init__(self, con):
         self.con = con
 
+    def merge_metrics(self, metric_fns):
+        """
+        Runs all of the provided metric functions and merges the output.
+        Args:
+            metric_fns (dict<str: fn>): map of metric names to metric functions
+        Returns:
+            List of dicts with area information and metrics as keys
+        """
+        res = {}
+        for area in self.community_areas():
+            res[area["area_number"]] = area
+        for metric_name, metric_fn in metric_fns.items():
+            for row in metric_fn():
+                number = row["area_number"]
+                if number in res:
+                    res[number][metric_name] = row["value"]
+        return [ v for v in res.values() ]
+
     def community_areas(self):
         """
         Returns all of the community areas.
