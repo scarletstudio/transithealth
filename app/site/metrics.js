@@ -6,6 +6,8 @@ export const Formatter = {
   numberInMillions: (v) => ( numberEn.format((v / 1000000).toFixed(1)) + "M" ),
   percentWithNoDecimal: (v) => ((v * 100).toFixed(0) + "%"),
   percentWithOneDecimal: (v) => ((v * 100).toFixed(1) + "%"),
+  dollarsUSD: (v) => ("$" + v.toFixed(2)),
+  centsToDollarsUSD: (v) => ("$" + (v / 100).toFixed(2)),
 };
 
 export const communityMetrics = {
@@ -59,6 +61,24 @@ export const weeklyMetrics = {
     units: "trips",
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberWithCommas,
+  },
+  weekly_rideshare_pickups_covid: {
+    name: "Weekly Rideshare Pickups Since March 2020",
+    units: "trips",
+    format: Formatter.numberInThousands,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  weekly_rideshare_avg_cost: {
+    name: "Weekly Rideshare Avg. Cost",
+    units: "USD",
+    format: Formatter.centsToDollarsUSD,
+    fullFormat: Formatter.centsToDollarsUSD,
+  },
+  weekly_rideshare_avg_cost_covid: {
+    name: "Weekly Rideshare Avg. Cost Since March 2020",
+    units: "USD",
+    format: Formatter.centsToDollarsUSD,
+    fullFormat: Formatter.centsToDollarsUSD,
   },
   weekly_covid_cases: {
     name: "Weekly COVID Cases",
