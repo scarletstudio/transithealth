@@ -129,6 +129,13 @@ data/extracted/population_coverage.csv:
 		--create-dirs -o "data/extracted/population_coverage.csv" \
 		-d layers="neighborhood"
 
+# TODO: Create target for generating income coverage
+data/extacted/income_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/INC" \
+		--create-dirs -o "data/extracted/income_coverage.csv" \
+		-d layers="neighborhood"
+
 data/extracted/covid_spread.csv:
 	python3 extract/from_data_portal.py \
 		--json_url="$(PORTAL_COVID_SPREAD)" \
