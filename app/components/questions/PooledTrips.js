@@ -117,6 +117,11 @@ export default function PooledTrips() {
         <p>This chart shows the percentage of all rides in 2019 that were pooled, by community area where the rider was picked up.</p>
       </div>
       <QuestionBarChart />
+      <div className="center medium-width">
+        <h2>Coming Soon...</h2>
+        <p>How have rideshare costs changed without pooled trips?</p>
+        <p>How does pooled trip rate relate to COVID community vulnerability factors?</p>
+      </div>
     </div>
   )
 };
