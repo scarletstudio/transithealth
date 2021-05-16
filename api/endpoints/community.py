@@ -13,6 +13,8 @@ def make_blueprint(con):
 
     supported_metrics = {
         "rideshare_pickups_covid": metric.rideshare_total_pickups,
+        "rideshare_pooled_trip_rate_2018": lambda: metric.rideshare_pooled_trip_rate(year=2018),
+        "rideshare_pooled_trip_rate_2019": lambda: metric.rideshare_pooled_trip_rate(year=2019),
         "total_population_2000": lambda: metric.population(year=2000, segment="all"),
         "total_population_2010": lambda: metric.population(year=2010, segment="all"),
         "total_population_2019": lambda: metric.population(year=2019, segment="all"),

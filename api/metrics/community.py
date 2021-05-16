@@ -41,6 +41,23 @@ class CommunityMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+
+    def rideshare_pooled_trip_rate(self, year):
+        """
+        Returns the fraction of rideshare trips that were pooled, by community area, in the given year.
+        """
+        query = """
+        SELECT
+            pickup_community_area as area_number,
+            CAST(sum(n_trips_pooled) as REAL) / CAST(sum(n_trips) as REAL) as value
+        FROM rideshare
+        WHERE strftime('%Y', ymd) == '{year}'
+        GROUP BY area_number
+        """.format(year=year)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
     
     def population(self, year, segment):
         """

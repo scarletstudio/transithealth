@@ -4,6 +4,8 @@ export const Formatter = {
   numberWithCommas: (v) => ( numberEn.format(v) ),
   numberInThousands: (v) => ( numberEn.format((v / 1000).toFixed(1)) + "K" ),
   numberInMillions: (v) => ( numberEn.format((v / 1000000).toFixed(1)) + "M" ),
+  percentWithNoDecimal: (v) => ((v * 100).toFixed(0) + "%"),
+  percentWithOneDecimal: (v) => ((v * 100).toFixed(1) + "%"),
 };
 
 export const communityMetrics = {
@@ -12,6 +14,18 @@ export const communityMetrics = {
     units: "trips",
     format: Formatter.numberInMillions,
     fullFormat: Formatter.numberWithCommas,
+  },
+  rideshare_pooled_trip_rate_2018: {
+    name: "2018 Rideshare Pooled Trip Rate",
+    units: "of trips",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  rideshare_pooled_trip_rate_2019: {
+    name: "2019 Rideshare Pooled Trip Rate",
+    units: "of trips",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
   },
   total_population_2000: {
     name: "2000 Total Population",
