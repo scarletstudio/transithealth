@@ -28,3 +28,15 @@ def test_population():
     years_2010_to_2019 = list(range(2010, 2020, 1))
     test.assert_distinct_values("population", "period_end_year", years_2010_to_2019)
     test.assert_distinct_values("population", "segment", ["all"])
+
+def test_rideshare_pooled_trips():
+    cur = con.cursor()
+    query = """
+        SELECT count(1) as count
+        FROM rideshare
+        WHERE n_trips_pooled > n_trips
+    """
+    cur.execute(query)
+    count = cur.fetchone()[0]
+    msg = "Table `rideshare` should have no records with more pooled trips than total trips."
+    assert count == 0, msg

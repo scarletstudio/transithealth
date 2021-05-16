@@ -4,5 +4,6 @@ CREATE TABLE rideshare (
     week TEXT,
     pickup_community_area INTEGER,
     dropoff_community_area INTEGER,
-    n_trips INTEGER
+    n_trips INTEGER,
+    n_trips_pooled INTEGER
 );
