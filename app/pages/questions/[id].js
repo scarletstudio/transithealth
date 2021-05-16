@@ -31,11 +31,14 @@ export default function Question(props) {
       <Nav />
       <main className="QuestionLayout">
         <div className="page">
-          <div className="center">
+          <div className="center medium-width">
             <h1>{props.title}</h1>
             <p>By {props.author}</p>
-            <BodyComponent />
+            <p>{props.description}</p>
+            <hr />
           </div>
+          <BodyComponent />
+          <br />
         </div>
       </main>
     </div>
