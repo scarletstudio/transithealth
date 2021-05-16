@@ -13,4 +13,8 @@ def make_blueprint(con):
     def hello():
         return jsonify({ "message": "Welcome to questions!" })
 
+    @app.route("/question/shared-trips")
+    def shared_trips():
+        return jsonify({ "message": "Welcome to questions!" })
+
     return app
