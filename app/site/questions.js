@@ -20,13 +20,13 @@ export const questionsParams = {
   evenmore: {
     title: "Even More Questions",
     author: "Student C",
-    component: "evenmore",
+    component: "sample",
     description: "Even more questions!"
   },
   nextrow: {
     title: "Next Row Question",
     author: "Student D",
-    component: "nextrow",
+    component: "sample",
     description: "We have enough to fill another row.",
   }
 };
