@@ -22,7 +22,7 @@ def test_table_counts():
     test.assert_table_count("community_area", 77)
     test.assert_table_count("population", 770)
     test.assert_table_count("covid_spread", 13375)
-    test.assert_table_count("rideshare", 3693108)
+    test.assert_table_count("rideshare", 3692997)
 
 def test_population():
     years_2010_to_2019 = list(range(2010, 2020, 1))
@@ -34,7 +34,9 @@ def test_rideshare_pooled_trips():
     query = """
         SELECT count(1) as count
         FROM rideshare
-        WHERE n_trips_pooled > n_trips
+        WHERE
+            n_trips < n_trips_pooled_authorized
+            OR n_trips_pooled_authorized < n_trips_pooled
     """
     cur.execute(query)
     count = cur.fetchone()[0]
