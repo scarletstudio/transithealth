@@ -3,7 +3,7 @@ const numberEn = Intl.NumberFormat("en-US");
 export const Formatter = {
   numberWithCommas: (v) => ( numberEn.format(v) ),
   numberInThousands: (v) => ( numberEn.format((v / 1000).toFixed(1)) + "K" ),
-  numberInMillions: (v) => ( numberEn.format((v / 1000000).toFixed(1)) + "M" ),
+  numberInMillions: (v) => ( numberEn.format((v / 1000000).toFixed(1)) + "M" )
 };
 
 export const communityMetrics = {
@@ -30,6 +30,18 @@ export const communityMetrics = {
     units: "people",
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberWithCommas,
+  },
+  median_income_2010: {
+    name: "2010 Median Income",
+    units: "dollars",
+    format: (val) => `$${Formatter.numberWithCommas(val)}`,
+    fullFormat: (val) => `$${Formatter.numberWithCommas(val)}`,
+  },
+  median_income_2019: {
+    name: "2019 Median Income",
+    units: "dollars",
+    format: (val) => `$${Formatter.numberWithCommas(val)}`,
+    fullFormat: (val) => `$${Formatter.numberWithCommas(val)}`,
   },
   total_covid_cases: {
     name: "Total COVID Cases",
