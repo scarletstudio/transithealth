@@ -71,7 +71,7 @@ class CommunityMetrics:
         query = """
         SELECT
             area_number,
-            ROUND(value, 2) AS value
+            CAST(value AS INTEGER) AS value
         FROM income
         WHERE period_end_year == {year}
         """.format(year=year)
