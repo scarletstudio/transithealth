@@ -32,5 +32,5 @@ def test_population():
 
 def test_income():
     years_2010_to_2019 = list(range(2010, 2020, 1))
-    test.assert_distinct_values("population", "period_end_year", years_2010_to_2019)
-    test.assert_distinct_values("population", "segment", ["all"])
+    test.assert_distinct_values("income", "period_end_year", years_2010_to_2019)
+    test.assert_distinct_values("income", "segment", ["all"])
