@@ -7,6 +7,12 @@ on:
       - requirements.txt
       - pytest.ini
       - '*.py'
+  pull_request:
+    paths:
+      - .github/workflows/test.yaml
+      - requirements.txt
+      - pytest.ini
+      - '*.py'
 
 jobs:
   test-pytest:
