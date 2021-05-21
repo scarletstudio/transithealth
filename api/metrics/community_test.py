@@ -27,12 +27,8 @@ def test_population():
         }
     ]
     con, cur = create_test_db(
-        scripts=[
-            "./pipeline/load/population.sql"
-        ],
-        tables={
-            "population": population_table
-        }
+        scripts=[ "./pipeline/load/population.sql" ],
+        tables={ "population": population_table }
     )
 
     metric = CommunityMetrics(con)
@@ -76,17 +72,88 @@ def test_income():
         tables={
             "income": income_table
         }
+def test_pooled_trips():
+    rideshare_table = [
+        {
+            "pickup_community_area": 1,
+            "ymd": "2018-04-21",
+            "n_trips_pooled": 200,
+            "n_trips": 500
+        },
+        {
+            "pickup_community_area": 1,
+            "ymd": "2019-08-04",
+            "n_trips_pooled": 200,
+            "n_trips": 500
+        },
+        {
+            "pickup_community_area": 2,
+            "ymd": "2019-08-04",
+            "n_trips_pooled": 700,
+            "n_trips": 1000
+        },
+        {
+            "pickup_community_area": 1,
+            "ymd": "2019-08-04",
+            "n_trips_pooled": 400,
+            "n_trips": 500
+        }
+    ]
+    con, cur = create_test_db(
+        scripts=[ "./pipeline/load/rideshare.sql" ],
+        tables={ "rideshare": rideshare_table }
     )
 
     metric = CommunityMetrics(con)
 
-    assert metric.income(year=2019, segment="all") == [
-        { "area_number": 1, "value": 13000 },
-        { "area_number": 2, "value": 27000 }
-    ], "Should have two results for 2019."
+    assert metric.rideshare_pooled_trip_rate(year=2019) == [
+        { "area_number": 1, "value": 0.6 },
+        { "area_number": 2, "value": 0.7 }
+    ], "Should calculate pooled trip rate for two areas."
 
-    assert metric.income(year=2010, segment="all") == [
-        { "area_number": 1, "value": 10000 }
-    ], "Should have one result for 2010."
+    assert metric.rideshare_pooled_trip_rate(year=2018) == [
+        { "area_number": 1, "value": 0.4 }
+    ], "Should calculate pooled trip rate for separate years."
 
-    assert metric.income(year=2013, segment="all") == [], "Should have no results for 2013."
+def test_pool_requests():
+    rideshare_table = [
+        {
+            "pickup_community_area": 1,
+            "ymd": "2018-04-21",
+            "n_trips_pooled_authorized": 200,
+            "n_trips": 500
+        },
+        {
+            "pickup_community_area": 1,
+            "ymd": "2019-08-04",
+            "n_trips_pooled_authorized": 200,
+            "n_trips": 500
+        },
+        {
+            "pickup_community_area": 2,
+            "ymd": "2019-08-04",
+            "n_trips_pooled_authorized": 700,
+            "n_trips": 1000
+        },
+        {
+            "pickup_community_area": 1,
+            "ymd": "2019-08-04",
+            "n_trips_pooled_authorized": 400,
+            "n_trips": 500
+        }
+    ]
+    con, cur = create_test_db(
+        scripts=[ "./pipeline/load/rideshare.sql" ],
+        tables={ "rideshare": rideshare_table }
+    )
+
+    metric = CommunityMetrics(con)
+
+    assert metric.rideshare_pool_request_rate(year=2019) == [
+        { "area_number": 1, "value": 0.6 },
+        { "area_number": 2, "value": 0.7 }
+    ], "Should calculate pool request rate for two areas."
+
+    assert metric.rideshare_pool_request_rate(year=2018) == [
+        { "area_number": 1, "value": 0.4 }
+    ], "Should calculate pool request rate for separate years."

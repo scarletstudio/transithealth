@@ -275,16 +275,12 @@ cp "notebooks/example/Example Notebook.ipynb" "notebooks/YOUR_HAWK_USERNAME/My E
 You can start the Jupyter notebook server from the project root directory.
 
 ```bash
-juypter notebook
-```
-
-If that command does not work, try this one:
-
-```bash
 python3 -m notebook
 ```
 
 This will open a page in your browser with all the folders in our project. Click on the `notebooks/` folder and then open your folder. Click on your example notebook to launch it.
+
+Using this command also ensures that the notebook server launches with our Python virtual environment, so you can use any module we have installed.
 
 Run through the commands in the sample notebook. Click `Shift + Enter` to execute a cell. You can also do this step later.
 

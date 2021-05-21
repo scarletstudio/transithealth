@@ -9,20 +9,44 @@ class WeeklyMetrics:
     def __init__(self, con):
         self.con = con
 
-    def rideshare_pickups(self):
+    def rideshare_pickups(self, since):
         """
-        Returns the number of rideshare pickups per week, since March 2020.
+        Returns the number of rideshare pickups per week, since the given date
+        Args:
+            since (str): date string to use as the start of the time period
         """
         query = """
         SELECT
             week,
             SUM(n_trips) as value
         FROM rideshare
-        WHERE ymd >= "2020-03-02"
+        WHERE ymd >= ?
         GROUP BY week
         """
         cur = self.con.cursor()
-        cur.execute(query)
+        cur.execute(query, (since,))
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
+    def rideshare_avg_cost_cents(self, since):
+        """
+        Returns the average cost in cents of rideshare trips per week, since the given date.
+        Args:
+            since (str): date string to use as the start of the time period
+        """
+        query = """
+        SELECT
+            week,
+            CAST(
+                SUM(n_trips * avg_cost_no_tip_cents)
+                / SUM(n_trips)
+                as INTEGER) as value
+        FROM rideshare
+        WHERE ymd >= ?
+        GROUP BY week
+        """
+        cur = self.con.cursor()
+        cur.execute(query, (since,))
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
 

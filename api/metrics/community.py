@@ -9,6 +9,24 @@ class CommunityMetrics:
     def __init__(self, con):
         self.con = con
 
+    def merge_metrics(self, metric_fns):
+        """
+        Runs all of the provided metric functions and merges the output.
+        Args:
+            metric_fns (dict<str: fn>): map of metric names to metric functions
+        Returns:
+            List of dicts with area information and metrics as keys
+        """
+        res = {}
+        for area in self.community_areas():
+            res[area["area_number"]] = area
+        for metric_name, metric_fn in metric_fns.items():
+            for row in metric_fn():
+                number = row["area_number"]
+                if number in res:
+                    res[number][metric_name] = row["value"]
+        return [ v for v in res.values() ]
+
     def community_areas(self):
         """
         Returns all of the community areas.
@@ -37,6 +55,40 @@ class CommunityMetrics:
         WHERE ymd >= "2020-03-01"
         GROUP BY area_number
         """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
+    def rideshare_pooled_trip_rate(self, year):
+        """
+        Returns the fraction of rideshare trips that were pooled, by community area, in the given year.
+        """
+        query = """
+        SELECT
+            pickup_community_area as area_number,
+            CAST(sum(n_trips_pooled) as REAL) / CAST(sum(n_trips) as REAL) as value
+        FROM rideshare
+        WHERE strftime('%Y', ymd) == '{year}'
+        GROUP BY area_number
+        """.format(year=year)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
+    def rideshare_pool_request_rate(self, year):
+        """
+        Returns the fraction of rideshare trips where a pool was requested, by community area, in the given year.
+        """
+        query = """
+        SELECT
+            pickup_community_area as area_number,
+            CAST(sum(n_trips_pooled_authorized) as REAL) / CAST(sum(n_trips) as REAL) as value
+        FROM rideshare
+        WHERE strftime('%Y', ymd) == '{year}'
+        GROUP BY area_number
+        """.format(year=year)
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())

@@ -1,9 +1,7 @@
 name: Build Site
 
 on:
-  push:
-    branches-ignore:
-      - main
+  pull_request:
     paths:
       - .github/workflows/build.yaml
       - app/**

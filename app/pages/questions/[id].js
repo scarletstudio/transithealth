@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Nav from '../../components/Nav'
+import { useState } from 'react'
 import {
   questionComponents,
   questionsParams,
@@ -19,6 +20,7 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Question(props) {
+  const [ isLoading, setIsLoading ] = useState(true);
   const BodyComponent = questionComponents[props.component];
   return (
     <div>
@@ -31,11 +33,19 @@ export default function Question(props) {
       <Nav />
       <main className="QuestionLayout">
         <div className="page">
-          <div className="center">
+          <div className="center medium-width">
             <h1>{props.title}</h1>
             <p>By {props.author}</p>
-            <BodyComponent />
+            <p>{props.description}</p>
+            <hr />
           </div>
+          <div className={isLoading ? "block" : "hidden"}>
+            <p className="center">Loading...</p>
+          </div>
+          <div className={isLoading ? "hidden" : "block"}>
+            <BodyComponent setContentIsLoading={setIsLoading} />
+          </div>
+          <br />
         </div>
       </main>
     </div>
