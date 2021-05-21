@@ -1,10 +1,14 @@
 import { useState, useEffect } from 'react'
 
 function Cell({ data: d, col: c }) {
-  const value = c.format ? c.format(d[c.key]): d[c.key];
+  const v = d[c.key];
+  const value = c.format ? c.format(v): v;
   const classes = c.rowClasses ? "Cell " + c.rowClasses.join(" ") : "Cell";
+  const style = {
+    background: c.rgb ? (c.alpha ? `rgba(${c.rgb}, ${c.alpha(v)})`: `rgb(${c.rgb})`): "transparent",
+  };
   return (
-    <td className={classes}>{value}</td>
+    <td className={classes} style={style}>{value}</td>
   );
 }
 

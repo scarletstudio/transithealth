@@ -30,6 +30,8 @@ const CITY_PART_COLOR = {
   "Southwest Side": "#AA4499",
   "West Side": "#882255",
 };
+const MIN_PCT_CHANGE_TRIPS = -0.8;
+const MAX_PCT_CHANGE_COST = 0.3;
 const RIDESHARE_COLS = [
   {
     key: "name",
@@ -68,6 +70,8 @@ const RIDESHARE_COLS = [
     name: "Change",
     format: Formatter.percentChangeWithNoDecimal,
     rowClasses: ["right"],
+    rgb: "136, 34, 85",
+    alpha: (v) => (v / MIN_PCT_CHANGE_TRIPS),
   },
   {
     key: "avg_cost_per_trip_cents_before",
@@ -89,6 +93,8 @@ const RIDESHARE_COLS = [
     name: "Change",
     format: Formatter.percentChangeWithNoDecimal,
     rowClasses: ["right"],
+    rgb: "17, 119, 51",
+    alpha: (v) => (v / MAX_PCT_CHANGE_COST),
   },
 ];
 
