@@ -6,5 +6,6 @@ CREATE TABLE income (
     std_error REAL,
     period_start_year INTEGER,
     period_end_year INTEGER,
-    period TEXT  
+    period TEXT,
+    PRIMARY KEY(area_number)
 );
