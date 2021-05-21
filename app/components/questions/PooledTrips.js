@@ -186,7 +186,6 @@ export default function PooledTrips(props) {
       const metrics = augmentMetrics(rawMetrics);
       const pooledTripRateData = getPooledTripsRateByArea(metrics);
       if (isSubscribed) {
-        console.log(metrics);
         props.setContentIsLoading(false);
         setData(metrics);
         setPooledTripRate(pooledTripRateData);

@@ -22,7 +22,7 @@ function Row({ data, cols }) {
   );
 }
 
-function Header({ cols }) {
+function Header({ cols, sortCol, sortAsc, sortByCol }) {
   const hasGroups = cols.reduce((agg, c) => (agg || c.group), false);
   const colSpan = cols
     .filter(c => c.group)
@@ -47,21 +47,74 @@ function Header({ cols }) {
       {groupHeader}
       <tr>{cols.map((c, i) => {
         return (
-          <th key={i}>{c.name}</th>
+          <th
+            key={i}
+            className={sortCol === c.key ? "Sorted" : ""}
+            onClick={(e) => {
+              sortByCol(c.key);
+            }}
+          >
+            <span>{c.name}</span>
+            <span className="SortArrow">{sortAsc ? "▼" : "▲"}</span>
+          </th>
         );
       })}</tr>
     </thead>
   );
 }
 
-export function Table({ cols, rows }) {
+export function Table(props) {
+  const rows = [ ...props.rows ];
+  const [ sortCol, setSortCol ] = useState(null);
+  const [ sortAsc, setSortAsc ] = useState(false);
+  const [ countSorted, setCountSorted ] = useState(0);
+
+  function sortByCol(key) {
+    if (key == sortCol) {
+      if (countSorted >= 2) {
+        setSortCol(null);
+        setSortAsc(false);
+        setCountSorted(0);
+      } else {
+        setSortAsc(!sortAsc);
+        setCountSorted(countSorted + 1);
+      }
+    } else {
+      setSortCol(key);
+      setSortAsc(false);
+      setCountSorted(1);
+    }
+  }
+
+  let displayRows = sortCol !== null
+    ? rows.sort((a, b) => {
+        const av = a[sortCol];
+        const bv = b[sortCol];
+        if (av.localeCompare && bv.localeCompare) {
+          if (sortAsc) {
+            return av.localeCompare(bv);
+          }
+          return bv.localeCompare(av);
+        }
+        if (sortAsc) {
+          return av - bv;
+        }
+        return bv - av;
+      })
+    : [ ...rows ];
+
   return (
     <div className="TableContainer">
       <table>
-        <Header cols={cols} />
-        <tbody>{rows.map((data, i) => {
+        <Header
+          cols={props.cols}
+          sortCol={sortCol}
+          sortAsc={sortAsc}
+          sortByCol={sortByCol}
+        />
+        <tbody>{displayRows.map((data, i) => {
           return (
-            <Row key={i} data={data} cols={cols} /> 
+            <Row key={i} data={data} cols={props.cols} /> 
           );
         })}</tbody>
       </table>

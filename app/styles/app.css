@@ -366,6 +366,15 @@ a.btn {
     text-align: right;
 }
 
+.TableContainer .SortArrow {
+    display: none;
+    margin-left: 0.5em;
+}
+
+.TableContainer .Sorted .SortArrow {
+    display: inline;
+}
+
 /* Questions Page */
 
 .QuestionsSection {
