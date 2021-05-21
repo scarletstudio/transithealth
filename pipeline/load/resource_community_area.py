@@ -48,4 +48,5 @@ with open(args.output_file, "w") as output_file:
 # Show summary
 end = timer()
 secs = end - start
-print(f"Exported {len(community_areas)} records in {secs:.1f} secs.")
+n_areas = len(community_areas["features"])
+print(f"Exported {n_areas} records in {secs:.1f} secs.")

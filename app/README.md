@@ -11,13 +11,14 @@ Static React app for the frontend.
 app
 ├── build/              (Ignore, not committed) Files produced to help with build process.
 ├── components/         React components to be reused throughout the app.
+|   └── questions/      React components for data vignettes in the questions pages.
 ├── node_modules/       (Ignore, not committed) Dependencies for frontend.
 ├── pages/              React components to be used as layouts for main pages.
 ├── public/             Public files served from the website root directory.
 |   ├── resources/      Files and data that does not need to be served by the API.
 |   ├── images/         Images to host on the site.
 |   └── mock/           Data representing mock API responses.
-├── site/               Data or functions to access site-wide, such as metrics metadata.
+├── site/               Data or functions to access site-wide, such as metrics and questions metadata.
 ├── styles/             CSS stylesheets.
 ├── transithealth/      (Ignore, not committed) Built version of the app to deploy.
 ├── .env.local          Stores variables to access site-wide or configure the app.

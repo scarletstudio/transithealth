@@ -21,10 +21,12 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 - Week 1
     - [Add a New Dataset](new_dataset.md)
+    - [Add a New Endpoint](new_dataset.md)
+    - [Testing](testing.md)
 - Week 2
-    - Coming soon...
+    - [Exploratory Data Analysis](eda.md)
 - Week 3
-    - Coming soon...
+    - [Add a New Question](new_question.md)
 - Week 4
     - Coming soon...
 
@@ -34,23 +36,27 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 - [Using Git](git.md)
 - [Merge Conflicts](merge_conflicts.md)
-- Testing (Coming Soon)
+- [Testing](testing.md)
+- [Exploratory Data Analysis](eda.md)
 
 ### Project-Specific Topics
 
 #### Frontend
 
-- Using React Hooks (Coming Soon)
-- Using Recharts (Coming Soon)
+- [Add a New Question](new_question.md)
+- [React](react.md)
+- [Recharts](recharts.md)
 
 #### Backend
 
+- [Add a New Endpoint](new_endpoint.md)
+- [Flask](flask.md)
 - [Write SQL Queries (Coming Soon)](sqlite.md#write-queries)
 
 #### Pipeline
 
-- [Extract, Transform, and Load (ETL)](etl.md)
 - [Add a New Dataset](new_dataset.md)
+- [Extract, Transform, and Load (ETL)](etl.md)
 - [Makefiles](makefiles.md)
 - [Socrata Query Language (SoQL)](soql.md)
 - [Create SQLite Tables](sqlite.md#create-tables)
