@@ -49,10 +49,10 @@ class PooledTripMetrics:
                 / (JULIANDAY(?) - JULIANDAY(?))
                 as INTEGER) as value
         FROM rideshare
-        WHERE ymd >= ? AND ymd < ?
+        WHERE ymd < ? AND ymd >= ?
         GROUP BY area_number
         """
         cur = self.con.cursor()
-        cur.execute(query, (end, start, start, end))
+        cur.execute(query, (end, start, end, start))
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
