@@ -72,6 +72,21 @@ def test_income():
         tables={
             "income": income_table
         }
+    )
+
+    metric = CommunityMetrics(con)
+
+    assert metric.income(year=2019, segment="all") == [
+        { "area_number": 1, "value": 13000 },
+        { "area_number": 2, "value": 27000 }
+    ], "Should have two results for 2019."
+
+    assert metric.income(year=2010, segment="all") == [
+        { "area_number": 1, "value": 10000 }
+    ], "Should have one result for 2010."
+
+    assert metric.income(year=2013, segment="all") == [], "Should have no results for 2013."
+
 def test_pooled_trips():
     rideshare_table = [
         {
