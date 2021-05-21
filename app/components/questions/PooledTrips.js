@@ -98,7 +98,7 @@ const RIDESHARE_COLS = [
   },
 ];
 
-async function fetchData() {
+async function fetchAllData() {
   const req = await fetch(`${process.env.NEXT_PUBLIC_API}/question/pooled_trips`);
   const res = await req.json();
   return res.metrics;
@@ -182,7 +182,7 @@ export default function PooledTrips(props) {
 
     async function getData() {
       props.setContentIsLoading(true);
-      const rawMetrics = await fetchData();
+      const rawMetrics = await fetchAllData();
       const metrics = augmentMetrics(rawMetrics);
       const pooledTripRateData = getPooledTripsRateByArea(metrics);
       if (isSubscribed) {

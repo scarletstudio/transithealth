@@ -356,14 +356,32 @@ a.btn {
 
 .TableContainer th {
     font-weight: bold;
-}
-
-.TableContainer .GroupHeader {
-    text-align: center;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .TableContainer .Cell.right {
     text-align: right;
+}
+
+.TableContainer .GroupHeader {
+    text-align: center;
+    border: none;
+}
+
+.TableContainer tbody tr {
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.TableContainer tbody tr:hover{
+    border: 1px solid black;
+}
+
+.TableContainer tbody tr:hover td {
+    cursor: pointer;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
 }
 
 .TableContainer .SortArrow {
