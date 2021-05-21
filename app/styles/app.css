@@ -45,17 +45,20 @@ html {
 
 p {
     font-size: 1em;
+    line-height: 1.35em;
     margin: var(--font-size);
 }
 
 h1, h2, h3, h4 {
     font-family: 'Noto Serif SC', serif;
     font-weight: bold;
+    line-height: 1.25em;
     margin: var(--font-size);
 }
 
 h3, h4 {
     font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.25em;
 }
 
 h1 {
@@ -100,6 +103,24 @@ nav a:hover {
     color: var(--color-main);
 }
 
+/* Display */
+
+.hidden {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.inline {
+    display: inline;
+}
+
 /* Page Layout */
 
 .page {
@@ -134,6 +155,11 @@ nav a:hover {
         width: 100% !important;
     }
 
+}
+
+.medium-width {
+    margin: 0 auto;
+    max-width: 650px;
 }
 
 /* Data Explorer Previews */
@@ -312,11 +338,67 @@ a.btn {
     vertical-align: middle;
 }
 
+/* Tables */
+
+.TableContainer {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.TableContainer table {
+    margin: 0 auto;
+}
+
+.TableContainer th, .TableContainer td {
+    padding: 0.5em;
+    text-align: left;
+}
+
+.TableContainer th {
+    font-weight: bold;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.TableContainer .Cell.right {
+    text-align: right;
+}
+
+.TableContainer .GroupHeader {
+    text-align: center;
+    border: none;
+}
+
+.TableContainer tbody tr {
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+.TableContainer tbody tr:hover{
+    border: 1px solid black;
+}
+
+.TableContainer tbody tr:hover td {
+    cursor: pointer;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.TableContainer .SortArrow {
+    display: none;
+    margin-left: 0.5em;
+}
+
+.TableContainer .Sorted .SortArrow {
+    display: inline;
+}
+
 /* Questions Page */
 
 .QuestionsSection {
     display: inline-block;
     margin-bottom: 1em;
+    text-align: center;
 }
 
 .QuestionPreview {
@@ -325,4 +407,19 @@ a.btn {
     width: 340px;
     display: inline-block;
     vertical-align: top;
+    text-align: left;
+}
+
+.QuestionLayout hr {
+    display: inline-block;
+    width: 50%;
+    border-top: 1px dashed var(--color-light-gray);
+    margin: 1em;
+    
+}
+
+/* Specific Question Pages */
+
+.QuestionPooledTrips .recharts-legend-item {
+    line-height: 1.5em;
 }

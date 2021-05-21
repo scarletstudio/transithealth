@@ -3,7 +3,7 @@
 COMMUNITY_AREAS_GEOJSON_URL := https://data.cityofchicago.org/api/geospatial/cauq-8yn6?method=export&format=GeoJSON
 ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7sDlpZmCvymCg0mcd_bDBj-tn8oorsOmuo8odZI/export?format=csv&gid=0
 
-PORTAL_RIDESHARES := https://data.cityofchicago.org/resource/m6dm-c72p.json
+PORTAL_RIDESHARE_TRIPS := https://data.cityofchicago.org/resource/m6dm-c72p.json
 PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 
 # Environment Variables
@@ -137,7 +137,7 @@ data/extracted/covid_spread.csv:
 
 data/extracted/daily_rideshare.csv:
 	python3 extract/from_data_portal.py \
-		--json_url="$(PORTAL_RIDESHARES)" \
+		--json_url="$(PORTAL_RIDESHARE_TRIPS)" \
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
 
