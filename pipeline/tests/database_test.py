@@ -21,7 +21,8 @@ Test Cases
 def test_table_counts():
     test.assert_table_count("community_area", 77)
     test.assert_table_count("population", 770)
-    test.assert_table_count("covid_spread", 13375)
+    test.assert_table_count("income", 770)
+    test.assert_table_count("covid_spread", 13598)
     test.assert_table_count("rideshare", 3692997)
 
 def test_population():
@@ -29,6 +30,11 @@ def test_population():
     test.assert_distinct_values("population", "period_end_year", years_2010_to_2019)
     test.assert_distinct_values("population", "segment", ["all"])
 
+def test_income():
+    years_2010_to_2019 = list(range(2010, 2020, 1))
+    test.assert_distinct_values("income", "period_end_year", years_2010_to_2019)
+    test.assert_distinct_values("income", "segment", ["all"])
+    
 def test_rideshare_pooled_trips():
     cur = con.cursor()
     query = """

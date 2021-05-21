@@ -40,6 +40,7 @@ database.db: data/loaded/all_tables.txt
 data/loaded/all_tables.txt:
 	make data/loaded/community_area.txt
 	make data/loaded/population.txt
+	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
 	touch "data/loaded/all_tables.txt"
@@ -57,6 +58,13 @@ data/loaded/population.txt: data/transformed/population.csv
 		--input_file="data/transformed/population.csv" \
 		--create_sql="load/population.sql" \
 		--table_name="population"
+
+data/loaded/income.txt: data/transformed/income.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/income.csv" \
+		--create_sql="load/income.sql" \
+		--table_name="income"
 
 data/loaded/covid_spread.txt: data/transformed/covid_spread.csv
 	python3 load/create_table.py \
@@ -89,6 +97,11 @@ data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
 		--input_file="data/extracted/population.csv" \
 		--output_file="data/transformed/population.csv"
+
+data/transformed/income.csv: data/extracted/income.csv
+	python3 transform/income.py \
+		--input_file="data/extracted/income.csv" \
+		--output_file="data/transformed/income.csv"
 
 data/transformed/covid_spread.csv: data/extracted/covid_spread.csv data/transformed/zip_code_to_community_area.csv
 	python3 transform/covid_spread.py \
@@ -127,6 +140,17 @@ data/extracted/population_coverage.csv:
 	# -G tells curl to use each -d option as query parameters instead of body parameters
 	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/POP" \
 		--create-dirs -o "data/extracted/population_coverage.csv" \
+		-d layers="neighborhood"
+
+data/extracted/income.csv: data/extacted/income_coverage.csv
+	python3 extract/income.py \
+		--coverage_file="data/extracted/income_coverage.csv" \
+		--output_file="data/extracted/income.csv"
+
+data/extacted/income_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/INC" \
+		--create-dirs -o "data/extracted/income_coverage.csv" \
 		-d layers="neighborhood"
 
 data/extracted/covid_spread.csv:

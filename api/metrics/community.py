@@ -113,6 +113,25 @@ class CommunityMetrics:
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
 
+    def income(self, year, segment):
+        """
+        Returns the rounded income value for each community area.
+        Args:
+            year (int): period ending year to filter by
+            segment (str): population segment to filter by
+        """
+        query = """
+        SELECT
+            area_number,
+            CAST(value AS INTEGER) AS value
+        FROM income
+        WHERE period_end_year == {year}
+        """.format(year=year)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
     def covid_spread_sum_by_area(self, column_name):
         """
         Returns the sum of `column_name` from the COVID spread table for each community area.

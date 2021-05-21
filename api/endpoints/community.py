@@ -20,6 +20,8 @@ def make_blueprint(con):
         "total_population_2000": lambda: metric.population(year=2000, segment="all"),
         "total_population_2010": lambda: metric.population(year=2010, segment="all"),
         "total_population_2019": lambda: metric.population(year=2019, segment="all"),
+        "median_income_2010": lambda: metric.income(year=2010, segment="all"),
+        "median_income_2019": lambda: metric.income(year=2019, segment="all"),
         "total_covid_cases": lambda: metric.covid_spread_sum_by_area("cases_weekly")
     }
 
