@@ -68,14 +68,14 @@ export const communityMetrics = {
   median_income_2010: {
     name: "2010 Median Income",
     units: "dollars",
-    format: (val) => `$${Formatter.numberInThousands(val)}`,
-    fullFormat: (val) => `$${Formatter.numberWithCommas(val)}`,
+    format: Formatter.dollarsUSD,
+    fullFormat: Formatter.dollarsUSD,
   },
   median_income_2019: {
     name: "2019 Median Income",
     units: "dollars",
-    format: (val) => `$${Formatter.numberInThousands(val)}`,
-    fullFormat: (val) => `$${Formatter.numberWithCommas(val)}`,
+    format: Formatter.dollarsUSD,
+    fullFormat: Formatter.dollarsUSD,
   },
   total_covid_cases: {
     name: "Total COVID Cases",
