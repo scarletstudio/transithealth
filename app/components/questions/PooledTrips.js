@@ -167,7 +167,7 @@ function QuestionBarChart({ data }) {
   )
 }
 
-export default function PooledTrips() {
+export default function PooledTrips(props) {
   const [ data, setData ] = useState([]);
   const [ pooledTripRate, setPooledTripRate ] = useState([]);
 
@@ -175,10 +175,13 @@ export default function PooledTrips() {
     let isSubscribed = true;
 
     async function getData() {
+      props.setContentIsLoading(true);
       const rawMetrics = await fetchData();
       const metrics = augmentMetrics(rawMetrics);
       const pooledTripRateData = getPooledTripsRateByArea(metrics);
       if (isSubscribed) {
+        console.log(metrics);
+        props.setContentIsLoading(false);
         setData(metrics);
         setPooledTripRate(pooledTripRateData);
       }    
@@ -194,25 +197,25 @@ export default function PooledTrips() {
   const highestByPooledRate = sortedByPooledRate[0];
   const lowestByPooledRate = sortedByPooledRate[sortedByPooledRate.length - 1];
   const detailForPooledRate = sortedByPooledRate.length > 1 ? (
-    <p className="center">
-      <span className="bold">
-        {highestByPooledRate.name}
-      </span>
-      <span> has the highest rate of pooled trips (</span>
-      <span className="bold">
-        {Formatter.percentWithOneDecimal(highestByPooledRate[METRIC_POOLED_TRIP_RATE])}
-      </span>
-      <span>) while </span>
-      <span className="bold">
-        {lowestByPooledRate.name}
-      </span>
-      <span> has the lowest (</span>
-      <span className="bold">
-        {Formatter.percentWithOneDecimal(lowestByPooledRate[METRIC_POOLED_TRIP_RATE])}
-      </span>
-      <span>).</span>
-    </p>
-  ) : null;
+      <p className="center">
+        <span className="bold">
+          {highestByPooledRate.name}
+        </span>
+        <span> has the highest rate of pooled trips (</span>
+        <span className="bold">
+          {Formatter.percentWithOneDecimal(highestByPooledRate[METRIC_POOLED_TRIP_RATE])}
+        </span>
+        <span>) while </span>
+        <span className="bold">
+          {lowestByPooledRate.name}
+        </span>
+        <span> has the lowest (</span>
+        <span className="bold">
+          {Formatter.percentWithOneDecimal(lowestByPooledRate[METRIC_POOLED_TRIP_RATE])}
+        </span>
+        <span>).</span>
+      </p>
+    ) : null;
 
   return (
     <div className="QuestionPooledTrips">

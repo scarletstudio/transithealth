@@ -103,6 +103,24 @@ nav a:hover {
     color: var(--color-main);
 }
 
+/* Display */
+
+.hidden {
+    display: none;
+}
+
+.block {
+    display: block;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.inline {
+    display: inline;
+}
+
 /* Page Layout */
 
 .page {
