@@ -29,6 +29,18 @@ export const communityMetrics = {
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
+  rideshare_pool_request_rate_2018: {
+    name: "2018 Rideshare Pool Request Rate",
+    units: "of trips",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  rideshare_pool_request_rate_2019: {
+    name: "2019 Rideshare Pool Request Rate",
+    units: "of trips",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
   total_population_2000: {
     name: "2000 Total Population",
     units: "people",

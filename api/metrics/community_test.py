@@ -86,3 +86,46 @@ def test_pooled_trips():
     assert metric.rideshare_pooled_trip_rate(year=2018) == [
         { "area_number": 1, "value": 0.4 }
     ], "Should calculate pooled trip rate for separate years."
+
+def test_pool_requests():
+    rideshare_table = [
+        {
+            "pickup_community_area": 1,
+            "ymd": "2018-04-21",
+            "n_trips_pooled_authorized": 200,
+            "n_trips": 500
+        },
+        {
+            "pickup_community_area": 1,
+            "ymd": "2019-08-04",
+            "n_trips_pooled_authorized": 200,
+            "n_trips": 500
+        },
+        {
+            "pickup_community_area": 2,
+            "ymd": "2019-08-04",
+            "n_trips_pooled_authorized": 700,
+            "n_trips": 1000
+        },
+        {
+            "pickup_community_area": 1,
+            "ymd": "2019-08-04",
+            "n_trips_pooled_authorized": 400,
+            "n_trips": 500
+        }
+    ]
+    con, cur = create_test_db(
+        scripts=[ "./pipeline/load/rideshare.sql" ],
+        tables={ "rideshare": rideshare_table }
+    )
+
+    metric = CommunityMetrics(con)
+
+    assert metric.rideshare_pool_request_rate(year=2019) == [
+        { "area_number": 1, "value": 0.6 },
+        { "area_number": 2, "value": 0.7 }
+    ], "Should calculate pool request rate for two areas."
+
+    assert metric.rideshare_pool_request_rate(year=2018) == [
+        { "area_number": 1, "value": 0.4 }
+    ], "Should calculate pool request rate for separate years."

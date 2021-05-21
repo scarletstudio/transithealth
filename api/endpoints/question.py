@@ -18,7 +18,7 @@ def make_blueprint(con):
     def hello():
         return jsonify({ "message": "Welcome to questions!" })
 
-    @app.route("/question/pooled-trips")
+    @app.route("/question/pooled_trips")
     def pooled_trips():
         before_covid = ("2019-01-01", "2020-03-02")
         since_covid = ("2020-03-02", "2021-05-02")
