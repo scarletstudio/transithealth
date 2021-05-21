@@ -11,7 +11,12 @@ import {
   Bar,
   Cell,
 } from 'recharts'
-import { Formatter, communityMetrics } from '../../site/metrics'
+import { Table } from '../../components/Table'
+import {
+  Formatter,
+  communityMetrics,
+  calculatePercentChange,
+} from '../../site/metrics'
 
 const METRIC_POOLED_TRIP_RATE = "rideshare_pooled_trip_rate_2019";
 const CITY_PART_COLOR = {
@@ -25,22 +30,92 @@ const CITY_PART_COLOR = {
   "Southwest Side": "#AA4499",
   "West Side": "#882255",
 };
+const RIDESHARE_COLS = [
+  {
+    key: "name",
+    group: "Pickup Community Area",
+    name: "Name",
+  },
+  {
+    key: "part",
+    group: "Pickup Community Area",
+    name: "Part",
+  },
+  {
+    key: "rideshare_pooled_trip_rate_2019",
+    group: "Pooled Trips",
+    name: "% of Trips",
+    format: Formatter.percentWithOneDecimal,
+    rowClasses: ["right"],
+  },
+  {
+    key: "avg_trips_per_day_before",
+    group: "Trips/Day",
+    name: "Before",
+    format: Formatter.numberWithCommas,
+    rowClasses: ["right"],
+  },
+  {
+    key: "avg_trips_per_day_since",
+    group: "Trips/Day",
+    name: "Since",
+    format: Formatter.numberWithCommas,
+    rowClasses: ["right"],
+  },
+  {
+    key: "pct_change_avg_trips",
+    group: "Trips/Day",
+    name: "Change",
+    format: Formatter.percentChangeWithNoDecimal,
+    rowClasses: ["right"],
+  },
+  {
+    key: "avg_cost_per_trip_cents_before",
+    group: "Cost/Trip",
+    name: "Before",
+    format: Formatter.centsToDollarsUSD,
+    rowClasses: ["right"],
+  },
+  {
+    key: "avg_cost_per_trip_cents_since",
+    group: "Cost/Trip",
+    name: "Since",
+    format: Formatter.centsToDollarsUSD,
+    rowClasses: ["right"],
+  },
+  {
+    key: "pct_change_avg_cost",
+    group: "Cost/Trip",
+    name: "Change",
+    format: Formatter.percentChangeWithNoDecimal,
+    rowClasses: ["right"],
+  },
+];
 
-async function getPooledTripsRateByArea() {
-  const req = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/community/metrics`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        metrics: [ METRIC_POOLED_TRIP_RATE ],
-      }),
-    }
-  );
+async function fetchData() {
+  const req = await fetch(`${process.env.NEXT_PUBLIC_API}/question/pooled_trips`);
   const res = await req.json();
-  const metrics = res.metrics.sort((a, b) => {
+  return res.metrics;
+}
+
+function augmentMetrics(metrics) {
+  return metrics.map((d) => {
+    return {
+      ...d,
+      "pct_change_avg_trips": calculatePercentChange(
+        d["avg_trips_per_day_before"],
+        d["avg_trips_per_day_since"],
+      ),
+      "pct_change_avg_cost": calculatePercentChange(
+        d["avg_cost_per_trip_cents_before"],
+        d["avg_cost_per_trip_cents_since"],
+      ),
+    };
+  });
+}
+
+function getPooledTripsRateByArea(metrics) {
+  return metrics.sort((a, b) => {
     return b[METRIC_POOLED_TRIP_RATE] - a[METRIC_POOLED_TRIP_RATE];
   }).sort((a, b) => {
     return a.part.localeCompare(b.part);
@@ -48,30 +123,13 @@ async function getPooledTripsRateByArea() {
     ...v,
     [v.part]: v[METRIC_POOLED_TRIP_RATE],
   }));
-  return metrics;
 }
 
-function QuestionBarChart() {
-  const [ pooledTripRate, setPooledTripRate ] = useState([]);
-
-  useEffect(() => {
-    let isSubscribed = true;
-
-    async function getData() {
-      const res = await getPooledTripsRateByArea();
-      if (isSubscribed) {
-        setPooledTripRate(res);
-      }    
-    }
-
-    getData();
-    return () => isSubscribed = false;
-  }, []);
-
+function QuestionBarChart({ data }) {
   return (
     <ResponsiveContainer width="100%" height={400}>
       <BarChart
-        data={pooledTripRate}
+        data={data}
         margin={{ left: 30, right: 30, bottom: 30, top: 30 }}
       >
         <CartesianGrid strokeDashArray="3 3" />
@@ -110,18 +168,74 @@ function QuestionBarChart() {
 }
 
 export default function PooledTrips() {
+  const [ data, setData ] = useState([]);
+  const [ pooledTripRate, setPooledTripRate ] = useState([]);
+
+  useEffect(() => {
+    let isSubscribed = true;
+
+    async function getData() {
+      const rawMetrics = await fetchData();
+      const metrics = augmentMetrics(rawMetrics);
+      const pooledTripRateData = getPooledTripsRateByArea(metrics);
+      if (isSubscribed) {
+        setData(metrics);
+        setPooledTripRate(pooledTripRateData);
+      }    
+    }
+
+    getData();
+    return () => isSubscribed = false;
+  }, []);
+
+  const sortedByPooledRate = data.sort((a, b) => {
+    return b[METRIC_POOLED_TRIP_RATE] - a[METRIC_POOLED_TRIP_RATE];
+  });
+  const highestByPooledRate = sortedByPooledRate[0];
+  const lowestByPooledRate = sortedByPooledRate[sortedByPooledRate.length - 1];
+  const detailForPooledRate = sortedByPooledRate.length > 1 ? (
+    <p className="center">
+      <span className="bold">
+        {highestByPooledRate.name}
+      </span>
+      <span> has the highest rate of pooled trips (</span>
+      <span className="bold">
+        {Formatter.percentWithOneDecimal(highestByPooledRate[METRIC_POOLED_TRIP_RATE])}
+      </span>
+      <span>) while </span>
+      <span className="bold">
+        {lowestByPooledRate.name}
+      </span>
+      <span> has the lowest (</span>
+      <span className="bold">
+        {Formatter.percentWithOneDecimal(lowestByPooledRate[METRIC_POOLED_TRIP_RATE])}
+      </span>
+      <span>).</span>
+    </p>
+  ) : null;
+
   return (
     <div className="QuestionPooledTrips">
       <div className="center medium-width">
         <h2>Pooled Trip Rates by Community Area</h2>
         <p>This chart shows the percentage of all rides in 2019 that were pooled, by community area where the rider was picked up.</p>
       </div>
-      <QuestionBarChart />
+      <QuestionBarChart data={pooledTripRate} />
+      {detailForPooledRate}
+      <br />
       <div className="center medium-width">
-        <h2>Coming Soon...</h2>
-        <p>How have rideshare costs changed without pooled trips?</p>
-        <p>How does pooled trip rate relate to COVID community vulnerability factors?</p>
+        <h2>Change Since COVID</h2>
+        <p>This table shows how the average number of trips per day and average cost per trip has changed in each community area since COVID.</p>
+        <p>
+          <span className="bold">Before</span>
+          <span> is the 12-month period from February 2019-2020.</span>
+        </p>
+        <p>
+          <span className="bold">After</span>
+          <span> is the 12-month period from March 2020-2021.</span>
+        </p>
       </div>
+      <Table rows={data} cols={RIDESHARE_COLS} />
     </div>
   )
 };

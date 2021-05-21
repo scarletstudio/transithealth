@@ -20,8 +20,8 @@ def make_blueprint(con):
 
     @app.route("/question/pooled_trips")
     def pooled_trips():
-        before_covid = ("2019-01-01", "2020-03-02")
-        since_covid = ("2020-03-02", "2021-05-02")
+        before_covid = ("2019-02-01", "2020-03-02")
+        since_covid = ("2020-03-02", "2021-04-01")
         metrics = metric_community.merge_metrics({
             "rideshare_pooled_trip_rate_2019":
                 lambda: metric_community.rideshare_pooled_trip_rate(year=2019),

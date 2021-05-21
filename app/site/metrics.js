@@ -1,5 +1,9 @@
 const numberEn = Intl.NumberFormat("en-US");
 
+export function calculatePercentChange(before, after) {
+  return (after - before) / before;
+}
+
 export const Formatter = {
   numberWithCommas: (v) => ( numberEn.format(v) ),
   numberInThousands: (v) => ( numberEn.format((v / 1000).toFixed(1)) + "K" ),
@@ -8,6 +12,8 @@ export const Formatter = {
   percentWithOneDecimal: (v) => ((v * 100).toFixed(1) + "%"),
   dollarsUSD: (v) => ("$" + v.toFixed(2)),
   centsToDollarsUSD: (v) => ("$" + (v / 100).toFixed(2)),
+  percentChangeWithNoDecimal: (v) => ((v >= 0 ? "+" : "") + (v * 100).toFixed(0) + "%"),
+  percentChangeWithOneDecimal: (v) => ((v >= 0 ? "+" : "") + (v * 100).toFixed(1) + "%"),
 };
 
 export const communityMetrics = {

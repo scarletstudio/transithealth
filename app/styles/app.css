@@ -320,6 +320,34 @@ a.btn {
     vertical-align: middle;
 }
 
+/* Tables */
+
+.TableContainer {
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.TableContainer table {
+    margin: 0 auto;
+}
+
+.TableContainer th, .TableContainer td {
+    padding: 0.5em;
+    text-align: left;
+}
+
+.TableContainer th {
+    font-weight: bold;
+}
+
+.TableContainer .GroupHeader {
+    text-align: center;
+}
+
+.TableContainer .Cell.right {
+    text-align: right;
+}
+
 /* Questions Page */
 
 .QuestionsSection {
