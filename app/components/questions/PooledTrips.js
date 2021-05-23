@@ -14,11 +14,10 @@ import {
 import { Table } from '../../components/Table'
 import {
   Formatter,
-  communityMetrics,
   calculatePercentChange,
 } from '../../site/metrics'
 
-const METRIC_POOLED_TRIP_RATE = "rideshare_pooled_trip_rate_2019";
+const METRIC_POOLED_TRIP_RATE = "pooled_trip_rate_before";
 const CITY_PART_COLOR = {
   "Central": "#332288",
   "Far North Side": "#1978AD",
@@ -34,6 +33,11 @@ const MIN_PCT_CHANGE_TRIPS = -0.8;
 const MAX_PCT_CHANGE_COST = 0.3;
 const RIDESHARE_COLS = [
   {
+    key: "area_number",
+    group: "Pickup Community Area",
+    name: "#",
+  },
+  {
     key: "name",
     group: "Pickup Community Area",
     name: "Name",
@@ -44,7 +48,7 @@ const RIDESHARE_COLS = [
     name: "Part",
   },
   {
-    key: "rideshare_pooled_trip_rate_2019",
+    key: "pooled_trip_rate_before",
     group: "Pooled Trips",
     name: "% of Trips",
     format: Formatter.percentWithOneDecimal,
@@ -226,7 +230,7 @@ export default function PooledTrips(props) {
     <div className="QuestionPooledTrips">
       <div className="center medium-width">
         <h2>Pooled Trip Rates by Community Area</h2>
-        <p>This chart shows the percentage of all rides in 2019 that were pooled, by community area where the rider was picked up.</p>
+        <p>This chart shows the percentage of all rides that were pooled in the year before COVID, by community area where the rider was picked up.</p>
       </div>
       <QuestionBarChart data={pooledTripRate} />
       {detailForPooledRate}

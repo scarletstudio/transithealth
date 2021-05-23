@@ -89,7 +89,7 @@ class PooledTripMetrics:
         for row in rows:
             area = row["area_number"]
             if row["period"] == "before":
-                res[area]["rideshare_pooled_trip_rate_before"] = row["pooled_trip_rate"]
+                res[area]["pooled_trip_rate_before"] = row["pooled_trip_rate"]
                 res[area]["avg_cost_per_trip_cents_before"] = row["cost_per_trip"]
                 res[area]["avg_trips_per_day_before"] = row["trips_per_day"]
             elif row["period"] == "since":
