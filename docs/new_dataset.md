@@ -220,11 +220,11 @@ Check out the [Common Data Transformations](transformations.md) guide for code b
 
 It's okay to leave columns in the dataset even if they are not needed for the final database table. Keeping those columns can help you investigate the output file.
 
-This is the `make` step for transforming the rideshare data:
+This is the `make` step for transforming the rideshare data (from daily to weekly data):
 
 ```make
 data/transformed/rideshare.csv: data/extracted/daily_rideshare.csv
-    python3 transform/daily_rideshare.py \
+    python3 transform/weekly_rideshare.py \
         --input_file="data/extracted/daily_rideshare.csv" \
         --output_file="data/transformed/rideshare.csv"
 ```
