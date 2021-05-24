@@ -110,7 +110,7 @@ data/transformed/covid_spread.csv: data/extracted/covid_spread.csv data/transfor
 		--output_file="data/transformed/covid_spread.csv"
 
 data/transformed/rideshare.csv: data/extracted/daily_rideshare.csv
-	python3 transform/daily_rideshare.py \
+	python3 transform/weekly_rideshare.py \
 		--input_file="data/extracted/daily_rideshare.csv" \
 		--output_file="data/transformed/rideshare.csv"
 

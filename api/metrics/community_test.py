@@ -91,25 +91,25 @@ def test_pooled_trips():
     rideshare_table = [
         {
             "pickup_community_area": 1,
-            "ymd": "2018-04-21",
+            "week": "2018-04-21",
             "n_trips_pooled": 200,
             "n_trips": 500
         },
         {
             "pickup_community_area": 1,
-            "ymd": "2019-08-04",
+            "week": "2019-08-04",
             "n_trips_pooled": 200,
             "n_trips": 500
         },
         {
             "pickup_community_area": 2,
-            "ymd": "2019-08-04",
+            "week": "2019-08-04",
             "n_trips_pooled": 700,
             "n_trips": 1000
         },
         {
             "pickup_community_area": 1,
-            "ymd": "2019-08-04",
+            "week": "2019-08-04",
             "n_trips_pooled": 400,
             "n_trips": 500
         }
@@ -134,25 +134,25 @@ def test_pool_requests():
     rideshare_table = [
         {
             "pickup_community_area": 1,
-            "ymd": "2018-04-21",
+            "week": "2018-04-21",
             "n_trips_pooled_authorized": 200,
             "n_trips": 500
         },
         {
             "pickup_community_area": 1,
-            "ymd": "2019-08-04",
+            "week": "2019-08-04",
             "n_trips_pooled_authorized": 200,
             "n_trips": 500
         },
         {
             "pickup_community_area": 2,
-            "ymd": "2019-08-04",
+            "week": "2019-08-04",
             "n_trips_pooled_authorized": 700,
             "n_trips": 1000
         },
         {
             "pickup_community_area": 1,
-            "ymd": "2019-08-04",
+            "week": "2019-08-04",
             "n_trips_pooled_authorized": 400,
             "n_trips": 500
         }

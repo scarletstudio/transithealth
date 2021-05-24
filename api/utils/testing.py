@@ -49,3 +49,31 @@ def create_test_db(scripts, tables):
         df = pd.DataFrame(rows)
         df.to_sql(table_name, con, schema=table_name, if_exists="replace", index=False)
     return con, cur
+
+def fill_missing(fields, row):
+    """
+    Fills missing fields with nulls.
+    Args:
+        fields (list<str>): list of column names that should be filled.
+        row (dict): row object to fill.
+    Returns:
+        Dict of new row with missing columns filled with nulls.
+    """
+    for col in fields:
+        if col not in row:
+            row[col] = None
+    return row
+
+def fill_default(fields, row):
+    """
+    Fills missing fields with default values.
+    Args:
+        fields (dict<str, any>): map of column names to default values
+        row (dict): row object to fill.
+    Returns:
+        Dict of new row with missing columns filled with nulls.
+    """
+    for col, val in fields.items():
+        if col not in row:
+            row[col] = val
+    return row
