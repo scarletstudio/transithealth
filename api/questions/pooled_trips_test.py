@@ -6,7 +6,7 @@ from api.utils.testing import create_test_db, fill_missing, fill_default
 
 rideshare_fields = [
     "pickup_community_area",
-    "ymd",
+    "week",
     "n_trips",
     "n_trips_pooled",
     "avg_cost_no_tip_cents"
@@ -31,25 +31,25 @@ def test_pooled_trip_rate():
     rideshare_table = [
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-01",
+            "week": "2019-04-01",
             "n_trips": 400,
             "n_trips_pooled": 100
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-02",
+            "week": "2019-04-08",
             "n_trips": 100,
             "n_trips_pooled": 100
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-03",
+            "week": "2019-04-15",
             "n_trips": 700,
             "n_trips_pooled": 100
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-05",
+            "week": "2019-04-29",
             "n_trips": 700,
             "n_trips_pooled": 100
         })
@@ -67,21 +67,21 @@ def test_pooled_trip_rate():
     date range, where end date is exclusive.
     """
     actual_1 = metric.pooled_trip_comparison(
-        before=("2019-04-01", "2019-04-03"),
-        since=("2019-04-03", "2019-04-05")
+        before=("2019-04-01", "2019-04-15"),
+        since=("2019-04-15", "2019-04-29")
     )
     expected_1 = [
         output_row({
             "area_number": 1,
             "period": "before",
             "pooled_trip_rate": 0.4,
-            "trips_per_day": 250
+            "trips_per_day": 500 // 14
         }),
         output_row({
             "area_number": 1,
             "period": "since",
             "pooled_trip_rate": 1.0 / 7.0,
-            "trips_per_day": 350
+            "trips_per_day": 700 // 14
         })
     ]
     assert actual_1 == expected_1, msg_1
@@ -90,33 +90,33 @@ def test_avg_trips_per_day():
     rideshare_table = [
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-01",
+            "week": "2019-04-01",
             "n_trips": 400
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-02",
+            "week": "2019-04-08",
             "n_trips": 100
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-03",
+            "week": "2019-04-15",
             "n_trips": 200
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-04",
+            "week": "2019-04-22",
             "n_trips": 300
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-06-23",
-            "n_trips": 2
+            "week": "2019-06-01",
+            "n_trips": 20
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-06-24",
-            "n_trips": 3
+            "week": "2019-06-08",
+            "n_trips": 30
         })
     ]
     con, cur = create_test_db(
@@ -128,19 +128,19 @@ def test_avg_trips_per_day():
 
     # Only compute metrics for the before period,
     # set since date range to have no results
-    ignore_since = ("2099-01-01", "2099-01-02")
+    ignore_since = ("2099-01-01", "2099-01-08")
 
     msg_1 = """
     Should compute average trips per day.
     """
     actual_1 = metric.pooled_trip_comparison(
-        before=("2019-04-01", "2019-04-05"),
+        before=("2019-04-01", "2019-04-15"),
         since=ignore_since
     )
     expected_1 = [
         output_row({
             "area_number": 1,
-            "trips_per_day": 250
+            "trips_per_day": 500 // 14
         })
     ]
     assert actual_1 == expected_1, msg_1
@@ -155,7 +155,7 @@ def test_avg_trips_per_day():
     expected_2 = [
         output_row({
             "area_number": 1,
-            "trips_per_day": 100
+            "trips_per_day": 500 // 10
         })
     ]
     assert actual_2 == expected_2, msg_2
@@ -164,13 +164,13 @@ def test_avg_trips_per_day():
     Should include the start date and exclude the end date.
     """
     actual_3 = metric.pooled_trip_comparison(
-        before=("2019-04-02", "2019-04-04"),
+        before=("2019-04-08", "2019-04-22"),
         since=ignore_since
     )
     expected_3 = [
         output_row({
             "area_number": 1,
-            "trips_per_day": 150
+            "trips_per_day": 300 // 14
         })
     ]
     assert actual_3 == expected_3, msg_3
@@ -179,14 +179,14 @@ def test_avg_trips_per_day():
     Should return result as an integer in whole trips, not a fractional value.
     """
     actual_4 = metric.pooled_trip_comparison(
-        before=("2019-06-23", "2019-06-25"),
+        before=("2019-06-01", "2019-06-15"),
         since=ignore_since
     )
-    # Average trips without converting to integer is 2.5 trips
+    # Average trips without converting to integer is 3.57 trips
     expected_4 = [
         output_row({
             "area_number": 1,
-            "trips_per_day": 2
+            "trips_per_day": 3
         })
     ]
     assert actual_4 == expected_4, msg_4
@@ -195,39 +195,39 @@ def test_avg_cost_per_trip():
     rideshare_table = [
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-01",
+            "week": "2019-04-01",
             "avg_cost_no_tip_cents": 1000,
             "n_trips": 400
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-02",
+            "week": "2019-04-08",
             "avg_cost_no_tip_cents": 2000,
             "n_trips": 200
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-03",
+            "week": "2019-04-15",
             "avg_cost_no_tip_cents": 1000,
             "n_trips": 300
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-04-04",
+            "week": "2019-04-22",
             "avg_cost_no_tip_cents": 1300,
             "n_trips": 700
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-06-21",
+            "week": "2019-06-01",
             "avg_cost_no_tip_cents": 1,
-            "n_trips": 3
+            "n_trips": 30
         }),
         rideshare_row({
             "pickup_community_area": 1,
-            "ymd": "2019-06-22",
+            "week": "2019-06-08",
             "avg_cost_no_tip_cents": 4,
-            "n_trips": 1
+            "n_trips": 10
         })
     ]
     con, cur = create_test_db(
@@ -239,20 +239,20 @@ def test_avg_cost_per_trip():
 
     # Only compute metrics for the before period,
     # set since date range to have no results
-    ignore_since = ("2099-01-01", "2099-01-02")
+    ignore_since = ("2099-01-01", "2099-01-08")
 
     msg_1 = """
     Should compute average cost for one day of trips.
     """
     actual_1 = metric.pooled_trip_comparison(
-        before=("2019-04-01", "2019-04-02"),
+        before=("2019-04-01", "2019-04-08"),
         since=ignore_since
     )
     expected_1 = [
         output_row({
             "area_number": 1,
             "cost_per_trip": 1000,
-            "trips_per_day": 400
+            "trips_per_day": 400 // 7
         })
     ]
     assert actual_1 == expected_1, msg_1
@@ -261,14 +261,14 @@ def test_avg_cost_per_trip():
     Should include the start date and exclude the end date.
     """
     actual_2 = metric.pooled_trip_comparison(
-        before=("2019-04-02", "2019-04-04"),
+        before=("2019-04-08", "2019-04-22"),
         since=ignore_since
     )
     expected_2 = [
         output_row({
             "area_number": 1,
             "cost_per_trip": 1400,
-            "trips_per_day": 250
+            "trips_per_day": 500 // 14
         })
     ]
     assert actual_2 == expected_2, msg_2
@@ -278,14 +278,14 @@ def test_avg_cost_per_trip():
     Should return result as an integer in whole cents, not a fractional value.
     """
     actual_3 = metric.pooled_trip_comparison(
-        before=("2019-04-01", "2019-04-03"),
+        before=("2019-04-01", "2019-04-15"),
         since=ignore_since
     )
     expected_3 = [
         output_row({
             "area_number": 1,
             "cost_per_trip": 1333,
-            "trips_per_day": 300
+            "trips_per_day": 600 // 14
         })
     ]
     assert actual_3 == expected_3, msg_3
@@ -295,14 +295,14 @@ def test_avg_cost_per_trip():
     Should return result as an integer in whole cents, rounded down.
     """
     actual_4 = metric.pooled_trip_comparison(
-        before=("2019-06-21", "2019-06-23"),
+        before=("2019-06-01", "2019-06-15"),
         since=ignore_since
     )
     expected_4 = [
         output_row({
             "area_number": 1,
             "cost_per_trip": 1,
-            "trips_per_day": 2
+            "trips_per_day": 40 // 14
         })
     ]
     assert actual_4 == expected_4, msg_4

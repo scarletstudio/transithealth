@@ -43,8 +43,8 @@ class PooledTripMetrics:
         SELECT
             pickup_community_area as area_number,
             CASE
-                WHEN ymd >= ? AND ymd < ? THEN "before"
-                WHEN ymd >= ? AND ymd < ? THEN "since"
+                WHEN week >= ? AND week < ? THEN "before"
+                WHEN week >= ? AND week < ? THEN "since"
                 ELSE "other"
                 END as period,
             CAST(SUM(n_trips_pooled) as REAL)

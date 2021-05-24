@@ -52,7 +52,7 @@ class CommunityMetrics:
             pickup_community_area as area_number,
             sum(n_trips) as value
         FROM rideshare
-        WHERE ymd >= "2020-03-01"
+        WHERE week >= "2020-03-01"
         GROUP BY area_number
         """
         cur = self.con.cursor()
@@ -69,7 +69,7 @@ class CommunityMetrics:
             pickup_community_area as area_number,
             CAST(sum(n_trips_pooled) as REAL) / CAST(sum(n_trips) as REAL) as value
         FROM rideshare
-        WHERE strftime('%Y', ymd) == '{year}'
+        WHERE strftime('%Y', week) == '{year}'
         GROUP BY area_number
         """.format(year=year)
         cur = self.con.cursor()
@@ -86,7 +86,7 @@ class CommunityMetrics:
             pickup_community_area as area_number,
             CAST(sum(n_trips_pooled_authorized) as REAL) / CAST(sum(n_trips) as REAL) as value
         FROM rideshare
-        WHERE strftime('%Y', ymd) == '{year}'
+        WHERE strftime('%Y', week) == '{year}'
         GROUP BY area_number
         """.format(year=year)
         cur = self.con.cursor()

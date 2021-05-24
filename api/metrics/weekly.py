@@ -20,7 +20,7 @@ class WeeklyMetrics:
             week,
             SUM(n_trips) as value
         FROM rideshare
-        WHERE ymd >= ?
+        WHERE week >= ?
         GROUP BY week
         """
         cur = self.con.cursor()
@@ -42,7 +42,7 @@ class WeeklyMetrics:
                 / SUM(n_trips)
                 as INTEGER) as value
         FROM rideshare
-        WHERE ymd >= ?
+        WHERE week >= ?
         GROUP BY week
         """
         cur = self.con.cursor()
