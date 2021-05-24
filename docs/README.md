@@ -52,6 +52,7 @@ Guides to explain the layout of the codebase and common commands for working wit
 - [Add a New Endpoint](new_endpoint.md)
 - [Flask](flask.md)
 - [Write SQL Queries (Coming Soon)](sqlite.md#write-queries)
+- [Time API Requests](time_api_requests.md)
 
 #### Pipeline
 

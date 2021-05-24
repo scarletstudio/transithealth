@@ -14,6 +14,7 @@ api
 ├── endpoints/          Specifies groups of endpoints for the API.
 ├── metrics/            Implementations of metrics.
 ├── questions/          Implementations of questions.
+├── scripts/            Scripts for tasks.
 ├── utils/              Helper functions.
 ├── __init__.py         File that tells Python that this folder is a module, also exports the Flask app.
 ├── README.txt          (This file!) Helps explain the backend API.
