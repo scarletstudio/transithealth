@@ -1,4 +1,4 @@
-# Adding a New Dataset
+# Add a New Dataset
 
 This guide walks you through how to add a new dataset to the offline pipeline.
 
