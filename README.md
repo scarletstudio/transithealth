@@ -31,7 +31,7 @@ transithealth
 
 ## Getting Started
 
-Follow the [setup instructions](docs/setup.md).
+Follow the [setup instructions](docs/pages/setup.md).
 
 Browse the [project documentation](docs/README.md).
 

@@ -24,7 +24,7 @@ SoQL are paginated by default, so to get all your results at once, you should se
 
 To query a data portal dataset using SoQL, you need the JSON URL for the dataset API, not the URL of the dataset web page. To get the JSON URL, go to the dataset web page, find the API button in the top-right corner, select the JSON endpoint, then click copy. The screenshot below shows where to find this:
 
-![Screenshot showing how to find the JSON URL for a data portal dataset](images/data_portal_json_url.png)
+![Screenshot showing how to find the JSON URL for a data portal dataset](../images/data_portal_json_url.png)
 
 ### Try out your queries
 

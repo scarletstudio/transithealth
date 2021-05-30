@@ -81,7 +81,7 @@ There are three steps to add a new dataset to our offline pipeline:
 
 For example, here is how the rideshare dataset fits into the offline pipeline:
 
-![ETL diagram showing the steps to make the rideshare dataset](images/etl_graph_rideshare.png)
+![ETL diagram showing the steps to make the rideshare dataset](../images/etl_graph_rideshare.png)
 
 ## 1. Extract
 
@@ -104,7 +104,7 @@ The Python script `pipeline/extract/from_data_portal.py` helps you extract data 
 - Get the JSON URL for the dataset
     - Find the API button in the top-right corner, select the JSON endpoint, then click copy
 
-![Screenshot showing how to find the JSON URL for a data portal dataset](images/data_portal_json_url.png)
+![Screenshot showing how to find the JSON URL for a data portal dataset](../images/data_portal_json_url.png)
 
 - Write a SoQL query to get the data you want
     - Read [Socrata Query Language (SoQL)](soql.md) for a guide on how to write and run queries

@@ -377,7 +377,7 @@ For example, we can try the `POST /community/metrics` endpoint we studied earlie
 - In the network tab, the request will appear in the table of requests. Click on it.
 - Use the sub-tabs to navigate between the headers, preview, request, timing, and other information.
 
-![Screenshot of the Community View page with the devtools network tab open showing information about the request.](images/devtools_network_tab.png)
+![Screenshot of the Community View page with the devtools network tab open showing information about the request.](../images/devtools_network_tab.png)
 
 You can use a specialized tool like [Insomnia](https://insomnia.rest) or [Postman](https://www.postman.com) to send a request and get the response. Many software development teams use these kinds of tools to help design and test API without having to bring up the client app. In this case, the tool serves as its own client.
 

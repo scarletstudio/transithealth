@@ -12,7 +12,7 @@ ETL stands for extract, transform, and load.
 
 For example, our offline pipeline is an ETL pipeline:
 
-![ETL diagram showing the steps in the demo offline pipeline](images/etl_graph_demo.png)
+![ETL diagram showing the steps in the demo offline pipeline](../images/etl_graph_demo.png)
 
 ## Thinking in ETL
 

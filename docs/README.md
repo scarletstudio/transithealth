@@ -7,7 +7,7 @@ Welcome to the documentation for TransitHealth!
 Guides to help you get started using and contributing to the project.
 
 - [Project Overview](https://bit.ly/sds-transithealth-slides)
-- [Setup Instructions](setup.md)
+- [Setup Instructions](pages/setup.md)
 
 ## Codebase Overviews
 
@@ -20,13 +20,13 @@ Guides to explain the layout of the codebase and common commands for working wit
 ## Guides By Schedule
 
 - Week 1
-    - [Add a New Dataset](new_dataset.md)
-    - [Add a New Endpoint](new_dataset.md)
-    - [Testing](testing.md)
+    - [Add a New Dataset](pages/new_dataset.md)
+    - [Add a New Endpoint](pages/new_dataset.md)
+    - [Testing](pages/testing.md)
 - Week 2
-    - [Exploratory Data Analysis](eda.md)
+    - [Exploratory Data Analysis](pages/eda.md)
 - Week 3
-    - [Add a New Question](new_question.md)
+    - [Add a New Question](pages/new_question.md)
 - Week 4
     - Coming soon...
 
@@ -34,37 +34,37 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 ### General Software Engineering Topics
 
-- [Using Git](git.md)
-- [Merge Conflicts](merge_conflicts.md)
-- [Testing](testing.md)
-- [Exploratory Data Analysis](eda.md)
+- [Using Git](pages/git.md)
+- [Merge Conflicts](pages/merge_conflicts.md)
+- [Testing](pages/testing.md)
+- [Exploratory Data Analysis](pages/eda.md)
 
 ### Project-Specific Topics
 
 #### Frontend
 
-- [Add a New Question](new_question.md)
-- [React](react.md)
-- [Recharts](recharts.md)
+- [Add a New Question](pages/new_question.md)
+- [React](pages/react.md)
+- [Recharts](pages/recharts.md)
 
 #### Backend
 
-- [Add a New Endpoint](new_endpoint.md)
-- [Flask](flask.md)
-- [Write SQL Queries (Coming Soon)](sqlite.md#write-queries)
-- [Time API Requests](time_api_requests.md)
+- [Add a New Endpoint](pages/new_endpoint.md)
+- [Flask](pages/flask.md)
+- [Write SQL Queries (Coming Soon)](pages/sqlite.md#write-queries)
+- [Time API Requests](pages/time_api_requests.md)
 
 #### Pipeline
 
-- [Add a New Dataset](new_dataset.md)
-- [Extract, Transform, and Load (ETL)](etl.md)
-- [Makefiles](makefiles.md)
-- [Socrata Query Language (SoQL)](soql.md)
-- [Create SQLite Tables](sqlite.md#create-tables)
-- [SQLite Command Line Interface](sqlite.md#command-line-interface)
-- [Common Data Transformations](transformations.md)
-- [Argparse](argparse.md)
+- [Add a New Dataset](pages/new_dataset.md)
+- [Extract, Transform, and Load (ETL)](pages/etl.md)
+- [Makefiles](pages/makefiles.md)
+- [Socrata Query Language (SoQL)](pages/soql.md)
+- [Create SQLite Tables](pages/sqlite.md#create-tables)
+- [SQLite Command Line Interface](pages/sqlite.md#command-line-interface)
+- [Common Data Transformations](pages/transformations.md)
+- [Argparse](pages/argparse.md)
 
 ### Deployment
 
-- [Run Staging](staging.md)
+- [Run Staging](pages/staging.md)

@@ -353,7 +353,7 @@ After pushing, open a pull request so we can merge your new notebook folder into
 - Click **Create pull request** in the bottom-right bellow the description
 - Ask your mentor to review and merge the pull request
 
-![Screenshot showing how to open a new pull request on GitHub](images/setup_pull_request.png)
+![Screenshot showing how to open a new pull request on GitHub](../images/setup_pull_request.png)
 
 
 ## Congratulations!
