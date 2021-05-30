@@ -138,7 +138,9 @@ Change directories to the `app/` folder.
 cd app
 ```
 
-We will use Yarn, a package manager for Node.js. If Node.js is not on your system, visit [the website](https://nodejs.org/en/download) to install it first. Then, if Yarn is not on your system, visit [the website](https://classic.yarnpkg.com/en/docs/install) to install it.
+We will use Yarn, a package manager for Node.js. If Node.js is not on your system, visit [the website](https://nodejs.org/en/download) to install it first. It is recommended to use Node version 14 or higher for running our frontend app.
+
+Then, if Yarn is not on your system, visit [the website](https://classic.yarnpkg.com/en/docs/install) to install it.
 
 Now you can install the project JavaScript dependencies.
 

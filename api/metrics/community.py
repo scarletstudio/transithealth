@@ -107,7 +107,8 @@ class CommunityMetrics:
             CAST(value AS INTEGER) AS value
         FROM population
         WHERE period_end_year == {year}
-        """.format(year=year)
+        AND segment == "{segment}"
+        """.format(year=year, segment=segment)
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
@@ -126,7 +127,8 @@ class CommunityMetrics:
             CAST(value AS INTEGER) AS value
         FROM income
         WHERE period_end_year == {year}
-        """.format(year=year)
+        AND segment == "{segment}"
+        """.format(year=year, segment=segment)
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
