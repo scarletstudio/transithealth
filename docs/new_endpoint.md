@@ -57,6 +57,7 @@ And with those concepts, you can understand these that are specific to our serve
     - Grouping related endpoints helps organize a server with a lot of functionality and allows engineers to develop the API with fewer merge conflicts.
 - **Module:** a group of functions, classes, tests, and other objects in a Python project, organized in the same folder.
     - Grouping related code helps organize Python code with a lot of functionality and allows engineers to develop the project with fewer merge conflicts.
+- **Pytest:** a Python library for testing Python programs.
 - **Unit Tests:** code that runs one part of a system with given inputs to verify that it returns the correct outputs.
 - **Functional Tests:** code that runs an entire system or multiple systems to verify that it does what it should (also called Integration Tests).
 
@@ -133,7 +134,7 @@ There are two main steps to add a new endpoint to our backend API:
 
 Most likely, your logic will go in one of these two modules, in their respective subdirectories:
 
-- `api/metrics/` contains logic for the TransitHealth Data Explorer (e.g., timeline view, community view)
+- `api/metrics/` contains logic for the TransitHealth Data Explorer (e.g., Timeline View, Community View)
 - `api/questions/` contains logic for TransitHealth Questions (data vignettes that each engineer creates)
 
 In this guide, we will review an example from the `metrics` module. An example from the `questions` module will be covered in [the guide for adding new questions](new_question.md).
@@ -169,7 +170,8 @@ class CommunityMetrics:
             CAST(value AS INTEGER) AS value
         FROM income
         WHERE period_end_year == {year}
-        """.format(year=year)
+        AND segment == "{segment}"
+        """.format(year=year, segment=segment)
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
@@ -178,14 +180,205 @@ class CommunityMetrics:
     ...
 ```
 
-- This metric is a method in the `CommunityMetrics` class: a class used to return data for the community view in the Data Explorer.
+- This metric is a method in the `CommunityMetrics` class: a class used to return data for the Community View in the Data Explorer.
 - The constructor for the class accepts one argument: a connection to the `sqlite3` database, which the metric method can access via the instance variable `self.con`.
-- ...
+- The method takes two parameters: `year` and `segment`.
+- The method creates a SQL query to return the income value for each community area, subject to the requested year and population segment.
+- The data comes from the `income` table, which is described by the schema in this file: `pipeline/load/income.sql`.
+- From the database connection, a cursor is created. The cursor is used to execute the query and fetch all the resulting rows.
+- A helper method imported from the `api.utils.database` module is used to convert the rows from a list of tuples into a list of dictionaries.
+- Each dictionary in the returned list has two keys: `"area_number"` and `"value"`, with values corresponding to the query result for each community area.
 
 #### B. Test
 
+Below is the entire unit test for the implementation.
+
+```python
+import sys
+sys.path.append("../")
+
+from api.metrics.community import CommunityMetrics
+from api.utils.testing import create_test_db
+
 ...
+
+def test_income():
+    income_table = [
+        {
+            "area_number": 1,
+            "period_end_year": 2019,
+            "segment": "all",
+            "value": 13000
+        },
+        {
+            "area_number": 2,
+            "period_end_year": 2019,
+            "segment": "all",
+            "value": 27000
+        },
+        {
+            "area_number": 1,
+            "period_end_year": 2010,
+            "segment": "all",
+            "value": 10000
+        }
+    ]
+    con, cur = create_test_db(
+        scripts=[
+            "./pipeline/load/income.sql"
+        ],
+        tables={
+            "income": income_table
+        }
+    )
+
+    metric = CommunityMetrics(con)
+
+    assert metric.income(year=2019, segment="all") == [
+        { "area_number": 1, "value": 13000 },
+        { "area_number": 2, "value": 27000 }
+    ], "Should have two results for 2019."
+
+    assert metric.income(year=2010, segment="all") == [
+        { "area_number": 1, "value": 10000 }
+    ], "Should have one result for 2010."
+
+    assert metric.income(year=2013, segment="all") == [], "Should have no results for 2013."
+```
+
+- The test file uses the `sys` module to go up one directory, so that it can import any module in the project.
+- The unit test has three main parts:
+    - The input: a test database with test values for the `income` table
+    - The actual values: a `CommunityMetrics` object is instantiated with a connection to the test database in order to use its `income()` method
+    - The expectations: each test case is checked by an **assertion** which compares the actual value to the correct result
+
+To set up the input:
+
+- A helper method from the `api.utils.testing` module is used to create a test database
+- It takes a list of file paths of scripts to run, this will create the table schemas we will use
+- It takes a dictionary where the keys are table names and the values are lists of dictionaries that hold the table rows, this will create test tables
+- It returns a connection that we will need to give to the implementation
+- A variable called `income_table` represents the test table data, in each value, the dictionary has keys for column names that map to row values
+
+To compute the actual values:
+
+- We run any code needed to set up the implementation
+- We call the method with the given inputs (it gets the tables via the connection, while the year and segment come from the method parameters)
+- The returned value is immediately compared to the expected value
+
+To check the expectations:
+
+- We write one `assert` statement per test case, which will pass if the condition is true
+- We create a condition by comparing the actual value to the expected value
+- The expected value is also a list of dictionaries, representing output rows
+- After the condition, we specify a message as a string that specifies what the test case is checking
+- If the test case fails, `pytest` will show us that message along with the difference between the actual and expected values
+
+Some notes about the unit test:
+
+- It may seem long in number of lines, but the test follows a clear pattern of input, actual value, and expectation, which helps us read and understand it
+- It covers three different cases, which the test author chose based on what requirements and scenarios they felt were important
+- The test uses different values for `year`, but not `segment`
+    - Because, when this test was written, the only values in the `income` table were for the entire population (`segment="all"`)
 
 ### 2. Add to API
 
-...
+API endpoints are defined in the `endpoints` module, where each file specifies a blueprint.
+
+#### A. Implementation
+
+Metrics added to `CommunityMetrics` are used in the endpoints defined in this file: `api/endpoints/community.py`.
+
+Below is the blueprint, showing the parts of the code that use the `income()` implementation.
+
+```python
+from flask import Blueprint, jsonify, request
+from api.metrics.community import CommunityMetrics
+
+
+def make_blueprint(con):
+    """
+    Creates blueprint for endpoints related to community areas.
+    """
+
+    app = Blueprint('community', __name__)
+    
+    metric = CommunityMetrics(con)
+
+    supported_metrics = {
+        ... # Omitted: definitions of other metrics
+        "median_income_2010": lambda: metric.income(year=2010, segment="all"),
+        "median_income_2019": lambda: metric.income(year=2019, segment="all"),
+        ...
+    }
+
+
+    @app.route("/community/metrics", methods=["POST"])
+    def community_metrics():
+        """
+        Returns the requested metrics by community area.
+        """
+        body = request.get_json()
+        metric_list = body["metrics"] if "metrics" in body else []
+        metric_fns = {
+            metric_name: supported_metrics[metric_name]
+            for metric_name in metric_list
+            if metric_name in supported_metrics
+        }
+        metrics = metric.merge_metrics(metric_fns)
+        return jsonify({ "metrics": metrics })
+
+    return app
+
+```
+
+The file defines a method called `make_blueprint()` which is used in `api/server.py` to register these endpoints with the Flask API.
+
+- The method takes an input parameter: a connection to the `sqlite3` database.
+- The method returns a variable called `app` which is a Flask blueprint.
+- The method instantiates a `CommunityMetrics` object to compute metrics.
+- The method defines a dictionary called `supported_metrics` where keys are metric names and values are metric functions.
+    - Python lambda functions are used so that metric functions that take multiple arguments can be turned into different methods that take no arguments.
+
+Then, the method defines one endpoint for getting all supported community area metrics.
+
+- A Python decorator function is used to turn the method `community_metrics()` into an endpoint with the path `POST /community/metrics`.
+- Why is this endpoint `POST` and not `GET`, since it is only retrieving data?
+    - `GET` requests cannot have a request body, they must send all their information in the request headers or URL parameters.
+    - `POST` is sometimes used, not just for creating records, but for sending data via body.
+
+This method executes whenever the server receives a request matching this endpoint:
+
+- The endpoint method gets the request data from a variable called `request`, which is imported from Flask.
+- It calls a method to convert the request body from JSON to a dictionary.
+- It gets the list of requested metrics from the body.
+- It uses a dictionary comprehension:
+    - To filter the list of metrics to only those that are in the `supported_metrics` dictionary.
+    - To return key value pairs where the key is the metric name and the value is the metric function.
+- It calls the `merge_metrics()` method of the `CommunityMetrics` class which will run all the given metric functions and merge their results by community area.
+- It uses `jsonify()` method imported from Flask to convert a dictionary to a JSON response to send back to the frontend.
+
+#### B. Test
+
+We use unit tests to verify our implementations, because that way, we don't have to start up a server and send requests every time we want to test it. However, even if the unit tests pass, requests may still fail if there is a bug in the code that handles the endpoint.
+
+You can test your endpoint in your browser. For a `GET` request, you can go to the URL where the API is being served.
+
+For example, there is an endpoint `GET /count/:table_name` that returns the count of rows in a table of the given name. If your server is running locally on port 5000, you can try this request by navigating your browser to `http://localhost:5000/count/income`.
+
+For `POST` requests, you can [start up the frontend app](../app/README.md) and go to a page that sends requests to the endpoint you want to try.
+
+For example, we can try the `POST /community/metrics` endpoint we studied earlier.
+
+- Go to [the Community View page on our production website](https://scarletstudio.github.io/transithealth/scatter).
+- Open the browser developer tools. If you are using Chrome, right-click on the page and select "Inspect element" from the options.
+- The developer tools panel will pop up. Click on the "Network" tab.
+- Select one of the median income metrics in the app for the Y-Axis.
+- In the network tab, the request will appear in the table of requests. Click on it.
+- Use the sub-tabs to navigate between the headers, preview, request, timing, and other information.
+
+![Screenshot of the Community View page with the devtools network tab open showing information about the request.](images/devtools_network_tab.png)
+
+You can use a specialized tool like [Insomnia](https://insomnia.rest) or [Postman](https://www.postman.com) to send a request and get the response. Many software development teams use these kinds of tools to help design and test API without having to bring up the client app. In this case, the tool serves as its own client.
+
+If you notice something a problem with the implementation while testing the endpoint this way, think of a way to fix it. It may be possible to write a unit test for this case, or a functional test may be needed. It is also sometimes okay to fix the problem and have the fix reviewed as a pull request, even if no test is added.

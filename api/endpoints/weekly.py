@@ -26,7 +26,7 @@ def make_blueprint(con):
     @app.route("/weekly/metrics", methods=["POST"])
     def weekly_metrics():
         """
-        Returns the requested weekly metrics.
+        Returns the requested metrics by week.
         """
         body = request.get_json()
         metric_list = body["metrics"] if "metrics" in body else []

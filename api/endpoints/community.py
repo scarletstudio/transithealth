@@ -29,7 +29,7 @@ def make_blueprint(con):
     @app.route("/community/metrics", methods=["POST"])
     def community_metrics():
         """
-        Returns the maximum number of trips of any record.
+        Returns the requested metrics by community area.
         """
         body = request.get_json()
         metric_list = body["metrics"] if "metrics" in body else []
