@@ -249,5 +249,5 @@ export default function PooledTrips(props) {
       </div>
       <Table rows={data} cols={RIDESHARE_COLS} />
     </div>
-  )
+  );
 };

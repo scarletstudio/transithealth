@@ -36,7 +36,7 @@ export const questionsParams = {
     author: "Student D",
     component: "sample",
     description: "We have enough to fill another row.",
-  }
+  },
 };
 
 export function getAllQuestions() {
