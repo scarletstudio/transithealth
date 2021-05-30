@@ -53,8 +53,12 @@ Those concepts can help you understand these concepts about designing server-sid
 And with those concepts, you can understand these that are specific to our server in this project:
 
 - **Flask:** a Python-based framework for creating RESTful APIs ([official documentation](https://flask.palletsprojects.com/en/2.0.x/)).
-- **Blueprint:** a group of endpoints in an API built with Flask.
+- **Blueprint:** a group of endpoints in an API built with Flask, organized in the same file.
     - Grouping related endpoints helps organize a server with a lot of functionality and allows engineers to develop the API with fewer merge conflicts.
+- **Module:** a group of functions, classes, tests, and other objects in a Python project, organized in the same folder.
+    - Grouping related code helps organize Python code with a lot of functionality and allows engineers to develop the project with fewer merge conflicts.
+- **Unit Tests:** code that runs one part of a system with given inputs to verify that it returns the correct outputs.
+- **Functional Tests:** code that runs an entire system or multiple systems to verify that it does what it should (also called Integration Tests).
 
 ### Terminal Tips
 
@@ -114,6 +118,74 @@ Remember to [keep your branch updated](git.md#update-your-branch)!
 
 ## Instructions
 
+There are two main steps to add a new endpoint to our backend API:
+
+1. Implement Logic
+    - Choose a module for the logic and tests (probably either `metrics` or `questions`)
+    - Write a method or class with methods
+    - Write unit tests
+2. Add to API
+    - Choose a blueprint to add the endpoints to
+    - Specify the endpoint path, parameters, verb(s) and handle the request/response/errors
+    - Test the endpoint by sending a request from your browser, terminal, or a specialized tool
+
 ### 1. Implement Logic
 
+Most likely, your logic will go in one of these two modules, in their respective subdirectories:
+
+- `api/metrics/` contains logic for the TransitHealth Data Explorer (e.g., timeline view, community view)
+- `api/questions/` contains logic for TransitHealth Questions (data vignettes that each engineer creates)
+
+In this guide, we will review an example from the `metrics` module. An example from the `questions` module will be covered in [the guide for adding new questions](new_question.md).
+
+#### A. Implementation
+
+Below is the entire implementation for a metric that returns the median household income for each of the 77 community areas.
+
+```python
+from api.utils.database import rows_to_dicts
+
+
+class CommunityMetrics:
+    """
+    Metrics for community area data.
+    """
+
+    def __init__(self, con):
+        self.con = con
+
+    ...
+
+    def income(self, year, segment):
+        """
+        Returns the rounded income value for each community area.
+        Args:
+            year (int): period ending year to filter by
+            segment (str): population segment to filter by
+        """
+        query = """
+        SELECT
+            area_number,
+            CAST(value AS INTEGER) AS value
+        FROM income
+        WHERE period_end_year == {year}
+        """.format(year=year)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
+    ...
+```
+
+- This metric is a method in the `CommunityMetrics` class: a class used to return data for the community view in the Data Explorer.
+- The constructor for the class accepts one argument: a connection to the `sqlite3` database, which the metric method can access via the instance variable `self.con`.
+- ...
+
+#### B. Test
+
+...
+
 ### 2. Add to API
+
+...
