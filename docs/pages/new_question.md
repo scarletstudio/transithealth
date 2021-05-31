@@ -21,12 +21,13 @@ This guide walks you through how to add a new question to the backend API and fr
 - **TransitHealth Questions:** a part of the website with pages that explore specific topics related to public transit and public health in more depth than the Data Explorer.
     - Each engineer will get to choose a topic that interests them and create their own question to add to the website.
 - **React Component:** code written in JavaScript that determines how to render a part of the frontend app.
+
+🐌 🐪 🐍 🍢
+
 - **Slug:** a string with no spaces that is safe to use for URLs and file paths.
 - **Camel Case:** a string with no spaces where words start with uppercase letters (often used for class names, component names, and variable names).
 - **Snake Case:** a string with no spaces where spaces are replaced with underscores (often used for internal file paths).
 - **Kebab Case:** a string with no spaces where spaces are replaced with dashes (often used for URLs).
-
-🐪 🐍 🍢
 
 ### Terminal Tips
 
@@ -46,7 +47,7 @@ To start the frontend app locally:
 yarn dev
 ```
 
-Then navigate to `http://localhost:8001/transithealth` in your browser.
+Then navigate to [localhost:8001/transithealth](http://localhost:8001/transithealth) in your browser.
 
 If you need to run a different part of the project, return to the top-level directory:
 
