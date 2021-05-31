@@ -12,7 +12,7 @@ This guide walks you through how to add a new question to the backend API and fr
 - [Instructions](#instructions)
     - [1. Create Endpoints](#1-create-endpoints)
     - [2. Add Site Entry](#2-add-site-entry)
-    - [3. Implement Frontend Component](#2-implement-frontend-component)
+    - [3. Implement Frontend Component](#3-implement-frontend-component)
 
 ## Tips
 
@@ -25,6 +25,8 @@ This guide walks you through how to add a new question to the backend API and fr
 - **Camel Case:** a string with no spaces where words start with uppercase letters (often used for class names, component names, and variable names).
 - **Snake Case:** a string with no spaces where spaces are replaced with underscores (often used for internal file paths).
 - **Kebab Case:** a string with no spaces where spaces are replaced with dashes (often used for URLs).
+
+🐪 🐍 🍢
 
 ### Terminal Tips
 
@@ -66,12 +68,14 @@ Here are some good questions to review with your mentor, to check your understan
 
 Before you add a new question, make sure you have the necessary data. See [this guide](new_dataset.md) for instructions on how to add new datasets in the offline pipeline.
 
-The first time you add a new question, we recommend you do it over three separate pull requests (PRs):
+The first time you add a new question, we recommend you do it over **at least** three separate pull requests (PRs):
 
 - PR#1 to implement backend endpoints with unit tests
 - PR#2 to add a site entry to the frontend for your question
     - When merged, this will make a preview of your question appear on the Questions page of the website
 - PR#3 to implement the frontend component for your question
+
+Steps #1 and #3 can also be split up further into smaller pull requests. In general, submit a pull request when you have finished one piece of work, rather than trying to complete the entire step in one pull request. We suggest doing a small part of the backend work, then doing a small part of the frontend work, then working on more pull requests to flesh out the question.
 
 This makes it easier for your reviewer to follow the changes you are making. In the future, or if you feel the changes make more sense together, you can do all or some of those steps in a single pull request.
 
@@ -174,7 +178,7 @@ The component that renders the content of the Pooled Trips question is in the fi
 1. Imports
 2. Constants
 3. Helper Functions
-4. React Component Definition
+4. Main React Component Definition
 
 ```JSX
 // 1. Imports
@@ -209,7 +213,7 @@ function augmentMetrics(metrics) { }
 function getPooledTripsRateByArea(metrics) { }
 function QuestionBarChart({ data }) { }
 
-// 4. React Component Definition
+// 4. Main React Component Definition
 export default function PooledTrips(props) {
   const [ pooledTripRate, setPooledTripRate ] = useState([]);
   // Omitted: more code to use React component state
@@ -244,3 +248,21 @@ export default function PooledTrips(props) {
   );
 };
 ```
+
+Some points to note about this code sample:
+
+- To make the main React component easier to read, we split the bar chart into its own component, `QuestionBarChart`, defined in the helper methods section.
+- There are two helper methods to process the data returned from the endpoint:
+    - `augmentMetrics()` computes the change in rideshare trip rates between the two comparison periods (this could also have been done in the backend).
+    - `getPooledTripsRatesByArea()` gets just the pooled trip rates, since the `QuestionBarChart` component doesn't use any other data.
+- One of the constants is a mapping of city areas to colors, for the bar chart.
+    - This color palette was generated using [David Nichols' tool "Coloring for Colorblindness"](https://davidmathlogic.com/colorblind) to improve accessibility for users with color blindness. The website also lets you simulate how a color palette might look for users with different kinds of colorblindness.
+    - For more on accessibility, check out [this guide](accessibility.md).
+
+For help developing your question component, check out these guides:
+
+- [React](react.md): For an introduction to how we use React in this project
+- [Recharts](recharts.md): For an introduction to the data visualization library we use
+- [Our Table Component](table.md): For documentation on the `Table` component we use
+
+Do your best! When you launch your question, you will have contributed to every part of the TransitHealth codebase and created a new data story that you can share with visitors to the website.

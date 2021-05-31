@@ -35,22 +35,24 @@ Guides to explain the layout of the codebase and common commands for working wit
 ### General Software Engineering Topics
 
 - [Using Git](pages/git.md)
-- [Merge Conflicts](pages/merge_conflicts.md)
-- [Testing](pages/testing.md)
-- [Exploratory Data Analysis](pages/eda.md)
+- [Merge Conflicts (Coming Soon)](pages/merge_conflicts.md)
+- [Testing (Coming Soon)](pages/testing.md)
+- [Exploratory Data Analysis (Coming Soon)](pages/eda.md)
 
 ### Project-Specific Topics
 
 #### Frontend
 
 - [Add a New Question](pages/new_question.md)
-- [React](pages/react.md)
-- [Recharts](pages/recharts.md)
+- [React (Coming Soon)](pages/react.md)
+- [Recharts (Coming Soon)](pages/recharts.md)
+- [Accessibility (Coming Soon)](pages/accessibility.md)
+- [Table Component (Coming Soon)](table.md)
 
 #### Backend
 
 - [Add a New Endpoint](pages/new_endpoint.md)
-- [Flask](pages/flask.md)
+- [Flask (Coming Soon)](pages/flask.md)
 - [Write SQL Queries (Coming Soon)](pages/sqlite.md#write-queries)
 - [Time API Requests](pages/time_api_requests.md)
 

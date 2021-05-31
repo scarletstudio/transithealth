@@ -12,6 +12,7 @@ This guide walks you through how to add a new endpoint to the backend API.
 - [Instructions](#instructions)
     - [1. Implement Logic](#1-implement-logic)
     - [2. Add to API](#2-add-to-api)
+    - [3. Add Metric to App](#3-add-metric-to-app)
 
 ## Tips
 
@@ -106,10 +107,11 @@ Here are some good questions to review with your mentor, to check your understan
 
 Before you add a new endpoint, make sure you have the necessary data. See [this guide](new_dataset.md) for instructions on how to add new datasets in the offline pipeline.
 
-The first time you add a new endpoint, we recommend you do it over two separate pull requests (PRs):
+The first time you add a new endpoint, we recommend you do it over three separate pull requests (PRs):
 
 - PR#1 to implement logic with unit tests
 - PR#2 to add the logic to the API
+- PR#3 to add the metric to the app
 
 This makes it easier for your reviewer to follow the changes you are making. In the future, or if you feel the changes make more sense together, you can do all or some of those steps in a single pull request.
 
@@ -119,7 +121,7 @@ Remember to [keep your branch updated](git.md#update-your-branch)!
 
 ## Instructions
 
-There are two main steps to add a new endpoint to our backend API:
+There are two main steps to add a new endpoint to our backend API, plus a third step to add it to our frontend app:
 
 1. Implement Logic
     - Choose a module for the logic and tests (probably either `metrics` or `questions`)
@@ -129,6 +131,8 @@ There are two main steps to add a new endpoint to our backend API:
     - Choose a blueprint to add the endpoints to
     - Specify the endpoint path, parameters, verb(s) and handle the request/response/errors
     - Test the endpoint by sending a request from your browser, terminal, or a specialized tool
+3. Add Metric to App
+    - Update the config variables in `app/site/metrics.js`
 
 ### 1. Implement Logic
 
@@ -382,3 +386,55 @@ For example, we can try the `POST /community/metrics` endpoint we studied earlie
 You can use a specialized tool like [Insomnia](https://insomnia.rest) or [Postman](https://www.postman.com) to send a request and get the response. Many software development teams use these kinds of tools to help design and test API without having to bring up the client app. In this case, the tool serves as its own client.
 
 If you notice something a problem with the implementation while testing the endpoint this way, think of a way to fix it. It may be possible to write a unit test for this case, or a functional test may be needed. It is also sometimes okay to fix the problem and have the fix reviewed as a pull request, even if no test is added.
+
+### 3. Add Metric to App
+
+The file `app/site/metrics.js` configures the metrics for the TransitHealth Data Explorer. This allows engineers to add new metrics to the app with minimal changes to the frontend.
+
+You will mostly likely add your new metric to one of these two configs:
+
+- `communityMetrics` specifies metrics for the Community View
+- `weeklyMetrics` specifies metrics for the Timeline View
+
+Add your metric like this:
+
+```javascript
+export const communityMetrics = {
+  ...
+  rideshare_pooled_trip_rate_2019: {
+    name: "2019 Rideshare Pooled Trip Rate",
+    units: "of trips",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  ...
+```
+
+- Add the unique name to use as a key for your metric name. Replace any spaces in the key name with underscores (this is called snake case 🐍).
+    - This should match the name you gave the metric on the server-side, so that the app can tell the API what metric to return.
+- Give your metric a `name` that visitors will read when selecting it.
+- Specify the `units` to display after a value for this metric (e.g. "29% of trips"). You can also use the empty string `""` for units.
+- Specify the formatting method to use for the short version (`format`) and long version (`fullFormat`) of values for this metric.
+
+The variable `Formatter` in this file specifies functions that take in a value for a metric and returns a formatted version.
+
+- If the format you want is not present, you can add a new formatting function.
+- Using format functions on the frontend allows us to return metric values unformatted (e.g., for pooled trip rates, we can return `0.2900014` and have it formatted to `29%`).
+
+After adding your metric to the config, try out the site locally. Start your API in one terminal:
+
+```bash
+source .venv/bin/activate
+FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+```
+
+Then start the frontend in another terminal:
+
+```bash
+cd app
+yarn dev
+```
+
+Go to [localhost:8001/transithealth/explorer](http://localhost:8001/transithealth/explorer) and pick the view your metric appears in. Select the metric and check if the feature works as expected. You can also take a screenshot of the result to include in your pull request, so you can show your reviewer that the change worked.
+
+Congratulations! By now, you have added a feature to TransitHealth from end-to-end: contributing to the offline pipeline, backend API, and now having your feature show up in the frontend app.
