@@ -8,7 +8,40 @@
 
 ## Write Queries
 
-Coming soon...
+To learn about writing queries with SQLite, read through these external links. We choose these resources from these websites:
+
+- [SQLite Tutorial](https://www.sqlitetutorial.net)
+- [The official SQLite documentation](https://sqlite.org/index.html)
+
+### Retrieving and Filtering Data
+
+How to write queries that return some or all rows of one table.
+
+1. [Select](https://www.sqlitetutorial.net/sqlite-select)
+2. [Where](https://www.sqlitetutorial.net/sqlite-where)
+3. [Order By](https://www.sqlitetutorial.net/sqlite-order-by)
+4. [Limit](https://www.sqlitetutorial.net/sqlite-limit)
+
+### Aggregating Data
+
+How to write queries that return data derived from one or more tables.
+
+1. [Group By](https://www.sqlitetutorial.net/sqlite-group-by)
+2. [Having](https://www.sqlitetutorial.net/sqlite-having)
+3. [Aggregation Functions](https://sqlite.org/lang_aggfunc.html)
+    - [`AVG`](https://www.sqlitetutorial.net/sqlite-avg)
+    - [`COUNT`](https://www.sqlitetutorial.net/sqlite-avg)
+    - [`MAX`](https://www.sqlitetutorial.net/sqlite-avg)
+    - [`AVG`](https://www.sqlitetutorial.net/sqlite-avg)
+    - [`AVG`](https://www.sqlitetutorial.net/sqlite-avg)
+
+### Joining Data
+
+How to write queries that return some or all rows from more than one table or data derived from those tables.
+
+1. [Join Types](https://www.sqlitetutorial.net/sqlite-join)
+2. [Subquery](https://www.sqlitetutorial.net/sqlite-subquery)
+3. [Union](https://www.sqlitetutorial.net/sqlite-union)
 
 ## Create Tables
 

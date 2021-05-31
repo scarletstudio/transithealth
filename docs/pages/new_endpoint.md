@@ -143,7 +143,7 @@ Most likely, your logic will go in one of these two modules, in their respective
 
 In this guide, we will review an example from the `metrics` module. An example from the `questions` module will be covered in [the guide for adding new questions](new_question.md).
 
-#### A. Implementation
+#### A. Metric Implementation
 
 Below is the entire implementation for a metric that returns the median household income for each of the 77 community areas.
 
@@ -193,7 +193,7 @@ class CommunityMetrics:
 - A helper method imported from the `api.utils.database` module is used to convert the rows from a list of tuples into a list of dictionaries.
 - Each dictionary in the returned list has two keys: `"area_number"` and `"value"`, with values corresponding to the query result for each community area.
 
-#### B. Test
+#### B. Metric Test
 
 Below is the entire unit test for the implementation.
 
@@ -289,7 +289,7 @@ Some notes about the unit test:
 
 API endpoints are defined in the `endpoints` module, where each file specifies a blueprint.
 
-#### A. Implementation
+#### A. Endpoint Implementation
 
 Metrics added to `CommunityMetrics` are used in the endpoints defined in this file: `api/endpoints/community.py`.
 
@@ -362,30 +362,9 @@ This method executes whenever the server receives a request matching this endpoi
 - It calls the `merge_metrics()` method of the `CommunityMetrics` class which will run all the given metric functions and merge their results by community area.
 - It uses `jsonify()` method imported from Flask to convert a dictionary to a JSON response to send back to the frontend.
 
-#### B. Test
+#### B. Endpoint Test
 
-We use unit tests to verify our implementations, because that way, we don't have to start up a server and send requests every time we want to test it. However, even if the unit tests pass, requests may still fail if there is a bug in the code that handles the endpoint.
-
-You can test your endpoint in your browser. For a `GET` request, you can go to the URL where the API is being served.
-
-For example, there is an endpoint `GET /count/:table_name` that returns the count of rows in a table of the given name. If your server is running locally on port 5000, you can try this request by navigating your browser to `http://localhost:5000/count/income`.
-
-For `POST` requests, you can [start up the frontend app](../app/README.md) and go to a page that sends requests to the endpoint you want to try.
-
-For example, we can try the `POST /community/metrics` endpoint we studied earlier.
-
-- Go to [the Community View page on our production website](https://scarletstudio.github.io/transithealth/scatter).
-- Open the browser developer tools. If you are using Chrome, right-click on the page and select "Inspect element" from the options.
-- The developer tools panel will pop up. Click on the "Network" tab.
-- Select one of the median income metrics in the app for the Y-Axis.
-- In the network tab, the request will appear in the table of requests. Click on it.
-- Use the sub-tabs to navigate between the headers, preview, request, timing, and other information.
-
-![Screenshot of the Community View page with the devtools network tab open showing information about the request.](../images/devtools_network_tab.png)
-
-You can use a specialized tool like [Insomnia](https://insomnia.rest) or [Postman](https://www.postman.com) to send a request and get the response. Many software development teams use these kinds of tools to help design and test API without having to bring up the client app. In this case, the tool serves as its own client.
-
-If you notice something a problem with the implementation while testing the endpoint this way, think of a way to fix it. It may be possible to write a unit test for this case, or a functional test may be needed. It is also sometimes okay to fix the problem and have the fix reviewed as a pull request, even if no test is added.
+Check out the guide on how to [inspect API requests](inspect_api_requests.md) to test if requests to your new endpoint work as expected.
 
 ### 3. Add Metric to App
 

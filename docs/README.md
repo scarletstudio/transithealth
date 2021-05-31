@@ -47,13 +47,15 @@ Guides to explain the layout of the codebase and common commands for working wit
 - [React (Coming Soon)](pages/react.md)
 - [Recharts (Coming Soon)](pages/recharts.md)
 - [Accessibility (Coming Soon)](pages/accessibility.md)
-- [Table Component (Coming Soon)](table.md)
+- [Table Component (Coming Soon)](pages/table.md)
 
 #### Backend
 
 - [Add a New Endpoint](pages/new_endpoint.md)
-- [Flask (Coming Soon)](pages/flask.md)
-- [Write SQL Queries (Coming Soon)](pages/sqlite.md#write-queries)
+- [RESTful API Concepts](pages/new_endpoint.md#terminology)
+- [Flask](pages/flask.md)
+- [Write SQL Queries](pages/sqlite.md#write-queries)
+- [Inspect API Requests](pages/inspect_api_requests.md)
 - [Time API Requests](pages/time_api_requests.md)
 
 #### Pipeline

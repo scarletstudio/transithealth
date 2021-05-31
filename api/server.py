@@ -9,10 +9,7 @@ from decouple import config
 from flask import (
     Flask,
     jsonify,
-    request,
-    Response,
-    send_file,
-    render_template
+    request
 )
 from flask_cors import CORS
 import sqlite3
