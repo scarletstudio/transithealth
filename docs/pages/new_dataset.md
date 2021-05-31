@@ -118,7 +118,7 @@ The Python script `pipeline/extract/from_data_portal.py` helps you extract data 
 
 An example of a dataset extracted from the data portal is the rideshare data.
 
-This is the SoQL query to get the rideshare data from the data portal dataset:
+This is a simplified version of the SoQL query to get the rideshare data from the data portal dataset:
 
 ```sql
 SELECT
@@ -126,11 +126,14 @@ SELECT
     pickup_community_area,
     dropoff_community_area,
     count(1) as n_trips
+WHERE trip_end_timestamp <= "2021-05-01"
 GROUP BY ymd, pickup_community_area, dropoff_community_area
 LIMIT 190000000
 ```
 
 Usually, we don't want to do any transformation in the extract step, but the rideshare trips dataset has over 190 million rows, so it would take too long to download the un-aggregated version. This query gets the total number of trips for each day, pickup community area, and dropoff community area, which results in approximately 3.6 million rows.
+
+The City updates this dataset every three months. We set a filter in the where clause to only get data up to a certain date, that way if the City updates the dataset, we are not suddenly extracting new data. For more background on why we use this kind of filter, see [this issue page in our repository](https://github.com/scarletstudio/transithealth/issues/5).
 
 This is the `make` step for extracting the rideshare data from the data portal:
 

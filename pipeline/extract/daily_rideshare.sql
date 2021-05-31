@@ -18,6 +18,7 @@ WHERE
     (fare + additional_charges) <= 300
     AND fare is not null
     AND additional_charges is not null 
+    AND trip_end_timestamp <= "2021-05-01"
 GROUP BY
     ymd,
     pickup_community_area,

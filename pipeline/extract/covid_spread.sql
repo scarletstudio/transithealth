@@ -5,4 +5,6 @@ select
     zip_code as zip,
     population,
     cases_weekly
-limit 10000
+where
+    week_end <= "2021-05-08"
+limit 100000
