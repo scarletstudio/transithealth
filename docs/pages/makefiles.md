@@ -45,6 +45,8 @@ make reload
 
 ## Running Makefiles
 
+### Specific Run
+
 You can run a `make` command like this:
 
 ```bash
@@ -58,6 +60,49 @@ If `TARGET_NAME` has already been created, `make` will tell you there is nothin
 ```bash
 make: `TARGET_NAME` is up to date.
 ```
+
+After you update a specific target, you can also run the phony target `reload`, which deletes your local database and triggers all steps to load it again.
+
+```bash
+make reload
+```
+
+### Complete Run
+
+This is the most destructive `make` command you can run. It will delete all the files created by our Makefile and then run the entire pipeline from scratch.
+
+```bash
+make clean && make
+```
+
+### Partial Run
+
+Sometimes you only want to run the parts of the pipeline that you affected. Luckily, `make` helps handle this. Recall that `make` will update any targets whose dependencies have changed. This means you can run part of the pipeline by following these steps:
+
+1. Delete the earliest dependency for the target you want to update (usually one of the extracted files)
+2. Reload the database, which will trigger all steps to load the database, but only update the steps that depend on the file you deleted
+
+The commands are as follows:
+
+```bash
+rm PATH/TO/FILE/TO/DELETE
+make reload
+```
+
+### Complete Run with Exceptions
+
+Some files take a long time to make and we would prefer to avoid running their steps if we are sure that we do not affect them. We have created a special phony target to handle this.
+
+```bash
+make clean-except && make
+```
+
+You can use `clean-except` to clean all files except for some files we have given exceptions to. The exceptions are specified in the target, and they must satisfy two criteria:
+
+1. They have no dependencies
+2. They take a long time to make
+
+Currently, the only datasets that we want to make exceptions for are the rideshare and taxi trips datasets, since they are the largest datasets we will extract.
 
 ## Writing Makefiles
 
@@ -93,3 +138,6 @@ import os
 
 API = os.environ.get("CHICAGO_HEALTH_ATLAS_API")
 ```
+
+## Rerunning Makefiles
+

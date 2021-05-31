@@ -189,3 +189,14 @@ clean:
 clean-resources:
 	rm -f ../app/public/resources/community_area.json
 	rm -f data/transformed/community_area.csv
+
+clean-except:
+	# Runs make clean on all files except those specified here
+	# Gives you a quicker version of clean, use only if your change does not impact these files
+	# Exceptions are meant for files that (a) have no dependencies and (b) take a long time to make
+	mkdir tempdata
+	mkdir tempdata/extracted
+	cp data/extracted/daily_rideshare.csv tempdata/extracted/daily_rideshare.csv
+	make clean
+	cp tempdata/extracted/daily_rideshare.csv data/extracted/daily_rideshare.csv
+	rm -rf tempdata

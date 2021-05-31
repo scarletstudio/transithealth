@@ -40,6 +40,12 @@ You can run any `make` command from this folder by typing:
 make NAME_OF_TARGET
 ```
 
+It is also recommended that you check out the Makefiles guide to learn some helpful ways to run the offline pipeline:
+
+- [Partial Run](makefiles.md#partial-run)
+- [Complete Run with Exceptions](makefiles.md#complete-run-with-exceptions)
+- [Complete Run](makefiles.md#complete-run)
+
 ### Questions to Consider
 
 Besides coding, you might get stuck on questions about the product and datasets. These are good questions to review with your mentor, to check your understanding and ask for advice:
