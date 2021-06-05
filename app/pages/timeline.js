@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Nav from '../components/Nav'
 import TimelineExplorer from '../components/TimelineExplorer'
 import { timelineExplorerDefaults } from '../site/metrics'
+import { ServerLoadingNotification } from '../components/Notification'
 
 export default function TimelineView() {
   return (
@@ -23,6 +24,7 @@ export default function TimelineView() {
           <TimelineExplorer metrics={timelineExplorerDefaults.defaultMetrics} />
         </div>
       </main>
+      <ServerLoadingNotification />
     </div>
   );
 }

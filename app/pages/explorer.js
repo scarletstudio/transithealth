@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Nav from '../components/Nav'
+import { ServerLoadingNotification } from '../components/Notification'
 
 export default function Explorer() {
   return (
@@ -48,6 +49,7 @@ export default function Explorer() {
           </div>
         </div>
       </main>
+      <ServerLoadingNotification />
     </div>
   );
 }

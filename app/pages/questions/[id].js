@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import Nav from '../../components/Nav'
+import { ServerLoadingNotification } from '../../components/Notification'
 import { useState } from 'react'
 import {
   questionComponents,
@@ -48,6 +49,7 @@ export default function Question(props) {
           <br />
         </div>
       </main>
+      <ServerLoadingNotification />
     </div>
   );
 }
