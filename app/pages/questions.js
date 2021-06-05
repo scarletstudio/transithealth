@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Nav from '../components/Nav'
 import { getAllQuestions } from '../site/questions'
+import { ServerLoadingNotification } from '../components/Notification'
 
 export async function getStaticProps() {
   return {
@@ -46,6 +47,7 @@ export default function Questions({ questions }) {
           <p className="center">That's all for now! More questions coming soon...</p>
         </div>
       </main>
+      <ServerLoadingNotification />
     </div>
   )
 }

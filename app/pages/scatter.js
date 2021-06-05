@@ -2,6 +2,7 @@ import fs from 'fs'
 import Head from 'next/head'
 import Nav from '../components/Nav'
 import CommunityScatterExplorer from '../components/CommunityScatterExplorer'
+import { ServerLoadingNotification } from '../components/Notification'
 
 export async function getStaticProps() {
   const communityAreas = JSON.parse(fs.readFileSync(
@@ -34,6 +35,7 @@ export default function ScatterView({ communityAreas }) {
           <CommunityScatterExplorer communityAreas={communityAreas} />
         </div>
       </main>
+      <ServerLoadingNotification />
     </div>
   );
 }

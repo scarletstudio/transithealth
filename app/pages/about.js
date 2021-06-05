@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Nav from '../components/Nav'
+import { ServerLoadingNotification } from '../components/Notification'
 
 export default function About() {
   return (
@@ -17,6 +18,7 @@ export default function About() {
           <p>TransitHealth is developed by students at Scarlet Data Studio.</p>
         </div>
       </main>
+      <ServerLoadingNotification />
     </div>
   )
 }
