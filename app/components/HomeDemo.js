@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import useFetch from 'use-http'
 import ChicagoMap from '../components/ChicagoMap'
+import { Notification } from '../components/Notification'
 
 const minAlpha = 0.05;
 
-function aggregateByArea(metrics) {
+function aggregateByArea(metrics=[]) {
   const rows = metrics.map((val) => {
     const cases_per_thousand_trips = val.total_covid_cases / (val.rideshare_pickups_covid / 1000);
     return {
@@ -25,39 +27,25 @@ function aggregateByArea(metrics) {
   return byArea;
 }
 
+const ENDPOINT = `${process.env.NEXT_PUBLIC_API}/community/metrics`;
+const REQUEST_OPTIONS = {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    metrics: [
+      "rideshare_pickups_covid",
+      "total_covid_cases",
+    ],
+  }),
+};
+
 export default function HomeDemo({ communityAreas }) {
-  const [ mapData, setMapData ] = useState(null);
   const [ clickArea, setClickArea ] = useState({});
 
-  useEffect(() => {
-    let isSubscribed = true;
-
-    async function getData() {
-      const req = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/community/metrics`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            metrics: [
-              "rideshare_pickups_covid",
-              "total_covid_cases",
-            ],
-          }),
-        }
-      );
-      const res = await req.json();
-      const dataByArea = aggregateByArea(res.metrics);
-      if (isSubscribed) {
-        setMapData(dataByArea);
-      }      
-    }
-
-    getData();
-    return () => isSubscribed = false;
-  }, []);
+  const { loading, error, data } = useFetch(ENDPOINT, REQUEST_OPTIONS, []);
+  const mapData = data ? aggregateByArea(data.metrics) : null;
 
   const clickRow = mapData && clickArea.number ? mapData[clickArea.number] : {};
   const dataMsg = clickRow.name ? (
@@ -70,6 +58,13 @@ export default function HomeDemo({ communityAreas }) {
       </p>
     </div>
   ) : null;
+
+  const errorMsg = error ? (
+    <Notification classes={["Bottom", "Wide", "Failure"]} visible={true}>
+      <p>Failed to get data from server. Please reload.</p>
+    </Notification>
+  ) : null;
+
   return (
     <div className="center">
       <h2>COVID Cases per Thousand Rideshare Pickups</h2>
@@ -83,6 +78,7 @@ export default function HomeDemo({ communityAreas }) {
       />
       <h3>{clickArea.name}</h3>
       {dataMsg}
+      {errorMsg}
     </div>
   );
 }
