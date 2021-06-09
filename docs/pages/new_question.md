@@ -184,9 +184,11 @@ The component that renders the content of the Pooled Trips question is in the fi
 ```JSX
 // 1. Imports
 import { useState, useEffect } from 'react'
+import useFetch from 'use-http'
 // Omitted: more imports
 
 // 2. Constants
+const POOLED_TRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/pooled_trips`;
 const METRIC_POOLED_TRIP_RATE = "pooled_trip_rate_before";
 const CITY_PART_COLOR = {
   "Central": "#332288",
@@ -199,41 +201,43 @@ const CITY_PART_COLOR = {
   "Southwest Side": "#AA4499",
   "West Side": "#882255",
 };
+const MIN_PCT_CHANGE_TRIPS = -0.8;
+const RIDESHARE_COLS = [
+  ...
+  {
+    key: "pct_change_avg_trips",
+    group: "Trips/Day",
+    name: "Change",
+    format: Formatter.percentChangeWithNoDecimal,
+    rowClasses: ["right"],
+    rgb: "136, 34, 85",
+    alpha: (v) => (v / MIN_PCT_CHANGE_TRIPS),
+  },
+  ...
+];
 // Omitted: more constants
 
 // 3. Helper Functions
-async function fetchAllData() {
-  // This sends the request to an API endpoint
-  const req = await fetch(`${process.env.NEXT_PUBLIC_API}/question/pooled_trips`);
-  const res = await req.json();
-  return res.metrics;
-}
-
-// Omitted: function bodies for helper functions
 function augmentMetrics(metrics) { }
 function getPooledTripsRateByArea(metrics) { }
+function transformData(data) { }
 function QuestionBarChart({ data }) { }
+// Omitted: function bodies for helper functions
 
 // 4. Main React Component Definition
 export default function PooledTrips(props) {
-  const [ pooledTripRate, setPooledTripRate ] = useState([]);
-  // Omitted: more code to use React component state
+  // useFetch is a special effect we use to fetch data from the API
+  const { loading, error, data } = useFetch(POOLED_TRIPS_ENDPOINT, {}, []);
+  const [ metrics, pooledTripRate ] = transformData(data);
 
-  // Simplified and omitted: more code to get data and update component state
+  // When the loading state from useFetch changes, update the page loading state
   useEffect(() => {
-
-    async function getData() {
-      const rawMetrics = await fetchAllData();
-      const metrics = augmentMetrics(rawMetrics);
-      const pooledTripRateData = getPooledTripsRateByArea(metrics);
-      setPooledTripRate(pooledTripRateData);
-    }
-
-    getData();
-  }, []);
-
-  // Omitted: more computations before rendering the component
+    props.setContentIsLoading(loading);
+  }, [loading]);
+  
+  const errorMsg = (...);
   const detailForPooledRate = (...);
+  // Omitted: more computations before rendering the component
 
   // HTML/JSX for rendering the component
   return (
@@ -245,6 +249,8 @@ export default function PooledTrips(props) {
       <QuestionBarChart data={pooledTripRate} />
       {detailForPooledRate}
       <br />
+      <Table rows={metrics} cols={RIDESHARE_COLS} />
+      {errorMsg}
     </div>
   );
 };
@@ -259,6 +265,9 @@ Some points to note about this code sample:
 - One of the constants is a mapping of city areas to colors, for the bar chart.
     - This color palette was generated using [David Nichols' tool "Coloring for Colorblindness"](https://davidmathlogic.com/colorblind) to improve accessibility for users with color blindness. The website also lets you simulate how a color palette might look for users with different kinds of colorblindness.
     - For more on accessibility, check out [this guide](accessibility.md).
+- The parent of a question component passes it a method through props called `setContentIsLoading()` which lets the child update the loading state of its parent.
+- The constant `RIDESHARE_COLS` is a list of objects that define the columns of the `Table` component.
+- The variable `errorMsg` shows an error notification if there is an error message from the API request, otherwise it shows nothing.
 
 For help developing your question component, check out these guides:
 
