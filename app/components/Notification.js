@@ -33,7 +33,7 @@ async function pingServer() {
     fetch(`${process.env.NEXT_PUBLIC_API}/`).then((res) => {
       resolve(true);
     }).catch((err) => {
-    resolve(false);
+      resolve(false);
     });
   });
 }
