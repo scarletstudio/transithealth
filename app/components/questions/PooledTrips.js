@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import useFetch from 'use-http'
 import {
   ResponsiveContainer,
   BarChart,
@@ -12,11 +13,13 @@ import {
   Cell,
 } from 'recharts'
 import { Table } from '../../components/Table'
+import { Notification } from '../../components/Notification'
 import {
   Formatter,
   calculatePercentChange,
 } from '../../site/metrics'
 
+const POOLED_TRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/pooled_trips`;
 const METRIC_POOLED_TRIP_RATE = "pooled_trip_rate_before";
 const CITY_PART_COLOR = {
   "Central": "#332288",
@@ -102,12 +105,6 @@ const RIDESHARE_COLS = [
   },
 ];
 
-async function fetchAllData() {
-  const req = await fetch(`${process.env.NEXT_PUBLIC_API}/question/pooled_trips`);
-  const res = await req.json();
-  return res.metrics;
-}
-
 function augmentMetrics(metrics) {
   return metrics.map((d) => {
     return {
@@ -133,6 +130,15 @@ function getPooledTripsRateByArea(metrics) {
     ...v,
     [v.part]: v[METRIC_POOLED_TRIP_RATE],
   }));
+}
+
+function transformData(res) {
+  if (res) {
+    const metrics = augmentMetrics(res.metrics);
+    const pooledTripRate = getPooledTripsRateByArea(metrics);
+    return [ metrics, pooledTripRate ];
+  }
+  return [ [], [] ];
 }
 
 function QuestionBarChart({ data }) {
@@ -178,29 +184,20 @@ function QuestionBarChart({ data }) {
 }
 
 export default function PooledTrips(props) {
-  const [ data, setData ] = useState([]);
-  const [ pooledTripRate, setPooledTripRate ] = useState([]);
+  const { loading, error, data } = useFetch(POOLED_TRIPS_ENDPOINT, {}, []);
+  const [ metrics, pooledTripRate ] = transformData(data);
 
   useEffect(() => {
-    let isSubscribed = true;
+    props.setContentIsLoading(loading);
+  }, [loading]);
 
-    async function getData() {
-      props.setContentIsLoading(true);
-      const rawMetrics = await fetchAllData();
-      const metrics = augmentMetrics(rawMetrics);
-      const pooledTripRateData = getPooledTripsRateByArea(metrics);
-      if (isSubscribed) {
-        props.setContentIsLoading(false);
-        setData(metrics);
-        setPooledTripRate(pooledTripRateData);
-      }    
-    }
+  const errorMsg = error ? (
+    <Notification classes={["Bottom", "Wide", "Failure"]} visible={true}>
+      <p>Failed to get data from server. Please reload.</p>
+    </Notification>
+  ) : null;
 
-    getData();
-    return () => isSubscribed = false;
-  }, []);
-
-  const sortedByPooledRate = data.sort((a, b) => {
+  const sortedByPooledRate = metrics.sort((a, b) => {
     return b[METRIC_POOLED_TRIP_RATE] - a[METRIC_POOLED_TRIP_RATE];
   });
   const highestByPooledRate = sortedByPooledRate[0];
@@ -247,7 +244,8 @@ export default function PooledTrips(props) {
           <span> is the 12-month period from March 2020-2021.</span>
         </p>
       </div>
-      <Table rows={data} cols={RIDESHARE_COLS} />
+      <Table rows={metrics} cols={RIDESHARE_COLS} />
+      {errorMsg}
     </div>
   );
 };

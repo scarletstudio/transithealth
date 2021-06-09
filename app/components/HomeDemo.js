@@ -60,7 +60,7 @@ export default function HomeDemo({ communityAreas }) {
   ) : null;
 
   const errorMsg = error ? (
-    <Notification classes={["Bottom", "Wide", "Failure"]} visible={true}>
+    <Notification classes={["Bottom", "Wide", "Failure", "left"]} visible={true}>
       <p>Failed to get data from server. Please reload.</p>
     </Notification>
   ) : null;
