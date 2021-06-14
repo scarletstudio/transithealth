@@ -12,11 +12,15 @@ All three of these systems are part of this codebase. This guide will help you i
 
 We will set up the project codebase using the command line. Open a terminal window to follow these steps.
 
+If you are on Windows, install [Cygwin](https://www.cygwin.com) and add it to your PATH in your system environment variables. This will allow you to run some terminal commands that are normally not available on Windows.
+
 When you see a code block like this, unless otherwise stated, each line is a command to enter into your terminal.
 
 ```bash
-# This command will list all the folders and files in your current directory.
+# This command will list all the folders and files in your current directory:
 ls
+# Windows users who do not have Cygwin can use this command:
+dir
 ```
 
 ## 1. Clone Repository
@@ -84,6 +88,8 @@ Sometimes these files contain secret information (not the case for our project),
 
 Now we can set up the Python parts of our project. If Python and its package manager pip are not on your system, visit [the website](https://www.python.org/downloads/) to install them.
 
+Use Python version 3.6 or higher.
+
 Virtual environments allow us to manage the dependencies of our project, without affecting the rest of our computer.
 
 ### Commands to Run the First Session Only
@@ -111,7 +117,11 @@ python3 -m virtualenv .venv
 Activate the virtual environment. You will do this at the start of every session.
 
 ```bash
+# For Mac/Linux users:
 source .venv/bin/activate
+
+# For Windows users:
+.venv\Scripts\activate.bat
 ```
 
 If your virtual environment is active, you will see `(.venv)` at the left of your terminal line.
@@ -138,7 +148,9 @@ Change directories to the `app/` folder.
 cd app
 ```
 
-We will use Yarn, a package manager for Node.js. If Node.js is not on your system, visit [the website](https://nodejs.org/en/download) to install it first. It is recommended to use Node version 14 or higher for running our frontend app.
+We will use Yarn, a package manager for Node.js. If Node.js is not on your system, visit [the website](https://nodejs.org/en/download) to install it first.
+
+Use Node version 14 or higher.
 
 Then, if Yarn is not on your system, visit [the website](https://classic.yarnpkg.com/en/docs/install) to install it.
 
@@ -160,7 +172,11 @@ Our offline pipeline pulls in data from outside sources, processes it, and creat
 
 For more information about the offline pipeline directory structure, visit its [README](../pipeline/README.md).
 
-Make should already be installed on Linux or Mac systems. If it is not installed on your Windows machine, visit [this website](http://gnuwin32.sourceforge.net/packages/make.htm) to install it.
+Make should already be installed on Linux or Mac systems.
+
+For Windows users:
+- Install [Cygwin](https://www.cygwin.com) and add it to your PATH in your system environment variables. This will allow you to run our Makefile, which contains commands that normally do not work on Windows.
+- Install [Chocolatey](https://chocolatey.org/install). Then use it to install Make by running `choco install make`.
 
 Make sure that your virtual environment is activated and that you are in the `pipeline/` directory.
 
@@ -354,7 +370,6 @@ After pushing, open a pull request so we can merge your new notebook folder into
 - Ask your mentor to review and merge the pull request
 
 ![Screenshot showing how to open a new pull request on GitHub](../images/setup_pull_request.png)
-
 
 ## Congratulations!
 
