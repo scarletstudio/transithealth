@@ -11,7 +11,7 @@ export default function TimelineView() {
         <title>TransitHealth</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Explore transit and public health data across Chicago." />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="favicon.ico" />
       </Head>
       <Nav />
       <main className="Timeline">
