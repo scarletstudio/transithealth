@@ -20,6 +20,7 @@ Guides to explain the layout of the codebase and common commands for working wit
 ## Guides By Schedule
 
 - Week 1
+    - [Common Tasks](pages/tasks.md)
     - [Add a New Dataset](pages/new_dataset.md)
     - [Add a New Endpoint](pages/new_endpoint.md)
     - [Testing](pages/testing.md)
