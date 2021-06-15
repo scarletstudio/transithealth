@@ -175,6 +175,28 @@ resources:
 		--input_file="data/transformed/community_area.csv" \
 		--output_file="../app/public/resources/community_area.json"
 
+# Archive for files that take a long time to make
+
+archive.tgz: data/transformed/rideshare.csv data/extracted/daily_rideshare.csv
+	mkdir archive
+	mkdir archive/extracted
+	mkdir archive/transformed
+	cp data/extracted/daily_rideshare.csv archive/extracted/daily_rideshare.csv
+	cp data/transformed/rideshare.csv archive/transformed/rideshare.csv
+	tar cfz archive.tgz archive/
+	rm -rf archive
+
+unpack-archive:
+	rm -rf archive
+	tar -xvf archive.tgz
+	cp archive/extracted/daily_rideshare.csv data/extracted/daily_rideshare.csv
+	cp archive/transformed/rideshare.csv data/transformed/rideshare.csv
+	rm -rf archive
+
+clean-archive:
+	rm -rf data/archive
+	rm -f archive.tgz
+
 # Clean
 
 clean:
@@ -193,10 +215,15 @@ clean-resources:
 clean-except:
 	# Runs make clean on all files except those specified here
 	# Gives you a quicker version of clean, use only if your change does not impact these files
-	# Exceptions are meant for files that (a) have no dependencies and (b) take a long time to make
+	# Exceptions are meant for files that:
+	# - (a) take a long time to make
+	# - (b) AND have no dependencies (OR their dependencies also have exceptions)
 	mkdir tempdata
 	mkdir tempdata/extracted
+	mkdir tempdata/transformed
 	cp data/extracted/daily_rideshare.csv tempdata/extracted/daily_rideshare.csv
+	cp data/transformed/rideshare.csv tempdata/transformed/rideshare.csv
 	make clean
 	cp tempdata/extracted/daily_rideshare.csv data/extracted/daily_rideshare.csv
+	cp tempdata/transformed/rideshare.csv data/transformed/rideshare.csv
 	rm -rf tempdata

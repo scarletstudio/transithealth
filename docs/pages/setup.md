@@ -191,18 +191,40 @@ Run this command to unpack the compressed database into a file that the backend 
 make uncompressed
 ```
 
-Running the entire offline pipeline from scratch can take a while. You can skip this step for now:
+### Optional: Run the Pipeline
 
-```bash
-# This will delete the database and run the entire database from scratch, which can take a long time
-make clean && make
+If you would like to run the entire pipeline (except for the files that take the longest to make), then follow these steps. Otherwise, skip to [the next heading](#verify-database).
+
+First, download the latest archive from this Drive link. This contains the files that take the longest to make.
+
+```
+https://drive.google.com/file/d/1UG0G8PemaT1YU_BKaOfN-PIq191KvceV/view?usp=sharing
 ```
 
-After unpacking the compressed database, go back up to the project root directory.
+Download the file and move it to `pipeline/archive.tgz`. Then unpack its contents using this command:
+
+```bash
+make unpack-archive
+```
+
+Now you can run the rest of the pipeline. This command will clear all files except the ones from the archive and then rerun the entire pipeline:
+
+```bash
+make clean-except && make
+```
+
+### Verify Database
+
+Now that you have unpacked the database, you can run basic tests to check its contents.
+
+First, go back up to the project root directory. Then, run our unit testing command `pytest`. This will run all unit tests for the project.
 
 ```bash
 cd ..
+pytest
 ```
+
+If you get a message that all tests are passing, you are good to go! Otherwise, ask for help.
 
 ## 7. Run Backend API
 

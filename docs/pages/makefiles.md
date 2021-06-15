@@ -99,10 +99,42 @@ make clean-except && make
 
 You can use `clean-except` to clean all files except for some files we have given exceptions to. The exceptions are specified in the target, and they must satisfy two criteria:
 
-1. They have no dependencies
-2. They take a long time to make
+1. They take a long time to make
+2. AND they have no dependencies (OR their dependencies also have exceptions)
 
 Currently, the only datasets that we want to make exceptions for are the rideshare and taxi trips datasets, since they are the largest datasets we will extract.
+
+## Complete Run with Archive
+
+We keep a compressed archive of the files that have exceptions, so that we can download and unpack the results instead of making them from scratch.
+
+You can download the latest archive from this Drive link:
+
+```
+https://drive.google.com/file/d/1UG0G8PemaT1YU_BKaOfN-PIq191KvceV/view?usp=sharing
+```
+
+Download the file and move it to `pipeline/archive.tgz`. Then unpack its contents.
+
+```bash
+make unpack-archive
+```
+
+As long as you have `pipeline/archive.tgz`, you can rerun the entire pipeline, without remaking the files with exceptions, using this command:
+
+```bash
+make clean && make unpack-archive && make
+```
+
+After the archive is unpacked, you can use the command for a [complete run with exceptions](#complete-run-with-exceptions) from then on.
+
+If you change any of the files that have exceptions, then you should create a new archive.
+
+```bash
+make archive.tgz
+```
+
+Then upload `archive.tgz` to a location where others can get it and mark it as the latest archive version (ask Vinesh for help with this).
 
 ## Writing Makefiles
 
