@@ -21,7 +21,7 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 - Week 1
     - [Add a New Dataset](pages/new_dataset.md)
-    - [Add a New Endpoint](pages/new_dataset.md)
+    - [Add a New Endpoint](pages/new_endpoint.md)
     - [Testing](pages/testing.md)
 - Week 2
     - [Exploratory Data Analysis](pages/eda.md)
