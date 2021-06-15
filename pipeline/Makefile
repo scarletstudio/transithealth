@@ -165,6 +165,15 @@ data/extracted/daily_rideshare.csv:
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
 
+daily_bus_ridership:= https://data.cityofchicago.org/resource/jyb9-n7fm.json
+
+data/extracted/daily_bus_ridership.csv:
+	python3 ./extract/from_data_portal.py \
+	--json_url="$(daily_bus_ridership)" \
+	--soql_file="extract/bus_ridership.sql" \
+	--output_file="data/extracted/daily_rideshare.csv"
+	
+
 # Exports For Frontend App
 
 resources:
