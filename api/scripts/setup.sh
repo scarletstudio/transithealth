@@ -107,6 +107,21 @@ pytest
 echo "DONE: Step 6 complete."
 echo
 
+echo "[Step 7] Allowing traffic to ports..."
+echo "Go to your Cloud9 page: https://us-east-2.console.aws.amazon.com/cloud9"
+echo "- Click View details"
+echo "- Click the link under Security groups"
+echo "- Click the link under Security group ID"
+echo "- Click Edit inbound rules"
+echo "- Delete the existing rules"
+echo "- Click Add rule"
+echo "- For Type, select All traffic"
+echo "- For Source, select Anywhere"
+echo "- Click Save rules"
+read -p "When you are ready to move on, hit enter to continue." READY
+echo "DONE: Step 7 complete."
+echo
+
 echo "Setup complete! You should be ready to go."
 echo "To start the frontend, open a new terminal window and run this line:"
 echo
