@@ -7,8 +7,7 @@ if [ ! -f archive.tgz ]; then
 fi
 
 echo "[Step 1] Generating an SSH key and writing it to your config..."
-echo "Enter the email address associated with your GitHub account:"
-read $GITHUB_EMAIL
+read -p "Enter the email address associated with your GitHub account: " GITHUB_EMAIL
 ssh-keygen -t ed25519 -C "$GITHUB_EMAIL"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
@@ -20,19 +19,20 @@ Host *
   UseKeychain yes
   IdentityFile ~/.ssh/id_ed25519
 " >> ~/.ssh/config
+chmod 600 ~/.ssh/config
+chown $USER ~/.ssh/config
 echo "DONE: Step 1 complete."
 echo
 
 echo "[Step 2] Adding the SSH key to your GitHub account..."
 echo "Go to this link: https://github.com/settings/keys"
 echo "Click the New SSH key button"
-echo "Echo paste this single line as the key:"
+echo "Paste this single line as the key:"
 
 cat ~/.ssh/id_ed25519.pub
 
 echo
-echo "When you are read to move on, hit enter to continue."
-read $READY
+read -p "When you are read to move on, hit enter to continue." READY
 echo "DONE: Step 2 complete."
 echo
 

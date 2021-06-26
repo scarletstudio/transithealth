@@ -42,7 +42,7 @@ Since Cloud9 provides consistent Linux environments, most of this setup should w
 - Download the `setup.sh` script by running this in your terminal:
 
 ```bash
-wget https://gist.githubusercontent.com/vingkan/65f3add4cc586b0fbcd719963abca73c/raw/0daf6b80ed8f720175c3abb9f81da260c9cb663e/setup.sh
+wget https://raw.githubusercontent.com/scarletstudio/transithealth/main/api/scripts/setup.sh
 ```
 
 - Enable and run the script:
