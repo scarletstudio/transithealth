@@ -2,6 +2,41 @@
 
 [Cloud9](https://aws.amazon.com/cloud9) is a cloud-based development environment that allows you to develop without installing the project on your computer. Instead, you connect to a remote machine and use an editor and terminals in your browser. The application runs on that remote machine and its IP address can be used as a URL to access it over the web.
 
+## Create a Cloud9 Environment
+
+1. Login to AWS
+    - Go to [the AWS homepage](https://aws.amazon.com)
+    - Click the "My Account" dropdown in the top-right corner
+    - Click "AWS Management Console"
+    - Select the "IAM user" option
+    - Enter the account ID (12 digits) provided to you
+    - Sign in with the IAM user name and password provided to you
+    - Search for Cloud9 in the services search bar and click on the result
+2. Create your environment (we will use all the default settings)
+    - Click the "Create environment" button
+    - Enter the name (e.g. "Vinesh TransitHealth")
+    - Enter an optional description
+    - Click the "Next step" button
+    - For environment type, select "Create a new EC2 instance for environment (direct access)"
+    - For instance type, select "t2.micro (1 GiB RAM + 1 vCPU)"
+    - For platform, select "Amazon Linux 2 (recommended)"
+    - For cost-saving setting, leave as "After 30 minutes (default)"
+    - Click the "Next step" button
+    - Click the "Create environment" button
+    - Wait for your AWS Cloud9 environment to be set up
+3. Set up the TransitHealth project
+    - Download the `archive.tgz` file from [this Google Drive link](https://drive.google.com/file/d/1UG0G8PemaT1YU_BKaOfN-PIq191KvceV/view?usp=sharing)
+    - Click the "File" menu, then click "Upload local files" and upload `archive.tgz` to your Cloud9 environment
+    - Download the `setup.sh` script (details coming soon...)
+    - Enable the script by running this in your terminal: `chmod 0777 setup.sh`
+    - Start the setup script by running this in your terminal: `./setup.sh`
+    - Follow the instructions the script prints out
+    - The script will ask you to copy an SSH key and add it to your account on the GitHub website
+    - When the script finishes, it will tell you how to run the frontend and backend
+    - Then it will give you a public link to view the app in your browser
+    - If you run into issues with the script, ask Vinesh for help
+    - If all else fails, follow the instructions in [the setup guide](setup.md) to manually set up
+
 ## Common Commands
 
 ### Get Public IP Address
@@ -12,7 +47,7 @@ To access the frontend app and backend server from Cloud9, you need to get the p
 curl http://169.254.169.254/latest/meta-data/public-ipv4
 ```
 
-This command will print the IP address. To get the URL, you can add `http://` before it and the port number (like `:8001`) after it.
+This command will print the IP address. To get the URL, you can add `http://` before it and the port number (e.g. `:8001`) after it.
 
 ### Out of Space on Disk
 

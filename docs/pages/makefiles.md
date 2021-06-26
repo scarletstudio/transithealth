@@ -170,6 +170,3 @@ import os
 
 API = os.environ.get("CHICAGO_HEALTH_ATLAS_API")
 ```
-
-## Rerunning Makefiles
-

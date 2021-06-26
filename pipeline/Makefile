@@ -38,6 +38,7 @@ compressed: database.db
 database.db: data/loaded/all_tables.txt
 
 data/loaded/all_tables.txt:
+	mkdir -p data/loaded
 	make data/loaded/community_area.txt
 	make data/loaded/population.txt
 	make data/loaded/income.txt
