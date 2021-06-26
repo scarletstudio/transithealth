@@ -21,7 +21,7 @@ source .venv/bin/activate
 4. Start a local API server to send the requests to.
 
 ```bash
-FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+./api/dev.sh
 ```
 
 5. Run the script to get the results.

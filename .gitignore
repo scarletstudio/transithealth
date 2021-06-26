@@ -10,6 +10,7 @@ app/transithealth/
 pipeline/data/*
 pipeline/database.db
 pipeline/archive.tgz
+pipeline/archive/*
 
 # End of project-specific ignores.
 

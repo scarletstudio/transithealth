@@ -75,7 +75,7 @@ source .venv/bin/activate
 To start the API server locally:
 
 ```bash
-FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+./api/dev.sh
 ```
 
 To run all Python tests in the repository:
@@ -404,7 +404,7 @@ After adding your metric to the config, try out the site locally. Start your API
 
 ```bash
 source .venv/bin/activate
-FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+./api/dev.sh
 ```
 
 Then start the frontend in another terminal:

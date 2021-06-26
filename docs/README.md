@@ -70,6 +70,10 @@ Guides to explain the layout of the codebase and common commands for working wit
 - [Common Data Transformations](pages/transformations.md)
 - [Argparse](pages/argparse.md)
 
+### Tools
+
+- [Cloud9](pages/cloud9.md)
+
 ### Deployment
 
 - [Run Staging](pages/staging.md)

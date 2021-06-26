@@ -59,7 +59,7 @@ Then open the file in the text editor of your choice and add these contents:
 
 ```
 # Tells the server what port to serve the API on
-API_PORT=5000
+PORT=5000
 # Tells the server what origins to accept requests from (comma-separated list, if multiple origins)
 ALLOW=http://localhost:8001
 # Tells the server where to find the SQLite database file
@@ -241,7 +241,7 @@ source .venv/bin/activate
 Use this command to run the server in development mode. If you make changes, it will automatically reload.
 
 ```bash
-FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+./api/dev.sh
 ```
 
 Now you can open `http://localhost:5000` in your browser. You get see a welcome message telling you the API is active.
