@@ -241,7 +241,7 @@ source .venv/bin/activate
 Use this command to run the server in development mode. If you make changes, it will automatically reload.
 
 ```bash
-FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+./api/dev.sh
 ```
 
 Now you can open `http://localhost:5000` in your browser. You get see a welcome message telling you the API is active.

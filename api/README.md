@@ -34,5 +34,5 @@ source .venv/bin/activate
 Start the local development server.
 
 ```bash
-FLASK_APP=api/server.py FLASK_DEBUG=1 FLASK_ENV=development flask run
+./api/dev.sh
 ```
