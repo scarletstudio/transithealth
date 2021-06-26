@@ -33,7 +33,7 @@ echo "Paste this single line as the key:"
 cat ~/.ssh/id_ed25519.pub
 
 echo
-read -p "When you are read to move on, hit enter to continue." READY
+read -p "When you are ready to move on, hit enter to continue." READY
 echo "DONE: Step 2 complete."
 echo
 
