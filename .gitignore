@@ -12,8 +12,6 @@ pipeline/database.db
 pipeline/archive.tgz
 pipeline/archive/*
 
-resize.sh
-
 # End of project-specific ignores.
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,jupyternotebooks,react,node
