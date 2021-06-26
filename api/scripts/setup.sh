@@ -81,6 +81,7 @@ cd ..
 echo "Creating virtual environment..."
 pip3 install virtualenv
 virtualenv .venv
+source .venv/bin/activate
 echo "Installing backend dependencies..."
 pip3 install -r requirements.txt
 echo "DONE: Step 5 complete."
@@ -100,10 +101,12 @@ echo
 
 echo "Setup complete! You should be ready to go."
 echo "To start the frontend, open a new terminal window and run this line:"
-echo "cd transithealth/app && yarn dev"
 echo
-echo "To start the backend, run this line in this terminal:"
-echo "cd transithealth && ./api/dev.sh"
+echo "  cd transithealth/app && yarn dev"
+echo
+echo "To start the backend, open a new terminal window and run this line:"
+echo
+echo "  cd transithealth && source .venv/bin/activate && ./api/dev.sh"
 echo
 echo "Then view the app at: http://$INSTANCE_IP:8001/transithealth"
 echo
