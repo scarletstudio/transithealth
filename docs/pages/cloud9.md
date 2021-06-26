@@ -4,6 +4,12 @@
 
 ## Create a Cloud9 Environment
 
+### 0. Prerequisites
+
+- Create an account on GitHub and send your username to Vinesh to be invited to the repository
+- Accept the invitation to join the TransitHealth repository on GitHub
+- Check your email for the credentials to log into Amazon Web Services (AWS)
+
 ### 1. Login to AWS
 
 Check your email or Slack for a message with your credentials.
