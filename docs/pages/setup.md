@@ -23,6 +23,12 @@ ls
 dir
 ```
 
+## Set Up on Cloud9
+
+To set up TransitHealth on Cloud9, a cloud-based development environment, [follow this guide](cloud9.md).
+
+To set up TransitHealth on your own machine, continue following this guide.
+
 ## 1. Clone Repository
 
 The code for this project is hosted on GitHub. If you do not have a GitHub account, visit [the website](https://github.com) to create one.
@@ -315,7 +321,7 @@ cp "notebooks/example/Example Notebook.ipynb" "notebooks/YOUR_HAWK_USERNAME/My E
 You can start the Jupyter notebook server from the project root directory.
 
 ```bash
-python3 -m notebook
+./notebooks/start.sh
 ```
 
 This will open a page in your browser with all the folders in our project. Click on the `notebooks/` folder and then open your folder. Click on your example notebook to launch it.

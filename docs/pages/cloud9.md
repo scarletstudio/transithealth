@@ -65,10 +65,14 @@ chmod 0777 setup.sh
 - When the script finishes, it will tell you how to run the frontend and backend
 - Then it will give you a public link to view the app in your browser
 
+### Troubleshooting
+
 If the setup script fails at any point:
 
 - Ask Vinesh for help
 - Or follow the manual setup instructions in [the setup guide](setup.md)
+- If the setup script hangs on resizing the instance storage for a long time, you should start over entirely
+    - Go back to Cloud9 in the AWS console, delete your environment, and then start over from step 2 above
 - If you have trouble with generating the SSH key, refer to these two guides:
     - [Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
     - [Adding a new SSH key to your GitHub account](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
