@@ -6,6 +6,13 @@ if [ ! -f archive.tgz ]; then
     exit
 fi
 
+echo "[Step 0] Resizing the amount of storage..."
+wget https://raw.githubusercontent.com/scarletstudio/transithealth/main/api/scripts/resize.sh
+chmod 0777 resize.sh
+./resize.sh 20
+echo "DONE: Step 0 complete."
+echo
+
 echo "[Step 1] Generating an SSH key and writing it to your config..."
 read -p "Enter the email address associated with your GitHub account: " GITHUB_EMAIL
 echo "You should accept the default file location in which to save the key."
@@ -68,10 +75,11 @@ echo "DONE: Step 4 complete."
 echo
 
 echo "[Step 5] Installing dependencies..."
-echo "Setting up Node v14..."
-nvm install 14
-nvm use 14
-nvm alias default 14
+# nvm does not work from the script, so default Node version (v10) will have to do for now
+# echo "Setting up Node v14..."
+# nvm install 14
+# nvm use 14
+# nvm alias default 14
 echo "Installing Yarn..."
 npm install --global yarn
 echo "Installing frontend dependencies..."
