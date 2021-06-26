@@ -189,6 +189,8 @@ archive.tgz: data/transformed/rideshare.csv data/extracted/daily_rideshare.csv
 unpack-archive:
 	rm -rf archive
 	tar -xvf archive.tgz
+	mkdir -p data/extracted
+	mkdir -p data/transformed
 	cp archive/extracted/daily_rideshare.csv data/extracted/daily_rideshare.csv
 	cp archive/transformed/rideshare.csv data/transformed/rideshare.csv
 	rm -rf archive
