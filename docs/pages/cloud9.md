@@ -2,7 +2,9 @@
 
 [Cloud9](https://aws.amazon.com/cloud9) is a cloud-based development environment that allows you to develop without installing the project on your computer. Instead, you connect to a remote machine and use an editor and terminals in your browser. The application runs on that remote machine and its IP address can be used as a URL to access it over the web.
 
-## Create a Cloud9 Environment
+## Setting Up TransitHealth on Cloud9
+
+You can also watch [this video walkthrough](https://www.loom.com/share/9146e775f34c47719ee25e08a173b939).
 
 ### 0. Prerequisites
 
