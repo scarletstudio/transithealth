@@ -8,6 +8,7 @@ fi
 
 echo "[Step 1] Generating an SSH key and writing it to your config..."
 read -p "Enter the email address associated with your GitHub account: " GITHUB_EMAIL
+echo "You should accept the default file location in which to save the key."
 ssh-keygen -t ed25519 -C "$GITHUB_EMAIL"
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
@@ -102,7 +103,7 @@ echo "To start the frontend, open a new terminal window and run this line:"
 echo "cd transithealth/app && yarn dev"
 echo
 echo "To start the backend, run this line in this terminal:"
-echo "./api/dev.sh"
+echo "cd transithealth && ./api/dev.sh"
 echo
 echo "Then view the app at: http://$INSTANCE_IP:8001/transithealth"
 echo
