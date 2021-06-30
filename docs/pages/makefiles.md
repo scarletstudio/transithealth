@@ -7,6 +7,7 @@
 - [Reading Makefiles](#reading-makefiles)
 - [Running Makefiles](#running-makefiles)
 - [Writing Makefiles](#writing-makefiles)
+- [Troubleshooting](#troubleshooting)
 
 ## Reading Makefiles
 
@@ -170,3 +171,9 @@ import os
 
 API = os.environ.get("CHICAGO_HEALTH_ATLAS_API")
 ```
+
+## Troubleshooting
+
+### Nothing to be done
+
+This error message sometimes comes up when there are spaces instead of tabs in the make step. Delete the indentations for the make step you added and re-indent using tabs.

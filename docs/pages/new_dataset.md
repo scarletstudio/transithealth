@@ -28,6 +28,12 @@ This guide walks you through how to add a new dataset to the offline pipeline.
 
 ### Terminal Tips
 
+When working on the offline pipeline, make sure you have your virtual environment activated:
+
+```bash
+source .venv/bin/activate
+```
+
 All file paths in the offline pipeline are relative to the `pipeline/` directory. When working on the offline pipeline, it is recommended that you enter the `pipeline/` folder:
 
 ```bash
@@ -114,6 +120,7 @@ The Python script `pipeline/extract/from_data_portal.py` helps you extract data 
 
 - Write a SoQL query to get the data you want
     - Read [Socrata Query Language (SoQL)](soql.md) for a guide on how to write and run queries
+    - You can test out queries using [this website](https://vingkan.github.io/soql/), the JSON URL you retrieved will be the dataset URL
 - Write a `Makefile` step in the extract section
 
 An example of a dataset extracted from the data portal is the rideshare data.

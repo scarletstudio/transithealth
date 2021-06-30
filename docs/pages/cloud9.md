@@ -76,6 +76,7 @@ If the setup script fails at any point:
 - If you have trouble with generating the SSH key, refer to these two guides:
     - [Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
     - [Adding a new SSH key to your GitHub account](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+- If you get an error message like `Port 8001 is already in use.`, close the terminal, open a new terminal, and then re-run the commands to start the backend and frontend.
 
 ## Common Commands
 
