@@ -9,7 +9,7 @@ You can also watch [this video walkthrough](https://www.loom.com/share/9146e775f
 ### 0. Prerequisites
 
 - Create an account on GitHub and send your username to Vinesh to be invited to the repository
-- Accept the invitation to join the TransitHealth repository on GitHub
+- [Accept the invitation](https://github.com/scarletstudio/transithealth/invitations) to join the TransitHealth repository on GitHub
 - Check your email for the credentials to log into Amazon Web Services (AWS)
 
 ### 1. Login to AWS
@@ -76,6 +76,7 @@ If the setup script fails at any point:
 - If you have trouble with generating the SSH key, refer to these two guides:
     - [Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
     - [Adding a new SSH key to your GitHub account](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+- If you get an error message like `Port 8001 is already in use.`, close the terminal, open a new terminal, and then re-run the commands to start the backend and frontend.
 
 ## Common Commands
 
