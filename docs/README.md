@@ -6,13 +6,14 @@ Welcome to the documentation for TransitHealth!
 
 Guides to help you get started using and contributing to the project.
 
-- [Project Overview](https://bit.ly/sds-transithealth-slides)
+- [Project Overview (Slides)](https://bit.ly/sds-transithealth-slides)
 - [Setup Instructions](pages/setup.md)
 
 ## Codebase Overviews
 
 Guides to explain the layout of the codebase and common commands for working with each system.
 
+- [System Overview (Video)](https://www.loom.com/share/1bb7812e89ca45f4b2e7940aa0b38718)
 - [Frontend App](../app/README.md)
 - [Backend API](../api/README.md)
 - [Offline Pipeline](../pipeline/README.md)
