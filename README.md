@@ -15,6 +15,7 @@ transithealth
 ├── notebooks/          Jupyter notebooks for each team member to do analysis and prototyping.
 ├── pipeline/           Offline pipeline for the backend.
 ├── .env                (Not committed) Specifies secret variables to use during development.
+├── .gitignore          Tells git how to process certain files in version control.
 ├── .gitignore          Tells git what files and folders not to commit.
 ├── LICENSE             Tells others the terms under which they can use this software.
 ├── Procfile            Tells Heroku how to run the server at deploy time.

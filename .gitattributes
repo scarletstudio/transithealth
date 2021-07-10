@@ -1,0 +1,3 @@
+# Exclude Jupyter noteboks from stats
+*.ipynb linguist-documentation
+
