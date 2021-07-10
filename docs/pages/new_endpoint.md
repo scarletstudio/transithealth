@@ -403,15 +403,13 @@ The variable `Formatter` in this file specifies functions that take in a value f
 After adding your metric to the config, try out the site locally. Start your API in one terminal:
 
 ```bash
-source .venv/bin/activate
 ./api/dev.sh
 ```
 
 Then start the frontend in another terminal:
 
 ```bash
-cd app
-yarn dev
+./app/dev.sh
 ```
 
 Go to [localhost:8001/transithealth/explorer](http://localhost:8001/transithealth/explorer) and pick the view your metric appears in. Select the metric and check if the feature works as expected. You can also take a screenshot of the result to include in your pull request, so you can show your reviewer that the change worked.

@@ -124,11 +124,11 @@ echo
 echo "Setup complete! You should be ready to go."
 echo "To start the frontend, open a new terminal window and run this line:"
 echo
-echo "  cd transithealth/app && yarn dev"
+echo "  cd transithealth && ./app/dev.sh 9"
 echo
 echo "To start the backend, open a new terminal window and run this line:"
 echo
-echo "  cd transithealth && source .venv/bin/activate && ./api/dev.sh"
+echo "  cd transithealth && ./api/dev.sh 9"
 echo
 echo "Then view the app at: http://$INSTANCE_IP:8001/transithealth"
 echo
