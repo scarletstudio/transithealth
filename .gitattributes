@@ -1,3 +1,6 @@
-# Exclude Jupyter noteboks from stats
-*.ipynb linguist-documentation
+# Exclude Jupyter notebooks in stats
+*.ipynb linguist-detectable=false
 
+# Include SQL files in stats
+*.sql linguist-detectable=true
+*.sql linguist-language=sql
