@@ -17,6 +17,7 @@ import sqlite3
 from api.endpoints import (
     index,
     community,
+    fake,
     question,
     rideshare,
     weekly
@@ -34,6 +35,7 @@ con = sqlite3.connect(config("DATABASE"), uri=True, check_same_thread=False)
 # Register blueprints for groups of endpoints
 app.register_blueprint(index.make_blueprint(con))
 app.register_blueprint(community.make_blueprint(con))
+app.register_blueprint(fake.make_blueprint(con))
 app.register_blueprint(question.make_blueprint(con))
 app.register_blueprint(rideshare.make_blueprint(con))
 app.register_blueprint(weekly.make_blueprint(con))
