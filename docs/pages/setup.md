@@ -270,16 +270,10 @@ Our frontend app helps users visualize data and sends requests to the backend AP
 
 For more information about the frontend app directory structure, visit its [README](../app/README.md).
 
-Change to the `app/` directory to run the frontend app.
-
-```bash
-cd app
-```
-
 Use this command to start the app in development mode. If you make changes, it will automatically reload.
 
 ```bash
-yarn dev
+./app/dev.sh
 ```
 
 Now you can open `http://localhost:8001/transithealth` in your browser. You should get the app home page.
@@ -293,12 +287,6 @@ If this command does not succeed, check:
 - That you put `/transithealth` at the end of your URL
 
 You can stop the frontend by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
-
-After running the app, go back up to the project root directory.
-
-```bash
-cd ..
-```
 
 You can close this terminal and return to the terminal that was running the backend API server. Shut down that server and proceed to step 9 to run the Jupyter notebook server.
 

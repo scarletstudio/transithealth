@@ -33,18 +33,10 @@ This guide walks you through how to add a new question to the backend API and fr
 
 For commands to use when developing endpoints in the backend API, check out [the tips in this guide](new_endpoint.md#terminal-tips).
 
-You can work on the frontend app from the `app/` directory. Below are common terminal commands you will use.
-
-Before you start working, enter the `app/` directory:
-
-```bash
-cd app
-```
-
 To start the frontend app locally:
 
 ```bash
-yarn dev
+./app/dev.sh
 ```
 
 Then navigate to [localhost:8001/transithealth](http://localhost:8001/transithealth) in your browser.
