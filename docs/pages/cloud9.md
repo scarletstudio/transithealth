@@ -80,6 +80,24 @@ If the setup script fails at any point:
 
 ## Common Commands
 
+### Start Development Servers
+
+To start developing using Cloud9, open two terminals and run these commands from the repository root directory (`transithealth/`):
+
+**Terminal 1: Backend API**
+
+```bash
+./api/dev.sh 9
+```
+
+**Terminal 2: Frontend App**
+
+```bash
+./app/dev.sh 9
+```
+
+The command line argument `9` tells the script to run any Cloud9 specific tasks.
+
 ### Get Public IP Address
 
 To access the frontend app and backend server from Cloud9, you need to get the public IP address of the remote instance.
@@ -95,9 +113,17 @@ This command will print the IP address. To get the URL, you can add `http://` be
 If you get an error saying that you have run out of space on disk, run this script to increase the size:
 
 ```bash
-api/scripts/resize.sh 20
+./api/scripts/resize.sh 20
 ```
 
 Your Cloud9 instance uses another machine for memory. This command will resize it to 20 GB.
 
 If you see messages saying that you do not have permission to perform this operation, ask Vinesh for help.
+
+### Updating Instance IP Address
+
+The IP address of your Cloud9 instance changes. To update your environment configuration files, run this script:
+
+```bash
+./api/scripts/refresh.sh
+```

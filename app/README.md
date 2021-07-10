@@ -30,16 +30,10 @@ app
 
 ## Common Commands
 
-Before starting work on the frontend app, change to its directory.
-
-```bash
-cd app
-```
-
 Start the local development server.
 
 ```bash
-yarn dev
+./app/dev.sh
 ```
 
 Created with Next.js using `yarn create next-app`.

@@ -36,3 +36,9 @@ Start the local development server.
 ```bash
 ./api/dev.sh
 ```
+
+Run tests.
+
+```bash
+pytest
+```

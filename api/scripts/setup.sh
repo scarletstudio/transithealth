@@ -46,7 +46,7 @@ echo
 
 echo "[Step 3] Cloning the repository..."
 git clone git@github.com:scarletstudio/transithealth.git
-echo "Moving archive.tgz to repository under direcotry: pipeline/"
+echo "Moving archive.tgz to repository under directory: pipeline/"
 cp archive.tgz transithealth/pipeline
 cd transithealth
 echo "DONE: Step 3 complete."
