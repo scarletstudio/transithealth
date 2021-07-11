@@ -8,6 +8,7 @@ import {
   Tooltip,
   Legend,
 } from 'recharts'
+import { FailureNotification } from '../../components/Notification'
 
 const ENDPOINT = `${process.env.NEXT_PUBLIC_API}/fake/data/example-pie-chart`
 
@@ -25,8 +26,8 @@ const TRANSIT_MODES = {
   "e-scooter": "E-Scooter",
 }
 
-function transformData(response) {
-  if (!response) {
+function transformData(response, error) {
+  if (!response || error) {
     return {
       chartData: [],
       mostTrips: {},
@@ -54,7 +55,7 @@ function transformData(response) {
 }
 
 function ExamplePieChart(props) {
-  const { data } = props;
+  const { data } = props
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart
@@ -92,20 +93,19 @@ function ExamplePieChart(props) {
 }
 
 export default function TemplateWithPieChart(props) {
-  
   const { loading, error, data } = useFetch(ENDPOINT, {}, []);
+  const { chartData, mostTrips } = transformData(data, error);
   
   useEffect(() => {
     props.setContentIsLoading(loading);
   }, [loading]);
-  
-  const { chartData, mostTrips } = transformData(data);
   
   return (
     <div>
       <div className="center medium-width">
         <h2>Total Trips by Transit Type</h2>
         <p>How do people get around the city?</p>
+        <FailureNotification error={error} data={data} />
       </div>
       <div className="center">
         <ExamplePieChart data={chartData} />

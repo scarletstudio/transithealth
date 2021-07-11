@@ -18,13 +18,14 @@ def make_blueprint(con):
 
     app = Blueprint("fake", __name__)
 
+
     @app.route("/fake/data/<data_id>")
     def get_fake_date_by_id(data_id):
         """
         Return the fake data for the given ID, if any.
         """
         if data_id not in FAKE_DATA:
-            raise ValueError(f"No fake data for ID: {data_id}")
+            return f"No fake data for ID: {data_id}", 400
         return jsonify({ "results": FAKE_DATA[data_id] })
 
 
