@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
+import useFetch from 'use-http'
 import {
   ResponsiveContainer,
   PieChart,
@@ -7,6 +8,8 @@ import {
   Tooltip,
   Legend,
 } from 'recharts'
+
+const ENDPOINT = `${process.env.NEXT_PUBLIC_API}/fake/data/example-pie-chart`
 
 const PIE_COLORS = [
   "#332288",
@@ -20,6 +23,34 @@ const TRANSIT_MODES = {
   "bus": "CTA Bus",
   "rideshare": "Rideshare",
   "e-scooter": "E-Scooter",
+}
+
+function transformData(response) {
+  if (!response) {
+    return {
+      chartData: [],
+      mostTrips: {},
+    }
+  }
+
+  // Add the transit mode name to each record
+  const dataWithName = response.results.map(d => ({
+    ...d,
+    transit_mode_name: TRANSIT_MODES[d.transit_mode],
+  }));
+  
+  // Get the transit mode that has the most trips
+  const mostTrips = dataWithName.reduce((currentMost, d) => {
+    if (d.total_trips_2019 > currentMost.total_trips_2019) {
+      return d;
+    }
+    return currentMost;
+  }, {});
+  
+  return {
+    chartData: dataWithName,
+    mostTrips,
+  }
 }
 
 function ExamplePieChart(props) {
@@ -62,28 +93,13 @@ function ExamplePieChart(props) {
 
 export default function TemplateWithPieChart(props) {
   
+  const { loading, error, data } = useFetch(ENDPOINT, {}, []);
+  
   useEffect(() => {
-    props.setContentIsLoading(false);
-  });
+    props.setContentIsLoading(loading);
+  }, [loading]);
   
-  const data = [
-    { transit_mode: "rail", total_trips_2019: 12_000_000, },
-    { transit_mode: "bus", total_trips_2019: 8_000_000, },
-    { transit_mode: "rideshare", total_trips_2019: 2_000_000, },
-    { transit_mode: "e-scooter", total_trips_2019: 700_000, },
-  ];
-  
-  const dataWithName = data.map(d => ({
-    ...d,
-    transit_mode_name: TRANSIT_MODES[d.transit_mode],
-  }));
-  
-  const mostTrips = dataWithName.reduce((currentMost, d) => {
-    if (d.total_trips_2019 > currentMost.total_trips_2019) {
-      return d;
-    }
-    return currentMost;
-  });
+  const { chartData, mostTrips } = transformData(data);
   
   return (
     <div>
@@ -92,7 +108,7 @@ export default function TemplateWithPieChart(props) {
         <p>How do people get around the city?</p>
       </div>
       <div className="center">
-        <ExamplePieChart data={dataWithName} />
+        <ExamplePieChart data={chartData} />
         <br />
       </div>
       <div className="center medium-width">

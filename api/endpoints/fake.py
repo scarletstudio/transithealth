@@ -25,7 +25,7 @@ def make_blueprint(con):
         """
         if data_id not in FAKE_DATA:
             raise ValueError(f"No fake data for ID: {data_id}")
-        return jsonify({ "data": FAKE_DATA[data_id] })
+        return jsonify({ "results": FAKE_DATA[data_id] })
 
 
     return app
