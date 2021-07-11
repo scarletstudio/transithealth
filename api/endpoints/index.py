@@ -7,7 +7,7 @@ def make_blueprint(con):
     Creates blueprint for main endpoints.
     """
 
-    app = Blueprint('index', __name__)
+    app = Blueprint("index", __name__)
 
 
     @app.route("/")

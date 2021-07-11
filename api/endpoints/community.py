@@ -7,7 +7,7 @@ def make_blueprint(con):
     Creates blueprint for endpoints related to community areas.
     """
 
-    app = Blueprint('community', __name__)
+    app = Blueprint("community", __name__)
     
     metric = CommunityMetrics(con)
 

@@ -420,6 +420,10 @@ a.btn {
 
 }
 
+.Notification .CloseHolder {
+    position: relative;
+}
+
 .Notification .Close {
     position: absolute;
     top: 0.5em;
@@ -438,6 +442,7 @@ a.btn {
     bottom: 1em;
     transform: translate(-50%, -50%);
     margin: 0;
+    z-index: 100;
 }
 
 .Notification.hidden {

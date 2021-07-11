@@ -7,7 +7,7 @@ def make_blueprint(con):
     Creates blueprint for endpoints related to rideshare data.
     """
 
-    app = Blueprint('rideshare', __name__)
+    app = Blueprint("rideshare", __name__)
     metric = RideshareMetrics(con)
 
 

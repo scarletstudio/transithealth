@@ -1,3 +1,6 @@
+/* global fetch */
+/* global localStorage */
+
 import { useState, useEffect } from 'react'
 
 export function Notification(props) {
@@ -12,16 +15,31 @@ export function Notification(props) {
 
   return (
     <div className={`Notification ${classes.join(" ")} ${display}`}>
-      <span
-        className="Close"
-        onClick={() => {
-          setIsVisible(false);
-        }}
-        >x</span>
+      <div className="CloseHolder">
+        <span
+          className="Close"
+          onClick={() => {
+            setIsVisible(false);
+          }}
+          >x</span>
+        </div>
       {props.children}
     </div>
   );
 };
+
+export function FailureNotification(props) {
+  const error = props.data || props.error;
+  const errorMessage = error && error.toString();
+  const classes = props.classes || ["Failure"];
+  return (
+    <div>
+      <Notification classes={classes} visible={props.error}>
+        <p>{errorMessage}</p>
+      </Notification>
+    </div>
+  );
+}
 
 /*
  * Send a request to wake up our server.

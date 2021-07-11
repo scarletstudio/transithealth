@@ -7,7 +7,7 @@ def make_blueprint(con):
     Creates blueprint for endpoints related to weekly metrics.
     """
 
-    app = Blueprint('weekly', __name__)
+    app = Blueprint("weekly", __name__)
     
     metric = WeeklyMetrics(con)
 

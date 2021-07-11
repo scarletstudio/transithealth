@@ -7,7 +7,7 @@ def make_blueprint(con):
     Creates blueprint for endpoints related to questions.
     """
 
-    app = Blueprint('question', __name__)
+    app = Blueprint("question", __name__)
     
     metric_pooled = PooledTripMetrics(con)
 
