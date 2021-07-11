@@ -1,0 +1,16 @@
+export const Color = {
+  TransitGreen: "#099178",
+  HealthPink: "#FF4F98",
+  Success: "#099178",
+  Failure: "#CC6677",
+  DarkGray: "#263238",
+  Indigo: "#332288",
+  Cerulean: "#1978AD",
+  Forest: "#117733",
+  Teal: "#44AA99",
+  Sky: "#88CCEE",
+  Gold: "#DCA139",
+  Salmon: "#CC6677",
+  Magenta: "#AA4499",
+  Maroon: "#882255",
+};

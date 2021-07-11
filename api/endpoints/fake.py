@@ -7,6 +7,7 @@ FAKE_DATA = {
         { "transit_mode": "bus", "total_trips_2019": 8_000_000, },
         { "transit_mode": "rideshare", "total_trips_2019": 2_000_000, },
         { "transit_mode": "e-scooter", "total_trips_2019": 700_000, },
+        { "transit_mode": "Other", "total_trips_2019": 150_000, },
     ],
 }
 

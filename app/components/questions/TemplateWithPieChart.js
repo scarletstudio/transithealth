@@ -9,35 +9,53 @@ import {
   Legend,
 } from 'recharts'
 import { FailureNotification } from '../../components/Notification'
+import { Color } from '../../site/theme'
+import { Formatter } from '../../site/metrics'
 
 const ENDPOINT = `${process.env.NEXT_PUBLIC_API}/fake/data/example-pie-chart`
 
-const PIE_COLORS = [
-  "#332288",
-  "#1978AD",
-  "#117733",
-  "#44AA99",
-];
-
 const TRANSIT_MODES = {
-  "rail": "CTA Rail",
-  "bus": "CTA Bus",
-  "rideshare": "Rideshare",
-  "e-scooter": "E-Scooter",
+  "rail": {
+    name: "CTA Rail",
+    color: Color.Forest,
+  },
+  "bus": {
+    name: "CTA Bus",
+    color: Color.Cerulean,
+  },
+  "rideshare": {
+    name: "Rideshare",
+    color: Color.Indigo,
+  },
+  "e-scooter": {
+    name: "E-Scooter",
+    color: Color.Salmon,
+  },
 }
+
+const EMPTY_MOST_TRIPS = {
+  name: "?",
+  totalTripsFormatted: "?",
+};
 
 function transformData(response, error) {
   if (!response || error) {
     return {
       chartData: [],
-      mostTrips: {},
+      mostTrips: EMPTY_MOST_TRIPS,
     }
   }
 
-  // Add the transit mode name to each record
   const dataWithName = response.results.map(d => ({
+    // Get all fields from original record
     ...d,
-    transit_mode_name: TRANSIT_MODES[d.transit_mode],
+    // Add name and color for transit mode
+    ...(TRANSIT_MODES[d.transit_mode] || {
+      name: d.transit_mode,
+      color: Color.DarkGray,
+    }),
+    // Add formatted data
+    totalTripsFormatted: Formatter.numberInMillions(d.total_trips_2019),
   }));
   
   // Get the transit mode that has the most trips
@@ -46,7 +64,7 @@ function transformData(response, error) {
       return d;
     }
     return currentMost;
-  }, {});
+  }, { total_trips_2019: 0 });
   
   return {
     chartData: dataWithName,
@@ -65,7 +83,7 @@ function ExamplePieChart(props) {
       >
         <Pie
           data={data}
-          nameKey="transit_mode_name"
+          nameKey="name"
           dataKey="total_trips_2019"
           label
           cx="50%"
@@ -76,7 +94,7 @@ function ExamplePieChart(props) {
           {data.map((entry, i) => (
             <Cell
               key={`cell-${i}`}
-              fill={PIE_COLORS[i]}
+              fill={entry.color}
             />
           ))}
         </Pie>
@@ -112,7 +130,10 @@ export default function TemplateWithPieChart(props) {
         <br />
       </div>
       <div className="center medium-width">
-        <p>Based on data from 2019, {mostTrips.transit_mode_name} is the most popular transit mode.</p>
+        <p>
+        <span>Based on (fake) data from 2019, {mostTrips.name} is the most popular transit mode, </span>
+        <span>with {mostTrips.totalTripsFormatted} annual trips.</span>
+        </p>
       </div>
     </div>
   );
