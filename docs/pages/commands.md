@@ -44,7 +44,7 @@ To set up the `run` command, enter these commands into your terminal. You only n
 
 ```bash
 echo "" >> ~/.bashrc
-echo "alias alias run=\"$HOME/environment/transithealth/run.sh\"" >> ~/.bashrc
+echo "alias run=\"$HOME/environment/transithealth/run.sh\"" >> ~/.bashrc
 source ~/.bashrc
 ```
 

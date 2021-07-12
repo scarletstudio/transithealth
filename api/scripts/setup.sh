@@ -123,7 +123,7 @@ echo
 
 echo "[Step 8] Adding alias for run script..."
 echo "" >> ~/.bashrc
-echo "alias alias run=\"$HOME/environment/transithealth/run.sh\"" >> ~/.bashrc
+echo "alias run=\"$HOME/environment/transithealth/run.sh\"" >> ~/.bashrc
 source ~/.bashrc
 echo "DONE: Step 8 complete."
 echo
