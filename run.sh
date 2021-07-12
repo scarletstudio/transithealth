@@ -54,7 +54,7 @@ if [ "$1" == "pipeline-all" ]; then
 fi
 
 # Run tests
-if [ "$1" == "test" ]; then
+if [ "$1" == "tests" ]; then
   echo "Running tests..."
   source .venv/bin/activate
   pytest
