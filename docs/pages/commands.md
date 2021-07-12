@@ -14,6 +14,7 @@
 | `run db` | Get the latest database from the compressed files. |
 | `run tests` | Run all tests. |
 | `run notebooks 9` | Run the Jupyter notebook server. |
+| `run sqlite` | Run the SQLite command line interface. |
 | `run update` | Update dependencies. |
 
 ## Offline Pipeline
