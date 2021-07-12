@@ -14,6 +14,7 @@ These commands should be run from the `transithealth/` directory.
 | `run app 9` | Start the frontend app on Cloud9. |
 | `run db` | Get the latest database from the compressed files. |
 | `run tests` | Run all tests. |
+| `run notebooks 9` | Run the Jupyter notebook server. |
 | `run update` | Update dependencies. |
 
 ## Offline Pipeline

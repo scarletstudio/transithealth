@@ -69,3 +69,10 @@ if [ "$1" == "update" ]; then
   source .venv/bin/activate
   pip3 install -r requirements.txt
 fi
+
+# Start Jupyter notebook server
+if [ "$1" == "notebooks" ]; then
+  echo "Starting Jupyter notebook server..."
+  echo "./notebooks/start.sh $2"
+  ./notebooks/start.sh "$2"
+fi
