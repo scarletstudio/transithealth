@@ -165,6 +165,17 @@ data/extracted/daily_rideshare.csv:
 		--json_url="$(PORTAL_RIDESHARE_TRIPS)" \
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
+	
+data/extracted/belonging.csv: data/extracted/belonging_coverage.csv
+	python3 extract/belonging.py \
+		--coverage_file="data/extracted/belonging_coverage.csv" \
+		--output_file="data/extracted/belonging.csv"
+
+data/extracted/belonging_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/HCSCBP" \
+		--create-dirs -o "data/extracted/belonging_coverage.csv" \
+		-d layers="neighborhood"
 
 # Exports For Frontend App
 
