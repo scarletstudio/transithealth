@@ -29,7 +29,7 @@ with open(args.coverage_file) as coverage_file:
     print(f"Population data covers {n_periods} periods and {n_populations} populations.")
 
 # Get periods only for the full population (empty string)
-periods_full_population = ["2016-2018","2015-2017"]
+periods_full_population = df_coverage[df_coverage["population"] == ""]["period"].values
 
 # Request endpoint for each period
 rows = []
