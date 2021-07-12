@@ -82,6 +82,8 @@ Press the save icon in the top left corner of your notebook.
 
 You can stop the notebook server by pressing `Cmd + C` or `Ctrl + C`. You may have to press twice.
 
+After you are done using the example notebook, you can click the save icon in the top-left corner or from the File dropdown.
+
 ### 5. Create and Push Your Branch
 
 **Note:** For this step, you will need access to the GitHub repository. Send Vinesh your GitHub username if you do not have access. You can find this on your GitHub profile or in the URL of your GitHub account page.
@@ -96,11 +98,11 @@ Replace `YOUR_BRANCH_NAME` with `first_branch_YOUR_HAWK_USERNAME` where `YOUR_HA
 git checkout -b YOUR_BRANCH_NAME
 ```
 
-Run this command to check what files have been changed. They should show as "not staged for commit." The only change should be the notebooks folder you added and your new example notebook. If you see other changes, ask for help.
-
 ```bash
 git status
 ```
+
+The only change should be the notebooks folder you added and your new example notebook. If you see other changes, ask for help.
 
 Use this command to add all of the changes to your commit. When you check the status again, they should show as "to be committed."
 
@@ -109,7 +111,13 @@ git add -A
 git status
 ```
 
-Create a commit and add a commit message.
+We only want to modify your new notebooks folder. If you see the example notebook on the list of staged changes, you can reset it to how it was originally with this command:
+
+```bash
+git restore "notebooks/example/Example Notebook.ipynb"
+```
+
+Next, create a commit and add a commit message.
 
 ```bash
 git commit -m "Create my notebooks folder."
