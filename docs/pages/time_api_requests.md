@@ -21,7 +21,7 @@ source .venv/bin/activate
 4. Start a local API server to send the requests to.
 
 ```bash
-./api/dev.sh
+run api
 ```
 
 5. Run the script to get the results.

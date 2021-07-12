@@ -75,7 +75,7 @@ source .venv/bin/activate
 To start the API server locally:
 
 ```bash
-./api/dev.sh
+run api
 ```
 
 To run all Python tests in the repository:
@@ -403,13 +403,13 @@ The variable `Formatter` in this file specifies functions that take in a value f
 After adding your metric to the config, try out the site locally. Start your API in one terminal:
 
 ```bash
-./api/dev.sh
+run api
 ```
 
 Then start the frontend in another terminal:
 
 ```bash
-./app/dev.sh
+run app
 ```
 
 Go to [localhost:8001/transithealth/explorer](http://localhost:8001/transithealth/explorer) and pick the view your metric appears in. Select the metric and check if the feature works as expected. You can also take a screenshot of the result to include in your pull request, so you can show your reviewer that the change worked.

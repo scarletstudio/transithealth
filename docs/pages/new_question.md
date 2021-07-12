@@ -36,7 +36,7 @@ For commands to use when developing endpoints in the backend API, check out [the
 To start the frontend app locally:
 
 ```bash
-./app/dev.sh
+run app
 ```
 
 Then navigate to [localhost:8001/transithealth](http://localhost:8001/transithealth) in your browser.

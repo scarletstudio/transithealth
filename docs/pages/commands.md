@@ -40,10 +40,13 @@ These commands should be run from the `transithealth/` directory.
 
 ## Set Up Alias
 
-To access the `run` commands, open a terminal in Cloud9 and run this command. You only need to do this once.
+To set up the `run` command, enter these commands into your terminal. You only need to do this once.
 
 ```bash
 echo "" >> ~/.bashrc
 echo "alias alias run=\"$HOME/environment/transithealth/run.sh\"" >> ~/.bashrc
 source ~/.bashrc
 ```
+
+- This alias allows you to use `run` instead of writing out `./run.sh`.
+- Adding this alias to your `~/.bashrc` config means that every terminal will have access to the alias.

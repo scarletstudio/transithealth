@@ -87,13 +87,13 @@ To start developing using Cloud9, open two terminals and run these commands from
 **Terminal 1: Backend API**
 
 ```bash
-./api/dev.sh 9
+run api 9
 ```
 
 **Terminal 2: Frontend App**
 
 ```bash
-./app/dev.sh 9
+run app 9
 ```
 
 The command line argument `9` tells the script to run any Cloud9 specific tasks.
