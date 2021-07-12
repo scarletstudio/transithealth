@@ -40,6 +40,7 @@ database.db: data/loaded/all_tables.txt
 data/loaded/all_tables.txt:
 	mkdir -p data/loaded
 	make data/loaded/community_area.txt
+	make data/loaded/belonging.txt
 	make data/loaded/population.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
@@ -80,6 +81,13 @@ data/loaded/rideshare.txt: data/transformed/rideshare.csv
 		--input_file="data/transformed/rideshare.csv" \
 		--create_sql="load/rideshare.sql" \
 		--table_name="rideshare"
+
+data/loaded/belonging.txt: data/transformed/belonging.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/belonging.csv" \
+		--create_sql="load/belonging.sql" \
+		--table_name="belonging"
 
 # Transform Operations
 
