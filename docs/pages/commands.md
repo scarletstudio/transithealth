@@ -1,9 +1,8 @@
 # Common Commands
 
-These commands should be run from the `transithealth/` directory.
-
 ## Run Services
 
+- These commands should be run from the `transithealth/` directory.
 - Run `run db` after `git pull` to get the latest database.
 - If the `run` command does not work for you, [follow these instructions](#set-up-alias).
 - If you are not on Cloud9, omit the `9` from run commands.
@@ -19,6 +18,7 @@ These commands should be run from the `transithealth/` directory.
 
 ## Offline Pipeline
 
+- These commands should be run from the `transithealth/` directory.
 - In most cases, you will use `run pipeline-quick` to run the offline pipeline. 
 
 | Command | Description |
@@ -26,6 +26,22 @@ These commands should be run from the `transithealth/` directory.
 | `run pipeline-quick` | Run the offline pipeline, without remaking large files. |
 | `run pipeline-load` | Run only the load steps of the offline pipeline. |
 | `run pipeline-all` | Run the entire offline pipeline from scratch. Takes a long time. |
+
+## Make Commands
+
+- Before running `make` directly, activate the virtual environment, and enter the `transithealth/pipeline` directory.
+- These commands should be run from the `transithealth/pipeline` directory.
+
+| Command | Description |
+|:--|:--|
+| `source .venv/bin/activate` | Activate the virtual environment. |
+| `cd pipeline` | Enter the `pipeline/` directory. |
+| `deactivate` | Deactivate the virtual environment. |
+| `cd ..` | Go back up to the parent directory. |
+| `rm target_name` | Delete a given target. |
+| `make target_name` | Make a given target. |
+| `make clean-except` | Delete all targets except for the large files. |
+| `make reload` | Reload the database using your local files. |
 
 ## Git Commands
 
