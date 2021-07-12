@@ -35,9 +35,9 @@ if [ "$1" == "pipeline-load" ]; then
   make reload
 fi
 
-# Run offline pipeline, without remaking steps with exceptions
+# Run offline pipeline, without remaking large files
 if [ "$1" == "pipeline-quick" ]; then
-  echo "Running offline pipeline, without remaking steps with exceptions..."
+  echo "Running offline pipeline, without remaking large files..."
   source .venv/bin/activate
   cd pipeline
   make clean-except
