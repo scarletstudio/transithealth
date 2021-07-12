@@ -121,14 +121,21 @@ read -p "When you are ready to move on, hit enter to continue." READY
 echo "DONE: Step 7 complete."
 echo
 
+echo "[Step 8] Adding alias for run script..."
+echo "" >> ~/.bashrc
+echo "alias alias run=\"$HOME/environment/transithealth/run.sh\"" >> ~/.bashrc
+source ~/.bashrc
+echo "DONE: Step 8 complete."
+echo
+
 echo "Setup complete! You should be ready to go."
 echo "To start the frontend, open a new terminal window and run this line:"
 echo
-echo "  cd transithealth && ./app/dev.sh 9"
+echo "  cd transithealth && run app 9"
 echo
 echo "To start the backend, open a new terminal window and run this line:"
 echo
-echo "  cd transithealth && ./api/dev.sh 9"
+echo "  cd transithealth && run api 9"
 echo
 echo "Then view the app at: http://$INSTANCE_IP:8001/transithealth"
 echo

@@ -2,6 +2,13 @@
 
 Welcome to the documentation for TransitHealth!
 
+## Most Used
+
+The most frequently-used documentation pages.
+
+- [Common Commands](pages/commands.md)
+- [Common Tasks](pages/tasks.md)
+
 ## First Time
 
 Guides to help you get started using and contributing to the project.
@@ -21,14 +28,13 @@ Guides to explain the layout of the codebase and common commands for working wit
 ## Guides By Schedule
 
 - Week 1
-    - [Common Tasks](pages/tasks.md)
     - [Add a New Dataset](pages/new_dataset.md)
     - [Add a New Endpoint](pages/new_endpoint.md)
-    - [Testing](pages/testing.md)
 - Week 2
     - [Exploratory Data Analysis](pages/eda.md)
-- Week 3
     - [Add a New Question](pages/new_question.md)
+- Week 3
+    - Coming soon...
 - Week 4
     - Coming soon...
 
