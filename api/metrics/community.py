@@ -157,7 +157,7 @@ class CommunityMetrics:
         query = """
         SELECT
             area_number,
-            CAST(value AS REAL) AS value
+            round((CAST(value AS REAL))/100, 3) AS value
         FROM belonging
         WHERE period_end_year == {year}
         AND segment == "{segment}"

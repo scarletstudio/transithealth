@@ -202,12 +202,12 @@ def test_belonging():
     metric = CommunityMetrics(con)
     
     assert metric.belonging(year=2017, segment="all") == [
-        { "area_number": 1, "value": 45.6 },
-        { "area_number": 2, "value": 35.2 }
+        { "area_number": 1, "value": .456 },
+        { "area_number": 2, "value": .352 }
     ], "Should have two results for 2017."
     
     assert metric.belonging(year=2018, segment="all") == [
-        { "area_number": 1, "value": 67.1 }
+        { "area_number": 1, "value": .671 }
     ], "Should have one result for 2018."
     
     assert metric.belonging(year=2015, segment="all") == [], "Should have no results for 2015."
