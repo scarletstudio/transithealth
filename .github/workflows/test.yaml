@@ -9,12 +9,14 @@ on:
       - requirements.txt
       - pytest.ini
       - '**.py'
+      - pipeline/compressed/**
   pull_request:
     paths:
       - .github/workflows/test.yaml
       - requirements.txt
       - pytest.ini
       - '**.py'
+      - pipeline/compressed/**
 
 jobs:
   test-pytest:
