@@ -41,4 +41,4 @@ jobs:
           tar -xf compressed.db.tgz
           rm compressed.db.tgz
           cd ..
-          pytest -vv
+          pytest -vvl
