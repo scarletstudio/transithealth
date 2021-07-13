@@ -42,7 +42,6 @@ def test_belonging():
     test.assert_distinct_values("belonging", "period_end_year", end_years)
     test.assert_distinct_values("belonging", "segment", ["all"])
 
-####End years? 2014-2019
 def test_disabilities():
     end_years = list(range(2012, 2020, 1))
     test.assert_distinct_values("disabilities", "period_end_year", end_years)
