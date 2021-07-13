@@ -149,3 +149,20 @@ class CommunityMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+
+    def belonging(self, year, segment):
+        """
+        Returns a value between 0 and 1, the rate of residents who feel a sense of belonging for each community area
+        """
+        query = """
+        SELECT
+            area_number,
+            CAST(value AS REAL) AS value
+        FROM belonging
+        WHERE period_end_year == {year}
+        AND segment == "{segment}"
+        """.format(year=year, segment=segment)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
