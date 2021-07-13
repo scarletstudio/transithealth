@@ -21,6 +21,7 @@ Test Cases
 def test_table_counts():
     test.assert_table_count("community_area", 77)
     test.assert_table_count("belonging",152)
+    test.assert_table_count("disabilities", 616)
     test.assert_table_count("population", 770)
     test.assert_table_count("income", 770)
     test.assert_table_count("covid_spread", 13375)
@@ -40,6 +41,11 @@ def test_belonging():
     end_years = [2017,2018]
     test.assert_distinct_values("belonging", "period_end_year", end_years)
     test.assert_distinct_values("belonging", "segment", ["all"])
+
+def test_disabilities():
+    end_years = list(range(2012, 2020, 1))
+    test.assert_distinct_values("disabilities", "period_end_year", end_years)
+    test.assert_distinct_values("disabilities", "segment", ["all"])
     
 def test_rideshare_pooled_trips():
     cur = con.cursor()
