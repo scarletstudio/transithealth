@@ -114,6 +114,11 @@ data/transformed/rideshare.csv: data/extracted/daily_rideshare.csv
 	python3 transform/weekly_rideshare.py \
 		--input_file="data/extracted/daily_rideshare.csv" \
 		--output_file="data/transformed/rideshare.csv"
+		
+data/transformed/belonging.csv: data/extracted/belonging.csv
+	python3 transform/belonging.py \
+		--input_file="data/extracted/belonging.csv" \
+		--output_file="data/transformed/belonging.csv"
 
 # Extract Operations
 
