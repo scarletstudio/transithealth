@@ -87,13 +87,13 @@ To start developing using Cloud9, open two terminals and run these commands from
 **Terminal 1: Backend API**
 
 ```bash
-./api/dev.sh 9
+run api 9
 ```
 
 **Terminal 2: Frontend App**
 
 ```bash
-./app/dev.sh 9
+run app 9
 ```
 
 The command line argument `9` tells the script to run any Cloud9 specific tasks.
@@ -127,3 +127,15 @@ The IP address of your Cloud9 instance changes. To update your environment confi
 ```bash
 ./api/scripts/refresh.sh
 ```
+
+## Troubleshooting
+
+### Reboot Instance
+
+If your editor becomes unresponsive, where you can no longer type in your terminal or open files, the simplest solution is to reboot the instance.
+
+[This screencast](https://www.loom.com/share/b404938fd05a48d1b153674f110751c6) walks you through the steps for rebooting your instance.
+
+### Live Collaboration
+
+Whenever we use the live collaboration feature to have two people edit together on Cloud9, the instance rapidly starts running out of memory and then becomes unresponsive. So, we recommend not using this feature. Sorry :(

@@ -73,19 +73,11 @@ The `sqlite3` command line interface allows you to check a database an run queri
 
 ### Example Usage
 
-Run these commands in your terminal:
+Run these commands in your terminal. You can do this from the `transithealth/` or `pipeline/` directories, either works.
 
 ```bash
-# Change to the pipeline/ directory if you are not already there
-cd pipeline
 # Start an interactive sqlite3 session in your terminal
-sqlite3
-# Connect to our database
-.open database.db
-# Set sqlite3 to show column headers with output
-.headers on
-# List all the tables
-.tables
+run sqlite
 # Show the schema of a table
 .schema TABLE_NAME
 # Show all columns for the first five rows of a table
