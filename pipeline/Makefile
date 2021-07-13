@@ -41,6 +41,7 @@ data/loaded/all_tables.txt:
 	mkdir -p data/loaded
 	make data/loaded/community_area.txt
 	make data/loaded/belonging.txt
+	make data/loaded/disabilities.txt
 	make data/loaded/population.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
@@ -67,6 +68,13 @@ data/loaded/income.txt: data/transformed/income.csv
 		--input_file="data/transformed/income.csv" \
 		--create_sql="load/income.sql" \
 		--table_name="income"
+
+data/loaded/disabilities.txt: data/transformed/disabilities.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/disabilities.csv" \
+		--create_sql="load/disabilities.sql" \
+		--table_name="disabilities"
 
 data/loaded/covid_spread.txt: data/transformed/covid_spread.csv
 	python3 load/create_table.py \
