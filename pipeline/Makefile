@@ -40,6 +40,7 @@ database.db: data/loaded/all_tables.txt
 data/loaded/all_tables.txt:
 	mkdir -p data/loaded
 	make data/loaded/community_area.txt
+	make data/loaded/belonging.txt
 	make data/loaded/population.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
@@ -81,6 +82,13 @@ data/loaded/rideshare.txt: data/transformed/rideshare.csv
 		--create_sql="load/rideshare.sql" \
 		--table_name="rideshare"
 
+data/loaded/belonging.txt: data/transformed/belonging.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/belonging.csv" \
+		--create_sql="load/belonging.sql" \
+		--table_name="belonging"
+
 # Transform Operations
 
 data/transformed/community_area.csv: data/extracted/community_area.geojson data/extracted/health_atlas_neighborhoods.json
@@ -119,6 +127,11 @@ data/transformed/rideshare.csv: data/extracted/daily_rideshare.csv
 	python3 transform/weekly_rideshare.py \
 		--input_file="data/extracted/daily_rideshare.csv" \
 		--output_file="data/transformed/rideshare.csv"
+		
+data/transformed/belonging.csv: data/extracted/belonging.csv
+	python3 transform/belonging.py \
+		--input_file="data/extracted/belonging.csv" \
+		--output_file="data/transformed/belonging.csv"
 
 # Extract Operations
 
@@ -181,6 +194,17 @@ data/extracted/daily_rideshare.csv:
 		--json_url="$(PORTAL_RIDESHARE_TRIPS)" \
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
+	
+data/extracted/belonging.csv: data/extracted/belonging_coverage.csv
+	python3 extract/belonging.py \
+		--coverage_file="data/extracted/belonging_coverage.csv" \
+		--output_file="data/extracted/belonging.csv"
+
+data/extracted/belonging_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/HCSCBP" \
+		--create-dirs -o "data/extracted/belonging_coverage.csv" \
+		-d layers="neighborhood"
 
 # Exports For Frontend App
 
