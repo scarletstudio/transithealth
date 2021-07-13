@@ -76,3 +76,15 @@ if [ "$1" == "notebooks" ]; then
   echo "./notebooks/start.sh $2"
   ./notebooks/start.sh "$2"
 fi
+
+# Start SQLite command line interface
+if [ "$1" == "sqlite" ]; then
+  echo "Starting SQLite command line interface..."
+  # If in the pipeline folder, go back up
+  # So that this command can be run from either transithealth/ or pipeline/
+  CURRENT_DIR=$(basename $(pwd))
+  if [ "$CURRENT_DIR" == "pipeline" ]; then
+    cd ..
+  fi
+  sqlite3 pipeline/database.db -header --column
+fi
