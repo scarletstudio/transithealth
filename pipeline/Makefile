@@ -112,6 +112,11 @@ data/transformed/income.csv: data/extracted/income.csv
 		--input_file="data/extracted/income.csv" \
 		--output_file="data/transformed/income.csv"
 
+data/transformed/disabilities.csv: data/extracted/disabilities.csv
+	python3 transform/disabilities.py \
+		--input_file="data/extracted/disabilities.csv" \
+		--output_file="data/transformed/disabilities.csv"
+
 data/transformed/covid_spread.csv: data/extracted/covid_spread.csv data/transformed/zip_code_to_community_area.csv
 	python3 transform/covid_spread.py \
 		--zip_to_area_file="data/transformed/zip_code_to_community_area.csv" \
