@@ -7,5 +7,5 @@ CREATE TABLE belonging (
     period_start_year INTEGER,
     period_end_year INTEGER,
     period TEXT,
-    PRIMARY KEY(area_number)
+    PRIMARY KEY(area_number,period_end_year)
 );

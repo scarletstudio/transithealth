@@ -57,7 +57,7 @@ fi
 if [ "$1" == "tests" ]; then
   echo "Running tests..."
   source .venv/bin/activate
-  pytest
+  pytest -v
 fi
 
 # Update dependencies
