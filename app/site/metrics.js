@@ -83,6 +83,18 @@ export const communityMetrics = {
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberWithCommas,
   },
+  belonging_rate_2017: {
+    name: "2017 Rate of Belonging",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  belonging_rate_2018: {
+    name: "2018 Rate of Belonging",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
 };
 
 export const weeklyMetrics = {
