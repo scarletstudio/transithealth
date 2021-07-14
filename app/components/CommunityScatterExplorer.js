@@ -47,7 +47,9 @@ function getGeoMapMetric(metrics, selectedMetric, minAlpha=0.05) {
       return Math.max(maxVal, val[selectedMetric]);
     }, metrics[0][selectedMetric]);
   const metricMapData = metrics.reduce((agg, val) => {
-    const alpha = val[selectedMetric] / maxVal;
+    // If record does not have metric, show zero opacity
+    const areaVal = val[selectedMetric] || 0;
+    const alpha = areaVal / maxVal;
     agg[val.area_number] = {
       ...val,
       opacity: Math.max(minAlpha, alpha),
