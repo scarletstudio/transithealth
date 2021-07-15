@@ -24,7 +24,9 @@ def make_blueprint(con):
         "median_income_2019": lambda: metric.income(year=2019, segment="all"),
         "total_covid_cases": lambda: metric.covid_spread_sum_by_area("cases_weekly"),
         "disability_rate_2018":lambda: metric.disability_rate(year=2018, segment="all"),
-        "disability_rate_2019":lambda: metric.disability_rate(year=2019, segment="all")
+        "disability_rate_2019":lambda: metric.disability_rate(year=2019, segment="all"),
+        "belonging_rate_2017": lambda: metric.belonging(year=2017, segment="all"),
+        "belonging_rate_2018": lambda: metric.belonging(year=2018, segment="all"),
     }
 
 

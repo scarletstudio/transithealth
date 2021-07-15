@@ -9,6 +9,8 @@ pip3 install -r requirements.txt
 # Refresh IP address for Cloud9 instance
 if [ -n "$1" ]; then
     ./api/scripts/refresh.sh
+    INSTANCE_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
+    echo "Launching API To: http://$INSTANCE_IP:5000"
 fi
 
 # Start Flask development server
