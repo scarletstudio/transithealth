@@ -36,6 +36,20 @@ git merge main
 
 If there are any merge conflicts, refer to the [Handling Merge Conflicts](merge_conflicts.md) guide for help.
 
+## Reference Previous Branch
+
+Go back to the branch you were on before:
+
+```bash
+git checkout -
+```
+
+Merge the branch you were on before into your current branch:
+
+```bash
+git merge -
+```
+
 ## View Diffs
 
 To view the files that you have changed:
