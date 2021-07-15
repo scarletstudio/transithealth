@@ -1,0 +1,47 @@
+import sys
+sys.path.append("../")
+
+from api.metrics.annually import AnnuallyMetrics
+from api.utils.testing import create_test_db
+
+
+def test_annual_belonging_rate():
+    belonging_table = [
+        {
+            "layer": "place",
+            "period_end_year": 2015,
+            "segment": "all",
+            "value": 55.6
+        },
+        {
+            "layer": "place",
+            "period_end_year": 2016,
+            "segment": "all",
+            "value": 45.2
+        },
+        {
+            "layer": "place",
+            "period_end_year": 2017,
+            "segment": "all",
+            "value": 37.1
+        },
+        {
+            "layer": "place",
+            "period_end_year": 2018,
+            "segment": "all",
+            "value": 35.4
+        }
+    ]
+    con, cur = create_test_db(
+        scripts=[ "./pipeline/load/belonging.sql" ],
+        tables={ "belonging": belonging_table }
+        )
+
+    metric = AnnuallyMetrics(con)
+
+    assert metric.belonging(segment="all") == [
+        { "year": 2015, "value": 55.6 / 100, "segment": "all" },
+        { "year": 2016, "value": 45.2 / 100, "segment": "all" },
+        { "year": 2017, "value": 37.1 / 100, "segment": "all" },
+        { "year": 2018, "value": 35.4 / 100, "segment": "all" }
+    ], "Should give the belonging rate per year given segment."

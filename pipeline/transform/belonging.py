@@ -2,6 +2,7 @@ import argparse
 import pandas as pd
 from timeit import default_timer as timer
 
+# Function used to check if a particular string has a "-" to help identify between layers
 def split_by_dash(text: str):
     if "-" in text:
         return text.split("-")
