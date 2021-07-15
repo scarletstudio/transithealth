@@ -104,6 +104,15 @@ data/transformed/community_area.csv: data/extracted/community_area.geojson data/
 		--geojson_file="data/extracted/community_area.geojson" \
 		--neighborhood_file="data/extracted/health_atlas_neighborhoods.json" \
 		--output_file="data/transformed/community_area.csv"
+		
+#changes here below___
+
+data/transformed/zip_code_to_community_area.csv: data/extracted/rent_burdened_households.csv
+	python3 transform/rent_burdened_households.py \
+		--input_file="data/extracted/rent_burdened_households.csv" \
+		--output_file="data/transformed/rent_burdened_households.csv"
+
+#changes here above^^^
 
 data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_community_area.csv
 	python3 transform/zip_code_to_community_area.py \
