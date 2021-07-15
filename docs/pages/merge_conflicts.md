@@ -64,10 +64,13 @@ If you have not made any changes to the offline pipeline or database on your bra
 run db
 ```
 
-However, if you have merge conflicts with the compressed database files or any file in the `pipeline/` directory, you should run the offline pipeline to get a new database and compressed files that contain both your changes and the changes you merged in from `main`. Run this command:
+However, if you have merge conflicts with the compressed database files or any file in the `pipeline/` directory, you should run the offline pipeline to get a new database and compressed files that contain both your changes and the changes you merged in from `main`.
+
+Run these commands to rebuild the database and verify it with tests:
 
 ```bash
 run pipeline-quick
+run tests
 ```
 
 Depending on the change you are working on, there may still be errors to tend to in this step.
