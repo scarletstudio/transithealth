@@ -65,3 +65,12 @@ class WeeklyMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+        
+        
+    def disability_rate(self):
+        """
+        Returns the rate of residents city-wide who have an included disability per year.
+        """
+        query = """
+        SELECT
+            
