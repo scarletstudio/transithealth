@@ -83,6 +83,18 @@ export const communityMetrics = {
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberWithCommas,
   },
+  disability_rate_2018: {
+    name: "2018 Disability Rate",
+    units: "people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  disability_rate_2019: {
+    name: "2019 Disability Rate",
+    units: "people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
 };
 
 export const weeklyMetrics = {

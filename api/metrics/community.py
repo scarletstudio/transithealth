@@ -149,3 +149,24 @@ class CommunityMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+        
+    def disability_rate(self, year, segment):
+        """
+        Returns the rounded income value for each community area.
+        Args:
+            year (int): period ending year to filter by
+            segment (str): population segment to filter by
+        """
+        query = """
+        SELECT
+            area_number,
+            value / 100 AS value
+        FROM disabilities
+        WHERE period_end_year == {year}
+        AND segment == "{segment}"
+        """.format(year=year, segment=segment)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+    
