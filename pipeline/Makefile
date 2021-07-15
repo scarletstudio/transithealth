@@ -107,7 +107,7 @@ data/transformed/community_area.csv: data/extracted/community_area.geojson data/
 		
 #changes here below___
 
-data/transformed/zip_code_to_community_area.csv: data/extracted/rent_burdened_households.csv
+data/transformed/rent_burdened_households.csv: data/extracted/rent_burdened_households.csv
 	python3 transform/rent_burdened_households.py \
 		--input_file="data/extracted/rent_burdened_households.csv" \
 		--output_file="data/transformed/rent_burdened_households.csv"
