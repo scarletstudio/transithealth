@@ -36,6 +36,6 @@ class DatabaseTestHelper():
             FROM {table}
             ORDER BY value ASC;
         """.format(table=table, column=column))
-        actual_values = [ row[0] for row in cur.fetchall()]
+        actual_values = set([ row[0] for row in cur.fetchall()])
         msg = f"Distinct values for column `{column}` in table `{table}` do not match the expected values."
         assert actual_values == expected_values, msg

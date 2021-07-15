@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS belonging;
 CREATE TABLE belonging (
+    layer TEXT,
     area_number INTEGER,
     segment TEXT,
     value REAL,
@@ -7,5 +8,5 @@ CREATE TABLE belonging (
     period_start_year INTEGER,
     period_end_year INTEGER,
     period TEXT,
-    PRIMARY KEY(area_number,period_end_year)
+    PRIMARY KEY(layer,area_number,segment,period_end_year)
 );
