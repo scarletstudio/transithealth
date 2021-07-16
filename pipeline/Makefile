@@ -6,6 +6,7 @@ ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7s
 PORTAL_RIDESHARE_TRIPS := https://data.cityofchicago.org/resource/m6dm-c72p.json
 PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
+PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 
 # Environment Variables
 
@@ -238,6 +239,11 @@ data/extracted/daily_ESCOOTER.csv:
 		--soql_file="extract/scooterRidesByArea2019.sql" \
 		--output_file="data/extracted/daily_escooter.csv"
 
+data/extracted/sidewalk_cafe.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_SIDEWALK_CAFE)" \
+		--soql_file="extract/sidewalk_cafe.sql" \
+		--output_file="data/extracted/sidewalk_cafe.csv"
 # Exports For Frontend App
 
 resources:
