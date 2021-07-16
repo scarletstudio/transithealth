@@ -40,6 +40,17 @@ elif [ "$1" == "pipeline-all" ]; then
   cd pipeline
   make clean
   make
+  
+elif [ "$1" == "make" ]; then
+  echo "make ${@:2}"
+  source .venv/bin/activate
+  cd pipeline
+  make "${@:2}"
+
+elif [ "$1" == "pytest" ]; then
+  echo "pytest ${@:2}"
+  source .venv/bin/activate
+  pytest "${@:2}"
 
 elif [ "$1" == "tests" ]; then
   echo "Running tests..."
