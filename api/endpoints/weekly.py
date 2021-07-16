@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from api.metrics.weekly import WeeklyMetrics
-from api.metrics.annually import AnnuallyMetrics
+from api.metrics.yearly import YearlyMetrics
 
 
 def make_blueprint(con):
@@ -11,7 +11,7 @@ def make_blueprint(con):
     app = Blueprint("weekly", __name__)
     
     metric = WeeklyMetrics(con)
-    annual_metric = AnnuallyMetrics(con)
+    yearly_metric = YearlyMetrics(con)
 
     start_week_2018 = "2018-01-01"
     start_week_covid = "2020-03-02"
@@ -24,11 +24,11 @@ def make_blueprint(con):
         "weekly_rideshare_avg_cost_covid": lambda: metric.rideshare_avg_cost_cents(since=start_week_covid),
         "weekly_covid_cases": metric.covid_cases,
         "yearly_disability_rate":lambda: metric.disability_rate(since=start_year_2018),
-        "belonging_rate_all": lambda: annual_metric.belonging("all"),
-        "belonging_rate_W": lambda: annual_metric.belonging("W"),
-        "belonging_rate_B": lambda: annual_metric.belonging("B"),
-        "belonging_rate_A": lambda: annual_metric.belonging("A"),
-        "belonging_rate_H": lambda: annual_metric.belonging("H")
+        "yearly_belonging_rate_all": lambda: yearly_metric.belonging("all"),
+        "yearly_belonging_rate_W": lambda: yearly_metric.belonging("W"),
+        "yearly_belonging_rate_B": lambda: yearly_metric.belonging("B"),
+        "yearly_belonging_rate_A": lambda: yearly_metric.belonging("A"),
+        "yearly_belonging_rate_H": lambda: yearly_metric.belonging("H")
     }
 
 

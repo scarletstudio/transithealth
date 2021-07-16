@@ -1,7 +1,7 @@
 from api.utils.database import rows_to_dicts
 
 
-class AnnuallyMetrics:
+class YearlyMetrics:
     """
     Metrics for annually timeline view.
     """
