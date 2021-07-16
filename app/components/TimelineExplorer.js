@@ -1,3 +1,5 @@
+/* global fetch */
+
 import { useState, useEffect, useRef } from 'react'
 import { MetricSelector } from '../components/Common'
 import {
@@ -76,7 +78,7 @@ function TimelineChart({ data, metrics }) {
         margin={{ left: 30, right: 30, bottom: 30, top: 10 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="week">
+        <XAxis dataKey="week" domain={["dataMin", "dataMax"]}>
           <Label
             value="Week"
             position="bottom"
@@ -88,7 +90,7 @@ function TimelineChart({ data, metrics }) {
         {metrics.filter((m) => m.axis !== "none").map((m, i) => {
           const color = m.color || defaultColors[i % defaultColors.length];
           return (
-            <Area key={i} yAxisId={m.axis} dataKey={m.id} stroke={color} fill={color} />
+            <Area key={`${i}-${m.id}`} yAxisId={m.axis} dataKey={m.id} stroke={color} fill={color} />
           );
         })}
         <Tooltip content={ <CustomToolTip metrics={metrics} /> } />
@@ -125,7 +127,7 @@ function TimelineMetrics({ metrics, setMetrics }) {
         }
         const color = m.color || defaultColors[i % defaultColors.length];
         return (
-          <div key={i} className="MetricEditor">
+          <div key={`${i}-${m.id}`} className="MetricEditor">
             <span className="ColorSelector">
               <input type="color" defaultValue={color} onChange={changeColor} />
             </span>
