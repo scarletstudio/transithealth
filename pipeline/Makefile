@@ -107,14 +107,10 @@ data/transformed/community_area.csv: data/extracted/community_area.geojson data/
 		--neighborhood_file="data/extracted/health_atlas_neighborhoods.json" \
 		--output_file="data/transformed/community_area.csv"
 		
-#changes here below___
-
 data/transformed/rent_burdened_households.csv: data/extracted/rent_burdened_households.csv
 	python3 transform/rent_burdened_households.py \
 		--input_file="data/extracted/rent_burdened_households.csv" \
 		--output_file="data/transformed/rent_burdened_households.csv"
-
-#changes here above^^^
 
 data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_community_area.csv
 	python3 transform/zip_code_to_community_area.py \
@@ -180,8 +176,6 @@ data/extracted/population_coverage.csv:
 		--create-dirs -o "data/extracted/population_coverage.csv" \
 		-d layers="neighborhood"
 		
-#changes here below___
-
 data/extracted/rent_burdened_households.csv: data/extracted/rent_burdened_households_coverage.csv
 	python3 extract/rent_burdened_households.py \
 		--coverage_file="data/extracted/rent_burdened_households_coverage.csv" \
@@ -193,8 +187,6 @@ data/extracted/rent_burdened_households_coverage.csv:
 		--create-dirs -o "data/extracted/rent_burdened_households_coverage.csv" \
 		-d layers="neighborhood"
 		
-#changes here above^^^
-
 data/extracted/income.csv: data/extracted/income_coverage.csv
 	python3 extract/income.py \
 		--coverage_file="data/extracted/income_coverage.csv" \
