@@ -50,3 +50,36 @@ def test_total_trips_by_pickup_area():
     ]
 
     assert actual == expected
+    
+def test_total_trips_by_pickup_part():
+    con, cur = create_test_db(
+        scripts=[
+            "./pipeline/load/community_area.sql",
+            "./pipeline/load/rideshare.sql",
+        ],
+        tables={
+            "community_area": [
+                { "area_number": 5, "part": "Central" },
+                { "area_number": 29, "part": "Southwest" },
+            ],
+            "rideshare": [
+                { "pickup_community_area": 5, "week": "2019-01-01", "n_trips": 50 },
+                { "pickup_community_area": 5, "week": "2019-02-01", "n_trips": 5 },
+                { "pickup_community_area": 5, "week": "2020-01-01", "n_trips": 30 },
+                { "pickup_community_area": 29, "week": "2019-01-01", "n_trips": 20 },
+                { "pickup_community_area": 29, "week": "2020-01-01", "n_trips": 10 },
+            ],
+        }
+    )
+
+    metric = RideshareMetrics(con)
+
+    assert metric.get_total_trips_by_pickup_part() == [
+        { "pickup_part": "Central", "total_trips": 85 },
+        { "pickup_part": "Southwest", "total_trips": 30 }
+    ], "Should sum trips by part of city."
+
+    assert metric.get_total_trips_by_pickup_part(year=2019) == [
+        { "pickup_part": "Central", "total_trips": 55 },
+        { "pickup_part": "Southwest", "total_trips": 20 }
+    ], "Should sum trips by part of city for 2019 only."
