@@ -51,7 +51,7 @@ def test_total_trips_by_pickup_area():
 
     assert actual == expected
     
-def test_total_trips_by_pickup_part():
+def test_total_trips_by_pickup_part_and_year():
     con, cur = create_test_db(
         scripts=[
             "./pipeline/load/community_area.sql",
@@ -61,25 +61,29 @@ def test_total_trips_by_pickup_part():
             "community_area": [
                 { "area_number": 5, "part": "Central" },
                 { "area_number": 29, "part": "Southwest" },
+                # This area should not be included in the output, because it has no trips
+                { "area_number": 13, "part": "Southwest" },
             ],
             "rideshare": [
                 { "pickup_community_area": 5, "week": "2019-01-01", "n_trips": 50 },
                 { "pickup_community_area": 5, "week": "2019-02-01", "n_trips": 5 },
                 { "pickup_community_area": 5, "week": "2020-01-01", "n_trips": 30 },
+                { "pickup_community_area": 5, "week": "2020-12-01", "n_trips": 2 },
                 { "pickup_community_area": 29, "week": "2019-01-01", "n_trips": 20 },
                 { "pickup_community_area": 29, "week": "2020-01-01", "n_trips": 10 },
+                # This total should not be included in the output, because it has no part of city
+                { "pickup_community_area": 54, "week": "2020-01-01", "n_trips": 70 },
+                # This total should not be included in the output, because it has no year
+                { "pickup_community_area": 5, "week": None, "n_trips": 25 },
             ],
         }
     )
 
     metric = RideshareMetrics(con)
 
-    assert metric.get_total_trips_by_pickup_part() == [
-        { "pickup_part": "Central", "total_trips": 85 },
-        { "pickup_part": "Southwest", "total_trips": 30 }
-    ], "Should sum trips by part of city."
-
-    assert metric.get_total_trips_by_pickup_part(year=2019) == [
-        { "pickup_part": "Central", "total_trips": 55 },
-        { "pickup_part": "Southwest", "total_trips": 20 }
-    ], "Should sum trips by part of city for 2019 only."
+    assert metric.get_total_trips_by_pickup_part_and_year() == [
+        { "pickup_part": "Central", "year": 2019, "total_trips": 55 },
+        { "pickup_part": "Central", "year": 2020, "total_trips": 32 },
+        { "pickup_part": "Southwest", "year": 2019, "total_trips": 20 },
+        { "pickup_part": "Southwest", "year": 2020, "total_trips": 10 },
+    ], "Should sum trips by part of city and year."

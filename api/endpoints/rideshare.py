@@ -27,20 +27,12 @@ def make_blueprint(con):
         return jsonify(metric.get_total_trips_by_pickup_area())
     
     
-    @app.route("/rideshare/total_trips_by_pickup_part")
-    def total_trips_by_pickup_part():
+    @app.route("/rideshare/total_trips_by_pickup_part_and_year")
+    def total_trips_by_pickup_part_and_year():
         """
         Returns the total number of trips by pickup part of city.
         """
-        raw_year = request.args.get("year", None)
-        if raw_year is None:
-            year = None
-        elif raw_year.isnumeric():
-            year = int(raw_year)
-        else:
-            return f"Parameter 'year' must be a number, not: {raw_year}", 400
-        rows = metric.get_total_trips_by_pickup_part(year=year)
-        return jsonify(rows)
+        return jsonify(metric.get_total_trips_by_pickup_part_and_year())
 
 
     return app
