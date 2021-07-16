@@ -13,13 +13,15 @@ def make_blueprint(con):
 
     start_week_2018 = "2018-01-01"
     start_week_covid = "2020-03-02"
+    start_year_2018 = "2018"
 
     supported_metrics = {
         "weekly_rideshare_pickups": lambda: metric.rideshare_pickups(since=start_week_2018),
         "weekly_rideshare_pickups_covid": lambda: metric.rideshare_pickups(since=start_week_covid),
         "weekly_rideshare_avg_cost": lambda: metric.rideshare_avg_cost_cents(since=start_week_2018),
         "weekly_rideshare_avg_cost_covid": lambda: metric.rideshare_avg_cost_cents(since=start_week_covid),
-        "weekly_covid_cases": metric.covid_cases
+        "weekly_covid_cases": metric.covid_cases,
+        "yearly_disability_rate":lambda: metric.disability_rate(since=start_year_2018)
     }
 
 

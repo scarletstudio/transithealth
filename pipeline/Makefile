@@ -5,6 +5,7 @@ ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7s
 
 PORTAL_RIDESHARE_TRIPS := https://data.cityofchicago.org/resource/m6dm-c72p.json
 PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
+PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 
 # Environment Variables
 
@@ -54,6 +55,7 @@ data/loaded/community_area.txt: data/transformed/community_area.csv
 		--input_file="data/transformed/community_area.csv" \
 		--create_sql="load/community_area.sql" \
 		--table_name="community_area"
+
 
 data/loaded/population.txt: data/transformed/population.csv
 	python3 load/create_table.py \
@@ -227,16 +229,22 @@ data/extracted/daily_rideshare.csv:
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
 	
-data/extracted/belonging.csv: data/extracted/belonging_coverage.csv
+data/extracted/belonging.csv: data/extracted/belonging_coverage.json
 	python3 extract/belonging.py \
-		--coverage_file="data/extracted/belonging_coverage.csv" \
+		--coverage_file="data/extracted/belonging_coverage.json" \
 		--output_file="data/extracted/belonging.csv"
 
-data/extracted/belonging_coverage.csv:
+data/extracted/belonging_coverage.json:
 	# -G tells curl to use each -d option as query parameters instead of body parameters
 	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/HCSCBP" \
-		--create-dirs -o "data/extracted/belonging_coverage.csv" \
-		-d layers="neighborhood"
+		--create-dirs -o "data/extracted/belonging_coverage.json" \
+		-d layers="neighborhood,place"
+
+data/extracted/daily_ESCOOTER.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_ESCOOTER)" \
+		--soql_file="extract/scooterRidesByArea2019.sql" \
+		--output_file="data/extracted/daily_escooter.csv"
 
 # Exports For Frontend App
 
