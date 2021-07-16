@@ -81,7 +81,7 @@ run api
 To run all Python tests in the repository:
 
 ```bash
-pytest
+run tests
 ```
 
 ### Questions to Consider
