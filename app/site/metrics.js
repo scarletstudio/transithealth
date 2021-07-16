@@ -140,6 +140,36 @@ export const weeklyMetrics = {
     format: Formatter.numberWithCommas,
     fullFormat: Formatter.numberWithCommas,
   },
+  belonging_rate_all: {
+    name: "Rate of Belonging of the City",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  belonging_rate_W: {
+    name: "Rate of Belonging of Non-Hispanic White People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  belonging_rate_B: {
+    name: "Rate of Belonging of Non-Hispanic Black People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  belonging_rate_A: {
+    name: "Rate of Belonging of Asian or Pacific Islander People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  belonging_rate_H: {
+    name: "Rate of Belonging of Hispanic or Latino People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
 };
 
 export const scatterExplorerDefaults = {
