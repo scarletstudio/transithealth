@@ -11,17 +11,17 @@ class AnnuallyMetrics:
 
     def belonging(self, segment):
         """
-        Returns the rate of belonging of each segment per year
+        Returns the rate of belonging of a segment per year
         """
         query = """
         SELECT
-            period_end_year AS year,
+            period_end_year || "-01-01" as week,
             value / 100 AS value,
             segment
         FROM belonging
         WHERE layer = "place"
         AND segment == "{segment}"
-        GROUP BY year
+        GROUP BY week
         """.format(segment=segment)
         cur = self.con.cursor()
         cur.execute(query)
