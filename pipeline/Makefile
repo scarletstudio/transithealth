@@ -168,6 +168,17 @@ data/extracted/population_coverage.csv:
 	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/POP" \
 		--create-dirs -o "data/extracted/population_coverage.csv" \
 		-d layers="neighborhood"
+		
+data/extracted/traffic_intensity.csv: data/extracted/traffic_intensity_coverage.csv
+	python3 extract/traffic_intensity.py \
+		--coverage_file="data/extracted/traffic_intensity_coverage.csv" \
+		--output_file="data/extracted/traffic_intensity.csv"
+
+data/extracted/traffic_intensity_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/TRF" \
+		--create-dirs -o "data/extracted/traffic_intensity_coverage.csv" \
+		-d layers="neighborhood"
 
 data/extracted/income.csv: data/extracted/income_coverage.csv
 	python3 extract/income.py \
