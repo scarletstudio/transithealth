@@ -63,6 +63,13 @@ data/loaded/population.txt: data/transformed/population.csv
 		--input_file="data/transformed/population.csv" \
 		--create_sql="load/population.sql" \
 		--table_name="population"
+		
+data/loaded/rent_burdened_households.txt: data/transformed/rent_burdened_households.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/rent_burdened_households.csv" \
+		--create_sql="load/rent_burdened_households.sql" \
+		--table_name="rent_burdened_households"
 
 data/loaded/income.txt: data/transformed/income.csv
 	python3 load/create_table.py \
