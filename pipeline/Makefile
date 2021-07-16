@@ -44,6 +44,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/belonging.txt
 	make data/loaded/disabilities.txt
 	make data/loaded/population.txt
+	make data/loaded/rent_burdened_households.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
