@@ -47,6 +47,11 @@ elif [ "$1" == "make" ]; then
   cd pipeline
   make "${@:2}"
 
+elif [ "$1" == "sqlite3" ]; then
+  echo "sqlite3 ${@:2}"
+  source .venv/bin/activate
+  sqlite3 "${@:2}"
+
 elif [ "$1" == "pytest" ]; then
   echo "pytest ${@:2}"
   source .venv/bin/activate
