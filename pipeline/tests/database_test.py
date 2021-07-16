@@ -20,7 +20,7 @@ Test Cases
 
 def test_table_counts():
     test.assert_table_count("community_area", 77)
-    test.assert_table_count("belonging",152)
+    test.assert_table_count("belonging",220)
     test.assert_table_count("disabilities", 616)
     test.assert_table_count("population", 770)
     test.assert_table_count("income", 770)
@@ -28,24 +28,25 @@ def test_table_counts():
     test.assert_table_count("rideshare", 671938)
 
 def test_population():
-    years_2010_to_2019 = list(range(2010, 2020, 1))
+    years_2010_to_2019 = set(range(2010, 2020, 1))
     test.assert_distinct_values("population", "period_end_year", years_2010_to_2019)
-    test.assert_distinct_values("population", "segment", ["all"])
+    test.assert_distinct_values("population", "segment", {"all"})
 
 def test_income():
-    years_2010_to_2019 = list(range(2010, 2020, 1))
+    years_2010_to_2019 = set(range(2010, 2020, 1))
     test.assert_distinct_values("income", "period_end_year", years_2010_to_2019)
-    test.assert_distinct_values("income", "segment", ["all"])
+    test.assert_distinct_values("income", "segment", {"all"})
     
 def test_belonging():
-    end_years = [2017,2018]
-    test.assert_distinct_values("belonging", "period_end_year", end_years)
-    test.assert_distinct_values("belonging", "segment", ["all"])
+    years_2015_to_2018 = set(range(2015, 2019, 1))
+    all_segments = set(["all","W","B","A","H","F","M","S","G","K","N","E","L","R","U","V","Z"])
+    test.assert_distinct_values("belonging", "period_end_year", years_2015_to_2018)
+    test.assert_distinct_values("belonging", "segment", all_segments)
 
 def test_disabilities():
-    end_years = list(range(2012, 2020, 1))
+    end_years = set(range(2012, 2020, 1))
     test.assert_distinct_values("disabilities", "period_end_year", end_years)
-    test.assert_distinct_values("disabilities", "segment", ["all"])
+    test.assert_distinct_values("disabilities", "segment", {"all"})
     
 def test_rideshare_pooled_trips():
     cur = con.cursor()
