@@ -5,6 +5,7 @@ ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7s
 
 PORTAL_RIDESHARE_TRIPS := https://data.cityofchicago.org/resource/m6dm-c72p.json
 PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
+PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 
 # Environment Variables
 
@@ -54,6 +55,7 @@ data/loaded/community_area.txt: data/transformed/community_area.csv
 		--input_file="data/transformed/community_area.csv" \
 		--create_sql="load/community_area.sql" \
 		--table_name="community_area"
+
 
 data/loaded/population.txt: data/transformed/population.csv
 	python3 load/create_table.py \
@@ -224,6 +226,12 @@ data/extracted/belonging_coverage.csv:
 	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/HCSCBP" \
 		--create-dirs -o "data/extracted/belonging_coverage.csv" \
 		-d layers="neighborhood"
+
+data/extracted/daily_ESCOOTER.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_ESCOOTER)" \
+		--soql_file="extract/scooterRidesByArea2019.sql" \
+		--output_file="data/extracted/daily_escooter.csv"
 
 # Exports For Frontend App
 

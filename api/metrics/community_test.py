@@ -172,3 +172,42 @@ def test_pool_requests():
     assert metric.rideshare_pool_request_rate(year=2018) == [
         { "area_number": 1, "value": 0.4 }
     ], "Should calculate pool request rate for separate years."
+
+def test_belonging():
+    belonging_table = [
+        {
+            "area_number": 1,
+            "period_end_year": 2017,
+            "segment": "all",
+            "value": 45.6
+        },
+        {
+            "area_number": 2,
+            "period_end_year": 2017,
+            "segment": "all",
+            "value": 35.2
+        },
+        {
+            "area_number": 1,
+            "period_end_year": 2018,
+            "segment": "all",
+            "value": 67.1
+        }
+    ]
+    con, cur = create_test_db(
+        scripts=[ "./pipeline/load/belonging.sql" ],
+        tables={ "belonging": belonging_table }
+        )
+    
+    metric = CommunityMetrics(con)
+    
+    assert metric.belonging(year=2017, segment="all") == [
+        { "area_number": 1, "value": 45.6 / 100 },
+        { "area_number": 2, "value": 35.2 / 100 }
+    ], "Should have two results for 2017."
+    
+    assert metric.belonging(year=2018, segment="all") == [
+        { "area_number": 1, "value": 67.1 / 100 }
+    ], "Should have one result for 2018."
+    
+    assert metric.belonging(year=2015, segment="all") == [], "Should have no results for 2015."
