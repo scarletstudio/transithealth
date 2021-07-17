@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { MetricSelector } from '../components/Common'
 import {
-  weeklyMetrics,
+  timelineMetrics,
   timelineExplorerDefaults
 } from '../site/metrics'
 import {
@@ -19,7 +19,7 @@ import {
   Area,
 } from 'recharts'
 
-const supportedMetrics = weeklyMetrics;
+const supportedMetrics = timelineMetrics;
 const defaultMetricToAdd = timelineExplorerDefaults.metricToAdd;
 const defaultColors = [
   "#099178",
@@ -80,7 +80,7 @@ function TimelineChart({ data, metrics }) {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="week" domain={["dataMin", "dataMax"]}>
           <Label
-            value="Week"
+            value="Date"
             position="bottom"
             offset={10}
           />
@@ -203,8 +203,7 @@ export default function TimelineExplorer(props) {
   return (
     <div>
       <div className="center">
-        <h2>By Week</h2>
-        <p>{ isLoading ? "Loading..." : "" }</p>
+        <span>{ isLoading ? "Loading..." : "" }</span>
       </div>
       <TimelineChart data={data} metrics={metrics} />
       <h3>Select Metrics</h3>

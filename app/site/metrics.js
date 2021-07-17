@@ -109,7 +109,7 @@ export const communityMetrics = {
   },
 };
 
-export const weeklyMetrics = {
+export const timelineMetrics = {
   weekly_rideshare_pickups: {
     name: "Weekly Rideshare Pickups",
     units: "trips",
