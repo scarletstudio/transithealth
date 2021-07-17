@@ -12,7 +12,7 @@ from tqdm import tqdm
 from utils.data import HEALTH_ATLAS_VALUE_COLS
 
 
-cli = argparse.ArgumentParser(description="Download population data for each community area.")
+cli = argparse.ArgumentParser(description="Download traffic intensity dataset.")
 cli.add_argument("--coverage_file", help="File path to read coverages from.")
 cli.add_argument("--output_file", help="File path to write results to.")
 args = cli.parse_args()
