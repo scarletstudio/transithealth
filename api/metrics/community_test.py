@@ -211,3 +211,46 @@ def test_belonging():
     ], "Should have one result for 2018."
     
     assert metric.belonging(year=2015, segment="all") == [], "Should have no results for 2015."
+    
+def test_disabilities():
+    disabilities_table = [
+        {
+            "area_number": 1,
+            "period_end_year": 2018,
+            "segment": "all",
+            "value": 13.37
+        },
+        {
+            "area_number": 2,
+            "period_end_year": 2016,
+            "segment": "all",
+            "value": 11.02
+        },
+        {
+            "area_number": 3,
+            "period_end_year": 2016,
+            "segment": "all",
+            "value": 8.46
+        },
+    ]
+    con, cur = create_test_db(
+        scripts=[
+            "./pipeline/load/disabilities.sql"
+        ],
+        tables={
+            "disabilities": disabilities_table
+        }
+    )
+
+    metric = CommunityMetrics(con)
+
+    assert metric.disability_rate(year=2018, segment="all") == [
+        { "area_number": 1, "value": 13.37 / 100},
+    ], "Should have one result for 2018."
+    
+    assert metric.disability_rate(year=2016, segment="all") == [
+        { "area_number": 2, "value": 11.02 / 100 },
+        { "area_number": 3, "value": 8.46 / 100 }
+    ], "Should have two results for 2018."
+
+    assert metric.disability_rate(year=2011, segment="all") == [], "Should have no results for 2011."
