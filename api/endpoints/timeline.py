@@ -42,11 +42,11 @@ def make_blueprint(con):
             if metric_name in supported_metrics:
                 metric_fn = supported_metrics[metric_name]
                 for row in metric_fn():
-                    key = row["week"]
+                    key = row["date"]
                     if key not in res:
-                        res[key] = { "week": key }
+                        res[key] = { "date": key }
                     res[key][metric_name] = row["value"]
-        vals = list(sorted(res.values(), key=lambda r: r["week"]))
+        vals = list(sorted(res.values(), key=lambda r: r["date"]))
         return jsonify({ "metrics": vals })
 
     return app

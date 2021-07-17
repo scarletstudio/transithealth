@@ -46,8 +46,8 @@ def test_annual_belonging_rate():
     metric = YearlyMetrics(con)
 
     assert metric.belonging(segment="all") == [
-        { "week": "2015-01-01", "value": 55.6 / 100, "segment": "all" },
-        { "week": "2016-01-01", "value": 45.2 / 100, "segment": "all" },
-        { "week": "2017-01-01", "value": 37.1 / 100, "segment": "all" },
-        { "week": "2018-01-01", "value": 35.4 / 100, "segment": "all" }
+        { "date": "2015-01-01", "value": 55.6 / 100, "segment": "all" },
+        { "date": "2016-01-01", "value": 45.2 / 100, "segment": "all" },
+        { "date": "2017-01-01", "value": 37.1 / 100, "segment": "all" },
+        { "date": "2018-01-01", "value": 35.4 / 100, "segment": "all" }
     ], "Should give the belonging rate per year with just the given segment."

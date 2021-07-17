@@ -15,13 +15,13 @@ class YearlyMetrics:
         """
         query = """
         SELECT
-            period_end_year || "-01-01" as week,
+            period_end_year || "-01-01" as date,
             value / 100 AS value,
             segment
         FROM belonging
         WHERE layer = "place"
         AND segment == "{segment}"
-        GROUP BY week
+        GROUP BY date
         """.format(segment=segment)
         cur = self.con.cursor()
         cur.execute(query)
