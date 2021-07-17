@@ -11,6 +11,7 @@
 |:--|:--|
 | `run api 9` | Start the backend API on Cloud9. |
 | `run app 9` | Start the frontend app on Cloud9. |
+| `run app 9 prod-api` | Start the frontend app on Cloud9, using prod API. |
 | `run db` | Get the latest database from the compressed files. |
 | `run tests` | Run all tests. |
 | `run notebooks 9` | Run the Jupyter notebook server. |
