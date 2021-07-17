@@ -20,7 +20,7 @@ class RentBurdenedMetrics:
         query = """
         SELECT
             area_number,
-            CAST(value AS INTEGER) AS value
+            value / 100.00 AS value
         FROM rent_burdened_households
         WHERE period_end_year == {year}
         AND segment == "{segment}"
