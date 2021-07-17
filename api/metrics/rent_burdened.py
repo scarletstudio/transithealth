@@ -37,7 +37,7 @@ class RentBurdenedMetrics:
         """
         query = """
         SELECT
-            max(ROUND(value,2)) AS value,
+            max(value)/100 AS value,
             area_number,
             period_end_year
         FROM rent_burdened_households
@@ -54,7 +54,7 @@ class RentBurdenedMetrics:
         """
         query = """
         SELECT
-            min(ROUND(value,2)) AS value,
+            min(value)/100 AS value,
             area_number,
             period_end_year
         FROM rent_burdened_households
@@ -71,7 +71,7 @@ class RentBurdenedMetrics:
         """
         query = """
         SELECT
-            ROUND(avg(value),2) AS "avg value",
+            avg(value)/100 AS "avg value",
             area_number
         FROM rent_burdened_households
         GROUP BY area_number
@@ -80,3 +80,4 @@ class RentBurdenedMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+    

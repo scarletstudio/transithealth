@@ -12,37 +12,37 @@ def test_RBU():
             "area_number": 1,
             "period_end_year": 2019,
             "segment": "all",
-            "value": 43.31238192
+            "value": 52.7029065195125
         },
         {
             "area_number": 1,
             "period_end_year": 2018,
             "segment": "all",
-            "value": 47.31238192
+            "value": 41.6541886411246
         },
         {
             "area_number": 2,
             "period_end_year": 2019,
             "segment": "all",
-            "value": 57.77931
+            "value": 56.2945422971736
         },
         {
             "area_number": 3,
             "period_end_year": 2014,
             "segment": "all",
-            "value": 32.31283212
+            "value": 51.4589913593531
         },
         {
             "area_number": 3,
             "period_end_year": 2018,
             "segment": "all",
-            "value": 52.771
+            "value": 48.790639029861
         },
         {
             "area_number": 3,
             "period_end_year": 2017,
             "segment": "all",
-            "value": 53.64153641
+            "value": 33.9090007521057
         }
     ]
     con, cur = create_test_db(
@@ -55,23 +55,22 @@ def test_RBU():
     )
 
     metric = RentBurdenedMetrics(con)
-    
+
     assert metric.rent_burdened(year=2019, segment="all") == [
-        { "area_number": 1, "value": 43 },
-        { "area_number": 2, "value": 57 }
+        { "area_number": 1, "value": 0.527029065195125 },
+        { "area_number": 2, "value": 0.562945422971736 }
     ], "Should have two results for 2019."
 
     assert metric.get_max_burdened() == [
-        { "area_number": 2, "value": 57.78, "period_end_year": 2019}
-    ], "Should have max result of 57 and area_number of 2."
-
+        { 'value': 0.562945422971736, 'area_number': 2, 'period_end_year': 2019}
+    ], "Should have max result of 0.5777931000000001, area_number of 2, and period end year of 2019."
+    
     assert metric.get_min_burdened() == [
-        { "area_number": 3, "value": 32.31, "period_end_year": 2014}
+        { "area_number": 3, "value": 0.339090007521057, "period_end_year": 2017}
     ], "Should have min result of 32 and area_number of 3."
-    
+
     assert metric.average_burden_area() == [
-        {'avg value': 45.31, 'area_number': 1}, 
-        {'avg value': 57.78, 'area_number': 2}, 
-        {'avg value': 46.24, 'area_number': 3}
+        {'avg value': 0.47178547580318553, 'area_number': 1}, 
+        {'avg value': 0.562945422971736, 'area_number': 2}, 
+        {'avg value': 0.4471954371377327, 'area_number': 3}
     ], "Check if the results are correct"
-    
