@@ -2,7 +2,7 @@
 name: New Metric Template
 about: Template for adding new metrics to the backend API.
 title: Implement metric for (?)
-labels: enhancement, api
+labels: api, enhancement
 assignees: ''
 
 ---
