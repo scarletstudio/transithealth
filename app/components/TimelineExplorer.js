@@ -35,7 +35,7 @@ const weekFormat = new Intl.DateTimeFormat("en-US", {
 
 async function getTimelineMetrics(metrics) {
   const req = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/weekly/metrics`,
+    `${process.env.NEXT_PUBLIC_API}/timeline/metrics`,
     {
       method: "POST",
       headers: {
