@@ -12,7 +12,7 @@
     "start": "next start -p 8001",
     "export": "next export -o transithealth",
     "clean": "rm -rf build && rm -rf transithealth",
-    "lint": "next --version"
+    "lint": "next lint"
   },
   "dependencies": {
     "d3-geo": "^2.0.1",
@@ -23,5 +23,9 @@
     "throttle-debounce": "^3.0.1",
     "use-http": "^1.0.21",
     "yarn": "^1.22.10"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0",
+    "eslint-config-next": "^11.0.1"
   }
 }
