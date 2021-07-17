@@ -21,5 +21,14 @@ fi
 # Enter app directory
 cd app
 
-# Start Next.js development server
-yarn dev
+# Check whether to run static or dynamic site
+if [ "$2" == "static" ]; then
+    # Build, export, and serve static site
+    echo "Building static site instead of dynamic site. This will not listen for changes."
+    yarn build
+    yarn export
+    python3 -m http.server 8001
+else
+    # Start Next.js development server
+    yarn dev
+fi
