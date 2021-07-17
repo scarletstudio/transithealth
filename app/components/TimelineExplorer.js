@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { MetricSelector } from '../components/Common'
 import {
-  weeklyMetrics,
+  timelineMetrics,
   timelineExplorerDefaults
 } from '../site/metrics'
 import {
@@ -19,7 +19,7 @@ import {
   Area,
 } from 'recharts'
 
-const supportedMetrics = weeklyMetrics;
+const supportedMetrics = timelineMetrics;
 const defaultMetricToAdd = timelineExplorerDefaults.metricToAdd;
 const defaultColors = [
   "#099178",
@@ -27,7 +27,7 @@ const defaultColors = [
   "#a453f5",
   "#f5cd53",
 ];
-const weekFormat = new Intl.DateTimeFormat("en-US", {
+const dateFormat = new Intl.DateTimeFormat("en-US", {
   month: "long",
   day: "numeric",
   year: "numeric",
@@ -35,7 +35,7 @@ const weekFormat = new Intl.DateTimeFormat("en-US", {
 
 async function getTimelineMetrics(metrics) {
   const req = await fetch(
-    `${process.env.NEXT_PUBLIC_API}/weekly/metrics`,
+    `${process.env.NEXT_PUBLIC_API}/timeline/metrics`,
     {
       method: "POST",
       headers: {
@@ -55,10 +55,10 @@ function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
     return null;
   }
   const d = payload[0].payload;
-  const date = new Date(d.week);
+  const date = new Date(d.date);
   return (
     <div className="CustomToolTip">
-      <h4>{weekFormat.format(new Date(d.week))}</h4>
+      <h4>{dateFormat.format(new Date(d.date))}</h4>
       {metrics.filter(({ id: m}) => d[m]).map(({ id: m }, i) => (
         <p key={i}>
           <span>{supportedMetrics[m].name}: </span>
@@ -78,9 +78,9 @@ function TimelineChart({ data, metrics }) {
         margin={{ left: 30, right: 30, bottom: 30, top: 10 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="week" domain={["dataMin", "dataMax"]}>
+        <XAxis dataKey="date" domain={["dataMin", "dataMax"]}>
           <Label
-            value="Week"
+            value="Date"
             position="bottom"
             offset={10}
           />
@@ -203,8 +203,7 @@ export default function TimelineExplorer(props) {
   return (
     <div>
       <div className="center">
-        <h2>By Week</h2>
-        <p>{ isLoading ? "Loading..." : "" }</p>
+        <span>{ isLoading ? "Loading..." : "" }</span>
       </div>
       <TimelineChart data={data} metrics={metrics} />
       <h3>Select Metrics</h3>
