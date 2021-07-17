@@ -27,7 +27,7 @@ const defaultColors = [
   "#a453f5",
   "#f5cd53",
 ];
-const weekFormat = new Intl.DateTimeFormat("en-US", {
+const dateFormat = new Intl.DateTimeFormat("en-US", {
   month: "long",
   day: "numeric",
   year: "numeric",
@@ -55,10 +55,10 @@ function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
     return null;
   }
   const d = payload[0].payload;
-  const date = new Date(d.week);
+  const date = new Date(d.date);
   return (
     <div className="CustomToolTip">
-      <h4>{weekFormat.format(new Date(d.week))}</h4>
+      <h4>{dateFormat.format(new Date(d.date))}</h4>
       {metrics.filter(({ id: m}) => d[m]).map(({ id: m }, i) => (
         <p key={i}>
           <span>{supportedMetrics[m].name}: </span>
@@ -78,7 +78,7 @@ function TimelineChart({ data, metrics }) {
         margin={{ left: 30, right: 30, bottom: 30, top: 10 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="week" domain={["dataMin", "dataMax"]}>
+        <XAxis dataKey="date" domain={["dataMin", "dataMax"]}>
           <Label
             value="Date"
             position="bottom"
