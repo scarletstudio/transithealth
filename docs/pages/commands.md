@@ -11,7 +11,7 @@
 |:--|:--|
 | `run api 9` | Start the backend API on Cloud9. |
 | `run app 9` | Start the frontend app on Cloud9. |
-| `run app 9 prod-api` | Start the frontend using prod API. Good for frontend-only work. |
+| `run app 9 api prod` | Start the frontend using prod API. Good for frontend-only work. |
 | `run app 9 static` | Serve the static version of the frontend. Good for backend-only work. |
 | `run db` | Get the latest database from the compressed files. |
 | `run tests` | Run all tests. |

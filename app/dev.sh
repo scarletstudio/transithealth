@@ -11,9 +11,14 @@ if [ "$1" == "9" ]; then
 fi
 
 # Use the production API instead of your local API
-if [ "$2" == "prod-api" ]; then
+if [ "$2" == "api" ]; then
     echo "Connecting to prod API instead of local. It may take some time to wake up..."
-    BACKEND_URL="http://transithealth.herokuapp.com"
+    if [ "$3" == "prod" ]; then
+        BACKEND_URL="http://transithealth.herokuapp.com"
+    else
+        BACKEND_URL="$3"
+    fi
+    echo "Connecting to Backend: $BACKEND_URL"
     echo $(curl "$BACKEND_URL")
     sed -i "s,NEXT_PUBLIC_API=.*,NEXT_PUBLIC_API=$BACKEND_URL," app/.env.local
 fi
