@@ -1,7 +1,7 @@
 import sys
 sys.path.append("../")
 
-from api.metrics.community import CommunityMetrics
+from api.metrics.rent_burdened import RentBurdenedMetrics
 from api.utils.testing import create_test_db
 
 ...
