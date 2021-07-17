@@ -18,7 +18,6 @@ export default function TimelineView() {
         <div className="page">
           <div className="center">
             <h1>Timeline View</h1>
-            <p>View data over time, on a weekly basis.</p>
           </div>
           <br />
           <TimelineExplorer metrics={timelineExplorerDefaults.defaultMetrics} />

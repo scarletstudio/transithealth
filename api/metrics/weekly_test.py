@@ -40,6 +40,6 @@ def test_rideshare_avg_price():
     metric = WeeklyMetrics(con)
 
     assert metric.rideshare_avg_cost_cents(since="2018-04-14") == [
-        { "week": "2018-04-14", "value": 1700 },
-        { "week": "2018-04-21", "value": 1500 }
+        { "date": "2018-04-14", "value": 1700 },
+        { "date": "2018-04-21", "value": 1500 }
     ], "Should compute average cost in cents since per week given date."

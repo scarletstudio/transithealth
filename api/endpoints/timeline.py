@@ -5,25 +5,23 @@ from api.metrics.yearly import YearlyMetrics
 
 def make_blueprint(con):
     """
-    Creates blueprint for endpoints related to weekly metrics.
+    Creates blueprint for endpoints related to timeline metrics.
     """
 
-    app = Blueprint("weekly", __name__)
+    app = Blueprint("timeline", __name__)
     
-    metric = WeeklyMetrics(con)
+    weekly_metric = WeeklyMetrics(con)
     yearly_metric = YearlyMetrics(con)
 
     start_week_2018 = "2018-01-01"
     start_week_covid = "2020-03-02"
-    start_year_2018 = "2018"
 
     supported_metrics = {
-        "weekly_rideshare_pickups": lambda: metric.rideshare_pickups(since=start_week_2018),
-        "weekly_rideshare_pickups_covid": lambda: metric.rideshare_pickups(since=start_week_covid),
-        "weekly_rideshare_avg_cost": lambda: metric.rideshare_avg_cost_cents(since=start_week_2018),
-        "weekly_rideshare_avg_cost_covid": lambda: metric.rideshare_avg_cost_cents(since=start_week_covid),
-        "weekly_covid_cases": metric.covid_cases,
-        "yearly_disability_rate":lambda: metric.disability_rate(since=start_year_2018),
+        "weekly_rideshare_pickups": lambda: weekly_metric.rideshare_pickups(since=start_week_2018),
+        "weekly_rideshare_pickups_covid": lambda: weekly_metric.rideshare_pickups(since=start_week_covid),
+        "weekly_rideshare_avg_cost": lambda: weekly_metric.rideshare_avg_cost_cents(since=start_week_2018),
+        "weekly_rideshare_avg_cost_covid": lambda: weekly_metric.rideshare_avg_cost_cents(since=start_week_covid),
+        "weekly_covid_cases": weekly_metric.covid_cases,
         "yearly_belonging_rate_all": lambda: yearly_metric.belonging("all"),
         "yearly_belonging_rate_W": lambda: yearly_metric.belonging("W"),
         "yearly_belonging_rate_B": lambda: yearly_metric.belonging("B"),
@@ -32,10 +30,10 @@ def make_blueprint(con):
     }
 
 
-    @app.route("/weekly/metrics", methods=["POST"])
-    def weekly_metrics():
+    @app.route("/timeline/metrics", methods=["POST"])
+    def timeline_metrics():
         """
-        Returns the requested metrics by week.
+        Returns the requested metrics by date.
         """
         body = request.get_json()
         metric_list = body["metrics"] if "metrics" in body else []
@@ -44,11 +42,11 @@ def make_blueprint(con):
             if metric_name in supported_metrics:
                 metric_fn = supported_metrics[metric_name]
                 for row in metric_fn():
-                    key = row["week"]
+                    key = row["date"]
                     if key not in res:
-                        res[key] = { "week": key }
+                        res[key] = { "date": key }
                     res[key][metric_name] = row["value"]
-        vals = list(sorted(res.values(), key=lambda r: r["week"]))
+        vals = list(sorted(res.values(), key=lambda r: r["date"]))
         return jsonify({ "metrics": vals })
 
     return app

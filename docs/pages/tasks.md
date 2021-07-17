@@ -105,7 +105,7 @@ For more information, read the API section in the guide on how to [add a new end
 
 ### Examples
 
-- Endpoint to get data for timeline view: [`weekly_metrics()` in `api/endpoints/weekly.py`](../../api/endpoints/weekly.py)
+- Endpoint to get data for timeline view: [`timeline_metrics()` in `api/endpoints/timeline.py`](../../api/endpoints/timeline.py)
 - Endpoint to get data about pooled rideshare trips: [`pooled_trips()` in `api/endpoints/question.py`](../../api/endpoints/question.py)
 
 ### Checklist
