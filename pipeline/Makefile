@@ -6,6 +6,7 @@ ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7s
 PORTAL_RIDESHARE_TRIPS := https://data.cityofchicago.org/resource/m6dm-c72p.json
 PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
+PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 
 # Environment Variables
 
@@ -44,6 +45,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/belonging.txt
 	make data/loaded/disabilities.txt
 	make data/loaded/population.txt
+	make data/loaded/rent_burdened_households.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
@@ -63,6 +65,13 @@ data/loaded/population.txt: data/transformed/population.csv
 		--input_file="data/transformed/population.csv" \
 		--create_sql="load/population.sql" \
 		--table_name="population"
+		
+data/loaded/rent_burdened_households.txt: data/transformed/rent_burdened_households.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/rent_burdened_households.csv" \
+		--create_sql="load/rent_burdened_households.sql" \
+		--table_name="rent_burdened_households"
 
 data/loaded/income.txt: data/transformed/income.csv
 	python3 load/create_table.py \
@@ -106,6 +115,11 @@ data/transformed/community_area.csv: data/extracted/community_area.geojson data/
 		--geojson_file="data/extracted/community_area.geojson" \
 		--neighborhood_file="data/extracted/health_atlas_neighborhoods.json" \
 		--output_file="data/transformed/community_area.csv"
+		
+data/transformed/rent_burdened_households.csv: data/extracted/rent_burdened_households.csv
+	python3 transform/rent_burdened_households.py \
+		--input_file="data/extracted/rent_burdened_households.csv" \
+		--output_file="data/transformed/rent_burdened_households.csv"
 
 data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_community_area.csv
 	python3 transform/zip_code_to_community_area.py \
@@ -182,6 +196,17 @@ data/extracted/traffic_intensity_coverage.csv:
 		--create-dirs -o "data/extracted/traffic_intensity_coverage.csv" \
 		-d layers="neighborhood"
 
+data/extracted/rent_burdened_households.csv: data/extracted/rent_burdened_households_coverage.csv
+	python3 extract/rent_burdened_households.py \
+		--coverage_file="data/extracted/rent_burdened_households_coverage.csv" \
+		--output_file="data/extracted/rent_burdened_households.csv"
+
+data/extracted/rent_burdened_households_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/RBU" \
+		--create-dirs -o "data/extracted/rent_burdened_households_coverage.csv" \
+		-d layers="neighborhood"
+		
 data/extracted/income.csv: data/extracted/income_coverage.csv
 	python3 extract/income.py \
 		--coverage_file="data/extracted/income_coverage.csv" \
@@ -216,16 +241,16 @@ data/extracted/daily_rideshare.csv:
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
 	
-data/extracted/belonging.csv: data/extracted/belonging_coverage.csv
+data/extracted/belonging.csv: data/extracted/belonging_coverage.json
 	python3 extract/belonging.py \
-		--coverage_file="data/extracted/belonging_coverage.csv" \
+		--coverage_file="data/extracted/belonging_coverage.json" \
 		--output_file="data/extracted/belonging.csv"
 
-data/extracted/belonging_coverage.csv:
+data/extracted/belonging_coverage.json:
 	# -G tells curl to use each -d option as query parameters instead of body parameters
 	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/HCSCBP" \
-		--create-dirs -o "data/extracted/belonging_coverage.csv" \
-		-d layers="neighborhood"
+		--create-dirs -o "data/extracted/belonging_coverage.json" \
+		-d layers="neighborhood,place"
 
 data/extracted/daily_ESCOOTER.csv:
 	python3 extract/from_data_portal.py \
@@ -233,6 +258,11 @@ data/extracted/daily_ESCOOTER.csv:
 		--soql_file="extract/scooterRidesByArea2019.sql" \
 		--output_file="data/extracted/daily_escooter.csv"
 
+data/extracted/sidewalk_cafe.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_SIDEWALK_CAFE)" \
+		--soql_file="extract/sidewalk_cafe.sql" \
+		--output_file="data/extracted/sidewalk_cafe.csv"
 # Exports For Frontend App
 
 resources:

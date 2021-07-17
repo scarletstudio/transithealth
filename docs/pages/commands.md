@@ -17,6 +17,28 @@
 | `run sqlite` | Run the SQLite command line interface. |
 | `run update` | Update dependencies. |
 
+## Run With Additional Arguments
+
+You can use the `run` alias to run these commands with additional arguments. For example:
+
+```bash
+run make data/extracted/population.csv
+```
+
+...is equivalent to:
+
+```bash
+source .venv/bin/activate
+cd pipeline
+make data/extracted/population.csv
+```
+
+| Command | Description |
+|:--|:--|
+| `run make` | Run `make` with additional arguments. |
+| `run pytest` | Run `pytest` with additional arguments. |
+| `run sqlite3` | Run `sqlite3` with additional arguments. |
+
 ## Offline Pipeline
 
 - These commands should be run from the `transithealth/` directory.

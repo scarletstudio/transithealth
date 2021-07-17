@@ -1,11 +1,13 @@
 import Sample from '../components/questions/Sample'
 import TemplateWithPieChart from '../components/questions/TemplateWithPieChart'
 import PooledTrips from '../components/questions/PooledTrips'
+import RidesharesAcrossCity from '../components/questions/RidesharesAcrossCity'
 
 export const questionComponents = {
   "sample": Sample,
   "template-with-pie-chart": TemplateWithPieChart,
   "pooled-trips": PooledTrips,
+  "rideshares-across-city": RidesharesAcrossCity,
 };
 
 export const questionsParams = {
@@ -14,6 +16,12 @@ export const questionsParams = {
     author: "Vinesh Kannan",
     component: "pooled-trips",
     description: "In a pooled trip, riders pay a lower fare by splitting a ride with strangers. In March 2020, ridesharing platforms stopped allowing pooled trips due to social distancing. What has been the impact of this decision?",
+  },
+  "rideshares-across-city": {
+    title: "How many rideshares across the city?",
+    author: "Rachael Brooks",
+    component: "rideshares-across-city",
+    description: "Rideshares like Uber and Lyft are seemingly pretty popular. How many rideshares happen across the city?",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
