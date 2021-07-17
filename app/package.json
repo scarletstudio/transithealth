@@ -2,20 +2,26 @@
   "name": "transithealth-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "engineStrict": true,
   "scripts": {
     "dev": "next dev -p 8001",
     "build": "next build",
     "start": "next start -p 8001",
     "export": "next export -o transithealth",
-    "clean": "rm -rf build && rm -rf transithealth"
+    "clean": "rm -rf build && rm -rf transithealth",
+    "lint": "next --version"
   },
   "dependencies": {
     "d3-geo": "^2.0.1",
-    "next": "10.2.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
+    "next": "^11.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "recharts": "^2.0.9",
     "throttle-debounce": "^3.0.1",
-    "use-http": "^1.0.21"
+    "use-http": "^1.0.21",
+    "yarn": "^1.22.10"
   }
 }

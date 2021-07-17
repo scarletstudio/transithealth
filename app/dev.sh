@@ -1,6 +1,14 @@
 #!/bin/bash
 
+# Load nvm for use in shell
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+
+# Activate Node v12
+nvm install 12
+nvm use 12
+
 # Install dependencies
+npm install --global yarn
 yarn install
 
 # Refresh IP address for Cloud9 instance
