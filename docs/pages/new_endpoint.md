@@ -373,7 +373,7 @@ The file `app/site/metrics.js` configures the metrics for the TransitHealth Data
 You will mostly likely add your new metric to one of these two configs:
 
 - `communityMetrics` specifies metrics for the Community View
-- `weeklyMetrics` specifies metrics for the Timeline View
+- `timelineMetrics` specifies metrics for the Timeline View
 
 Add your metric like this:
 

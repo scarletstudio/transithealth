@@ -17,11 +17,11 @@ class WeeklyMetrics:
         """
         query = """
         SELECT
-            week,
+            week as date,
             SUM(n_trips) as value
         FROM rideshare
         WHERE week >= ?
-        GROUP BY week
+        GROUP BY date
         """
         cur = self.con.cursor()
         cur.execute(query, (since,))
@@ -36,14 +36,14 @@ class WeeklyMetrics:
         """
         query = """
         SELECT
-            week,
+            week as date,
             CAST(
                 SUM(n_trips * avg_cost_no_tip_cents)
                 / SUM(n_trips)
                 as INTEGER) as value
         FROM rideshare
         WHERE week >= ?
-        GROUP BY week
+        GROUP BY date
         """
         cur = self.con.cursor()
         cur.execute(query, (since,))
@@ -56,10 +56,10 @@ class WeeklyMetrics:
         """
         query = """
         SELECT
-            week,
+            week as date,
             SUM(cases_weekly) as value
         FROM covid_spread
-        GROUP BY week
+        GROUP BY date
         """
         cur = self.con.cursor()
         cur.execute(query)
