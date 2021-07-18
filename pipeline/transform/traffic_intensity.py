@@ -14,8 +14,7 @@ start = timer()
 df = pd.read_csv(args.input_file)
 
 # Split the period (e.g. 2015-2019) into start and end year
-df["period_start_year"] = df["period"].apply(lambda s: s.split("-")[0]).astype(int)
-df["period_end_year"] = df["period"].apply(lambda s: s.split("-")[1]).astype(int)
+df["timeline"] = df["period"].astype(int)
 
 # If population is the empty string, then the value represents the total population
 df["segment"] = df["population"].fillna("all")
