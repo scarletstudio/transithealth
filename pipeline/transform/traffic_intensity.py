@@ -13,7 +13,7 @@ start = timer()
 # Read file
 df = pd.read_csv(args.input_file)
 
-# Split the period (e.g. 2015-2019) into start and end year
+#grabbing the year of the data
 df["timeline"] = df["period"].astype(int)
 
 # If population is the empty string, then the value represents the total population
