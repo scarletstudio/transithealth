@@ -141,6 +141,11 @@ data/transformed/population.csv: data/extracted/population.csv
 		--input_file="data/extracted/population.csv" \
 		--output_file="data/transformed/population.csv"
 
+data/transformed/traffic_intensity.csv: data/extracted/traffic_intensity.csv
+	python3 transform/traffic_intensity.py \
+		--input_file="data/extracted/traffic_intensity.csv" \
+		--output_file="data/transformed/traffic_intensity.csv"
+
 data/transformed/income.csv: data/extracted/income.csv
 	python3 transform/income.py \
 		--input_file="data/extracted/income.csv" \
