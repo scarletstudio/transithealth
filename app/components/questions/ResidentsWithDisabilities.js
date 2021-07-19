@@ -52,17 +52,18 @@ function transformData(response, error, selectedArea) {
     ...d,
     disability_rate_formatted: Formatter.percentWithOneDecimal(d.disability_rate_2019)
   })).filter(d => d.area_number === selectedArea)[0];
+
   
   const data = [
     {
       "label": "With Disabilities",
       "value": areaData.disability_rate_2019,
-      "color": Color.Indigo
+      "color": Color.Salmon
     },
     {
       "label": "Without Disabilities",
       "value": 1 - areaData.disability_rate_2019,
-      "color": Color.Cerulean
+      "color": Color.Teal
     }
     ];
   
@@ -116,7 +117,7 @@ export default function ResidentsWithDisabilities(props) {
     body: JSON.stringify({metrics: ['disability_rate_2019']})
   }, []);
   console.log(data);
-  const selectedArea = 34;
+  const selectedArea = 47;
   const { chartData, areaData } = transformData(data, error, selectedArea);
   
   useEffect(() => {
@@ -136,7 +137,7 @@ export default function ResidentsWithDisabilities(props) {
       </div>
       <div className="center medium-width">
         <p>
-        <span>Based on data from 2019, in {areaData.name}, {areaData.disability_rate_formatted} of residents have an included disability.</span>
+        <span>Based on data from 2019, {areaData.disability_rate_formatted} of residents in {areaData.name} have an included disability.</span>
         </p>
       </div>
     </div>

@@ -26,10 +26,10 @@ export const questionsParams = {
     description: "Rideshares like Uber and Lyft are seemingly pretty popular. How many rideshares happen across the city?",
   },
   "disabilities": {
-    title: "Disabilities Question",
+    title: "Disabilities in Burnside",
     author: "Maria Garcia",
     component: "residents-with-disabilities",
-    description: "Practice question for disability data.",
+    description: "Burnside is the neighborhood with the highest disability rate. What percentage of residents in Burnside, Chicago have an included disability?",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
