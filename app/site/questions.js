@@ -29,7 +29,7 @@ export const questionsParams = {
     title: "Belonging Rates",
     author: "Fabian Abrego",
     component: "belonging-rates",
-    description: "This page has a pie chart.",
+    description: "Over the years, the residents of an area may feel differently about their sense of belonging. What is this rate for a given neighborhood?",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
