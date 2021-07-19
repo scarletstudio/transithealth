@@ -171,7 +171,7 @@ export const timelineMetrics = {
     fullFormat: Formatter.percentWithOneDecimal,
   },
   yearly_disability_rate: {
-    name: "Disability Rate in the City",
+    name: "Disability Rate",
     units: "of people",
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,

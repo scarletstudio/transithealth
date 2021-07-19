@@ -34,11 +34,11 @@ class YearlyMetrics:
         """
         query = """
         SELECT
-            period_end_year as date,
+            period_end_year || "-01-01" as date,
             value / 100 AS value,
             segment
         FROM disabilities
-        AND segment == "{segment}"
+        WHERE segment == "{segment}"
         GROUP BY date
         """.format(segment=segment)
         cur = self.con.cursor()
