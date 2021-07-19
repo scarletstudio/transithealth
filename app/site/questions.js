@@ -2,12 +2,14 @@ import Sample from '../components/questions/Sample'
 import TemplateWithPieChart from '../components/questions/TemplateWithPieChart'
 import PooledTrips from '../components/questions/PooledTrips'
 import RidesharesAcrossCity from '../components/questions/RidesharesAcrossCity'
+import ResidentsWithDisabilities from '../components/questions/ResidentsWithDisabilities'
 
 export const questionComponents = {
   "sample": Sample,
   "template-with-pie-chart": TemplateWithPieChart,
   "pooled-trips": PooledTrips,
   "rideshares-across-city": RidesharesAcrossCity,
+  "residents-with-disabilities": ResidentsWithDisabilities,
 };
 
 export const questionsParams = {
@@ -22,6 +24,12 @@ export const questionsParams = {
     author: "Rachael Brooks",
     component: "rideshares-across-city",
     description: "Rideshares like Uber and Lyft are seemingly pretty popular. How many rideshares happen across the city?",
+  },
+  "disabilities": {
+    title: "Disabilities Question",
+    author: "Maria Garcia",
+    component: "residents-with-disabilities",
+    description: "Practice question for disability data.",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
