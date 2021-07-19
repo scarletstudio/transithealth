@@ -27,9 +27,7 @@ def make_blueprint(con):
         "yearly_belonging_rate_B": lambda: yearly_metric.belonging("B"),
         "yearly_belonging_rate_A": lambda: yearly_metric.belonging("A"),
         "yearly_belonging_rate_H": lambda: yearly_metric.belonging("H"),
-        "yearly_disability_rate": lambda: yearly_metric.disability_rate("all"),
     }
-
 
     @app.route("/timeline/metrics", methods=["POST"])
     def timeline_metrics():

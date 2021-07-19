@@ -27,21 +27,3 @@ class YearlyMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
-        
-    def disability_rate(self, segment):
-        """
-        Returns the disability_rate per year
-        """
-        query = """
-        SELECT
-            period_end_year || "-01-01" as date,
-            value / 100 AS value,
-            segment
-        FROM disabilities
-        WHERE segment == "{segment}"
-        GROUP BY date
-        """.format(segment=segment)
-        cur = self.con.cursor()
-        cur.execute(query)
-        rows = rows_to_dicts(cur, cur.fetchall())
-        return rows

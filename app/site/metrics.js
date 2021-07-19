@@ -170,12 +170,6 @@ export const timelineMetrics = {
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
-  yearly_disability_rate: {
-    name: "Disability Rate",
-    units: "of people",
-    format: Formatter.percentWithNoDecimal,
-    fullFormat: Formatter.percentWithOneDecimal,
-  },
 };
 
 export const scatterExplorerDefaults = {
