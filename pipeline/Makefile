@@ -158,6 +158,12 @@ data/transformed/belonging.csv: data/extracted/belonging.csv
 		--input_file="data/extracted/belonging.csv" \
 		--output_file="data/transformed/belonging.csv"
 
+data/transformed/rideshare.csv: data/extracted/cta_train_ridership.csv
+    python3 transform/cta_train_ridership.py \
+        --input_file="data/extracted/cta_train_ridership.csv" \
+        --output_file="data/transformed/cta_train_ridership.csv"
+
+
 # Extract Operations
 
 data/extracted/community_area.geojson:
