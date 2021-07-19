@@ -3,7 +3,7 @@ from api.utils.database import rows_to_dicts
 
 class YearlyMetrics:
     """
-    Metrics for annually timeline view.
+    Metrics for yearly timeline view.
     """
 
     def __init__(self, con):
