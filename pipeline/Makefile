@@ -160,6 +160,7 @@ data/transformed/belonging.csv: data/extracted/belonging.csv
 data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 	python3 transform/sidewalk_cafe.py \
 		--zip_to_area_file="data/transformed/zip_code_to_community_area.csv" \
+		--area_to_name="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
 # Extract Operations
