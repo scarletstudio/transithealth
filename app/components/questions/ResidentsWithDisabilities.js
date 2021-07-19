@@ -14,25 +14,6 @@ import { Formatter } from '../../site/metrics'
 
 const ENDPOINT = `${process.env.NEXT_PUBLIC_API}/community/metrics`
 
-const TRANSIT_MODES = {
-  "rail": {
-    name: "CTA Rail",
-    color: Color.Forest,
-  },
-  "bus": {
-    name: "CTA Bus",
-    color: Color.Cerulean,
-  },
-  "rideshare": {
-    name: "Rideshare",
-    color: Color.Indigo,
-  },
-  "e-scooter": {
-    name: "E-Scooter",
-    color: Color.Salmon,
-  },
-}
-
 const EMPTY_AREA = {
   name: "?",
   part: "?",
