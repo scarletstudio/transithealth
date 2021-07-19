@@ -50,6 +50,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
+	make data/loaded/cta_train_ridership.txt
 	touch "data/loaded/all_tables.txt"
 
 data/loaded/community_area.txt: data/transformed/community_area.csv
@@ -109,6 +110,14 @@ data/loaded/belonging.txt: data/transformed/belonging.csv
 		--create_sql="load/belonging.sql" \
 		--table_name="belonging"
 
+data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/cta_train_ridership.csv" \
+		--create_sql="load/cta_train_ridership.sql" \
+		--table_name="cta_train_ridership"
+
+
 # Transform Operations
 
 data/transformed/community_area.csv: data/extracted/community_area.geojson data/extracted/health_atlas_neighborhoods.json
@@ -158,10 +167,10 @@ data/transformed/belonging.csv: data/extracted/belonging.csv
 		--input_file="data/extracted/belonging.csv" \
 		--output_file="data/transformed/belonging.csv"
 
-data/transformed/rideshare.csv: data/extracted/cta_train_ridership.csv
-    python3 transform/cta_train_ridership.py \
-        --input_file="data/extracted/cta_train_ridership.csv" \
-        --output_file="data/transformed/cta_train_ridership.csv"
+data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
+	python3 transform/cta_train_ridership.py \
+		--input_file="data/extracted/cta_train_ridership.csv" \
+		--output_file="data/transformed/cta_train_ridership.csv"
 
 
 # Extract Operations
