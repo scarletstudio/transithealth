@@ -178,6 +178,12 @@ data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
 		--output_file="data/transformed/cta_train_ridership.csv"
 
 
+data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
+	python3 transform/sidewalk_cafe.py \
+		--zip_to_area_file="data/transformed/zip_code_to_community_area.csv" \
+		--area_to_name="data/transformed/community_area.csv" \
+		--input_file="data/extracted/sidewalk_cafe.csv" \
+		--output_file="data/transformed/sidewalk_cafe.csv"
 # Extract Operations
 
 data/extracted/community_area.geojson:
