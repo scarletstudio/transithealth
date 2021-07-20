@@ -85,11 +85,11 @@ function ExamplePieChart(props) {
   
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, color, valueFormatted, index }) => {
-    // Takes various characteristics of the pie chart, as well as color, valueFormatted and index, to calculate the position of the label
+    // Takes various characteristics of the pie chart to calculate the position of the label
     const radius = 25 + innerRadius + (outerRadius - innerRadius);
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-    // Returns the text label itself using computed x and y position, as well as provided color and formatted percentage.
+    // Returns the text label using computed x and y position, as well as provided color and formatted percentage.
     return (
       <text x={x}
             y={y}
