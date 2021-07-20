@@ -8,6 +8,7 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
+PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
 
 # Environment Variables
 
@@ -303,6 +304,12 @@ data/extracted/cta_train_ridership.csv:
 		--json_url="$(PORTAL_CTA_TRAIN)" \
 		--soql_file="extract/cta_train_ridership.sql" \
 		--output_file="data/extracted/cta_train_ridership.csv"
+
+data/extracted/cta_train_stops.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_CTA_TRAIN_STOPS)" \
+		--soql_file="extract/cta_train_stops.sql" \
+		--output_file="data/extracted/cta_train_stops.csv"
 
 
 # Exports For Frontend App
