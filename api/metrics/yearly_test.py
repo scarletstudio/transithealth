@@ -5,7 +5,7 @@ from api.metrics.yearly import YearlyMetrics
 from api.utils.testing import create_test_db
 
 
-def test_annual_belonging_rate():
+def test_yearly_belonging_rate():
     belonging_table = [
         {
             "layer": "place",
