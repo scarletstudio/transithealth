@@ -51,7 +51,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
-	make data/loaded/sidewalk_cafe.txt #may have to change the order
+	make data/loaded/sidewalk_cafe.txt 
 	touch "data/loaded/all_tables.txt"
 
 data/loaded/community_area.txt: data/transformed/community_area.csv
