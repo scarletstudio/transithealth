@@ -23,23 +23,30 @@ API = os.environ.get("CHICAGO_HEALTH_ATLAS_API")
 
 with open(args.coverage_file) as coverage_file:
     coverage_json = json.loads(coverage_file.read())
-    df_coverage = pd.DataFrame(coverage_json["coverages"]["neighborhood"])
-    n_periods = len(df_coverage["period"].unique())
-    n_populations = len(df_coverage["population"].unique())
-    print(f"Population data covers {n_periods} periods and {n_populations} populations.")
+    # Gets coverage for community areas
+    df_coverage_area = pd.DataFrame(coverage_json["coverages"]["neighborhood"])
+    df_coverage_area["layer"] = "neighborhood"
+    n_periods = len(df_coverage_area["period"].unique())
+    n_populations = len(df_coverage_area["population"].unique())
+    print(f"Belonging data for community areas covers {n_periods} periods and {n_populations} populations.")
+    # Gets coverage for the city
+    df_coverage_city = pd.DataFrame(coverage_json["coverages"]["place"])
+    df_coverage_city["layer"] = "place"
+    n_periods = len(df_coverage_city["period"].unique())
+    n_populations = len(df_coverage_city["population"].unique())
+    print(f"Belonging data for city covers {n_periods} periods and {n_populations} populations.")
 
-# Get periods only for the full population (empty string)
-periods_full_population = df_coverage[df_coverage["population"] == ""]["period"].values
+df_coverages_all = pd.concat([df_coverage_area,df_coverage_city], axis = 0)
 
 # Request endpoint for each period
 rows = []
-for period in tqdm(periods_full_population):
+coverages = df_coverages_all.to_dict(orient="records")
+for coverage in tqdm(coverages):
     r = requests.get(f"{API}/data", params={
-        "layer": "neighborhood",
+        "layer": coverage["layer"],
         "topic": "HCSCBP",
-        "period": period,
-        # empty string = entire population
-        "population": ""
+        "period": coverage["period"],
+        "population": coverage["population"]
     })
     data = r.json()
     for record in data["results"]:

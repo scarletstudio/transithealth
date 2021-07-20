@@ -9,7 +9,7 @@ from decouple import config
 from flask import (
     Flask,
     jsonify,
-    request
+    request,
 )
 from flask_cors import CORS
 import sqlite3
@@ -20,7 +20,7 @@ from api.endpoints import (
     fake,
     question,
     rideshare,
-    weekly
+    timeline,
 )
 
 
@@ -38,7 +38,7 @@ app.register_blueprint(community.make_blueprint(con))
 app.register_blueprint(fake.make_blueprint(con))
 app.register_blueprint(question.make_blueprint(con))
 app.register_blueprint(rideshare.make_blueprint(con))
-app.register_blueprint(weekly.make_blueprint(con))
+app.register_blueprint(timeline.make_blueprint(con))
 
 # Start the server on the default host.
 if __name__ == "__main__":
