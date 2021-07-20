@@ -51,6 +51,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
+	make data/loaded/sidewalk_cafe.txt #may have to change the order
 	touch "data/loaded/all_tables.txt"
 
 data/loaded/community_area.txt: data/transformed/community_area.csv
@@ -117,6 +118,12 @@ data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
 		--create_sql="load/cta_train_ridership.sql" \
 		--table_name="cta_train_ridership"
 
+data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
+	python3 load/create_table.py \
+	--database="database.db" \
+	--input_file="data/transformed/sidewalk_cafe.csv" \
+	--create_sql="load/sidewalk_cafe.sql" \
+	--table_name="sidewalk_cafe"
 
 # Transform Operations
 
