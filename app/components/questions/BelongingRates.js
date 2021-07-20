@@ -21,15 +21,6 @@ const EMPTY_AREA = {
   belongingRateFormatted: "?",
 };
 
-const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({ percent, index }) => {
-
-  return (
-    <text>
-      {`${(percent * 100).toFixed(1)}%`}
-    </text>
-  );
-};
 
 function transformData(response, error, selectedArea) {
   if (!response || error) {
