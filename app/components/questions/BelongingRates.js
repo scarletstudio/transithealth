@@ -61,12 +61,14 @@ function transformData(response, error, selectedArea) {
 function ExamplePieChart(props) {
   const { data } = props
   
+  
   const tooltipStyle = {
     backgroundColor: "white", 
     borderColor: "LightGrey", 
     borderStyle: "solid", 
     borderWidth: "thin"
   };
+  
   
   const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -77,9 +79,9 @@ function ExamplePieChart(props) {
       </div>
     );
   }
-
   return null;
-};
+  };
+  
   
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, color, valueFormatted, index }) => {
@@ -98,6 +100,7 @@ function ExamplePieChart(props) {
       </text>
     );
   };
+  
   
   return (
     <ResponsiveContainer width="100%" height={400}>
