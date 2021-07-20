@@ -75,7 +75,7 @@ function ExamplePieChart(props) {
     // Changes the tooltip to display the formatted percentage rather than a decimal
     return (
       <div className="custom-tooltip" style={tooltipStyle}>
-        <p className="label">{`${payload[0].name} : ${(payload[0].value * 100).toFixed(1)}%`}</p>
+        <p className="label">{`${payload[0].name} : ${payload[0].payload.valueFormatted}`}</p>
       </div>
     );
   }
@@ -143,7 +143,6 @@ export default function BelongingRates(props) {
     method: "POST",
     body: JSON.stringify({metrics: ["belonging_rate_2018"]})
   }, []);
-  console.log(data)
   const selectedArea = 34
   const { chartData, areaData } = transformData(data, error, selectedArea);
   
