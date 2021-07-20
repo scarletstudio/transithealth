@@ -9,7 +9,7 @@ class RentBurdenedMetrics:
     def __init__(self, con):
         self.con = con
 
-    def get_rent_burdened(self, year, segment):
+    def rent_burdened(self, year, segment):
         """
         Returns the percent of households who are rent burdened in the area,
         and the area number.
@@ -30,7 +30,7 @@ class RentBurdenedMetrics:
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
         
-    def get_max_burdened(self):
+    def rent_max_burdened(self):
         """
         Returns the highest percentage of rent burdened households in an area,
         its area number, and the period.
@@ -47,7 +47,7 @@ class RentBurdenedMetrics:
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
     
-    def get_min_burdened(self):
+    def rent_min_burdened(self):
         """
         Returns the smallest percentage of rent burdened households in an area,
         its area number, and the period end year.
@@ -64,7 +64,7 @@ class RentBurdenedMetrics:
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
     
-    def get_average_burden_area(self):
+    def rent_average_burden_area(self):
         """
         Returns the average percentage of rent burdened households by area
         across all periods.
