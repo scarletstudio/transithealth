@@ -21,7 +21,6 @@ const EMPTY_AREA = {
   belongingRateFormatted: "?",
 };
 
-
 function transformData(response, error, selectedArea) {
   if (!response || error) {
     return {
@@ -62,10 +61,18 @@ function transformData(response, error, selectedArea) {
 function ExamplePieChart(props) {
   const { data } = props
   
+  const tooltipStyle = {
+    backgroundColor: "white", 
+    borderColor: "LightGrey", 
+    borderStyle: "solid", 
+    borderWidth: "thin"
+  };
+  
   const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
+    // Changes the tooltip to display the formatted percentage rather than a decimal
     return (
-      <div className="custom-tooltip">
+      <div className="custom-tooltip" style={tooltipStyle}>
         <p className="label">{`${payload[0].name} : ${(payload[0].value * 100).toFixed(1)}%`}</p>
       </div>
     );
@@ -76,10 +83,11 @@ function ExamplePieChart(props) {
   
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, color, valueFormatted, index }) => {
+    // Takes various characteristics of the pie chart, as well as color, valueFormatted and index, to calculate the position of the label
     const radius = 25 + innerRadius + (outerRadius - innerRadius);
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
+    // Returns the text label itself using computed x and y position, as well as provided color and formatted percentage.
     return (
       <text x={x}
             y={y}
@@ -115,7 +123,7 @@ function ExamplePieChart(props) {
             />
           ))}
         </Pie>
-        <Tooltip content={<CustomTooltip />} wrapperStyle={{ backgroundColor: "white", borderColor: "LightGrey", borderStyle: "solid", borderWidth: "thin" }}/>
+        <Tooltip content={<CustomTooltip />} />
         <Legend
           layout="horizontal"
           verticalAlign="top"
