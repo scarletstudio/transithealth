@@ -33,8 +33,7 @@ df.drop([
     "longitude",
 ], axis=1, inplace=True)
 
-
-"""
+""" We will comeback to this as extended assignments
 #Create new column "exists". Assign 0 for expired permits, 1 for existing permits
 today = date.today().strftime("%Y-%m-%d")
 df['exists'] = np.where( (df['issued_date'] < today ) & (today < df['expiration_date']), 1, 0)
