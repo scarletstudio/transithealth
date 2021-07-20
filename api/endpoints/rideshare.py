@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from api.metrics.rideshare import RideshareMetrics
 
 
@@ -25,6 +25,14 @@ def make_blueprint(con):
         Returns the total number of trips by pickup area.
         """
         return jsonify(metric.get_total_trips_by_pickup_area())
+    
+    
+    @app.route("/rideshare/total_trips_by_pickup_part_and_year")
+    def total_trips_by_pickup_part_and_year():
+        """
+        Returns the total number of trips by pickup part of city.
+        """
+        return jsonify(metric.get_total_trips_by_pickup_part_and_year())
 
 
     return app

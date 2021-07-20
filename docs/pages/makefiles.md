@@ -46,6 +46,14 @@ make reload
 
 ## Running Makefiles
 
+### Run Alias
+
+We have a special helper script called `run`. You can run any `make` command from the `transithealth/` folder like so:
+
+```bash
+run make (any additional arguments)
+```
+
 ### Specific Run
 
 You can run a `make` command like this:

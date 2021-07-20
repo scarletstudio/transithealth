@@ -26,6 +26,7 @@ def test_table_counts():
     test.assert_table_count("income", 770)
     test.assert_table_count("covid_spread", 13375)
     test.assert_table_count("rideshare", 671938)
+    test.assert_table_count("cta_train_ridership", 104564)
 
 def test_population():
     years_2010_to_2019 = set(range(2010, 2020, 1))
