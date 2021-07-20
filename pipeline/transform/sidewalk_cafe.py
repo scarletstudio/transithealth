@@ -33,7 +33,7 @@ df.drop([
     "longitude",
 ], axis=1, inplace=True)
 
-""" We will comeback to this as extended assignment
+""" We will comeback to this as extended assignments
 #Create new column "exists". Assign 0 for expired permits, 1 for existing permits
 today = date.today().strftime("%Y-%m-%d")
 df['exists'] = np.where( (df['issued_date'] < today ) & (today < df['expiration_date']), 1, 0)
@@ -52,7 +52,6 @@ df = convert_zip_to_community_area_proportionally(
     zip_col="zip",
     verbose=True
 )
-
 
 #Add community area names based on area numbers
 df_area_to_name = pd.read_csv(args.area_to_name)[['area_number', 'name']]
