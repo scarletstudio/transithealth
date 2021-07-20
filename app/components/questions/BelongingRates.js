@@ -21,6 +21,16 @@ const EMPTY_AREA = {
   belongingRateFormatted: "?",
 };
 
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({ percent, index }) => {
+
+  return (
+    <text>
+      {`${(percent * 100).toFixed(1)}%`}
+    </text>
+  );
+};
+
 function transformData(response, error, selectedArea) {
   if (!response || error) {
     return {
@@ -40,14 +50,17 @@ function transformData(response, error, selectedArea) {
     {
       label: "Feels Belonging",
       value: areaData.belonging_rate_2018,
+      valueFormatted: Formatter.percentWithOneDecimal(areaData.belonging_rate_2018),
       color: Color.Indigo
     },
     {
       label: "Does Not Feel Belonging",
       value: 1 - areaData.belonging_rate_2018,
+      valueFormatted: Formatter.percentWithOneDecimal(1 - areaData.belonging_rate_2018),
       color: Color.Salmon
     }
     ]
+
   
   return {
     chartData: data,
@@ -57,6 +70,38 @@ function transformData(response, error, selectedArea) {
 
 function ExamplePieChart(props) {
   const { data } = props
+  
+  const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`${payload[0].name} : ${(payload[0].value * 100).toFixed(1)}%`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+  
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, color, valueFormatted, index }) => {
+    const radius = 25 + innerRadius + (outerRadius - innerRadius);
+    // eslint-disable-next-line
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    // eslint-disable-next-line
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text x={x}
+            y={y}
+            fill={color}
+            textAnchor={x > cx ? "start" : "end"}
+            dominantBaseline="central">
+        {`${valueFormatted}`}
+      </text>
+    );
+  };
+  
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart
@@ -68,7 +113,7 @@ function ExamplePieChart(props) {
           data={data}
           nameKey="label"
           dataKey="value"
-          label
+          label={renderCustomizedLabel}
           cx="50%"
           cy="50%"
           fill=""
@@ -81,7 +126,7 @@ function ExamplePieChart(props) {
             />
           ))}
         </Pie>
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} wrapperStyle={{ backgroundColor: "white", borderColor: "LightGrey", borderStyle: "solid", borderWidth: "thin" }}/>
         <Legend
           layout="horizontal"
           verticalAlign="top"
