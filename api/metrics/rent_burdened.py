@@ -9,7 +9,7 @@ class RentBurdenedMetrics:
     def __init__(self, con):
         self.con = con
 
-    def rent_burdened(self, year, segment):
+    def get_rent_burdened(self, year, segment):
         """
         Returns the percent of households who are rent burdened in the area,
         and the area number.
@@ -20,7 +20,7 @@ class RentBurdenedMetrics:
         query = """
         SELECT
             area_number,
-            value / 100.00 AS value
+            value/100 AS value
         FROM rent_burdened_households
         WHERE period_end_year == {year}
         AND segment == "{segment}"
@@ -64,7 +64,7 @@ class RentBurdenedMetrics:
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
     
-    def average_burden_area(self):
+    def get_average_burden_area(self):
         """
         Returns the average percentage of rent burdened households by area
         across all periods.
