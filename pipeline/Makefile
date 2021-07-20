@@ -95,6 +95,11 @@ data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_comm
 	python3 transform/zip_code_to_community_area.py \
 		--input_file="data/extracted/zip_code_to_community_area.csv" \
 		--output_file="data/transformed/zip_code_to_community_area.csv"
+		
+data/transformed/escooter_rideshare.csv: data/extracted/escooter_rideshare.csv
+	python3 transform/escooter_rideshare.py \
+		--input_file="data/extracted/daily_escooter.csv" \
+		--output_file="data/transformed/updated_daily.csv"
 
 data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
