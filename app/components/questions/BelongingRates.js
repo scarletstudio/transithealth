@@ -86,9 +86,7 @@ function ExamplePieChart(props) {
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, color, valueFormatted, index }) => {
     const radius = 25 + innerRadius + (outerRadius - innerRadius);
-    // eslint-disable-next-line
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    // eslint-disable-next-line
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
