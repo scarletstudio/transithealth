@@ -83,9 +83,33 @@ export const communityMetrics = {
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberWithCommas,
   },
+  disability_rate_2018: {
+    name: "2018 Disability Rate",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  disability_rate_2019: {
+    name: "2019 Disability Rate",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  belonging_rate_2017: {
+    name: "2017 Rate of Belonging",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  belonging_rate_2018: {
+    name: "2018 Rate of Belonging",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
 };
 
-export const weeklyMetrics = {
+export const timelineMetrics = {
   weekly_rideshare_pickups: {
     name: "Weekly Rideshare Pickups",
     units: "trips",
@@ -115,6 +139,36 @@ export const weeklyMetrics = {
     units: "cases",
     format: Formatter.numberWithCommas,
     fullFormat: Formatter.numberWithCommas,
+  },
+  yearly_belonging_rate_all: {
+    name: "Rate of Belonging of the City",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  yearly_belonging_rate_W: {
+    name: "Rate of Belonging of Non-Hispanic White People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  yearly_belonging_rate_B: {
+    name: "Rate of Belonging of Non-Hispanic Black People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  yearly_belonging_rate_A: {
+    name: "Rate of Belonging of Asian or Pacific Islander People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  yearly_belonging_rate_H: {
+    name: "Rate of Belonging of Hispanic or Latino People",
+    units: "of people",
+    format: Formatter.percentWithNoDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
   },
 };
 

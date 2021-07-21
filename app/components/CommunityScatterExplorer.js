@@ -39,11 +39,17 @@ async function getScatterMetrics(metricX, metricY) {
 }
 
 function getGeoMapMetric(metrics, selectedMetric, minAlpha=0.05) {
-  const maxVal = metrics.reduce((maxVal, val) => {
-    return Math.max(maxVal, val[selectedMetric]);
-  }, metrics[0][selectedMetric]);
+  const maxVal = metrics
+    // Exclude any records that do not have the metric
+    .filter(val => val[selectedMetric])
+    // Get the maximum value
+    .reduce((maxVal, val) => {
+      return Math.max(maxVal, val[selectedMetric]);
+    }, metrics[0][selectedMetric]);
   const metricMapData = metrics.reduce((agg, val) => {
-    const alpha = val[selectedMetric] / maxVal;
+    // If record does not have metric, show zero opacity
+    const areaVal = val[selectedMetric] || 0;
+    const alpha = areaVal / maxVal;
     agg[val.area_number] = {
       ...val,
       opacity: Math.max(minAlpha, alpha),

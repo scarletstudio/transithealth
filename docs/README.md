@@ -43,8 +43,8 @@ Guides to explain the layout of the codebase and common commands for working wit
 ### General Software Engineering Topics
 
 - [Using Git](pages/git.md)
-- [Merge Conflicts (Coming Soon)](pages/merge_conflicts.md)
-- [Testing (Coming Soon)](pages/testing.md)
+- [Merge Conflicts](pages/merge_conflicts.md)
+- [Testing](pages/testing.md)
 - [Exploratory Data Analysis (Coming Soon)](pages/eda.md)
 
 ### Project-Specific Topics
@@ -80,6 +80,7 @@ Guides to explain the layout of the codebase and common commands for working wit
 ### Tools
 
 - [Cloud9](pages/cloud9.md)
+- [Jupyter Notebooks](pages/notebooks.md)
 
 ### Deployment
 
