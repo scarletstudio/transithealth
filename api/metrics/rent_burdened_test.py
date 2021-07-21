@@ -62,12 +62,16 @@ def test_RBU():
     ], "Should have two results for 2019."
 
     assert metric.rent_max_burdened() == [
-        { 'value': 0.562945422971736, 'area_number': 2, 'period_end_year': 2019}
-    ], "Double check the max result and period end year."
+        { 'value': 0.527029065195125, 'area_number': 1},
+        { 'value': 0.562945422971736, 'area_number': 2},
+        { 'value': 0.514589913593531, 'area_number': 3}
+    ], "Double check the max result."
     
     assert metric.rent_min_burdened() == [
-        { "area_number": 3, "value": 0.339090007521057, "period_end_year": 2017}
-    ], "Double check the min result and period end year."
+        { "area_number": 1, "value": 0.416541886411246},
+        { "area_number": 2, "value": 0.562945422971736},
+        { "area_number": 3, "value": 0.339090007521057}
+    ], "Double check the min result."
 
     assert metric.rent_average_burden_area() == [
         {'value': 0.47178547580318553, 'area_number': 1}, 
