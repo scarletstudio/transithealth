@@ -8,6 +8,7 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
+PORTAL_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 
 # Environment Variables
 
@@ -184,6 +185,8 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_to_name="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
+		
+
 # Extract Operations
 
 data/extracted/community_area.geojson:
@@ -296,6 +299,14 @@ data/extracted/cta_train_ridership.csv:
 		--json_url="$(PORTAL_CTA_TRAIN)" \
 		--soql_file="extract/cta_train_ridership.sql" \
 		--output_file="data/extracted/cta_train_ridership.csv"
+		
+
+
+data/extracted/daily_rideship.csv:
+    python3 extract/from_data_portal.py \
+        --json_url="$(PORTAL_RIDESHIP)" \
+        --soql_file="extract/daily_rideship.sql" \
+        --output_file="data/extracted/daily_rideship.csv"
 
 
 # Exports For Frontend App
