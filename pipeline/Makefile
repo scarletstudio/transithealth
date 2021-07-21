@@ -253,6 +253,11 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_file="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
+		
+data/transformed/daily_bus_rideship.csv: data/extracted/daily_bus_rideship.csv
+	python3 transform/weekly_bus_rideship.py \
+		--input_file="data/extracted/daily_bus_rideship.csv" \
+		--output_file="data/transformed/rideship.csv"
 
 # Extract Operations
 
