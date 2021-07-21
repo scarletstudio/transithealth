@@ -107,6 +107,42 @@ export const communityMetrics = {
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
+  rent_burdened_2017: {
+    name: "2017 Rate of Rent Burdened Households",
+    units: "of households",
+    format: Formatter.percentWithOneDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  rent_burdened_2018: {
+    name: "2018 Rate of Rent Burdened Households",
+    units: "of households",
+    format: Formatter.percentWithOneDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  rent_burdened_2019: {
+    name: "2019 Rate of Rent Burdened Households",
+    units: "of households",
+    format: Formatter.percentWithOneDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  rent_max: {
+    name: "Maximum Rate of Rent Burdened Households",
+    units: "of households",
+    format: Formatter.percentWithOneDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  rent_min: {
+    name: "Minimum Rate of Rent Burdened Households",
+    units: "of households",
+    format: Formatter.percentWithOneDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  },
+  rent_average: {
+    name: "Average Rate of Rent Burdened Households",
+    units: "of households",
+    format: Formatter.percentWithOneDecimal,
+    fullFormat: Formatter.percentWithOneDecimal,
+  }
 };
 
 export const timelineMetrics = {
