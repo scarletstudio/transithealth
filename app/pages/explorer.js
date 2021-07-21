@@ -23,7 +23,7 @@ export default function Explorer() {
           <div className="columns">
             <div className="column center">
               <h2>Timeline View</h2>
-              <p>View data over time, on a weekly basis.</p>
+              <p>View data over time.</p>
               <br />
               <Link href="/timeline">
                 <a className="btn primary">Timeline View</a>

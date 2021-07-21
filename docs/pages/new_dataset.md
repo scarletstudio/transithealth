@@ -28,23 +28,13 @@ This guide walks you through how to add a new dataset to the offline pipeline.
 
 ### Terminal Tips
 
-When working on the offline pipeline, make sure you have your virtual environment activated:
+You can run any `make` command from the `transithealth/` directory by running:
 
 ```bash
-source .venv/bin/activate
+run make NAME_OF_TARGET
 ```
 
-All file paths in the offline pipeline are relative to the `pipeline/` directory. When working on the offline pipeline, it is recommended that you enter the `pipeline/` folder:
-
-```bash
-cd pipeline
-```
-
-You can run any `make` command from this folder by typing:
-
-```bash
-make NAME_OF_TARGET
-```
+This command enters the `pipeline/` directory before running, so you do not need to include `pipeline/` in the target name.
 
 It is also recommended that you check out the Makefiles guide to learn some helpful ways to run the offline pipeline:
 

@@ -6,6 +6,9 @@ ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7s
 PORTAL_RIDESHARE_TRIPS := https://data.cityofchicago.org/resource/m6dm-c72p.json
 PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
+PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
+PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
+PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 
 # Environment Variables
 
@@ -48,6 +51,8 @@ data/loaded/all_tables.txt:
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
+	make data/loaded/cta_train_ridership.txt
+	make data/loaded/sidewalk_cafe.txt 
 	touch "data/loaded/all_tables.txt"
 
 data/loaded/community_area.txt: data/transformed/community_area.csv
@@ -107,6 +112,20 @@ data/loaded/belonging.txt: data/transformed/belonging.csv
 		--create_sql="load/belonging.sql" \
 		--table_name="belonging"
 
+data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/cta_train_ridership.csv" \
+		--create_sql="load/cta_train_ridership.sql" \
+		--table_name="cta_train_ridership"
+
+data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
+	python3 load/create_table.py \
+	--database="database.db" \
+	--input_file="data/transformed/sidewalk_cafe.csv" \
+	--create_sql="load/sidewalk_cafe.sql" \
+	--table_name="sidewalk_cafe"
+
 # Transform Operations
 
 data/transformed/community_area.csv: data/extracted/community_area.geojson data/extracted/health_atlas_neighborhoods.json
@@ -129,6 +148,11 @@ data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
 		--input_file="data/extracted/population.csv" \
 		--output_file="data/transformed/population.csv"
+
+data/transformed/traffic_intensity.csv: data/extracted/traffic_intensity.csv
+	python3 transform/traffic_intensity.py \
+		--input_file="data/extracted/traffic_intensity.csv" \
+		--output_file="data/transformed/traffic_intensity.csv"
 
 data/transformed/income.csv: data/extracted/income.csv
 	python3 transform/income.py \
@@ -155,6 +179,20 @@ data/transformed/belonging.csv: data/extracted/belonging.csv
 	python3 transform/belonging.py \
 		--input_file="data/extracted/belonging.csv" \
 		--output_file="data/transformed/belonging.csv"
+
+data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
+	python3 transform/cta_train_ridership.py \
+		--input_file="data/extracted/cta_train_ridership.csv" \
+		--output_file="data/transformed/cta_train_ridership.csv"
+
+
+data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
+	python3 transform/sidewalk_cafe.py \
+		--zip_to_area_file="data/transformed/zip_code_to_community_area.csv" \
+		--area_to_name="data/transformed/community_area.csv" \
+		--input_file="data/extracted/sidewalk_cafe.csv" \
+		--output_file="data/transformed/sidewalk_cafe.csv"
+		
 
 # Extract Operations
 
@@ -184,6 +222,17 @@ data/extracted/population_coverage.csv:
 		--create-dirs -o "data/extracted/population_coverage.csv" \
 		-d layers="neighborhood"
 		
+data/extracted/traffic_intensity.csv: data/extracted/traffic_intensity_coverage.csv
+	python3 extract/traffic_intensity.py \
+		--coverage_file="data/extracted/traffic_intensity_coverage.csv" \
+		--output_file="data/extracted/traffic_intensity.csv"
+
+data/extracted/traffic_intensity_coverage.csv:
+	# -G tells curl to use each -d option as query parameters instead of body parameters
+	curl -J -L -G "$(CHICAGO_HEALTH_ATLAS_API)/coverage/TRF" \
+		--create-dirs -o "data/extracted/traffic_intensity_coverage.csv" \
+		-d layers="neighborhood"
+
 data/extracted/rent_burdened_households.csv: data/extracted/rent_burdened_households_coverage.csv
 	python3 extract/rent_burdened_households.py \
 		--coverage_file="data/extracted/rent_burdened_households_coverage.csv" \
@@ -245,6 +294,26 @@ data/extracted/daily_ESCOOTER.csv:
 		--json_url="$(PORTAL_ESCOOTER)" \
 		--soql_file="extract/scooterRidesByArea2019.sql" \
 		--output_file="data/extracted/daily_escooter.csv"
+
+data/extracted/sidewalk_cafe.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_SIDEWALK_CAFE)" \
+		--soql_file="extract/sidewalk_cafe.sql" \
+		--output_file="data/extracted/sidewalk_cafe.csv"
+
+data/extracted/cta_train_ridership.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_CTA_TRAIN)" \
+		--soql_file="extract/cta_train_ridership.sql" \
+		--output_file="data/extracted/cta_train_ridership.csv"
+		
+
+data/extracted/daily_bus_rideship.csv:
+    python3 extract/from_data_portal.py \
+        --json_url="$(PORTAL_BUS_RIDESHIP)" \
+        --soql_file="extract/daily_bus_rideship.sql" \
+        --output_file="data/extracted/daily_bus_rideship.csv"
+
 
 # Exports For Frontend App
 
