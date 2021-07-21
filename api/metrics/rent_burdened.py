@@ -33,14 +33,14 @@ class RentBurdenedMetrics:
     def rent_max_burdened(self):
         """
         Returns the highest percentage of rent burdened households in an area,
-        its area number, and the period.
+        its area number
         """
         query = """
         SELECT
             max(value)/100 AS value,
-            area_number,
-            period_end_year
+            area_number
         FROM rent_burdened_households
+        GROUP BY area_number
         """
         cur = self.con.cursor()
         cur.execute(query)
@@ -50,14 +50,14 @@ class RentBurdenedMetrics:
     def rent_min_burdened(self):
         """
         Returns the smallest percentage of rent burdened households in an area,
-        its area number, and the period end year.
+        its area number
         """
         query = """
         SELECT
             min(value)/100 AS value,
-            area_number,
-            period_end_year
+            area_number
         FROM rent_burdened_households
+        GROUP BY area_number
         """
         cur = self.con.cursor()
         cur.execute(query)

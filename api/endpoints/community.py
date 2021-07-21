@@ -29,8 +29,6 @@ def make_blueprint(con):
         "disability_rate_2019":lambda: metric.disability_rate(year=2019, segment="all"),
         "belonging_rate_2017": lambda: metric.belonging(year=2017, segment="all"),
         "belonging_rate_2018": lambda: metric.belonging(year=2018, segment="all"),
-        "rent_burdened_2015": lambda: metric_rbu.rent_burdened(year=2015, segment="all"),
-        "rent_burdened_2016": lambda: metric_rbu.rent_burdened(year=2016, segment="all"),
         "rent_burdened_2017": lambda: metric_rbu.rent_burdened(year=2017, segment="all"),
         "rent_burdened_2018": lambda: metric_rbu.rent_burdened(year=2018, segment="all"),
         "rent_burdened_2019": lambda: metric_rbu.rent_burdened(year=2019, segment="all"),
