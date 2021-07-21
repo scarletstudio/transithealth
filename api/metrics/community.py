@@ -1,5 +1,4 @@
 from api.utils.database import rows_to_dicts
-from api.metrics.rent_burdened import RentBurdenedMetrics as RBU
 
 class CommunityMetrics:
     """
@@ -186,45 +185,5 @@ class CommunityMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
-    
-    def rent_burdened(self, year, segment):
-        """
-        Returns the percent of households who are rent burdened in the area,
-        and the area number, for the year.
-        Args:
-            year (int): period ending year to filter by
-            segment (str): population segment to filter by
-        """
-        temp = RBU(self.con)
-        
-        return temp.rent_burdened(year,segment)
-    
-    def rent_min_burdened(self):
-        """
-        Returns the minimum percentage of burdened households and its area.
-        """
-        
-        temp = RBU(self.con)
-        
-        return temp.rent_min_burdened()
-    
-    def rent_max_burdened(self):
-        """
-        Returns the maximum percentage of burdened households and its area.
-        """
-        
-        temp = RBU(self.con)
-        
-        return temp.rent_max_burdened()
-    
-    def rent_average_burden_area(self):
-        """
-        Returns the average percentage of rent burdened households by area
-        across all periods.
-        """
-    
-        temp = RBU(self.con)
-        
-        return temp.rent_average_burden_area()
     
     
