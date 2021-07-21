@@ -8,7 +8,7 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
-PORTAL_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
+PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 
 # Environment Variables
 
