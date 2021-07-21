@@ -6,6 +6,8 @@ ZIP_CODE_TO_COMMUNITY_AREA_URL := https://docs.google.com/spreadsheets/d/1oHZy7s
 PORTAL_RIDESHARE_TRIPS := https://data.cityofchicago.org/resource/m6dm-c72p.json
 PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 
+TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
+
 # Environment Variables
 
 export CHICAGO_HEALTH_ATLAS_API=https://chicagohealthatlas.org/api/v1
@@ -165,7 +167,13 @@ data/extracted/daily_rideshare.csv:
 		--json_url="$(PORTAL_RIDESHARE_TRIPS)" \
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
-	
+
+data/extracted/taxi_trips.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(TAXI_TRIPS)" \
+		--soql_file="extract/taxi_trips.sql" \
+		--output_file="data/extracted/taxi_trips.csv"
+
 data/extracted/belonging.csv: data/extracted/belonging_coverage.csv
 	python3 extract/belonging.py \
 		--coverage_file="data/extracted/belonging_coverage.csv" \
