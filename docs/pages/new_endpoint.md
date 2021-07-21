@@ -66,12 +66,6 @@ And with those concepts, you can understand these that are specific to our serve
 
 You can work on the backend API from the root directory. Below are common terminal commands you will use.
 
-Before you start working, remember to activate your virtual environment:
-
-```bash
-source .venv/bin/activate
-```
-
 To start the API server locally:
 
 ```bash
