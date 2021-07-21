@@ -301,12 +301,11 @@ data/extracted/cta_train_ridership.csv:
 		--output_file="data/extracted/cta_train_ridership.csv"
 		
 
-
-data/extracted/daily_rideship.csv:
+data/extracted/daily_bus_rideship.csv:
     python3 extract/from_data_portal.py \
-        --json_url="$(PORTAL_RIDESHIP)" \
-        --soql_file="extract/daily_rideship.sql" \
-        --output_file="data/extracted/daily_rideship.csv"
+        --json_url="$(PORTAL_BUS_RIDESHIP)" \
+        --soql_file="extract/daily_bus_rideship.sql" \
+        --output_file="data/extracted/daily_bus_rideship.csv"
 
 
 # Exports For Frontend App
