@@ -12,7 +12,7 @@ class RentBurdenedMetrics:
     def rent_burdened(self, year, segment):
         """
         Returns the percent of households who are rent burdened in the area,
-        and the area number.
+        and the area number, for the year.
         Args:
             year (int): period ending year to filter by
             segment (str): population segment to filter by
