@@ -71,7 +71,7 @@ class RentBurdenedMetrics:
         """
         query = """
         SELECT
-            avg(value)/100 AS "avg value",
+            avg(value)/100 AS value,
             area_number
         FROM rent_burdened_households
         GROUP BY area_number
