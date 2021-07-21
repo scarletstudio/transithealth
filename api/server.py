@@ -20,7 +20,8 @@ from api.endpoints import (
     fake,
     question,
     rideshare,
-    weekly
+    weekly,
+    rent_burdened
 )
 
 
@@ -39,6 +40,7 @@ app.register_blueprint(fake.make_blueprint(con))
 app.register_blueprint(question.make_blueprint(con))
 app.register_blueprint(rideshare.make_blueprint(con))
 app.register_blueprint(weekly.make_blueprint(con))
+app.register_blueprint(rent_burdened.make_blueprint(con))
 
 # Start the server on the default host.
 if __name__ == "__main__":
