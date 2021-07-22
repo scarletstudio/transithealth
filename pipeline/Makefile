@@ -10,6 +10,8 @@ PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
 PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 
+TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
+
 # Environment Variables
 
 export CHICAGO_HEALTH_ATLAS_API=https://chicagohealthatlas.org/api/v1
@@ -277,6 +279,12 @@ data/extracted/daily_rideshare.csv:
 		--json_url="$(PORTAL_RIDESHARE_TRIPS)" \
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
+
+data/extracted/taxi_trips.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(TAXI_TRIPS)" \
+		--soql_file="extract/taxi_trips.sql" \
+		--output_file="data/extracted/taxi_trips.csv"
 	
 data/extracted/belonging.csv: data/extracted/belonging_coverage.json
 	python3 extract/belonging.py \
