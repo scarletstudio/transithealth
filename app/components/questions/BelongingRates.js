@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useFetch from 'use-http'
 import {
   ResponsiveContainer,
@@ -138,12 +138,33 @@ function ExamplePieChart(props) {
   );
 }
 
+function AreaSelector(props) {
+  if(!props.data){
+    return (
+      <p>Waiting for data...</p>
+    )
+  }
+  
+  const handleChange = (e) => props.handleChange(parseInt(e.target.value))
+  
+  return (
+    <div>
+      <p>Select an Area of Interest</p>
+      <select onChange={handleChange}>
+        {props.data.metrics.map((d, i) => (
+          <option key={i} value={d.area_number}>{d.name}</option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
 export default function BelongingRates(props) {
   const { loading, error, data } = useFetch(ENDPOINT, {
     method: "POST",
     body: JSON.stringify({metrics: ["belonging_rate_2018"]})
   }, []);
-  const selectedArea = 34
+  const [selectedArea, setSelectedArea] = useState(1)
   const { chartData, areaData } = transformData(data, error, selectedArea);
   
   useEffect(() => {
@@ -154,6 +175,7 @@ export default function BelongingRates(props) {
     <div>
       <div className="center medium-width">
         <h2>Belonging Rate by Area</h2>
+        <AreaSelector data={data} handleChange={setSelectedArea} />
         <p>What percentage of residents in {areaData.name} feel a sense of belonging?</p>
         <FailureNotification error={error} data={data} />
       </div>
