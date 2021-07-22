@@ -58,13 +58,7 @@ git commit -m "Merged main."
 
 In addition to code files, our repository also tracks the compressed database files. However, the actual `database.db` file on your machine is not committed to the repository, so it may go out of sync with the compressed database files.
 
-If you have not made any changes to the offline pipeline or database on your branch, you can get the latest database by running:
-
-```bash
-run db
-```
-
-However, if you have merge conflicts with the compressed database files or any file in the `pipeline/` directory, you should run the offline pipeline to get a new database and compressed files that contain both your changes and the changes you merged in from `main`.
+If a file called `pipeline/compressed/db-part...` is on the list of files marked with `CONFLICT`, you should run the offline pipeline to get a new database and compressed files that contain both your changes and the changes you merged in from `main`.
 
 Run these commands to rebuild the database and verify it with tests:
 

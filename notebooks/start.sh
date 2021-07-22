@@ -7,7 +7,7 @@ source .venv/bin/activate
 pip3 install -r requirements.txt
 
 # Refresh IP address for Cloud9 instance
-if [ -n "$1" ]; then
+if [ "$1" == "9" ]; then
     ./api/scripts/refresh.sh
     INSTANCE_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4)
     echo "Running Jupyter notebook server on: http://$INSTANCE_IP:8080"

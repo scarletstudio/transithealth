@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import useFetch from 'use-http'
 import {
   ResponsiveContainer,
@@ -40,14 +40,17 @@ function transformData(response, error, selectedArea) {
     {
       label: "Feels Belonging",
       value: areaData.belonging_rate_2018,
+      valueFormatted: Formatter.percentWithOneDecimal(areaData.belonging_rate_2018),
       color: Color.Indigo
     },
     {
       label: "Does Not Feel Belonging",
       value: 1 - areaData.belonging_rate_2018,
+      valueFormatted: Formatter.percentWithOneDecimal(1 - areaData.belonging_rate_2018),
       color: Color.Salmon
     }
     ]
+
   
   return {
     chartData: data,
@@ -57,6 +60,48 @@ function transformData(response, error, selectedArea) {
 
 function ExamplePieChart(props) {
   const { data } = props
+  
+  
+  const tooltipStyle = {
+    backgroundColor: "white", 
+    borderColor: "LightGrey", 
+    borderStyle: "solid", 
+    borderWidth: "thin"
+  };
+  
+  
+  const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    // Changes the tooltip to display the formatted percentage rather than a decimal
+    return (
+      <div className="custom-tooltip" style={tooltipStyle}>
+        <p className="label">{`${payload[0].name} : ${payload[0].payload.valueFormatted}`}</p>
+      </div>
+    );
+  }
+  return null;
+  };
+  
+  
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, color, valueFormatted, index }) => {
+    // Takes various characteristics of the pie chart to calculate the position of the label
+    const radius = 25 + innerRadius + (outerRadius - innerRadius);
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    // Returns the text label using computed x and y position, as well as provided color and formatted percentage.
+    return (
+      <text x={x}
+            y={y}
+            fill={color}
+            textAnchor={x > cx ? "start" : "end"}
+            dominantBaseline="central">
+        {`${valueFormatted}`}
+      </text>
+    );
+  };
+  
+  
   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart
@@ -68,7 +113,7 @@ function ExamplePieChart(props) {
           data={data}
           nameKey="label"
           dataKey="value"
-          label
+          label={renderCustomizedLabel}
           cx="50%"
           cy="50%"
           fill=""
@@ -81,7 +126,7 @@ function ExamplePieChart(props) {
             />
           ))}
         </Pie>
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend
           layout="horizontal"
           verticalAlign="top"
@@ -93,13 +138,33 @@ function ExamplePieChart(props) {
   );
 }
 
+function AreaSelector(props) {
+  if(!props.data){
+    return (
+      <p>Waiting for data...</p>
+    )
+  }
+  
+  const handleChange = (e) => props.handleChange(parseInt(e.target.value))
+  
+  return (
+    <div>
+      <p>Select an Area of Interest</p>
+      <select onChange={handleChange}>
+        {props.data.metrics.map((d, i) => (
+          <option key={i} value={d.area_number}>{d.name}</option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
 export default function BelongingRates(props) {
   const { loading, error, data } = useFetch(ENDPOINT, {
     method: "POST",
     body: JSON.stringify({metrics: ["belonging_rate_2018"]})
   }, []);
-  console.log(data)
-  const selectedArea = 34
+  const [selectedArea, setSelectedArea] = useState(1)
   const { chartData, areaData } = transformData(data, error, selectedArea);
   
   useEffect(() => {
@@ -110,6 +175,7 @@ export default function BelongingRates(props) {
     <div>
       <div className="center medium-width">
         <h2>Belonging Rate by Area</h2>
+        <AreaSelector data={data} handleChange={setSelectedArea} />
         <p>What percentage of residents in {areaData.name} feel a sense of belonging?</p>
         <FailureNotification error={error} data={data} />
       </div>
