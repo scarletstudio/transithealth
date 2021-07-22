@@ -71,6 +71,18 @@ export const communityMetrics = {
     format: Formatter.dollarsUSD,
     fullFormat: Formatter.dollarsUSD,
   },
+  median_income_2017: {
+    name: "2017 Median Income",
+    units: "dollars",
+    format: Formatter.dollarsUSD,
+    fullFormat: Formatter.dollarsUSD,
+  },
+  median_income_2018: {
+    name: "2018 Median Income",
+    units: "dollars",
+    format: Formatter.dollarsUSD,
+    fullFormat: Formatter.dollarsUSD,
+  },
   median_income_2019: {
     name: "2019 Median Income",
     units: "dollars",
