@@ -130,6 +130,11 @@ data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 
 # Transform Operations
 
+data/transformed/taxi_trips.csv: data/extracted/taxi_trips.csv
+	python3 transform/taxi_trips.py \
+		--input_file="data/extracted/taxi_trips.csv" \
+		--output_file="data/transformed/taxi_trips.csv"
+
 data/transformed/community_area.csv: data/extracted/community_area.geojson data/extracted/health_atlas_neighborhoods.json
 	python3 transform/community_area.py \
 		--geojson_file="data/extracted/community_area.geojson" \
