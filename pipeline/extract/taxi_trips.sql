@@ -7,7 +7,7 @@ SELECT date_trunc_ymd(trip_start_timestamp) as ymd,
     dropoff_community_area,
     payment_type
     
-WHERE trip_end_timestamp <= "2021-05-01"
+WHERE trip_end_timestamp > "2021-01-01"
 
 
-LIMIT 200000000
+LIMIT 100000
