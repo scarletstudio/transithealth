@@ -1,7 +1,11 @@
+import sys
+sys.path.append("./")
+
 import argparse
 import pandas as pd
+import numpy as np
 from timeit import default_timer as timer
-from pipeline.utils.data import extract_data_portal_dates
+from utils.data import extract_data_portal_dates
 
 cli = argparse.ArgumentParser(description="Transform CTA L Train ridership data.")
 cli.add_argument("--input_file", help="File path to read CTA L Train ridership data from.")
