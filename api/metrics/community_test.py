@@ -211,6 +211,7 @@ def test_belonging():
     ], "Should have one result for 2018."
     
     assert metric.belonging(year=2015, segment="all") == [], "Should have no results for 2015."
+
     
 def test_disabilities():
     disabilities_table = [

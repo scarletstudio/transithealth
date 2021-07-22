@@ -10,8 +10,8 @@ if [ "$1" == "api" ]; then
   
 elif [ "$1" == "app" ]; then
   echo "Starting frontend app..."
-  echo "./app/dev.sh $2"
-  ./app/dev.sh "$2"
+  echo "./app/dev.sh ${@:2}"
+  ./app/dev.sh "${@:2}"
   
 elif [ "$1" == "db" ]; then
   echo "Making uncompressed database..."
@@ -61,6 +61,9 @@ elif [ "$1" == "tests" ]; then
   echo "Running tests..."
   source .venv/bin/activate
   pytest -vvl
+  
+elif [ "$1" == "test" ]; then
+  echo "Did you mean 'run tests' ?"
 
 elif [ "$1" == "update" ]; then
   echo "Updating dependencies..."
@@ -74,6 +77,9 @@ elif [ "$1" == "notebooks" ]; then
   echo "Starting Jupyter notebook server..."
   echo "./notebooks/start.sh $2"
   ./notebooks/start.sh "$2"
+  
+elif [ "$1" == "notebook" ]; then
+  echo "Did you mean 'run notebooks' ?"
 
 elif [ "$1" == "sqlite" ]; then
   echo "Starting SQLite command line interface..."

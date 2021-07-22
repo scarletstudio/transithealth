@@ -61,16 +61,20 @@ def test_RBU():
         { "area_number": 2, "value": 0.562945422971736 }
     ], "Should have two results for 2019."
 
-    assert metric.get_max_burdened() == [
-        { 'value': 0.562945422971736, 'area_number': 2, 'period_end_year': 2019}
-    ], "Should have max result of 0.5777931000000001, area_number of 2, and period end year of 2019."
+    assert metric.rent_max_burdened() == [
+        { 'value': 0.527029065195125, 'area_number': 1},
+        { 'value': 0.562945422971736, 'area_number': 2},
+        { 'value': 0.514589913593531, 'area_number': 3}
+    ], "Double check the max result."
     
-    assert metric.get_min_burdened() == [
-        { "area_number": 3, "value": 0.339090007521057, "period_end_year": 2017}
-    ], "Should have min result of 32 and area_number of 3."
+    assert metric.rent_min_burdened() == [
+        { "area_number": 1, "value": 0.416541886411246},
+        { "area_number": 2, "value": 0.562945422971736},
+        { "area_number": 3, "value": 0.339090007521057}
+    ], "Double check the min result."
 
-    assert metric.average_burden_area() == [
-        {'avg value': 0.47178547580318553, 'area_number': 1}, 
-        {'avg value': 0.562945422971736, 'area_number': 2}, 
-        {'avg value': 0.4471954371377327, 'area_number': 3}
+    assert metric.rent_average_burden_area() == [
+        {'value': 0.47178547580318553, 'area_number': 1}, 
+        {'value': 0.562945422971736, 'area_number': 2}, 
+        {'value': 0.4471954371377327, 'area_number': 3}
     ], "Check if the results are correct"
