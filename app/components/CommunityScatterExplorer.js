@@ -59,11 +59,17 @@ function getGeoMapMetric(metrics, selectedMetric, minAlpha=0.05) {
   return metricMapData;
 }
 
-function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
-  if (!active || !payload || payload.length === 0) {
+function CustomToolTip({ active, payload, label, metrics }) {
+  // The ?. is called "optional chaining"
+  // If the property after the ?. is not found, we will return undefined
+  // and stop trying to evaluate the remaining nested properties.
+  const d = payload?.[0]?.payload || {};
+  // Check if any of the metrics are not in the data, which happens if the
+  // tooltip is open while switching metrics because the value of d is stale
+  const metricNotInData = metrics.filter(m => !(m in d)).length > 0;
+  if (!active || !d || metricNotInData) {
     return null;
   }
-  const d = payload[0].payload;
   return (
     <div className="CustomToolTip">
       <h4>{d.name}</h4>
