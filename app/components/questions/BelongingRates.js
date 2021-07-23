@@ -59,7 +59,6 @@ function transformData(response, error, selectedArea) {
 
 function ExamplePieChart(props) {
   const { data } = props
-  const { areaData } = props
   
   if(!data?.[0]?.value){
     return null;
