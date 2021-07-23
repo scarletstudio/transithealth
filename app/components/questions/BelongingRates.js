@@ -50,25 +50,17 @@ function transformData(response, error, selectedArea) {
       color: Color.Salmon
     }
   ]
-
-  const dataFlag = (() => {
-  if (areaData.belongingRateFormatted==="NaN%")
-    return 1
-  else
-    return 0
-  })();
   
   return {
     chartData: data,
     areaData,
-    dataFlag,
   }
 }
 
 function ExamplePieChart(props) {
   const { data } = props
   
-  if(props.dataFlag){
+  if(!data[0].value){
     return null;
   }
   
@@ -169,20 +161,22 @@ function AreaSelector(props) {
   );
 }
 
-function GenerateMessage(props) {
-  if(!props.areaData){
+function AreaBelongingMessage(props) {
+  const { areaData } = props; 
+  
+  if(!areaData){
     return (
       <p>Waiting for data...</p>  
     )
   }
-
-  if(props.dataFlag){
+  
+  if(!areaData.belonging_rate_2018){
     return (
-      <span>There is no data for {props.areaData.name}</span>
+      <span>There is no data for {areaData.name}</span>
     )
   } else {
     return (
-      <span>Based on the data from 2018, {props.areaData.belongingRateFormatted} of people in {props.areaData.name} agree or strongly agree that they feel a sense of belonging in their community</span>
+      <span>Based on the data from 2018, {areaData.belongingRateFormatted} of people in {areaData.name} agree or strongly agree that they feel a sense of belonging in their community</span>
     )
   }
 }
@@ -193,7 +187,7 @@ export default function BelongingRates(props) {
     body: JSON.stringify({metrics: ["belonging_rate_2018"]})
   }, []);
   const [selectedArea, setSelectedArea] = useState(1)
-  const { chartData, areaData, dataFlag } = transformData(data, error, selectedArea);
+  const { chartData, areaData } = transformData(data, error, selectedArea);
   
   useEffect(() => {
     props.setContentIsLoading(loading);
@@ -208,12 +202,12 @@ export default function BelongingRates(props) {
         <FailureNotification error={error} data={data} />
       </div>
       <div className="center">
-        <ExamplePieChart data={chartData} dataFlag={dataFlag} />
+        <ExamplePieChart data={chartData} />
         <br />
       </div>
       <div className="center medium-width">
         <p>
-        <GenerateMessage areaData={areaData} dataFlag={dataFlag} />
+        <AreaBelongingMessage areaData={areaData} />
         </p>
       </div>
     </div>
