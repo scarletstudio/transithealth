@@ -8,6 +8,7 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
+PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
 PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 
 TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
@@ -52,6 +53,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/rent_burdened_households.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
+	make data/loaded/traffic_intensity.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
 	make data/loaded/sidewalk_cafe.txt
@@ -79,6 +81,13 @@ data/loaded/population.txt: data/transformed/population.csv
 		--input_file="data/transformed/population.csv" \
 		--create_sql="load/population.sql" \
 		--table_name="population"
+		
+data/loaded/traffic_intensity.txt: data/transformed/traffic_intensity.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/traffic_intensity.csv" \
+		--create_sql="load/traffic_intensity.sql" \
+		--table_name="traffic_intensity"
 		
 data/loaded/rent_burdened_households.txt: data/transformed/rent_burdened_households.csv
 	python3 load/create_table.py \
@@ -334,6 +343,12 @@ data/extracted/daily_bus_rideship.csv:
         --json_url="$(PORTAL_BUS_RIDESHIP)" \
         --soql_file="extract/daily_bus_rideship.sql" \
         --output_file="data/extracted/daily_bus_rideship.csv"
+
+data/extracted/cta_train_stops.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_CTA_TRAIN_STOPS)" \
+		--soql_file="extract/cta_train_stops.sql" \
+		--output_file="data/extracted/cta_train_stops.csv"
 
 
 # Exports For Frontend App

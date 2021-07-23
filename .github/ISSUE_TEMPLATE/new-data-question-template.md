@@ -7,9 +7,20 @@ assignees: ''
 
 ---
 
-**Data Question Topic:** ? (or a tentative topic if you are still deciding)
+## Overview
+
+**Data Question Topic:** How does community belonging relate to transit?
 
 Write a one-sentence description here for what your data question will help visitors learn about.
+
+- Sub-Question 1
+- Sub-Question 2 (Optional)
+
+(Add a link to your brainstorming doc, if you have one.)
+
+## Resources
+
+Questions to think about:
 
 - Why do visitors want to know about this topic?
 - What are some limitations of the data to keep in mind?
@@ -21,7 +32,24 @@ Read the documentation on how to add a new data question:
 - [Short Guide](https://github.com/scarletstudio/transithealth/blob/main/docs/pages/tasks.md#add-a-component)
 - [Full Guide](https://github.com/scarletstudio/transithealth/blob/main/docs/pages/new_question.md)
 
-This task is more open-ended and will involve two or more pull requests:
+## Task List
 
+This task is more open-ended and will involve multiple pull requests:
+
+### Sub-Question 1
+
+- [ ] Offline pipeline work to get necessary data
+- [ ] Backend API work to query the data in the form you want
+- [ ] Frontend app work to show the data you queried
+
+### Sub-Question 2 (Optional)
+
+- [ ] Offline pipeline work to get necessary data
+- [ ] Backend API work to query the data in the form you want
+- [ ] Frontend app work to show the data you queried
+
+### Data Question
+
+- [ ] Create a practice data visualization
 - [ ] Create initial question page (add site entry and component)
-- [ ] Continue adding to your question page until it is ready to launch
+- [ ] Launch your question page!

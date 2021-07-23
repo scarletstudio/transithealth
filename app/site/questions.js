@@ -2,6 +2,7 @@ import Sample from '../components/questions/Sample'
 import TemplateWithPieChart from '../components/questions/TemplateWithPieChart'
 import PooledTrips from '../components/questions/PooledTrips'
 import RidesharesAcrossCity from '../components/questions/RidesharesAcrossCity'
+import ResidentsWithDisabilities from '../components/questions/ResidentsWithDisabilities'
 import BelongingRates from '../components/questions/BelongingRates'
 
 export const questionComponents = {
@@ -9,6 +10,7 @@ export const questionComponents = {
   "template-with-pie-chart": TemplateWithPieChart,
   "pooled-trips": PooledTrips,
   "rideshares-across-city": RidesharesAcrossCity,
+  "residents-with-disabilities": ResidentsWithDisabilities,
   "belonging-rates": BelongingRates,
 };
 
@@ -24,6 +26,12 @@ export const questionsParams = {
     author: "Rachael Brooks",
     component: "rideshares-across-city",
     description: "Rideshares like Uber and Lyft are seemingly pretty popular. How many rideshares happen across the city?",
+  },
+  "disabilities": {
+    title: "Disabilities in Burnside",
+    author: "Maria Garcia",
+    component: "residents-with-disabilities",
+    description: "Burnside is the neighborhood with the highest disability rate. What percentage of residents in Burnside, Chicago have an included disability?",
   },
   "belonging-example": {
     title: "Belonging Rates",
