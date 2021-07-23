@@ -143,10 +143,10 @@ data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_comm
 		--input_file="data/extracted/zip_code_to_community_area.csv" \
 		--output_file="data/transformed/zip_code_to_community_area.csv"
 		
-data/transformed/escooter_rideshare.csv: data/extracted/escooter_rideshare.csv
+data/transformed/escooter.csv: data/extracted/daily_escooter.csv
 	python3 transform/escooter_rideshare.py \
 		--input_file="data/extracted/daily_escooter.csv" \
-		--output_file="data/transformed/updated_daily.csv"
+		--output_file="data/transformed/escooter.csv"
 
 data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
@@ -291,7 +291,7 @@ data/extracted/belonging_coverage.json:
 		--create-dirs -o "data/extracted/belonging_coverage.json" \
 		-d layers="neighborhood,place"
 
-data/extracted/daily_ESCOOTER.csv:
+data/extracted/daily_escooter.csv:
 	python3 extract/from_data_portal.py \
 		--json_url="$(PORTAL_ESCOOTER)" \
 		--soql_file="extract/scooterRidesByArea2019.sql" \

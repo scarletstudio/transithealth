@@ -31,3 +31,10 @@ df["avg_trip_distance"] = df["avg_trip_distance"].astype(int)
 #Sort data by average trip distance
 df["avg_trip_distance"] = sorted(df["avg_trip_distance"])
 print("dataframe was sorted successfully!") 
+
+df.to_csv(args.output_file, index=False) 
+
+end = timer()
+secs = end - start
+
+print(f"Transformed {len(df)} records in {secs:.1f} secs.")
