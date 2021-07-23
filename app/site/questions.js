@@ -34,7 +34,7 @@ export const questionsParams = {
     description: "Burnside is the neighborhood with the highest disability rate. What percentage of residents in Burnside, Chicago have an included disability?",
   },
   "belonging-example": {
-    title: "Belonging Rates",
+    title: "Belonging Rates of Chicago",
     author: "Fabian Abrego",
     component: "belonging-rates",
     description: "Over the years, the residents of an area may feel differently about their sense of belonging. What is this rate for a given neighborhood?",

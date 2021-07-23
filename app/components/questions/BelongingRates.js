@@ -49,14 +49,14 @@ function transformData(response, error, selectedArea) {
       valueFormatted: Formatter.percentWithOneDecimal(1 - areaData.belonging_rate_2018),
       color: Color.Salmon
     }
-    ]
-    
+  ]
+
   const dataFlag = (() => {
   if (areaData.belongingRateFormatted==="NaN%")
     return 1
   else
     return 0
-})();
+  })();
   
   return {
     chartData: data,
@@ -175,7 +175,7 @@ function GenerateMessage(props) {
       <p>Waiting for data...</p>  
     )
   }
-  
+
   if(props.dataFlag){
     return (
       <span>There is no data for {props.areaData.name}</span>
