@@ -56,9 +56,17 @@ data/loaded/all_tables.txt:
 	make data/loaded/traffic_intensity.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
-	make data/loaded/sidewalk_cafe.txt 
+	make data/loaded/sidewalk_cafe.txt
+	make data/loaded/taxi_trips.txt
 	touch "data/loaded/all_tables.txt"
-
+	
+data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/taxi_trips.csv" \
+		--create_sql="load/taxi_trip.sql" \
+		--table_name="taxitrips"
+		
 data/loaded/community_area.txt: data/transformed/community_area.csv
 	python3 load/create_table.py \
 		--database="database.db" \
