@@ -54,7 +54,8 @@ data/loaded/all_tables.txt:
 	make data/loaded/covid_spread.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
-	make data/loaded/sidewalk_cafe.txt 
+	make data/loaded/sidewalk_cafe.txt
+	make data/loaded/taxi_trips.txt
 	touch "data/loaded/all_tables.txt"
 	
 data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
