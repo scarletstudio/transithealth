@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from api.metrics.community import CommunityMetrics
+from api.metrics.rent_burdened import RentBurdenedMetrics
 
 
 def make_blueprint(con):
@@ -10,6 +11,7 @@ def make_blueprint(con):
     app = Blueprint("community", __name__)
     
     metric = CommunityMetrics(con)
+    metric_rbu = RentBurdenedMetrics(con)
 
     supported_metrics = {
         "rideshare_pickups_covid": metric.rideshare_total_pickups,
@@ -21,12 +23,20 @@ def make_blueprint(con):
         "total_population_2010": lambda: metric.population(year=2010, segment="all"),
         "total_population_2019": lambda: metric.population(year=2019, segment="all"),
         "median_income_2010": lambda: metric.income(year=2010, segment="all"),
+        "median_income_2017": lambda: metric.income(year=2017, segment="all"),
+        "median_income_2018": lambda: metric.income(year=2018, segment="all"),
         "median_income_2019": lambda: metric.income(year=2019, segment="all"),
         "total_covid_cases": lambda: metric.covid_spread_sum_by_area("cases_weekly"),
         "disability_rate_2018":lambda: metric.disability_rate(year=2018, segment="all"),
         "disability_rate_2019":lambda: metric.disability_rate(year=2019, segment="all"),
         "belonging_rate_2017": lambda: metric.belonging(year=2017, segment="all"),
         "belonging_rate_2018": lambda: metric.belonging(year=2018, segment="all"),
+        "rent_burdened_2017": lambda: metric_rbu.rent_burdened(year=2017, segment="all"),
+        "rent_burdened_2018": lambda: metric_rbu.rent_burdened(year=2018, segment="all"),
+        "rent_burdened_2019": lambda: metric_rbu.rent_burdened(year=2019, segment="all"),
+        "rent_max": lambda: metric_rbu.rent_max_burdened(),
+        "rent_min": lambda: metric_rbu.rent_min_burdened(),
+        "rent_average": lambda: metric_rbu.rent_average_burden_area()
     }
 
 

@@ -8,6 +8,10 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
+PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
+PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
+
+TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 
 # Environment Variables
 
@@ -49,11 +53,20 @@ data/loaded/all_tables.txt:
 	make data/loaded/rent_burdened_households.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
+	make data/loaded/traffic_intensity.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
-	make data/loaded/sidewalk_cafe.txt 
+	make data/loaded/sidewalk_cafe.txt
+	make data/loaded/taxi_trips.txt
 	touch "data/loaded/all_tables.txt"
-
+	
+data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/taxi_trips.csv" \
+		--create_sql="load/taxi_trip.sql" \
+		--table_name="taxitrips"
+		
 data/loaded/community_area.txt: data/transformed/community_area.csv
 	python3 load/create_table.py \
 		--database="database.db" \
@@ -68,6 +81,13 @@ data/loaded/population.txt: data/transformed/population.csv
 		--input_file="data/transformed/population.csv" \
 		--create_sql="load/population.sql" \
 		--table_name="population"
+		
+data/loaded/traffic_intensity.txt: data/transformed/traffic_intensity.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/traffic_intensity.csv" \
+		--create_sql="load/traffic_intensity.sql" \
+		--table_name="traffic_intensity"
 		
 data/loaded/rent_burdened_households.txt: data/transformed/rent_burdened_households.csv
 	python3 load/create_table.py \
@@ -126,6 +146,11 @@ data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	--table_name="sidewalk_cafe"
 
 # Transform Operations
+
+data/transformed/taxi_trips.csv: data/extracted/taxi_trips.csv
+	python3 transform/taxi_trips.py \
+		--input_file="data/extracted/taxi_trips.csv" \
+		--output_file="data/transformed/taxi_trips.csv"
 
 data/transformed/community_area.csv: data/extracted/community_area.geojson data/extracted/health_atlas_neighborhoods.json
 	python3 transform/community_area.py \
@@ -196,6 +221,8 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_to_name="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
+		
+
 # Extract Operations
 
 data/extracted/community_area.geojson:
@@ -279,6 +306,12 @@ data/extracted/daily_rideshare.csv:
 		--json_url="$(PORTAL_RIDESHARE_TRIPS)" \
 		--soql_file="extract/daily_rideshare.sql" \
 		--output_file="data/extracted/daily_rideshare.csv"
+
+data/extracted/taxi_trips.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(TAXI_TRIPS)" \
+		--soql_file="extract/taxi_trips.sql" \
+		--output_file="data/extracted/taxi_trips.csv"
 	
 data/extracted/belonging.csv: data/extracted/belonging_coverage.json
 	python3 extract/belonging.py \
@@ -308,6 +341,19 @@ data/extracted/cta_train_ridership.csv:
 		--json_url="$(PORTAL_CTA_TRAIN)" \
 		--soql_file="extract/cta_train_ridership.sql" \
 		--output_file="data/extracted/cta_train_ridership.csv"
+		
+
+data/extracted/daily_bus_rideship.csv:
+    python3 extract/from_data_portal.py \
+        --json_url="$(PORTAL_BUS_RIDESHIP)" \
+        --soql_file="extract/daily_bus_rideship.sql" \
+        --output_file="data/extracted/daily_bus_rideship.csv"
+
+data/extracted/cta_train_stops.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_CTA_TRAIN_STOPS)" \
+		--soql_file="extract/cta_train_stops.sql" \
+		--output_file="data/extracted/cta_train_stops.csv"
 
 
 # Exports For Frontend App
