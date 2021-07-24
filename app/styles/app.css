@@ -325,6 +325,14 @@ a.btn {
     margin-right: 0.5em;
 }
 
+@media screen and (max-width: 500px) {
+    
+    .TimelineMetrics .MetricSelector select {
+        width: 100%;
+    }
+
+}
+
 .TimelineMetrics .MetricSelector {
     display: inline-block;
     vertical-align: middle;

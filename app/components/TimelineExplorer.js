@@ -108,6 +108,9 @@ function TimelineChart({ data, metrics }) {
     
   const ticks = chartData
     .map(d => new Date(d.timestamp))
+    // Only show tick if it is the first of a new year
+    // Note: Recharts will also hide ticks on its own
+    // to preserve space between tick labels
     .filter((dt, i, arr) => {
       const prev = arr?.[i - 1];
       return prev?.getYear() !== dt.getYear();
