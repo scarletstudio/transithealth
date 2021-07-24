@@ -145,6 +145,13 @@ data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	--create_sql="load/sidewalk_cafe.sql" \
 	--table_name="sidewalk_cafe"
 
+data/loaded/escooter.txt: data/transformed/ESCOOTERMOD.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/ESCOOTERMOD.csv" \
+		--create_sql="load/escooter2019.sql" \
+		--table_name="Escooter"
+
 # Transform Operations
 
 data/transformed/taxi_trips.csv: data/extracted/taxi_trips.csv
@@ -216,6 +223,12 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_to_name="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
+		
+data/transformed/ESCOOTERMOD.csv: data/extracted/daily_ESCOOTER.csv
+	python3 transform/weekly_rideshare.py \
+		--input_file="data/extracted/daily_ESCOOTER.csv" \
+		--output_file="data/transformed/ESCOOTERMOD.csv"
+
 		
 
 # Extract Operations
