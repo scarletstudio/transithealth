@@ -26,3 +26,4 @@ with open(args.soql_file) as soql_file:
     end = timer()
     secs = end - start
     print(f"Fetched {len(df):,d} records in {secs:.1f} secs.")
+

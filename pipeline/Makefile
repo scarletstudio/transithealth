@@ -9,10 +9,10 @@ PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
 PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
-
 TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
 
+>>>>>>> main
 
 # Environment Variables
 
@@ -54,12 +54,25 @@ data/loaded/all_tables.txt:
 	make data/loaded/rent_burdened_households.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
+	make data/loaded/traffic_intensity.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
+<<<<<<< HEAD
 	make data/loaded/cta_train_stops.txt
 	make data/loaded/sidewalk_cafe.txt 
+=======
+	make data/loaded/sidewalk_cafe.txt
+	make data/loaded/taxi_trips.txt
+>>>>>>> main
 	touch "data/loaded/all_tables.txt"
-
+	
+data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/taxi_trips.csv" \
+		--create_sql="load/taxi_trip.sql" \
+		--table_name="taxitrips"
+		
 data/loaded/community_area.txt: data/transformed/community_area.csv
 	python3 load/create_table.py \
 		--database="database.db" \
@@ -74,6 +87,13 @@ data/loaded/population.txt: data/transformed/population.csv
 		--input_file="data/transformed/population.csv" \
 		--create_sql="load/population.sql" \
 		--table_name="population"
+		
+data/loaded/traffic_intensity.txt: data/transformed/traffic_intensity.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/traffic_intensity.csv" \
+		--create_sql="load/traffic_intensity.sql" \
+		--table_name="traffic_intensity"
 		
 data/loaded/rent_burdened_households.txt: data/transformed/rent_burdened_households.csv
 	python3 load/create_table.py \
@@ -138,6 +158,13 @@ data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	--create_sql="load/sidewalk_cafe.sql" \
 	--table_name="sidewalk_cafe"
 
+data/loaded/escooter.txt: data/transformed/ESCOOTERMOD.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/ESCOOTERMOD.csv" \
+		--create_sql="load/escooter2019.sql" \
+		--table_name="Escooter"
+
 # Transform Operations
 
 data/transformed/taxi_trips.csv: data/extracted/taxi_trips.csv
@@ -160,6 +187,11 @@ data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_comm
 	python3 transform/zip_code_to_community_area.py \
 		--input_file="data/extracted/zip_code_to_community_area.csv" \
 		--output_file="data/transformed/zip_code_to_community_area.csv"
+		
+data/transformed/ESCOOTERMOD.csv: data/extracted/daily_escooter.csv
+	python3 transform/escooter.py \
+		--input_file="data/extracted/daily_escooter.csv" \
+		--output_file="data/transformed/ESCOOTERMOD.csv"
 
 data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
@@ -213,7 +245,6 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_to_name="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
-		
 
 # Extract Operations
 
@@ -316,7 +347,7 @@ data/extracted/belonging_coverage.json:
 		--create-dirs -o "data/extracted/belonging_coverage.json" \
 		-d layers="neighborhood,place"
 
-data/extracted/daily_ESCOOTER.csv:
+data/extracted/daily_escooter.csv:
 	python3 extract/from_data_portal.py \
 		--json_url="$(PORTAL_ESCOOTER)" \
 		--soql_file="extract/scooterRidesByArea2019.sql" \
@@ -361,9 +392,8 @@ resources:
 # Archive for files that take a long time to make
 
 archive.tgz: data/transformed/rideshare.csv data/extracted/daily_rideshare.csv
-	mkdir archive
-	mkdir archive/extracted
-	mkdir archive/transformed
+	mkdir -p archive/extracted
+	mkdir -p archive/transformed
 	cp data/extracted/daily_rideshare.csv archive/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv archive/transformed/rideshare.csv
 	tar cfz archive.tgz archive/
@@ -388,10 +418,9 @@ clean:
 	rm -f database.db
 	rm -rf data
 	rm -rf compressed
-	mkdir data
-	mkdir data/extracted
-	mkdir data/transformed
-	mkdir data/loaded
+	mkdir -p data/extracted
+	mkdir -p data/transformed
+	mkdir -p data/loaded
 
 clean-resources:
 	rm -f ../app/public/resources/community_area.json
@@ -403,9 +432,9 @@ clean-except:
 	# Exceptions are meant for files that:
 	# - (a) take a long time to make
 	# - (b) AND have no dependencies (OR their dependencies also have exceptions)
-	mkdir tempdata
-	mkdir tempdata/extracted
-	mkdir tempdata/transformed
+	rm -rf tempdata
+	mkdir -p tempdata/extracted
+	mkdir -p tempdata/transformed
 	cp data/extracted/daily_rideshare.csv tempdata/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv tempdata/transformed/rideshare.csv
 	make clean
