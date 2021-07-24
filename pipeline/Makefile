@@ -12,8 +12,6 @@ PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
 
->>>>>>> main
-
 # Environment Variables
 
 export CHICAGO_HEALTH_ATLAS_API=https://chicagohealthatlas.org/api/v1
@@ -57,13 +55,9 @@ data/loaded/all_tables.txt:
 	make data/loaded/traffic_intensity.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
-<<<<<<< HEAD
 	make data/loaded/cta_train_stops.txt
 	make data/loaded/sidewalk_cafe.txt 
-=======
-	make data/loaded/sidewalk_cafe.txt
 	make data/loaded/taxi_trips.txt
->>>>>>> main
 	touch "data/loaded/all_tables.txt"
 	
 data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
