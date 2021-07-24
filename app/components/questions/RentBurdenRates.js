@@ -162,7 +162,7 @@ function AreaSelector(props) {
   );
 }
 
-function AreaBelongingMessage(props) {
+function AreaRentBurdenedMessage(props) {
   const { areaData } = props; 
   
   if(!areaData){
