@@ -51,14 +51,18 @@ async function getTimelineMetrics(metrics) {
 }
 
 function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
-  if (!active || !payload || payload.length === 0) {
+  const d = payload?.[0]?.payload;
+  if (!active || !d) {
     return null;
   }
-  const d = payload[0].payload;
-  const date = new Date(d.date);
+  // This is very hacky. If there is a space after the date, it will be parsed
+  // without the local timezone offset, that way the date returned by the API
+  // will be displayed as intended, no matter what timezone the client is in.
+  // StackOverflow: https://stackoverflow.com/q/47359812
+  const localDate = new Date(`${d.date} ?`);
   return (
     <div className="CustomToolTip">
-      <h4>{dateFormat.format(new Date(d.date))}</h4>
+      <h4>{dateFormat.format(localDate)}</h4>
       {metrics.filter(({ id: m}) => d[m]).map(({ id: m }, i) => (
         <p key={i}>
           <span>{supportedMetrics[m].name}: </span>

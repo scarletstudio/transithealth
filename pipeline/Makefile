@@ -174,6 +174,11 @@ data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_comm
 	python3 transform/zip_code_to_community_area.py \
 		--input_file="data/extracted/zip_code_to_community_area.csv" \
 		--output_file="data/transformed/zip_code_to_community_area.csv"
+		
+data/transformed/escooter.csv: data/extracted/daily_escooter.csv
+	python3 transform/escooter_rideshare.py \
+		--input_file="data/extracted/daily_escooter.csv" \
+		--output_file="data/transformed/escooter.csv"
 
 data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
@@ -332,7 +337,7 @@ data/extracted/belonging_coverage.json:
 		--create-dirs -o "data/extracted/belonging_coverage.json" \
 		-d layers="neighborhood,place"
 
-data/extracted/daily_ESCOOTER.csv:
+data/extracted/daily_escooter.csv:
 	python3 extract/from_data_portal.py \
 		--json_url="$(PORTAL_ESCOOTER)" \
 		--soql_file="extract/scooterRidesByArea2019.sql" \
@@ -377,9 +382,8 @@ resources:
 # Archive for files that take a long time to make
 
 archive.tgz: data/transformed/rideshare.csv data/extracted/daily_rideshare.csv
-	mkdir archive
-	mkdir archive/extracted
-	mkdir archive/transformed
+	mkdir -p archive/extracted
+	mkdir -p archive/transformed
 	cp data/extracted/daily_rideshare.csv archive/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv archive/transformed/rideshare.csv
 	tar cfz archive.tgz archive/
@@ -404,10 +408,9 @@ clean:
 	rm -f database.db
 	rm -rf data
 	rm -rf compressed
-	mkdir data
-	mkdir data/extracted
-	mkdir data/transformed
-	mkdir data/loaded
+	mkdir -p data/extracted
+	mkdir -p data/transformed
+	mkdir -p data/loaded
 
 clean-resources:
 	rm -f ../app/public/resources/community_area.json
@@ -419,9 +422,9 @@ clean-except:
 	# Exceptions are meant for files that:
 	# - (a) take a long time to make
 	# - (b) AND have no dependencies (OR their dependencies also have exceptions)
-	mkdir tempdata
-	mkdir tempdata/extracted
-	mkdir tempdata/transformed
+	rm -rf tempdata
+	mkdir -p tempdata/extracted
+	mkdir -p tempdata/transformed
 	cp data/extracted/daily_rideshare.csv tempdata/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv tempdata/transformed/rideshare.csv
 	make clean
