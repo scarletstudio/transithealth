@@ -27,11 +27,27 @@ const defaultColors = [
   "#a453f5",
   "#f5cd53",
 ];
-const dateFormat = new Intl.DateTimeFormat("en-US", {
+const dateFormatToolTip = new Intl.DateTimeFormat("en-US", {
   month: "long",
   day: "numeric",
   year: "numeric",
 });
+const dateFormatDateAxis = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+});
+
+/*
+ * Returns true if d has values for any of the keys
+ * in metricIds, false otherwise. Used in filter to
+ * keep only dates that have a selected metric.
+ */
+function hasMetricValues(d, metricIds) {
+  for (let i = 0; i < metricIds.length; i++) {
+    if (d[metricIds[i]]) return true;
+  }
+  return false;
+}
 
 async function getTimelineMetrics(metrics) {
   const req = await fetch(
@@ -62,7 +78,7 @@ function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
   const localDate = new Date(`${d.date} ?`);
   return (
     <div className="CustomToolTip">
-      <h4>{dateFormat.format(localDate)}</h4>
+      <h4>{dateFormatToolTip.format(localDate)}</h4>
       {metrics.filter(({ id: m}) => d[m]).map(({ id: m }, i) => (
         <p key={i}>
           <span>{supportedMetrics[m].name}: </span>
@@ -75,14 +91,42 @@ function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
 }
 
 function TimelineChart({ data, metrics }) {
+  const selectedMetricIds = metrics
+    .filter(m => m.axis !== "none")
+    .map(m => m.id);
+  
+  if (data?.length === 0 || selectedMetricIds.length === 0) return null;
+
+  const chartData = data
+    // Only keep dates with values for selected metrics
+    .filter(d => hasMetricValues(d, selectedMetricIds))
+    // Convert each date from yyyy-MM-dd to local timestamp
+    .map(d => ({
+      ...d,
+      timestamp: new Date(`${d.date} ?`).getTime(),
+    }));
+    
+  const ticks = chartData
+    .map(d => new Date(d.timestamp))
+    .filter((dt, i, arr) => {
+      const prev = arr?.[i - 1];
+      return prev?.getYear() !== dt.getYear();
+    })
+  
   return (
     <ResponsiveContainer width="100%" height={400}>
       <AreaChart
-        data={data}
+        data={chartData}
         margin={{ left: 30, right: 30, bottom: 30, top: 10 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="date" domain={["dataMin", "dataMax"]}>
+        <XAxis
+          dataKey="timestamp"
+          type="number"
+          domain={["dataMin", "dataMax"]}
+          ticks={ticks}
+          tickFormatter={ts => dateFormatDateAxis.format(ts)}
+        >
           <Label
             value="Date"
             position="bottom"
