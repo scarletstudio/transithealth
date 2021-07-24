@@ -1,3 +1,5 @@
+/* global fetch */
+
 import { useState, useEffect } from 'react'
 import { MetricSelector } from '../components/Common'
 import ChicagoMap from '../components/ChicagoMap'
@@ -90,9 +92,15 @@ function CustomScatterPlot(props) {
   const metricXDetails = supportedMetrics[metricX];
   const metricYDetails = supportedMetrics[metricY];
   const sData = data || [ { [metricX]: 0, [metricY]: 0 } ];
+  
+  const getMetricLabel = (metricDetails, maxLetters) => {
+    const text = `${metricDetails.name} (${metricDetails.units})`;
+    return text.length <= maxLetters ? text : text.slice(0, maxLetters) + "...";
+  };
+  
   return (
     <ResponsiveContainer width={width} height={height}>
-      <ScatterChart margin={{ left: 30, right: 30, bottom: 30, top: 30 }}>
+      <ScatterChart margin={{ left: 50, right: 10, bottom: 30, top: 30 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
           dataKey={metricX}
@@ -100,9 +108,9 @@ function CustomScatterPlot(props) {
           tickFormatter={metricXDetails.format}
         >
           <Label
-            value={`${metricXDetails.name} (${metricXDetails.units})`}
+            value={getMetricLabel(metricXDetails, /*maxLetters=*/60)}
             position="bottom"
-            offset={10}
+            offset={15}
           />
         </XAxis>
         <YAxis
@@ -111,10 +119,10 @@ function CustomScatterPlot(props) {
           tickFormatter={metricYDetails.format}
         >
           <Label
-            value={`${metricYDetails.name} (${metricYDetails.units})`}
+            value={getMetricLabel(metricYDetails, /*maxLetters=*/35)}
             position="left"
             angle={-90}
-            offset={10}
+            offset={25}
             style={{ textAnchor: "middle" }}
           />
         </YAxis>
@@ -195,6 +203,7 @@ export default function CommunityScatterExplorer({ communityAreas }) {
             : ""
         }</span>
         <span className="spacer"> </span>
+        <br />
         <MetricSelector
           label="Y Axis"
           supportedMetrics={supportedMetrics}
@@ -219,7 +228,7 @@ export default function CommunityScatterExplorer({ communityAreas }) {
           onHover={onScatterHover}
           selectedAreaData={selectedAreaData}
         />
-        <div>
+        <div className="ScatterMap">
           <ChicagoMap
             data={mapData}
             communityAreas={communityAreas}
@@ -228,7 +237,7 @@ export default function CommunityScatterExplorer({ communityAreas }) {
             selectedAreaNumber={areaNumber}
             onAreaClick={onAreaSelect}
           />
-          <p className="center">{metricYDetails.name}</p>
+          <p className="center MapLabel">{metricYDetails.name}</p>
         </div>
       </div>
     </div>

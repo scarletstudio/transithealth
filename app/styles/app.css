@@ -293,6 +293,12 @@ a.btn {
     opacity: 0.9;
 }
 
+/* Scatter Explorer */
+
+.ScatterMap .MapLabel {
+    max-width: 325px;
+}
+
 /* Timeline Explorer */
 
 .TimelineMetrics {
