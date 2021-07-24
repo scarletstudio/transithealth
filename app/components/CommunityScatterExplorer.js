@@ -93,7 +93,6 @@ function CustomScatterPlot(props) {
   const metricYDetails = supportedMetrics[metricY];
   const sData = data || [ { [metricX]: 0, [metricY]: 0 } ];
   
-  
   const getMetricLabel = (metricDetails, maxLetters) => {
     const text = `${metricDetails.name} (${metricDetails.units})`;
     return text.length <= maxLetters ? text : text.slice(0, maxLetters) + "...";
