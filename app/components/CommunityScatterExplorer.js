@@ -219,7 +219,7 @@ export default function CommunityScatterExplorer({ communityAreas }) {
           onHover={onScatterHover}
           selectedAreaData={selectedAreaData}
         />
-        <div>
+        <div className="ScatterMap">
           <ChicagoMap
             data={mapData}
             communityAreas={communityAreas}
@@ -228,7 +228,7 @@ export default function CommunityScatterExplorer({ communityAreas }) {
             selectedAreaNumber={areaNumber}
             onAreaClick={onAreaSelect}
           />
-          <p className="center">{metricYDetails.name}</p>
+          <p className="center MapLabel">{metricYDetails.name}</p>
         </div>
       </div>
     </div>
