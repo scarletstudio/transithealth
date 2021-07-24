@@ -47,15 +47,15 @@ data/loaded/all_tables.txt:
 	mkdir -p data/loaded
 	make data/loaded/community_area.txt
 	make data/loaded/belonging.txt
-	make data/loaded/disabilities.txt
 	make data/loaded/population.txt
 	make data/loaded/rent_burdened_households.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/traffic_intensity.txt
 	make data/loaded/rideshare.txt
-	make data/loaded/cta_train_ridership.txt
+	make data/loaded/disabilities.txt
 	make data/loaded/cta_train_stops.txt
+	make data/loaded/cta_train_ridership.txt
 	make data/loaded/sidewalk_cafe.txt 
 	make data/loaded/taxi_trips.txt
 	touch "data/loaded/all_tables.txt"
