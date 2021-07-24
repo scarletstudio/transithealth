@@ -175,10 +175,10 @@ data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_comm
 		--input_file="data/extracted/zip_code_to_community_area.csv" \
 		--output_file="data/transformed/zip_code_to_community_area.csv"
 		
-data/transformed/escooter.csv: data/extracted/daily_escooter.csv
-	python3 transform/escooter_rideshare.py \
+data/transformed/ESCOOTERMOD.csv: data/extracted/daily_escooter.csv
+	python3 transform/escooter.py \
 		--input_file="data/extracted/daily_escooter.csv" \
-		--output_file="data/transformed/escooter.csv"
+		--output_file="data/transformed/ESCOOTERMOD.csv"
 
 data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
@@ -228,13 +228,6 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_to_name="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
-		
-data/transformed/ESCOOTERMOD.csv: data/extracted/daily_ESCOOTER.csv
-	python3 transform/weekly_rideshare.py \
-		--input_file="data/extracted/daily_ESCOOTER.csv" \
-		--output_file="data/transformed/ESCOOTERMOD.csv"
-
-		
 
 # Extract Operations
 
