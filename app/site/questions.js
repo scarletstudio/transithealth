@@ -2,14 +2,18 @@ import Sample from '../components/questions/Sample'
 import TemplateWithPieChart from '../components/questions/TemplateWithPieChart'
 import PooledTrips from '../components/questions/PooledTrips'
 import RidesharesAcrossCity from '../components/questions/RidesharesAcrossCity'
+import ResidentsWithDisabilities from '../components/questions/ResidentsWithDisabilities'
 import BelongingRates from '../components/questions/BelongingRates'
+import RentBurdenedRates from '../components/questions/RentBurdenRates'
 
 export const questionComponents = {
   "sample": Sample,
   "template-with-pie-chart": TemplateWithPieChart,
   "pooled-trips": PooledTrips,
   "rideshares-across-city": RidesharesAcrossCity,
+  "residents-with-disabilities": ResidentsWithDisabilities,
   "belonging-rates": BelongingRates,
+  "rent-burden-rates": RentBurdenedRates,
 };
 
 export const questionsParams = {
@@ -25,11 +29,23 @@ export const questionsParams = {
     component: "rideshares-across-city",
     description: "Rideshares like Uber and Lyft are seemingly pretty popular. How many rideshares happen across the city?",
   },
+  "disabilities": {
+    title: "Disabilities in Burnside",
+    author: "Maria Garcia",
+    component: "residents-with-disabilities",
+    description: "Burnside is the neighborhood with the highest disability rate. What percentage of residents in Burnside, Chicago have an included disability?",
+  },
   "belonging-example": {
-    title: "Belonging Rates",
+    title: "Belonging Rates of Chicago",
     author: "Fabian Abrego",
     component: "belonging-rates",
     description: "Over the years, the residents of an area may feel differently about their sense of belonging. What is this rate for a given neighborhood?",
+  },
+  "rent-burden-rates": {
+    title: "Rent Burden Rates",
+    author: "William Javier",
+    component: "rent-burden-rates",
+    description: "What is the rent burden rate of a given neighborhood for the year?",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
