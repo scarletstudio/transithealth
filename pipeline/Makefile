@@ -369,9 +369,8 @@ resources:
 # Archive for files that take a long time to make
 
 archive.tgz: data/transformed/rideshare.csv data/extracted/daily_rideshare.csv
-	mkdir archive
-	mkdir archive/extracted
-	mkdir archive/transformed
+	mkdir -p archive/extracted
+	mkdir -p archive/transformed
 	cp data/extracted/daily_rideshare.csv archive/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv archive/transformed/rideshare.csv
 	tar cfz archive.tgz archive/
@@ -396,10 +395,9 @@ clean:
 	rm -f database.db
 	rm -rf data
 	rm -rf compressed
-	mkdir data
-	mkdir data/extracted
-	mkdir data/transformed
-	mkdir data/loaded
+	mkdir -p data/extracted
+	mkdir -p data/transformed
+	mkdir -p data/loaded
 
 clean-resources:
 	rm -f ../app/public/resources/community_area.json
@@ -411,9 +409,9 @@ clean-except:
 	# Exceptions are meant for files that:
 	# - (a) take a long time to make
 	# - (b) AND have no dependencies (OR their dependencies also have exceptions)
-	mkdir tempdata
-	mkdir tempdata/extracted
-	mkdir tempdata/transformed
+	rm -rf tempdata
+	mkdir -p tempdata/extracted
+	mkdir -p tempdata/transformed
 	cp data/extracted/daily_rideshare.csv tempdata/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv tempdata/transformed/rideshare.csv
 	make clean
