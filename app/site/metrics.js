@@ -156,7 +156,20 @@ export const communityMetrics = {
     units: "of households",
     format: Formatter.percentWithOneDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
-  }
+  },
+  avg_speed_per_dropoff: {
+    name: "Average Taxi Trip Speed Per Dropoff Area",
+    units: "mph",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas
+  },
+  avg_speed_per_pickup: {
+    name: "Average Taxi Trip Speed Per Pickup Area",
+    units: "mph",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  
 };
 
 export const timelineMetrics = {
