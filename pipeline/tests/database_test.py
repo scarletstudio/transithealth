@@ -33,6 +33,7 @@ def test_table_counts():
     test.assert_table_count("sidewalk_cafe", 19858)
     test.assert_table_count("escooter", 411)
     test.assert_table_count("traffic_intensity", 385)
+    test.assert_table_count("daily_bus_ridership", 48248)
 
 def test_population():
     years_2010_to_2019 = set(range(2010, 2020, 1))
