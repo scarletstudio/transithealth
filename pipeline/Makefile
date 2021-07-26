@@ -398,10 +398,10 @@ data/extracted/popular_train_stops.csv:
 		--output_file="data/extracted/popular_train_stops.csv"
 
 data/extracted/daily_bus_ridership.csv:
-    python3 extract/from_data_portal.py \
-        --json_url="$(PORTAL_BUS_RIDERSHIP)" \
-        --soql_file="extract/daily_bus_ridership.sql" \
-        --output_file="data/extracted/daily_bus_ridership.csv"
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_BUS_RIDERSHIP)" \
+		--soql_file="extract/daily_bus_ridership.sql" \
+		--output_file="data/extracted/daily_bus_ridership.csv"
 
 data/extracted/cta_train_stops.csv:
 	python3 extract/from_data_portal.py \
