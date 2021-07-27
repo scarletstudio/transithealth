@@ -149,7 +149,7 @@ data/loaded/escooter.txt: data/transformed/ESCOOTERMOD.csv
 	python3 load/create_table.py \
 		--database="database.db" \
 		--input_file="data/transformed/ESCOOTERMOD.csv" \
-		--create_sql="load/escooter2019.sql" \
+		--create_sql="load/escooterSchema.sql" \
 		--table_name="Escooter"
 
 # Transform Operations
