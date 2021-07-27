@@ -10,7 +10,7 @@ CREATE TABLE cta_train_stops(
     red INTEGER,
     blue INTEGER,
     green INTEGER,
-    bron INTEGER,
+    brown INTEGER,
     purple INTEGER,
     purple_express INTEGER,
     yellow INTEGER,
@@ -18,6 +18,5 @@ CREATE TABLE cta_train_stops(
     orange INTEGER,
     longitude REAL,
     latitude REAL,
-    area_number INTEGER,
     PRIMARY KEY(station_id, stop_id)
 );
