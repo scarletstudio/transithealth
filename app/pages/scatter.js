@@ -29,9 +29,7 @@ export default function ScatterView({ communityAreas }) {
         <div className="page">
           <div className="center">
             <h1>Scatter View</h1>
-            <p>Compare different data and community areas.</p>
           </div>
-          <br />
           <CommunityScatterExplorer communityAreas={communityAreas} />
         </div>
       </main>

@@ -8,27 +8,27 @@ from api.utils.testing import create_test_db
 def test_weekly_train_ridership():
     train_ridership_table = [
         {
-            "week_num": "2019-05",
+            "week": "2019-05-01",
             "station_id": 1,
             "rides": 24
         },
         {
-            "week_num": "2019-05",
+            "week": "2019-05-01",
             "station_id": 1,
             "rides": 30
         },
         {
-            "week_num": "2019-05",
+            "week": "2019-05-01",
             "station_id": 2,
             "rides": 70
         },
         {
-            "week_num": "2019-05",
+            "week": "2019-05-01",
             "station_id": 1,
             "rides": 10
         },
         {
-            "week_num": "2019-06",
+            "week": "2019-06-08",
             "station_id": 1,
             "rides": 10
         }
@@ -41,6 +41,6 @@ def test_weekly_train_ridership():
     metric = TrainWeeklyMetrics(con)
 
     assert metric.cta_train_ridership_weekly(since="2019-01-01") == [
-        { "date": "2019-05", "value": 134 },
-        { "date": "2019-06", "value": 10 }
+        { "date": "2019-05-01", "value": 134 },
+        { "date": "2019-06-08", "value": 10 }
     ], "Should compute average cost in cents since per week given date."

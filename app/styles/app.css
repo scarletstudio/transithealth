@@ -293,6 +293,12 @@ a.btn {
     opacity: 0.9;
 }
 
+/* Scatter Explorer */
+
+.ScatterMap .MapLabel {
+    max-width: 325px;
+}
+
 /* Timeline Explorer */
 
 .TimelineMetrics {
@@ -323,6 +329,14 @@ a.btn {
     height: 2em;
     line-height: 2em;
     margin-right: 0.5em;
+}
+
+@media screen and (max-width: 500px) {
+    
+    .TimelineMetrics .MetricSelector select {
+        width: 100%;
+    }
+
 }
 
 .TimelineMetrics .MetricSelector {
