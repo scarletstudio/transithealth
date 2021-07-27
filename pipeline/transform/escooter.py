@@ -17,7 +17,8 @@ start = timer()
 # Load data and drop nulls
 raw_df = pd.read_csv(args.input_file)
 df = pd.DataFrame(raw_df.dropna(subset=[
-    "start_community_area_name",
+    "start_community_area_number",
+    "end_community_area_number",
     "count_trip_id",
     "avg_trip_distance"
 ]))
