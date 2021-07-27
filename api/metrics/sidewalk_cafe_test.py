@@ -61,9 +61,9 @@ def test_total_permits_per_day():
         ], "Should have 4 results. Check if number of permits are correct"
     
     assert metric.get_total_permits_year() == [
-        {"year": "2002-01-01", "value": 3 },
-        {"year": "2005-01-01", "value": 1 },
-        {"year": "2021-01-01", "value": 1 }
+        {"date": "2002-01-01", "value": 3 },
+        {"date": "2005-01-01", "value": 1 },
+        {"date": "2021-01-01", "value": 1 }
         ], "Should have 3 results. Check if number of permits are correct"
     
 
