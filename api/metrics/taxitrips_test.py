@@ -43,10 +43,10 @@ def test_avg_speed_per_pickup():
     
     metric = TaxiTripMetrics(connection)
 
-    assert metric.avg_speed_per_pickup() == [
-        { "pickup_community_area": 3, "avg_speed": 12.0},
-        { "pickup_community_area": 45, "avg_speed": 12.0},
-        { "pickup_community_area": 76, "avg_speed": 16.0}
+    assert metric.get_avg_speed_per_pickup() == [
+        { "area_number": 3, "value": 12.0},
+        { "area_number": 45, "value": 12.0},
+        { "area_number": 76, "value": 16.0}
     ], "Should have three results for each pickup_community_area."
 
 #tests average speed per dropoff location function
@@ -88,52 +88,11 @@ def test_avg_speed_per_dropoff():
     
     metric = TaxiTripMetrics(connection)
 
-    assert metric.avg_speed_per_dropoff() == [
-        { "dropoff_community_area": 8, "avg_speed": 12.0},
-        { "dropoff_community_area": 24, "avg_speed": 12.0},
-        { "dropoff_community_area": 67, "avg_speed": 16.0}
+    assert metric.get_avg_speed_per_dropoff() == [
+        { "area_number": 8, "value": 12.0},
+        { "area_number": 24, "value": 12.0},
+        { "area_number": 67, "value": 16.0}
         
     ], "Should have three results for each dropoff_community_area."
-
-#tests most common dropoff location per pickup location function
-def test_most_common_dropoff():
-    cdropoff_table = [
-        {
-            "pickup_community_area": 76,
-            "dropoff_community_area": 8
-        },
-        
-        {
-            "pickup_community_area": 76,
-            "dropoff_community_area": 67
-        },
-        
-        {
-            "pickup_community_area": 76,
-            "dropoff_community_area": 67
-        },
-        
-        {
-            "pickup_community_area": 3,
-            "dropoff_community_area": 24
-        }
-    ]
     
-    connection, cur = create_test_db(
-        scripts=[
-            "./pipeline/load/taxi_trip.sql"
-        ],
-        tables={
-            "taxitrips": cdropoff_table
-        }
-    )
     
-    metric = TaxiTripMetrics(connection)
-    
-    assert metric.most_common_dropoff(pickup_community_area=76) == [
-        { "pickup_community_area": 76, "dropoff_community_area": 67 }
-    ], "Should have 67 as most common dropoff_community_area for pickup_community_area = 76."
-    
-    assert metric.most_common_dropoff(pickup_community_area=3) == [
-        { "pickup_community_area": 3, "dropoff_community_area": 24 }
-    ], "Should have 24 as most common dropoff_community_area for pickup_community_area = 3."
