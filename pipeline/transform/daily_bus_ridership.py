@@ -1,6 +1,6 @@
 import argparse
 import pandas as pd
-#from pipeline.utils.data import extract_data_portal_dates
+from pipeline.utils.data import extract_data_portal_dates
 from timeit import default_timer as timer
 
 
@@ -15,7 +15,7 @@ start = timer()
 df = pd.read_csv(args.input_file)
 
 # Parse dates and add week column
-#df = extract_data_portal_dates(df, col="date", prefix="")
+df = extract_data_portal_dates(df, col="date", prefix="")
 
 # Write output
 df.to_csv(args.output_file, index=False)
