@@ -8,9 +8,10 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
-PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
-TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
+PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
+
+TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 
 # Environment Variables
 
@@ -47,16 +48,16 @@ data/loaded/all_tables.txt:
 	mkdir -p data/loaded
 	make data/loaded/community_area.txt
 	make data/loaded/belonging.txt
+	make data/loaded/disabilities.txt
 	make data/loaded/population.txt
 	make data/loaded/rent_burdened_households.txt
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/traffic_intensity.txt
+	make data/loaded/escooter.txt
 	make data/loaded/rideshare.txt
-	make data/loaded/disabilities.txt
-	make data/loaded/cta_train_stops.txt
 	make data/loaded/cta_train_ridership.txt
-	make data/loaded/sidewalk_cafe.txt 
+	make data/loaded/sidewalk_cafe.txt
 	make data/loaded/taxi_trips.txt
 	touch "data/loaded/all_tables.txt"
 	
@@ -137,13 +138,6 @@ data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
 		--input_file="data/transformed/cta_train_ridership.csv" \
 		--create_sql="load/cta_train_ridership.sql" \
 		--table_name="cta_train_ridership"
-	
-data/loaded/cta_train_stops.txt: data/transformed/cta_train_stops.csv
-	python3 load/create_table.py \
-		--database="database.db" \
-		--input_file="data/transformed/cta_train_stops.csv" \
-		--create_sql="load/cta_train_stops.sql" \
-		--table_name="cta_train_stops"
 
 data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	python3 load/create_table.py \
@@ -228,11 +222,6 @@ data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
 		--input_file="data/extracted/cta_train_ridership.csv" \
 		--output_file="data/transformed/cta_train_ridership.csv"
 
-data/transformed/cta_train_stops.csv: data/extracted/cta_train_stops.csv data/transformed/community_area.csv
-	python3 transform/cta_train_stops.py \
-		--input_file="data/extracted/cta_train_stops.csv" \
-		--area_file="data/transformed/community_area.csv" \
-		--output_file="data/transformed/cta_train_stops.csv"
 
 data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 	python3 transform/sidewalk_cafe.py \
@@ -372,7 +361,7 @@ data/extracted/cta_train_stops.csv:
 		--json_url="$(PORTAL_CTA_TRAIN_STOPS)" \
 		--soql_file="extract/cta_train_stops.sql" \
 		--output_file="data/extracted/cta_train_stops.csv"
-		
+
 
 # Exports For Frontend App
 
