@@ -4,5 +4,8 @@ CREATE TABLE cta_train_ridership(
     stationname TEXT,
     date DATE,
     daytype TEXT,
-    rides INTEGER
+    rides INTEGER,
+    dt TEXT,
+    week_num TEXT,
+    week TEXT
 );

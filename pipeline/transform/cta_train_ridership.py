@@ -1,7 +1,11 @@
+import sys
+sys.path.append("./")
+
 import argparse
 import pandas as pd
+import numpy as np
 from timeit import default_timer as timer
-
+from utils.data import extract_data_portal_dates
 
 cli = argparse.ArgumentParser(description="Transform CTA L Train ridership data.")
 cli.add_argument("--input_file", help="File path to read CTA L Train ridership data from.")
@@ -12,6 +16,9 @@ start = timer()
 
 # Read file
 df = pd.read_csv(args.input_file)
+
+# add week column
+df = extract_data_portal_dates(df, col="date", prefix="")
 
 # Write output
 df.to_csv(args.output_file, index=False)
