@@ -218,6 +218,12 @@ export const timelineMetrics = {
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
+  weekly_cta_train_ridership: {
+    name: "Weekly CTA Train Ridership",
+    units: "trips",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
 };
 
 export const scatterExplorerDefaults = {
