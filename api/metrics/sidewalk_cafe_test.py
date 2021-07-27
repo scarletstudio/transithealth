@@ -54,16 +54,16 @@ def test_total_permits_per_day():
 
     
     assert metric.get_total_permits_day() == [
-        {"date": "2002-05-07", "number_of_permits_per_day": 2 },
-        {"date": "2002-07-01", "number_of_permits_per_day": 1 },
-        {"date": "2005-06-09", "number_of_permits_per_day": 1 },
-        {"date": "2021-06-04", "number_of_permits_per_day": 1 }
+        {"date": "2002-05-07", "number_of_permits": 2 },
+        {"date": "2002-07-01", "number_of_permits": 1 },
+        {"date": "2005-06-09", "number_of_permits": 1 },
+        {"date": "2021-06-04", "number_of_permits": 1 }
         ], "Should have 4 results. Check if number of permits are correct"
     
     assert metric.get_total_permits_year() == [
-        {"year": "2002", "number_of_permits_per_year": 3 },
-        {"year": "2005", "number_of_permits_per_year": 1 },
-        {"year": "2021", "number_of_permits_per_year": 1 }
+        {"year": "2002", "number_of_permits": 3 },
+        {"year": "2005", "number_of_permits": 1 },
+        {"year": "2021", "number_of_permits": 1 }
         ], "Should have 3 results. Check if number of permits are correct"
     
 

@@ -15,7 +15,7 @@ class SidewalkCafeMetrics:
         query = """
         SELECT
             issued_date_dt as date,
-            count(issued_date_dt) as number_of_permits_per_day
+            count(issued_date_dt) as number_of_permits
         FROM sidewalk_cafe
         GROUP BY date
         """
@@ -32,7 +32,7 @@ class SidewalkCafeMetrics:
         query = """
         SELECT
             strftime('%Y', issued_date_dt) as year,
-            count(issued_date_dt) as number_of_permits_per_year
+            count(issued_date_dt) as number_of_permits
         FROM sidewalk_cafe
         GROUP BY year
         """
