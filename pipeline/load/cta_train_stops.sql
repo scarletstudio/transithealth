@@ -18,5 +18,6 @@ CREATE TABLE cta_train_stops(
     orange INTEGER,
     longitude REAL,
     latitude REAL,
+    area_number INTEGER,
     PRIMARY KEY(station_id, stop_id)
 );

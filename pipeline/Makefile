@@ -228,9 +228,10 @@ data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
 		--input_file="data/extracted/cta_train_ridership.csv" \
 		--output_file="data/transformed/cta_train_ridership.csv"
 
-data/transformed/cta_train_stops.csv: data/extracted/cta_train_stops.csv
+data/transformed/cta_train_stops.csv: data/extracted/cta_train_stops.csv data/transformed/community_area.csv
 	python3 transform/cta_train_stops.py \
 		--input_file="data/extracted/cta_train_stops.csv" \
+		--area_file="data/transformed/community_area.csv" \
 		--output_file="data/transformed/cta_train_stops.csv"
 
 data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
