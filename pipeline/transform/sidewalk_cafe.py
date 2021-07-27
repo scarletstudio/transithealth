@@ -25,7 +25,8 @@ raw_df = pd.read_csv(args.input_file)
 
 #Parse dates
 df = extract_data_portal_dates(raw_df, col="issued_date")
-df = extract_data_portal_dates(df, col="expiration_date")
+#If expiration date is null this will fail
+#df = extract_data_portal_dates(df, col="expiration_date")
 
 #Drop lat lon columns (too many null)
 df.drop([

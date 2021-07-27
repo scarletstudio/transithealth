@@ -10,3 +10,4 @@ SELECT
     latitude,
     longitude
 WHERE issued_date <= "2021-07-15"
+LIMIT 100000

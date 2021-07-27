@@ -220,6 +220,18 @@ export const timelineMetrics = {
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
+  daily_sidewalk_cafe_permit: {
+    name: "Daily Sidewalk Cafe Permits",
+    units: "permits",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  yearly_sidewalk_cafe_permit: {
+    name: "Yearly Sidewalk Cafe Permits",
+    units: "permits",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
 };
 
 export const scatterExplorerDefaults = {
