@@ -31,10 +31,10 @@ class SidewalkCafeMetrics:
         """
         query = """
         SELECT
-            strftime('%Y', issued_date_dt) || "-01-01" as year,
+            strftime('%Y', issued_date_dt) || "-01-01" as date,
             count(issued_date_dt) as value
         FROM sidewalk_cafe
-        GROUP BY year
+        GROUP BY date
         """
         
         cur = self.con.cursor()
