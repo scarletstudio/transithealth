@@ -20,8 +20,8 @@ def make_blueprint(con):
     start_week_2018 = "2018-01-01"
     start_week_covid = "2020-03-02"
     
-    start_2019_trains = "2019-01"
-    start_covid_trains = "2020-08"
+    start_2019_trains = "2019-01-01"
+    start_covid_trains = "2020-03-02"
 
     supported_metrics = {
         "weekly_rideshare_pickups": lambda: weekly_metric.rideshare_pickups(since=start_week_2018),

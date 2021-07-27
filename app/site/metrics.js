@@ -226,6 +226,12 @@ export const timelineMetrics = {
     format: Formatter.numberWithCommas,
     fullFormat: Formatter.numberWithCommas,
   },
+  weekly_cta_train_ridership_covid: {
+    name: "Weekly CTA Train Ridership Since COVID-19",
+    units: "trips",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
   daily_sidewalk_cafe_permit: {
     name: "Daily Sidewalk Cafe Permits",
     units: "permits",
