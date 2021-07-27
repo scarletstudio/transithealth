@@ -138,6 +138,13 @@ data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
 		--input_file="data/transformed/cta_train_ridership.csv" \
 		--create_sql="load/cta_train_ridership.sql" \
 		--table_name="cta_train_ridership"
+		
+data/loaded/cta_train_stops.txt: data/transformed/cta_train_stops.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/cta_train_stops.csv" \
+		--create_sql="load/cta_train_stops.sql" \
+		--table_name="cta_train_stops"
 
 data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	python3 load/create_table.py \
@@ -222,6 +229,11 @@ data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
 		--input_file="data/extracted/cta_train_ridership.csv" \
 		--output_file="data/transformed/cta_train_ridership.csv"
 
+data/transformed/cta_train_stops.csv: data/extracted/cta_train_stops.csv data/transformed/community_area.csv
+	python3 transform/cta_train_stops.py \
+		--input_file="data/extracted/cta_train_stops.csv" \
+		--area_file="data/transformed/community_area.csv" \
+		--output_file="data/transformed/cta_train_stops.csv"
 
 data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 	python3 transform/sidewalk_cafe.py \
