@@ -91,6 +91,7 @@ function CustomToolTip({ active, payload, label, metrics, selectedPayload }) {
 }
 
 function TimelineChart({ data, metrics }) {
+  console.log(data)
   const selectedMetricIds = metrics
     .filter(m => m.axis !== "none")
     .map(m => m.id);
@@ -101,10 +102,12 @@ function TimelineChart({ data, metrics }) {
     // Only keep dates with values for selected metrics
     .filter(d => hasMetricValues(d, selectedMetricIds))
     // Convert each date from yyyy-MM-dd to local timestamp
-    .map(d => ({
+    .map(d => {
+      console.log(d)
+      return {
       ...d,
       timestamp: new Date(`${d.date} ?`).getTime(),
-    }));
+    }});
     
   const ticks = chartData
     .map(d => new Date(d.timestamp))
@@ -128,7 +131,11 @@ function TimelineChart({ data, metrics }) {
           type="number"
           domain={["dataMin", "dataMax"]}
           ticks={ticks}
-          tickFormatter={ts => dateFormatDateAxis.format(ts)}
+          tickFormatter={ts => {
+          console.log(ts)
+          return dateFormatDateAxis.format(ts)
+            
+          }}
         >
           <Label
             value="Date"
