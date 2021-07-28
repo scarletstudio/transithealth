@@ -19,13 +19,18 @@ const generateCSP = (nonce) => {
   // Create and join list of allowed URLs
   const urls = [
     'transithealth.herokuapp.com',
-    `${origin}` // TODO: Will this work?
+    `${origin}:*`
   ].join(' ')
   
   // Define the directives/values
   const csp = {
-    'default-src': `'none'`,
-    // TODO: Fill in the rest of the Content-Security-Policy directives and values
+    'default-src': `'self'`,
+    'script-src-elem': `'self' 'nonce-${nonce}' ${urls}`,
+    'style-src': `'unsafe-inline' https://fonts.googleapis.com`, 'script-src': `'self' 'nonce-${nonce}' ${urls}`,
+    'connect-src': `'self' ${urls}`,
+    'font-src': `https://fonts.gstatic.com`,
+    'img-src': `'self' ${urls}`,
+    'prefetch-src': `'self' 'nonce-${nonce}' ${urls}`,
   };
 
   // Override directives outside production
@@ -56,10 +61,11 @@ export default class MyDocument extends Document {
 
   render() {
     const { nonce, csp } = this.props;
-    // TODO: Add meta tag for header
     return (
       <Html>
-        <Head nonce={nonce} />
+        <Head nonce={nonce}>
+          <meta httpEquiv="Content-Security-Policy" content={csp} />
+        </Head>
         <body>
           <Main />
           <NextScript nonce={nonce} />
