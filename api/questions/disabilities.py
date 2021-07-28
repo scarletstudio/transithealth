@@ -49,3 +49,36 @@ class DisabilitiesMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+    
+    def disabilities_cta_metrics(self):
+        """
+        Compares average trips a year before and since covid 
+        per CTA train stop. Also displays if stop is ADA compatible or not. 
+        """
+        
+        query = """
+        SELECT 
+            c.station_id,
+            c.ada,
+            r.*
+        FROM cta_train_stops c
+            LEFT JOIN (
+                SELECT
+                    station_id,
+                    stationname,
+                    SUM(CASE WHEN date < '2021-03-01' THEN rides ELSE 0 END) / 365 AS avg_trips_before,
+                    SUM(CASE WHEN date >= '2020-03-01' THEN rides ELSE 0 END) / 365 AS avg_trips_since
+                FROM cta_train_ridership
+                WHERE 
+                    date >= '2019-03-01'
+                    AND date < '2021-03-01'
+                GROUP BY
+                    station_id
+                ) r
+            ON c.station_id = r.station_id
+            GROUP BY station_id
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
