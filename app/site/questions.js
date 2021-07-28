@@ -55,17 +55,17 @@ export const questionsParams = {
     component: "sidewalk-cafe-permits-years",
     description: "How many sidewalk cafe permits issued each year?",
   },
+  "disabilities-and-transportation": {
+    title: "Transportation for Individuals with Disabilities",
+    author: "Maria Garcia",
+    component: "disabilities-and-transportation",
+    description: "It is common for individuals with disabilities to also have underlying diseases that make them at risk for COVID-19. How has COVID-19 impacted the ability of those with disabilities to travel throughout Chicago?",
+  },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
     author: "Templates",
     component: "template-with-pie-chart",
     description: "This page has a pie chart.",
-  },
-  "sample": {
-    title: "Sample Question",
-    author: "Student A",
-    component: "sample",
-    description: "This is a sample question.",
   },
   "another": {
     title: "Another Question",
