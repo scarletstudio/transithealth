@@ -1,8 +1,8 @@
 /* global fetch */
 
 import { useState, useEffect } from 'react'
-import { MetricSelector } from '../components/Common'
 import ChicagoMap from '../components/ChicagoMap'
+import SearchableMetricSelector from '../components/SearchableMetricSelector'
 import {
   communityMetrics,
   scatterExplorerDefaults
@@ -191,7 +191,7 @@ export default function CommunityScatterExplorer({ communityAreas }) {
     <div>
       <h2>{mapData && areaNumber > 0 ? selectedAreaData.name : "By Community Area"}</h2>
       <div className="SelectorContainer">
-        <MetricSelector
+        <SearchableMetricSelector
           label="X Axis"
           supportedMetrics={supportedMetrics}
           defaultValue={metricX}
@@ -204,7 +204,7 @@ export default function CommunityScatterExplorer({ communityAreas }) {
         }</span>
         <span className="spacer"> </span>
         <br />
-        <MetricSelector
+        <SearchableMetricSelector
           label="Y Axis"
           supportedMetrics={supportedMetrics}
           defaultValue={metricY}
