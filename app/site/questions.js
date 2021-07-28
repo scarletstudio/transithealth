@@ -6,6 +6,7 @@ import ResidentsWithDisabilities from '../components/questions/ResidentsWithDisa
 import BelongingRates from '../components/questions/BelongingRates'
 import RentBurdenedRates from '../components/questions/RentBurdenRates'
 import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermitsYears'
+import DisabilitiesAndTransportation from '../components/questions/DisabilitiesAndTransportation'
 
 export const questionComponents = {
   "sample": Sample,
@@ -16,6 +17,7 @@ export const questionComponents = {
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
   "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
+  "disabilities-and-transportation" : DisabilitiesAndTransportation,
 };
 
 export const questionsParams = {
