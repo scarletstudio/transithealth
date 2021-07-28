@@ -1,7 +1,7 @@
 /* global fetch */
 
 import { useState, useEffect, useRef } from 'react'
-import { MetricSelector } from '../components/Common'
+import SearchableMetricSelector  from '../components/SearchableMetricSelector'
 import {
   timelineMetrics,
   timelineExplorerDefaults
@@ -195,7 +195,8 @@ function TimelineMetrics({ metrics, setMetrics }) {
         );
       })}
       <div className="MetricEditor">
-        <MetricSelector
+        <SearchableMetricSelector
+          label=""
           supportedMetrics={supportedMetrics}
           defaultValue={defaultMetricToAdd}
           onChange={setMetricToAdd}
