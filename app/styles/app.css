@@ -247,7 +247,32 @@ nav a:hover {
     padding: 10px
 }
 
+.SearchableMetricSelector .selectorButton {
+    width: 500px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    
+}
 
+@media screen and (max-width: 500px) {
+    
+    .SearchableMetricSelector .selectorButton{
+        width: calc(100vw - 4em);
+        display: block;
+    }
+    
+    .SearchableMetricSelector .modal-content {
+        width:100%;
+    }
+    
+    .SearchableMetricSelector .selectorLabel{
+        margin: 1em 0;
+        display: block;
+    }
+    
+}
 
 button {
     font-family: 'Noto Sans SC', sans-serif;
