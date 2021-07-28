@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 
 function Modal(props){
-  const { supportedMetrics } = props;
-  if(!props.show){
+  const { supportedMetrics, onClose, show } = props;
+  if(!show){
     return null;
   }
   const modalStyle = {
@@ -32,7 +32,7 @@ function Modal(props){
   }
   
   return (
-    <div className="SelectorModal" onClick={props.onClose} style={modalStyle} >
+    <div className="SelectorModal" onClick={onClose} style={modalStyle} >
         <div className="modal-content" onClick={e => e.stopPropagation() } style={modalContentStyle} >
           <div className="modal-header" style={modalHeader} >
             <h4 className="modal-title">Select your Metric</h4>
@@ -45,7 +45,7 @@ function Modal(props){
             </span>
           </div>
           <div className="modal-footer" style={modalHeader}>
-            <button className="button" onClick={props.onClose} >Close</button>
+            <button className="button" onClick={onClose} >Close</button>
           </div>
         </div>
       </div>
