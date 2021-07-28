@@ -117,3 +117,52 @@ class DisabilitiesMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+        
+    def disabilities_cta_by_community_area(self):
+        """
+        Returns the average number of rides per cta stop a year before 
+        and since covid, by community area. 
+        """
+        
+        query = """
+        SELECT 
+            c.name,
+            c.part,
+            c.population,
+            c.area_number,
+            r.*,
+            d.*
+        FROM community_area c
+            LEFT JOIN (
+                SELECT 
+                    area_number,
+                    SUM(CASE WHEN date < '2021-03-01' THEN rides ELSE 0 END) / 365 AS avg_trips_before,
+                    SUM(CASE WHEN date >= '2020-03-01' THEN rides ELSE 0 END) / 365 AS avg_trips_since
+                FROM (
+                    SELECT 
+                        cta_train_ridership.*,
+                        cta_train_stops.area_number
+                    FROM cta_train_ridership
+                    LEFT JOIN cta_train_stops 
+                        ON cta_train_ridership.station_id = cta_train_stops.station_id          
+                )
+                WHERE 
+                    date >= '2019-03-01'
+                    AND date < '2021-03-01'
+                GROUP BY 
+                    area_number 
+            ) r
+                ON c.area_number = r.area_number
+            LEFT JOIN (
+                SELECT *
+                FROM disabilities
+                WHERE period_end_year = 2019
+                AND segment = 'all'
+            ) d 
+                ON c.area_number = d.area_number
+
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
