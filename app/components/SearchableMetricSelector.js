@@ -35,7 +35,7 @@ function Modal(props){
     <div className="SelectorModal" onClick={props.onClose} style={modalStyle} >
         <div className="modal-content" onClick={e => e.stopPropagation() } style={modalContentStyle} >
           <div className="modal-header" style={modalHeader} >
-            <h4 className="modal-title">Select your Metrics</h4>
+            <h4 className="modal-title">Select your Metric</h4>
           </div>
           <div className="modal-body" style={modalBody} >
             <span>
