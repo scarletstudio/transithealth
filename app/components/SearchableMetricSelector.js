@@ -38,7 +38,7 @@ function Modal(props){
               <p>{searchResultsMessage}</p>
             
             </div>
-            <div>
+            <div className="searchResults">
               {searchResults.map((k, i) => (
                 <p 
                 key={i} 
