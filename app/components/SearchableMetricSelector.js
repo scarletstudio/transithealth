@@ -11,7 +11,7 @@ function Modal(props){
     top: 0,
     bottom: 0,
     position: "fixed",
-    zIndex: 2,
+    zIndex: 1,
     backgroundColor: "rgba(0,0,0,0.5)",
     display: "flex",
     alignItems: "center",
@@ -55,9 +55,6 @@ function Modal(props){
 export default function SearchableMetricSelector(props) {
   const { label, supportedMetrics, defaultValue, onChange } = props;
   const [show, setShow] = useState(0)
-  const modalDisplay = {
-    zIndex: 10
-  }
   
   return (
     <div className="SearchableMetricSelector">
@@ -67,7 +64,7 @@ export default function SearchableMetricSelector(props) {
         <button id="pickBtn" onClick={() => setShow(1)}>Select Metric Here</button>
       </div>
       
-      <Modal supportedMetrics={supportedMetrics} onClose={() => setShow(0)} show={show} style={modalDisplay} />
+      <Modal supportedMetrics={supportedMetrics} onClose={() => setShow(0)} show={show} />
       
     </div>
   )
