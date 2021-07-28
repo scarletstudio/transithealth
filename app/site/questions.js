@@ -5,6 +5,7 @@ import RidesharesAcrossCity from '../components/questions/RidesharesAcrossCity'
 import ResidentsWithDisabilities from '../components/questions/ResidentsWithDisabilities'
 import BelongingRates from '../components/questions/BelongingRates'
 import RentBurdenedRates from '../components/questions/RentBurdenRates'
+import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermitsYears'
 
 export const questionComponents = {
   "sample": Sample,
@@ -14,6 +15,7 @@ export const questionComponents = {
   "residents-with-disabilities": ResidentsWithDisabilities,
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
+  "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
 };
 
 export const questionsParams = {
@@ -46,6 +48,12 @@ export const questionsParams = {
     author: "William Javier",
     component: "rent-burden-rates",
     description: "What is the rent burden rate of a given neighborhood for the year?",
+  },
+  "sidewalk-cafe-permits-years": {
+    title: "Sidewalk Cafe Permits Over the Years",
+    author: "Asude Ozturk",
+    component: "sidewalk-cafe-permits-years",
+    description: "How many sidewalk cafe permits issued each year?",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",

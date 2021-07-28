@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from api.metrics.community import CommunityMetrics
 from api.metrics.rent_burdened import RentBurdenedMetrics
+from api.metrics.taxitrips import TaxiTripMetrics
 
 
 def make_blueprint(con):
@@ -12,6 +13,7 @@ def make_blueprint(con):
     
     metric = CommunityMetrics(con)
     metric_rbu = RentBurdenedMetrics(con)
+    metric_tt = TaxiTripMetrics(con)
 
     supported_metrics = {
         "rideshare_pickups_covid": metric.rideshare_total_pickups,
@@ -36,7 +38,9 @@ def make_blueprint(con):
         "rent_burdened_2019": lambda: metric_rbu.rent_burdened(year=2019, segment="all"),
         "rent_max": lambda: metric_rbu.rent_max_burdened(),
         "rent_min": lambda: metric_rbu.rent_min_burdened(),
-        "rent_average": lambda: metric_rbu.rent_average_burden_area()
+        "rent_average": lambda: metric_rbu.rent_average_burden_area(),
+        "avg_speed_per_dropoff": lambda: metric_tt.get_avg_speed_per_dropoff(),
+        "avg_speed_per_pickup": lambda: metric_tt.get_avg_speed_per_pickup()
     }
 
 

@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from api.metrics.weekly import WeeklyMetrics
 from api.metrics.yearly import YearlyMetrics
+from api.metrics.cta_train_ridership import TrainWeeklyMetrics
 from api.metrics.sidewalk_cafe import SidewalkCafeMetrics
 
 
@@ -13,10 +14,14 @@ def make_blueprint(con):
     
     weekly_metric = WeeklyMetrics(con)
     yearly_metric = YearlyMetrics(con)
+    train_weekly_metric = TrainWeeklyMetrics(con)
     sidewalk_cafe_metric = SidewalkCafeMetrics(con)
 
     start_week_2018 = "2018-01-01"
     start_week_covid = "2020-03-02"
+    
+    start_2019_trains = "2019-01-01"
+    start_covid_trains = "2020-03-02"
 
     supported_metrics = {
         "weekly_rideshare_pickups": lambda: weekly_metric.rideshare_pickups(since=start_week_2018),
@@ -29,6 +34,8 @@ def make_blueprint(con):
         "yearly_belonging_rate_B": lambda: yearly_metric.belonging("B"),
         "yearly_belonging_rate_A": lambda: yearly_metric.belonging("A"),
         "yearly_belonging_rate_H": lambda: yearly_metric.belonging("H"),
+        "weekly_cta_train_ridership": lambda: train_weekly_metric.cta_train_ridership_weekly(since = start_2019_trains),
+        "weekly_cta_train_ridership_covid": lambda: train_weekly_metric.cta_train_ridership_weekly(since = start_covid_trains),
         "daily_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_day,
         "yearly_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_year,
     }

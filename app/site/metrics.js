@@ -156,7 +156,20 @@ export const communityMetrics = {
     units: "of households",
     format: Formatter.percentWithOneDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
-  }
+  },
+  avg_speed_per_dropoff: {
+    name: "Average Taxi Trip Speed Per Dropoff Area",
+    units: "mph",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas
+  },
+  avg_speed_per_pickup: {
+    name: "Average Taxi Trip Speed Per Pickup Area",
+    units: "mph",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  
 };
 
 export const timelineMetrics = {
@@ -219,6 +232,18 @@ export const timelineMetrics = {
     units: "of people",
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
+  },
+  weekly_cta_train_ridership: {
+    name: "Weekly CTA Train Ridership",
+    units: "trips",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  weekly_cta_train_ridership_covid: {
+    name: "Weekly CTA Train Ridership Since COVID-19",
+    units: "trips",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
   },
   daily_sidewalk_cafe_permit: {
     name: "Daily Sidewalk Cafe Permits",
