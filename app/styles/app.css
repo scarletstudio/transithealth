@@ -211,13 +211,13 @@ nav a:hover {
     padding-right: 1em;
 }
 
-.SearchableMetricSelector {
+.searchableMetricSelector {
     display: inline-block;
     padding: 0.5em 0;
     padding-right: 1em;
 }
 
-.SearchableMetricSelector .SelectorModal {
+.searchableMetricSelector .selectorModal {
     left: 0;
     right: 0;
     top: 0;
@@ -230,24 +230,37 @@ nav a:hover {
     justify-content: center;
 }
 
-.SearchableMetricSelector .modal-content {
+.searchableMetricSelector .modalContent {
     width: 500px;
     background-color: white;
 }
 
-.SearchableMetricSelector .modal-body {
+.searchableMetricSelector .modalBody {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     max-height: calc(100vh - 210px);
     overflow-y: auto;
 }
 
-.SearchableMetricSelector .modal-header, 
-.SearchableMetricSelector .modal-footer {
+.searchableMetricSelector .searchBar {
+    border-bottom: 1px solid #eee;
+}
+
+.searchableMetricSelector .searchResults p {
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.searchableMetricSelector .searchResults p:hover {
+    background-color: rgba(180, 180, 180, 0.5);
+    cursor: pointer;
+}
+
+.searchableMetricSelector .modalHeader, 
+.searchableMetricSelector .modalFooter {
     padding: 10px
 }
 
-.SearchableMetricSelector .selectorButton {
+.searchableMetricSelector .selectorButton {
     width: 500px;
     text-align: left;
     text-overflow: ellipsis;
@@ -258,16 +271,16 @@ nav a:hover {
 
 @media screen and (max-width: 500px) {
     
-    .SearchableMetricSelector .selectorButton{
+    .searchableMetricSelector .selectorButton{
         width: calc(100vw - 4em);
         display: block;
     }
     
-    .SearchableMetricSelector .modal-content {
+    .searchableMetricSelector .modalContent {
         width:100%;
     }
     
-    .SearchableMetricSelector .selectorLabel{
+    .searchableMetricSelector .selectorLabel{
         margin: 1em 0;
         display: block;
     }

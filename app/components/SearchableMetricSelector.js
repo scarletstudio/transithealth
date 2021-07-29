@@ -21,12 +21,12 @@ function Modal(props){
     : `Showing results for ${searchText}`
     
   return (
-    <div className="SelectorModal" onClick={onClose} >
-        <div className="modal-content" onClick={e => e.stopPropagation() } >
-          <div className="modal-header" >
-            <h4 className="modal-title">Select your Metric</h4>
+    <div className="selectorModal" onClick={onClose} >
+        <div className="modalContent" onClick={e => e.stopPropagation() } >
+          <div className="modalHeader" >
+            <h4 className="modalTitle">Select your Metric</h4>
           </div>
-          <div className="modal-body" >
+          <div className="modalBody" >
             <div className="searchBar"> 
               <p> <input 
                 type="text" 
@@ -38,7 +38,7 @@ function Modal(props){
               <p>{searchResultsMessage}</p>
             
             </div>
-            <div>
+            <div className="searchResults">
               {searchResults.map((k, i) => (
                 <p 
                 key={i} 
@@ -50,7 +50,7 @@ function Modal(props){
               ))}
             </div>
           </div>
-          <div className="modal-footer" >
+          <div className="modalFooter" >
             <button className="closeButton" onClick={onClose} >Close</button>
           </div>
         </div>
@@ -64,9 +64,9 @@ export default function SearchableMetricSelector(props) {
   const [selectedMetric, setSelectedMetric] = useState(defaultValue)
   
   return (
-    <div className="SearchableMetricSelector">
+    <div className="searchableMetricSelector">
     
-      <div className="SelectorBody"> 
+      <div className="selectorBody"> 
         { label ? (<span className="bold selectorLabel">{label}: </span>) : null }
         <button className="selectorButton" onClick={() => setShow(1)}>{supportedMetrics[selectedMetric].name}</button>
       </div>
