@@ -217,7 +217,7 @@ nav a:hover {
     padding-right: 1em;
 }
 
-.SearchableMetricSelector .SelectorModal {
+.SearchableMetricSelector .selectorModal {
     left: 0;
     right: 0;
     top: 0;
@@ -230,12 +230,12 @@ nav a:hover {
     justify-content: center;
 }
 
-.SearchableMetricSelector .modal-content {
+.SearchableMetricSelector .modalContent {
     width: 500px;
     background-color: white;
 }
 
-.SearchableMetricSelector .modal-body {
+.SearchableMetricSelector .modalBody {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     max-height: calc(100vh - 210px);
@@ -251,8 +251,8 @@ nav a:hover {
     cursor: pointer;
 }
 
-.SearchableMetricSelector .modal-header, 
-.SearchableMetricSelector .modal-footer {
+.SearchableMetricSelector .modalHeader, 
+.SearchableMetricSelector .modalFooter {
     padding: 10px
 }
 
@@ -272,7 +272,7 @@ nav a:hover {
         display: block;
     }
     
-    .SearchableMetricSelector .modal-content {
+    .SearchableMetricSelector .modalContent {
         width:100%;
     }
     
