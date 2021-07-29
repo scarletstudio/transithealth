@@ -46,13 +46,13 @@ function transformData(response, error, selectedArea, selectedYear) {
       label: "Rent Burdened Households",
       value: areaData[rentYear],
       valueFormatted: Formatter.percentWithOneDecimal(areaData[rentYear]),
-      color: Color.Maroon
+      color: Color.Maroon,
     },
     {
       label: "Not Rent Burdened Households",
       value: 1 - areaData[rentYear],
       valueFormatted: Formatter.percentWithOneDecimal(1 - areaData[rentYear]),
-      color: Color.Forest
+      color: Color.Forest,
     },
     ]
 
@@ -239,7 +239,7 @@ export default function RentBurdenedRates(props) {
       </div>
       <div className="center medium-width">
         <p>
-        <span>Based on data from 2019, {areaData.rentBurdenRateFormatted} of households in {areaData.name} are rent burdened.</span>
+        <span>Based on data from {selectedYear}, {areaData.rentBurdenRateFormatted} of households in {areaData.name} are rent burdened.</span>
         </p>
       </div>
     </div>
