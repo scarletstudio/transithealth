@@ -21,34 +21,39 @@ const EMPTY_AREA = {
   rentBurdenRateFormatted: "?",
 };
 
-function transformData(response, error, selectedArea) {
+function transformData(response, error, selectedArea, selectedYear) {
   if (!response || error) {
     return {
       chartData: [],
       areaData: EMPTY_AREA,
     }
   }
+  
+  var rentYear = ((selectedYear === 2019) ? 'rent_burdened_2019'
+                  :(selectedYear === 2018) ? 'rent_burdened_2018'
+                  :(selectedYear === 2017) ? 'rent_burdened_2017'
+                  : 'Error');
 
   const areaData = response.metrics.map(d => ({
     // Get all fields from original record
     ...d,
     // Add formatted data
-    rentBurdenRateFormatted: Formatter.percentWithOneDecimal(d.rent_burdened_2019),
+    rentBurdenRateFormatted: Formatter.percentWithOneDecimal(d[rentYear]), 
   })).filter(d => d.area_number===selectedArea)[0];
-  
+
   const data = [
     {
       label: "Rent Burdened Households",
-      value: areaData.rent_burdened_2019,
-      valueFormatted: Formatter.percentWithOneDecimal(areaData.rent_burdened_2019),
-      color: Color.Indigo
+      value: areaData[rentYear],
+      valueFormatted: Formatter.percentWithOneDecimal(areaData[rentYear]),
+      color: Color.Maroon
     },
     {
       label: "Not Rent Burdened Households",
-      value: 1 - areaData.rent_burdened_2019,
-      valueFormatted: Formatter.percentWithOneDecimal(1 - areaData.rent_burdened_2019),
-      color: Color.Salmon
-    }
+      value: 1 - areaData[rentYear],
+      valueFormatted: Formatter.percentWithOneDecimal(1 - areaData[rentYear]),
+      color: Color.Forest
+    },
     ]
 
   
@@ -64,7 +69,7 @@ function ExamplePieChart(props) {
   if(!data?.[0]?.value){
     return null;
   }
-  
+
   const tooltipStyle = {
     backgroundColor: "white", 
     borderColor: "LightGrey", 
@@ -141,6 +146,27 @@ function ExamplePieChart(props) {
   );
 }
 
+function YearSelector(props) {
+  if(!props.data){
+    return (
+      <p>Waiting for data...</p>
+    )
+  }
+  
+  const handleChange = (e) => props.handleChange(parseInt(e.target.value))
+
+  return (
+    <div>
+      <p>Select a Year of Interest</p>
+      <select onChange={handleChange}>
+        {props.data.map((d, i) => (
+          <option key={i} value={d}>{d}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
 function AreaSelector(props) {
   if(!props.data){
     return (
@@ -149,7 +175,7 @@ function AreaSelector(props) {
   }
   
   const handleChange = (e) => props.handleChange(parseInt(e.target.value))
-  
+
   return (
     <div>
       <p>Select an Area of Interest</p>
@@ -185,10 +211,14 @@ function AreaRentBurdenedMessage(props) {
 export default function RentBurdenedRates(props) {
   const { loading, error, data } = useFetch(ENDPOINT, {
     method: "POST",
-    body: JSON.stringify({metrics: ["rent_burdened_2019"]})
+    body: JSON.stringify({metrics: ["rent_burdened_2019","rent_burdened_2018","rent_burdened_2017"]})
   }, []);
+  const years = [
+    2019,2018,2017
+  ]
   const [selectedArea, setSelectedArea] = useState(1)
-  const { chartData, areaData } = transformData(data, error, selectedArea);
+  const [selectedYear, setSelectedYear] = useState(2019)
+  const { chartData, areaData } = transformData(data, error, selectedArea, selectedYear);
   
   useEffect(() => {
     props.setContentIsLoading(loading);
@@ -199,6 +229,7 @@ export default function RentBurdenedRates(props) {
       <div className="center medium-width">
         <h2>Rent Burdened Households Rate by Area</h2>
         <AreaSelector data={data} handleChange={setSelectedArea} />
+        <YearSelector data={years} handleChange={setSelectedYear} />
         <p>What percentage of households in {areaData.name} are rent burdened?</p>
         <FailureNotification error={error} data={data} />
       </div>
