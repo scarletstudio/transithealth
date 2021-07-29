@@ -26,7 +26,8 @@ const generateCSP = (nonce) => {
   const csp = {
     'default-src': `'self'`,
     'script-src-elem': `'self' 'nonce-${nonce}' ${urls}`,
-    'style-src': `'unsafe-inline' https://fonts.googleapis.com`, 'script-src': `'self' 'nonce-${nonce}' ${urls}`,
+    'style-src': `'self' 'nonce-${nonce}' ${urls} https://fonts.googleapis.com`, 
+    'script-src': `'self' 'nonce-${nonce}' ${urls}`,
     'connect-src': `'self' ${urls}`,
     'font-src': `https://fonts.gstatic.com`,
     'img-src': `'self' ${urls}`,
@@ -36,6 +37,7 @@ const generateCSP = (nonce) => {
   // Override directives outside production
   if (process.env.NODE_ENV !== 'production') {
     csp['script-src'] = `'self' 'unsafe-eval' 'nonce-${nonce}'`;
+    csp['style-src'] = `'self' 'unsafe-inline' ${urls} https://fonts.googleapis.com`;
   }
 
   // Convert to string and return
