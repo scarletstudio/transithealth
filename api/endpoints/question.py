@@ -13,7 +13,7 @@ def make_blueprint(con):
     
     metric_pooled = PooledTripMetrics(con)
     metric_disabilities = DisabilitiesMetrics(con)
-    metric_tt = TaxiTripMetrics(con)
+    metric_tt = TaxiTripQuestions(con)
     
     
     @app.route("/question/hello")
