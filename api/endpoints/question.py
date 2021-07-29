@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from api.questions.disabilities import DisabilitiesMetrics
 from api.questions.pooled_trips import PooledTripMetrics
+from api.questions.taxitrips import TaxiTripQuestions
 
 
 def make_blueprint(con):
@@ -12,6 +13,7 @@ def make_blueprint(con):
     
     metric_pooled = PooledTripMetrics(con)
     metric_disabilities = DisabilitiesMetrics(con)
+    metric_tt = TaxiTripMetrics(con)
     
     
     @app.route("/question/hello")
@@ -31,5 +33,11 @@ def make_blueprint(con):
         rideshare_metrics = metric_disabilities.disabilities_rideshare_metrics()
         return jsonify({ "rideshare_metrics": rideshare_metrics })
 
+    @app.route("/question/taxitrips")
+    def taxitrips():
+        most_common_dropoff_metrics = metric_tt.most_common_dropoff()
+        payment_per_pickup_metrics  = metric_tt.get_payment_type_by_pickup()
+        payment_per_dropoff_metrics = metric_tt.get_payment_type_by_dropoff()
+        return jsonify({ "taxitrip_metrics": taxitrip_metrics })
 
     return app
