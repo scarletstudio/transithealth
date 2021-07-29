@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, request
 from api.metrics.weekly import WeeklyMetrics
 from api.metrics.yearly import YearlyMetrics
 from api.metrics.sidewalk_cafe import SidewalkCafeMetrics
-
+from api.metrics.traffic_crahes import TrafficCrashMetrics
 
 def make_blueprint(con):
     """
@@ -14,7 +14,8 @@ def make_blueprint(con):
     weekly_metric = WeeklyMetrics(con)
     yearly_metric = YearlyMetrics(con)
     sidewalk_cafe_metric = SidewalkCafeMetrics(con)
-
+    traffic_crash_metric = TrafficCrashMetrics(con)
+    
     start_week_2018 = "2018-01-01"
     start_week_covid = "2020-03-02"
 
@@ -31,6 +32,7 @@ def make_blueprint(con):
         "yearly_belonging_rate_H": lambda: yearly_metric.belonging("H"),
         "daily_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_day,
         "yearly_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_year,
+        "yearly_traffic_crashes": traffic_crash_metric.traffic_crashes()
     }
 
     @app.route("/timeline/metrics", methods=["POST"])

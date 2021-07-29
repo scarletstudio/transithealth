@@ -232,6 +232,12 @@ export const timelineMetrics = {
     format: Formatter.numberWithCommas,
     fullFormat: Formatter.numberWithCommas,
   },
+  yearly_traffic_crashes: {
+    name: "Yearly Traffic Crashes",
+    units: "crashes",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  }
 };
 
 export const scatterExplorerDefaults = {
