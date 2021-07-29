@@ -64,9 +64,9 @@ export default function SearchableMetricSelector(props) {
   const [selectedMetric, setSelectedMetric] = useState(defaultValue)
   
   return (
-    <div className="SearchableMetricSelector">
+    <div className="searchableMetricSelector">
     
-      <div className="SelectorBody"> 
+      <div className="selectorBody"> 
         { label ? (<span className="bold selectorLabel">{label}: </span>) : null }
         <button className="selectorButton" onClick={() => setShow(1)}>{supportedMetrics[selectedMetric].name}</button>
       </div>
