@@ -242,6 +242,10 @@ nav a:hover {
     overflow-y: auto;
 }
 
+.SearchableMetricSelector .searchBar {
+    border-bottom: 1px solid #eee;
+}
+
 .SearchableMetricSelector .searchResults p:hover {
     background-color: rgba(180, 180, 180, 0.5);
     cursor: pointer;
