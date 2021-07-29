@@ -156,8 +156,8 @@ function YearSelector(props) {
   const handleChange = (e) => props.handleChange(parseInt(e.target.value))
 
   return (
-    <div>
-      <p>Select a Year of Interest</p>
+    <div style={{display:'inline-block'}}>
+      <p>Select the Year</p>
       <select onChange={handleChange}>
         {props.data.map((d, i) => (
           <option key={i} value={d}>{d}</option>
@@ -177,7 +177,7 @@ function AreaSelector(props) {
   const handleChange = (e) => props.handleChange(parseInt(e.target.value))
 
   return (
-    <div>
+    <div style={{display:'inline-block'}}>
       <p>Select an Area of Interest</p>
       <select onChange={handleChange}>
         {props.data.metrics.map((d, i) => (
@@ -227,7 +227,7 @@ export default function RentBurdenedRates(props) {
   return (
     <div>
       <div className="center medium-width">
-        <h2>Rent Burdened Households Rate by Area</h2>
+        <h2>Rent Burdened Households Rate by Area and Year</h2>
         <AreaSelector data={data} handleChange={setSelectedArea} />
         <YearSelector data={years} handleChange={setSelectedYear} />
         <p>What percentage of households in {areaData.name} are rent burdened?</p>
