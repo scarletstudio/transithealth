@@ -8,15 +8,21 @@ class TaxiTripQuestions:
     #takes in pickup_community_area and returns most common dropoff_community_area
     def most_common_dropoff(self):
         query = """
-        SELECT p.area_number, p.value
+        SELECT
+            pickup_community_area,
+            dropoff_community_area,
+            max(count) as max_count
         FROM (
-                SELECT pickup_community_area as area_number, dropoff_community_area as value,
+            SELECT
+                pickup_community_area,
+                dropoff_community_area,
                 count(1) as count
-                FROM  taxitrips
-                GROUP BY pickup_community_area, value
-                ORDER BY area_number, count asc
-        ) as p
-        GROUP BY p.area_number
+            FROM taxitrips
+            GROUP BY
+                pickup_community_area,
+                dropoff_community_area
+            )
+        GROUP BY pickup_community_area
         """
         cur = self.connection.cursor()
         cur.execute(query)
@@ -26,17 +32,21 @@ class TaxiTripQuestions:
     #gets most used payment type by pickup location
     def get_payment_type_by_pickup(self):
         query = """
-        SELECT area_number, value
+        SELECT
+            pickup_community_area,
+            payment_type,
+            max(count) as max_count
         FROM (
             SELECT
-                pickup_community_area as area_number,
-                payment_type as value,
-                count(*) as count
+                pickup_community_area,
+                payment_type,
+                count(1) as count
             FROM taxitrips
-            GROUP BY area_number, value
-        ) 
-        WHERE count == MAX(count)
-        GROUP BY area_number
+            GROUP BY
+                pickup_community_area,
+                payment_type
+            )
+        GROUP BY pickup_community_area
         """
         cur = self.connection.cursor()
         cur.execute(query)
@@ -46,17 +56,21 @@ class TaxiTripQuestions:
     #gets the most used payment type by dropoff location
     def get_payment_type_by_dropoff(self):
         query = """
-        SELECT q.area_number, q.value
-        FROM(
-            SELECT p.area_number, p.value, p.count
-            FROM (
-                SELECT dropoff_community_area as area_number, payment_type as value, count(1) as count
-                FROM  taxitrips
-                GROUP BY dropoff_community_area, payment_type
-            ) as p
-            GROUP BY p.area_number, p.count
-        ) as q
-        GROUP BY q.area_number
+        SELECT
+            dropoff_community_area,
+            payment_type,
+            max(count) as max_count
+        FROM (
+            SELECT
+                dropoff_community_area,
+                payment_type,
+                count(1) as count
+            FROM taxitrips
+            GROUP BY
+                dropoff_community_area,
+                payment_type
+            )
+        GROUP BY dropoff_community_area
         """
         cur = self.connection.cursor()
         cur.execute(query)
