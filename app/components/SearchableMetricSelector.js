@@ -7,32 +7,21 @@ function Modal(props){
     return null;
   }
   const searchTextLower = searchText.toLowerCase().trim()
-  const searchGroups = searchTextLower.length === 0 
-    ? Object.keys(supportedMetrics)
-    : Object.keys(supportedMetrics)
-    .filter((k) => {
-        const metric = supportedMetrics[k]
-        const metricType = metric.dataset
-        const metricTypeLower = metric.dataset.toLowerCase()
-      
-        return metricTypeLower.indexOf(searchTextLower) > -1
-      })
       
   const searchResults = searchTextLower.length === 0 
     ? Object.keys(supportedMetrics)
     : Object.keys(supportedMetrics)
       .filter((k) => {
         const metric = supportedMetrics[k]
-        const metricType = metric.dataset
         const metricNameLower = metric.name.toLowerCase()
-        const metricTypeLower = metric.dataset.toLowerCase()
-      
         return metricNameLower.indexOf(searchTextLower) > -1
       })
   const searchResultsMessage = searchTextLower.length === 0
     ? "Showing all Metrics"
     : `Showing results for ${searchText}`
     
+  const groups = [...new Set(Object.keys(supportedMetrics).map(q => supportedMetrics[q].dataset))];
+  
   return (
     <div className="selectorModal" onClick={onClose} >
         <div className="modalContent" onClick={e => e.stopPropagation() } >
@@ -59,7 +48,7 @@ function Modal(props){
                 onClick={ () => {
                   selectMetric(k)
                   onClose()  
-                } }
+                }}
                 >
                 {supportedMetrics[k].name}
                   <ul className="metricMetaData">
