@@ -33,11 +33,19 @@ def make_blueprint(con):
         rideshare_metrics = metric_disabilities.disabilities_rideshare_metrics()
         return jsonify({ "rideshare_metrics": rideshare_metrics })
 
-    @app.route("/question/taxitrips")
-    def taxitrips():
-        most_common_dropoff_metrics = metric_tt.most_common_dropoff()
-        payment_per_pickup_metrics  = metric_tt.get_payment_type_by_pickup()
-        payment_per_dropoff_metrics = metric_tt.get_payment_type_by_dropoff()
-        return jsonify({ "taxitrip_metrics": taxitrip_metrics })
+    @app.route("/question/most_common_dropoff")
+    def most_common_dropoff():
+        most_common_dropoff = metric_tt.most_common_dropoff()
+        return jsonify({ "most_common_dropoff": most_common_dropoff })
+        
+    @app.route("/question/payment_per_pickup")
+    def payment_per_pickup():
+        payment_per_pickup = metric_tt.get_payment_type_by_pickup()
+        return jsonify({ "payment_per_pickup": payment_per_pickup })
+        
+    @app.route("/question/payment_per_dropoff")
+    def payment_per_dropoff():
+        payment_per_dropoff = metric_tt.get_payment_type_by_dropoff()
+        return jsonify({ "payment_per_dropoff": payment_per_dropoff })
 
     return app
