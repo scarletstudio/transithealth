@@ -37,6 +37,18 @@ export const questionsParams = {
     component: "residents-with-disabilities",
     description: "Burnside is the neighborhood with the highest disability rate. What percentage of residents in Burnside, Chicago have an included disability?",
   },
+  "most-common-dropoff": {
+    title: "Where are people usually getting dropped off?",
+    author: "Leilah Alkatout",
+    component: "sample",
+    description: "People get dropped off in different community areas, but what's the most common dropoff area per pickup area?",
+  },
+  "popular-payment-method":{
+    title: "What is the most popular payment method?",
+    author: "Leilah Alkatout",
+    component: "sample",
+    description: "People in different areas of Chicago prefer using different methods of payment, what's the most popular method for each pickup and dropoff area?",
+  },
   "belonging-example": {
     title: "Belonging Rates of Chicago",
     author: "Fabian Abrego",
