@@ -15,7 +15,7 @@ SELECT
     latitude, 
     longitude
 WHERE
-    date_extract_y(crash_date) > 5
+    date_extract_y(crash_date) >= 2021
 ORDER BY 
     crash_date desc
-LIMIT 1000
+LIMIT 10000

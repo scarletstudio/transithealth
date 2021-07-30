@@ -32,7 +32,7 @@ def make_blueprint(con):
         "yearly_belonging_rate_H": lambda: yearly_metric.belonging("H"),
         "daily_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_day,
         "yearly_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_year,
-        "yearly_traffic_crashes": traffic_crash_metric.traffic_crashes()
+        "yearly_traffic_crashes": traffic_crash_metric.traffic_crashes_metric
     }
 
     @app.route("/timeline/metrics", methods=["POST"])
@@ -47,6 +47,7 @@ def make_blueprint(con):
             if metric_name in supported_metrics:
                 metric_fn = supported_metrics[metric_name]
                 for row in metric_fn():
+                    print(row)
                     key = row["date"]
                     if key not in res:
                         res[key] = { "date": key }

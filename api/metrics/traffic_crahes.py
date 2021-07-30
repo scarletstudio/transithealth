@@ -7,14 +7,29 @@ class TrafficCrashMetrics:
 
     def __init__(self, con):
         self.con = con
-
+    def traffic_crashes_metric(self):
+        """
+        Returns all traffic crashes
+        """
+        query = """
+        SELECT
+            crash_date as date,
+            count(crash_date) as value
+        FROM traffic_crashes
+        GROUP BY date
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+        
     def traffic_crashes(self):
         """
         Returns all traffic crashes
         """
         query = """
         SELECT
-            crash_date,
+            crash_date as date,
             posted_speed_limit,
             weather_condition,
             lighting_condition,
