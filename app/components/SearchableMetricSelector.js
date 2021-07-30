@@ -7,12 +7,25 @@ function Modal(props){
     return null;
   }
   const searchTextLower = searchText.toLowerCase().trim()
+  const searchGroups = searchTextLower.length === 0 
+    ? Object.keys(supportedMetrics)
+    : Object.keys(supportedMetrics)
+    .filter((k) => {
+        const metric = supportedMetrics[k]
+        const metricType = metric.dataset
+        const metricTypeLower = metric.dataset.toLowerCase()
+      
+        return metricTypeLower.indexOf(searchTextLower) > -1
+      })
+      
   const searchResults = searchTextLower.length === 0 
     ? Object.keys(supportedMetrics)
     : Object.keys(supportedMetrics)
       .filter((k) => {
         const metric = supportedMetrics[k]
+        const metricType = metric.dataset
         const metricNameLower = metric.name.toLowerCase()
+        const metricTypeLower = metric.dataset.toLowerCase()
       
         return metricNameLower.indexOf(searchTextLower) > -1
       })
@@ -40,13 +53,20 @@ function Modal(props){
             </div>
             <div className="searchResults">
               {searchResults.map((k, i) => (
-                <p 
+                <p
+                className="metricChoice"
                 key={i} 
                 onClick={ () => {
                   selectMetric(k)
                   onClose()  
                 } }
-                >{supportedMetrics[k].name}</p>
+                >
+                {supportedMetrics[k].name}
+                  <ul className="metricMetaData">
+                    <li>Dataset: {supportedMetrics[k].dataset}</li>
+                    <li>Description: {supportedMetrics[k].description}</li>
+                  </ul>
+                </p>
               ))}
             </div>
           </div>

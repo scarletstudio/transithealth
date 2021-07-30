@@ -246,13 +246,18 @@ nav a:hover {
     border-bottom: 1px solid #eee;
 }
 
-.searchableMetricSelector .searchResults p {
+.searchableMetricSelector .metricChoice {
     border-bottom: 1px solid #D3D3D3;
 }
 
-.searchableMetricSelector .searchResults p:hover {
+.searchableMetricSelector .metricChoice:hover {
     background-color: rgba(180, 180, 180, 0.5);
     cursor: pointer;
+}
+
+.metricChoice .metricMetaData {
+    padding-left: 20px;
+    font-size: 0.8em;
 }
 
 .searchableMetricSelector .modalHeader, 
