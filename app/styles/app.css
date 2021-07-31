@@ -201,6 +201,10 @@ nav a:hover {
 
 /* Forms */
 
+input {
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
 .SelectorContainer {
     margin: var(--font-size);
 }
@@ -620,4 +624,13 @@ a.btn {
     margin: var(--font-size);
     padding: var(--font-size);
     width: 350px;
+}
+
+
+@media screen and (max-width: 400px) {
+    
+    .SidewalkCafePermitSearch .SearchInput {
+        width: calc(100% - 4 * var(--font-size));
+    }
+
 }
