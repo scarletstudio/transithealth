@@ -101,7 +101,7 @@ function SimpleMetricSearchResults(props){
         const metricNameLower = metric.name.toLowerCase()
         return metricNameLower.indexOf(searchTextLower) > -1
       })
-      
+  console.log(searchResults)
   return ( 
     <div className="searchResults">
       {searchResults.map((k, i) => (
@@ -128,7 +128,7 @@ function SimpleMetricSearchResults(props){
 function GroupedMetricSearchResults(props){
   const { searchText, supportedMetrics, onClose, selectMetric } = props
   const searchTextLower = searchText.toLowerCase().trim()
-  const searchResults = searchTextLower === 0
+  const searchResults = searchTextLower.length === 0 
     ? Object.keys(supportedMetrics)
     : Object.keys(supportedMetrics)
       .filter((k) => {
@@ -136,6 +136,8 @@ function GroupedMetricSearchResults(props){
         const metricNameLower = metric.name.toLowerCase()
         return metricNameLower.indexOf(searchTextLower) > -1
       })
+      
+  
       
       
 }
