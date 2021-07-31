@@ -125,13 +125,13 @@ class DisabilitiesMetrics:
         """
         
         query = """
-        SELECT 
+        SELECT
+            c.area_number,
             c.name,
             c.part,
             c.population,
-            c.area_number,
             r.*,
-            d.*
+            d.value as disability_rate
         FROM community_area c
             LEFT JOIN (
                 SELECT 

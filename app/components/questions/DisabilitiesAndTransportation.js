@@ -83,21 +83,21 @@ const CTA_COLS = [
   }
 ];
 
-function augmentMetrics(metrics) {
-  return metrics.map((d) => {
-    return {
-      ...d,
-      "pct_change_avg_rides": calculatePercentChange(
-        d["avg_trips_per_day_before"],
-        d["avg_trips_per_day_since"],
-      ),
-      "pct_change_avg_cost": calculatePercentChange(
-        d["avg_cost_per_trip_cents_before"],
-        d["avg_cost_per_trip_cents_since"],
-      ),
-    };
-  });
-}
+// function augmentMetrics(metrics) {
+//   return metrics.map((d) => {
+//     return {
+//       ...d,
+//       "pct_change_avg_rides": calculatePercentChange(
+//         d["avg_trips_per_day_before"],
+//         d["avg_trips_per_day_since"],
+//       ),
+//       "pct_change_avg_cost": calculatePercentChange(
+//         d["avg_cost_per_trip_cents_before"],
+//         d["avg_cost_per_trip_cents_since"],
+//       ),
+//     };
+//   });
+// }
 
 
 function transformData(res) {
