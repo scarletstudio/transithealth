@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from api.questions.disabilities import DisabilitiesMetrics
 from api.questions.pooled_trips import PooledTripMetrics
 from api.questions.taxitrips import TaxiTripQuestions
+from api.questions.sidewalk_search import SidewalkCafePermitSearch
 
 
 def make_blueprint(con):
@@ -14,6 +15,7 @@ def make_blueprint(con):
     metric_pooled = PooledTripMetrics(con)
     metric_disabilities = DisabilitiesMetrics(con)
     metric_tt = TaxiTripQuestions(con)
+    sidewalk_search = SidewalkCafePermitSearch(con)
     
     
     @app.route("/question/hello")
@@ -49,10 +51,12 @@ def make_blueprint(con):
         return jsonify({ "payment_per_dropoff": payment_per_dropoff })
 
     @app.route("/question/sidewalk_search", methods=["POST"])
-    def sidewalk_search():
+    def question_sidewalk_search():
         body = request.get_json()
         if "search" in body:
-            pass
+            search = body["search"]
+            permits = sidewalk_search.search_permits(search)
+            return jsonify({ "results": permits })
         return jsonify({ "results": [] })
 
     return app
