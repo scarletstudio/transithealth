@@ -48,4 +48,11 @@ def make_blueprint(con):
         payment_per_dropoff = metric_tt.get_payment_type_by_dropoff()
         return jsonify({ "payment_per_dropoff": payment_per_dropoff })
 
+    @app.route("/question/sidewalk_search", methods=["POST"])
+    def sidewalk_search():
+        body = request.get_json()
+        if "search" in body:
+            pass
+        return jsonify({ "results": [] })
+
     return app
