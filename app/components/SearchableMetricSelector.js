@@ -1,5 +1,45 @@
 import { useEffect, useState } from 'react'
 
+function sortDictionary(dictionary){
+    var sortedTagsArr = Object.entries(dictionary).sort((a,b) => b[1].length - a[1].length)
+    var retArr = [];
+    for(let i = 0; i < sortedTagsArr.length; i++){
+      var tempArr = sortedTagsArr[i]
+      var tempDict = {};
+      tempDict[tempArr[0]] = tempArr[1]
+      retArr.push(tempDict)
+    }
+    return retArr
+  }
+  
+function createTagDictionary(supportedMetrics){
+  const groups = [...new Set(Object.keys(supportedMetrics).map(q => supportedMetrics[q].dataset))];
+  const metricRecords = Object.keys(supportedMetrics)
+  var tagDictionary = {};
+  
+  for (var i in groups){
+    var groupedRecords = [];
+    for(var j in Object.keys(supportedMetrics)){
+      var record = Object.keys(supportedMetrics)[j]
+      if(groups[i].indexOf(supportedMetrics[record].dataset) > -1 ){
+        groupedRecords.push(metricRecords[j])
+      }
+    }
+    tagDictionary[groups[i]] = groupedRecords;
+  }
+  
+  return tagDictionary
+}
+
+function createDictArray(tagDictionary){
+  var tagDictArray = [];
+  var chunk_size = 1;
+  for ( var cols = Object.entries( tagDictionary ); cols.length; ){
+    tagDictArray.push( cols.splice(0, chunk_size).reduce( (o,[k,v])=>(o[k]=v,o), {}));
+  }
+  return tagDictArray;
+}
+
 function Modal(props){
   const { supportedMetrics, onClose, selectMetric, show } = props;
   const [searchText, setSearchText] = useState("")
@@ -20,7 +60,13 @@ function Modal(props){
     ? "Showing all Metrics"
     : `Showing results for ${searchText}`
     
-  const groups = [...new Set(Object.keys(supportedMetrics).map(q => supportedMetrics[q].dataset))];
+  var tagDictionary = createTagDictionary(supportedMetrics);
+  var tagDictArray = createDictArray(tagDictionary);
+  tagDictArray = sortDictionary(tagDictionary)
+  
+  console.log(supportedMetrics)
+  console.log(tagDictionary)
+  console.log(tagDictArray)
   
   return (
     <div className="selectorModal" onClick={onClose} >
