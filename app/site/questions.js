@@ -6,6 +6,7 @@ import ResidentsWithDisabilities from '../components/questions/ResidentsWithDisa
 import BelongingRates from '../components/questions/BelongingRates'
 import RentBurdenedRates from '../components/questions/RentBurdenRates'
 import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermitsYears'
+import SidewalkCafePermitSearch from '../components/questions/SidewalkCafePermitSearch'
 
 export const questionComponents = {
   "sample": Sample,
@@ -16,6 +17,7 @@ export const questionComponents = {
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
   "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
+  "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
 };
 
 export const questionsParams = {
@@ -66,6 +68,12 @@ export const questionsParams = {
     author: "Asude Ozturk",
     component: "sidewalk-cafe-permits-years",
     description: "How many sidewalk cafe permits issued each year?",
+  },
+  "sidewalk-cafe-permit-search": {
+    title: "Search Sidewalk Cafe Permits",
+    author: "Vinesh Kannan",
+    component: "sidewalk-cafe-permit-search",
+    description: "Which restaurants have sidewalk cafe permits?",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
