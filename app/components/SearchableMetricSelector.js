@@ -46,6 +46,10 @@ function Modal(props){
   if(!show){
     return null;
   }
+  var tagDictionary = createTagDictionary(supportedMetrics);
+  var tagDictArray = createDictArray(tagDictionary);
+  tagDictArray = sortDictionary(tagDictionary)
+  
   const searchTextLower = searchText.toLowerCase().trim()
       
   const searchResults = searchTextLower.length === 0 
@@ -60,9 +64,6 @@ function Modal(props){
     ? "Showing all Metrics"
     : `Showing results for ${searchText}`
     
-  var tagDictionary = createTagDictionary(supportedMetrics);
-  var tagDictArray = createDictArray(tagDictionary);
-  tagDictArray = sortDictionary(tagDictionary)
   
   console.log(supportedMetrics)
   console.log(tagDictionary)
