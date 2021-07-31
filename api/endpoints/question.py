@@ -29,7 +29,15 @@ def make_blueprint(con):
     @app.route("/question/disabilities")
     def disabilities():
         rideshare_metrics = metric_disabilities.disabilities_rideshare_metrics()
-        return jsonify({ "rideshare_metrics": rideshare_metrics })
-
-
+        cta_area_metrics = metric_disabilities.disabilities_cta_by_community_area()
+        cta_change_metrics = metric_disabilities.disabilities_cta_percent_change_metrics()
+        cta_station_ridership_metrics = metric_disabilities.disabilities_ridership_per_station_metrics()
+        return jsonify({ 
+            "rideshare_metrics": rideshare_metrics,
+            "cta_area_metrics" : cta_area_metrics,
+            "cta_change_metrics" : cta_change_metrics,
+            "cta_station_ridership_metrics" : cta_station_ridership_metrics
+        })
+        
     return app
+

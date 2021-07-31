@@ -19,8 +19,7 @@ import {
   calculatePercentChange,
 } from '../../site/metrics'
 
-const POOLED_TRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/pooled_trips`;
-const METRIC_POOLED_TRIP_RATE = "pooled_trip_rate_before";
+const DISABILITIES_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/disabilities`;
 const CITY_PART_COLOR = {
   "Central": "#332288",
   "Far North Side": "#1978AD",
@@ -32,84 +31,63 @@ const CITY_PART_COLOR = {
   "Southwest Side": "#AA4499",
   "West Side": "#882255",
 };
-const MIN_PCT_CHANGE_TRIPS = -0.8;
-const MAX_PCT_CHANGE_COST = 0.3;
-const RIDESHARE_COLS = [
+const MIN_PCT_CHANGE_RIDES = -0.8;
+const CTA_COLS = [
   {
     key: "area_number",
-    group: "Pickup Community Area",
+    group: "Community Area",
     name: "#",
   },
   {
     key: "name",
-    group: "Pickup Community Area",
+    group: "Community Area",
     name: "Name",
   },
   {
     key: "part",
-    group: "Pickup Community Area",
+    group: "Community Area",
     name: "Part",
   },
   {
-    key: "pooled_trip_rate_before",
-    group: "Pooled Trips",
-    name: "% of Trips",
-    format: Formatter.percentWithOneDecimal,
-    rowClasses: ["right"],
+    key: "station_name",
+    group: "Station",
+    name: "Name",
+  },
+  {
+    key: "ada",
+    group: "Station",
+    name: "ADA",
   },
   {
     key: "avg_trips_per_day_before",
-    group: "Trips/Day",
+    group: "Rides/Day",
     name: "Before",
     format: Formatter.numberWithCommas,
     rowClasses: ["right"],
   },
   {
     key: "avg_trips_per_day_since",
-    group: "Trips/Day",
+    group: "Rides/Day",
     name: "Since",
     format: Formatter.numberWithCommas,
     rowClasses: ["right"],
   },
   {
     key: "pct_change_avg_trips",
-    group: "Trips/Day",
+    group: "Rides/Day",
     name: "Change",
     format: Formatter.percentChangeWithNoDecimal,
     rowClasses: ["right"],
     rgb: "136, 34, 85",
-    alpha: (v) => (v / MIN_PCT_CHANGE_TRIPS),
-  },
-  {
-    key: "avg_cost_per_trip_cents_before",
-    group: "Cost/Trip",
-    name: "Before",
-    format: Formatter.centsToDollarsUSD,
-    rowClasses: ["right"],
-  },
-  {
-    key: "avg_cost_per_trip_cents_since",
-    group: "Cost/Trip",
-    name: "Since",
-    format: Formatter.centsToDollarsUSD,
-    rowClasses: ["right"],
-  },
-  {
-    key: "pct_change_avg_cost",
-    group: "Cost/Trip",
-    name: "Change",
-    format: Formatter.percentChangeWithNoDecimal,
-    rowClasses: ["right"],
-    rgb: "17, 119, 51",
-    alpha: (v) => (v / MAX_PCT_CHANGE_COST),
-  },
+    alpha: (v) => (v / MIN_PCT_CHANGE_RIDES),
+  }
 ];
 
 function augmentMetrics(metrics) {
   return metrics.map((d) => {
     return {
       ...d,
-      "pct_change_avg_trips": calculatePercentChange(
+      "pct_change_avg_rides": calculatePercentChange(
         d["avg_trips_per_day_before"],
         d["avg_trips_per_day_since"],
       ),
@@ -121,24 +99,15 @@ function augmentMetrics(metrics) {
   });
 }
 
-function getPooledTripsRateByArea(metrics) {
-  return metrics.sort((a, b) => {
-    return b[METRIC_POOLED_TRIP_RATE] - a[METRIC_POOLED_TRIP_RATE];
-  }).sort((a, b) => {
-    return a.part.localeCompare(b.part);
-  }).map((v) => ({
-    ...v,
-    [v.part]: v[METRIC_POOLED_TRIP_RATE],
-  }));
-}
 
 function transformData(res) {
   if (res) {
-    const metrics = augmentMetrics(res.metrics);
-    const pooledTripRate = getPooledTripsRateByArea(metrics);
-    return [ metrics, pooledTripRate ];
+    const cta_area_metrics = res.cta_area_metrics
+    const cta_change_metrics = res.cta_change_metrics
+    const cta_station_ridership_metrics = res.cta_station_ridership_metrics
+    return [ cta_area_metrics, cta_change_metrics, cta_station_ridership_metrics];
   }
-  return [ [], [] ];
+  return [ [], [], [] ];
 }
 
 function QuestionBarChart({ data }) {
@@ -151,7 +120,7 @@ function QuestionBarChart({ data }) {
         <CartesianGrid strokeDashArray="3 3" />
         <XAxis dataKey="name" tick={{ dy: 5 }}>
           <Label
-            value="Pickup Community Area"
+            value="Station Community Area"
             position="bottom"
             offset={10}
           />
@@ -183,9 +152,9 @@ function QuestionBarChart({ data }) {
   )
 }
 
-export default function PooledTrips(props) {
-  const { loading, error, data } = useFetch(POOLED_TRIPS_ENDPOINT, {}, []);
-  const [ metrics, pooledTripRate ] = transformData(data);
+export default function CTARides(props) {
+  const { loading, error, data } = useFetch(DISABILITIES_ENDPOINT, {}, []);
+  const [ rideshare_metrics, cta_area_metrics, cta_change_metrics, cta_station_ridership_metrics] = transformData(data);
 
   useEffect(() => {
     props.setContentIsLoading(loading);
@@ -197,44 +166,44 @@ export default function PooledTrips(props) {
     </Notification>
   ) : null;
 
-  const sortedByPooledRate = metrics.sort((a, b) => {
-    return b[METRIC_POOLED_TRIP_RATE] - a[METRIC_POOLED_TRIP_RATE];
-  });
-  const highestByPooledRate = sortedByPooledRate[0];
-  const lowestByPooledRate = sortedByPooledRate[sortedByPooledRate.length - 1];
-  const detailForPooledRate = sortedByPooledRate.length > 1 ? (
-      <p className="center">
-        <span className="bold">
-          {highestByPooledRate.name}
-        </span>
-        <span> has the highest rate of pooled trips (</span>
-        <span className="bold">
-          {Formatter.percentWithOneDecimal(highestByPooledRate[METRIC_POOLED_TRIP_RATE])}
-        </span>
-        <span>) while </span>
-        <span className="bold">
-          {lowestByPooledRate.name}
-        </span>
-        <span> has the lowest (</span>
-        <span className="bold">
-          {Formatter.percentWithOneDecimal(lowestByPooledRate[METRIC_POOLED_TRIP_RATE])}
-        </span>
-        <span>).</span>
-      </p>
-    ) : null;
+  // const sortedByPooledRate = metrics.sort((a, b) => {
+  //   return b[METRIC_POOLED_TRIP_RATE] - a[METRIC_POOLED_TRIP_RATE];
+  // });
+  // const highestByPooledRate = sortedByPooledRate[0];
+  // const lowestByPooledRate = sortedByPooledRate[sortedByPooledRate.length - 1];
+  // const detailForPooledRate = sortedByPooledRate.length > 1 ? (
+  //     <p className="center">
+  //       <span className="bold">
+  //         {highestByPooledRate.name}
+  //       </span>
+  //       <span> has the highest rate of residents with an included disability (</span>
+  //       <span className="bold">
+  //         {Formatter.percentWithOneDecimal(highestByPooledRate[METRIC_POOLED_TRIP_RATE])}
+  //       </span>
+  //       <span>) while </span>
+  //       <span className="bold">
+  //         {lowestByPooledRate.name}
+  //       </span>
+  //       <span> has the lowest (</span>
+  //       <span className="bold">
+  //         {Formatter.percentWithOneDecimal(lowestByPooledRate[METRIC_POOLED_TRIP_RATE])}
+  //       </span>
+  //       <span>).</span>
+  //     </p>
+  //   ) : null;
 
   return (
     <div className="QuestionPooledTrips">
       <div className="center medium-width">
-        <h2>Pooled Trip Rates by Community Area</h2>
-        <p>This chart shows the percentage of all rides that were pooled in the year before COVID, by community area where the rider was picked up.</p>
+        <h2>CTA Rides by Station Community Area</h2>
+        <p>*****EDIT****</p>
       </div>
-      <QuestionBarChart data={pooledTripRate} />
-      {detailForPooledRate}
+      <QuestionBarChart data={cta_area_metrics} />
+ 
       <br />
       <div className="center medium-width">
         <h2>Change Since COVID</h2>
-        <p>This table shows how the average number of trips per day and average cost per trip has changed in each community area since COVID.</p>
+        <p>This chart shows the number of CTA rides that were taken in the year before and the year since COVID, by community area where the station was located.</p>
         <p>
           <span className="bold">Before</span>
           <span> is the 12-month period from February 2019-2020.</span>
@@ -243,8 +212,12 @@ export default function PooledTrips(props) {
           <span className="bold">After</span>
           <span> is the 12-month period from March 2020-2021.</span>
         </p>
+        <p>
+          <span className="bold">ADA</span>
+          <span> refers to the American's with Disabilities Act.  ADA stations are accessible.</span>
+        </p>
       </div>
-      <Table rows={metrics} cols={RIDESHARE_COLS} />
+      <Table rows={cta_area_metrics} cols={CTA_COLS} />
       {errorMsg}
     </div>
   );
