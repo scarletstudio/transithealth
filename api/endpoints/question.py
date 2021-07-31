@@ -53,10 +53,14 @@ def make_blueprint(con):
     @app.route("/question/sidewalk_search", methods=["POST"])
     def question_sidewalk_search():
         body = request.get_json()
-        if "search" in body:
-            search = body["search"]
+        raw_search = body["search"] if "search" in body else ""
+        search = raw_search.strip().lower()
+        print(f"search={search}")
+        if len(search) > 0:
+            print("do search")
             permits = sidewalk_search.search_permits(search)
             return jsonify({ "results": permits })
+        print("skip search")
         return jsonify({ "results": [] })
 
     return app
