@@ -41,3 +41,18 @@ class SidewalkCafeMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+        
+    def search_permits(self, query):
+        """
+        Returns permits for restaurants that match the search query.
+        """
+        query = """
+        SELECT *
+        FROM sidewalk_cafe
+        WHERE LOWER(doing_business_as_name) LIKE '%{query}%'
+        """.format(query=query)
+        
+        cur = self.con.cursor()
+        cur.executescript(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
