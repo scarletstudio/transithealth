@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function sortDictionary(dictionary){
+function SortDictionary(dictionary){
     var sortedTagsArr = Object.entries(dictionary).sort((a,b) => b[1].length - a[1].length)
     var retArr = [];
     for(let i = 0; i < sortedTagsArr.length; i++){
@@ -12,7 +12,7 @@ function sortDictionary(dictionary){
     return retArr
   }
   
-function createTagDictionary(supportedMetrics){
+function CreateTagDictionary(supportedMetrics){
   const groups = [...new Set(Object.keys(supportedMetrics).map(q => supportedMetrics[q].dataset))];
   const metricRecords = Object.keys(supportedMetrics)
   var tagDictionary = {};
@@ -31,7 +31,7 @@ function createTagDictionary(supportedMetrics){
   return tagDictionary
 }
 
-function createDictArray(tagDictionary){
+function CreateDictArray(tagDictionary){
   var tagDictArray = [];
   var chunk_size = 1;
   for ( var cols = Object.entries( tagDictionary ); cols.length; ){
@@ -46,28 +46,16 @@ function Modal(props){
   if(!show){
     return null;
   }
-  var tagDictionary = createTagDictionary(supportedMetrics);
-  var tagDictArray = createDictArray(tagDictionary);
-  tagDictArray = sortDictionary(tagDictionary)
+  var tagDictionary = CreateTagDictionary(supportedMetrics);
+  var tagDictArray = CreateDictArray(tagDictionary);
+  tagDictArray = SortDictionary(tagDictionary)
   
   const searchTextLower = searchText.toLowerCase().trim()
       
-  const searchResults = searchTextLower.length === 0 
-    ? Object.keys(supportedMetrics)
-    : Object.keys(supportedMetrics)
-      .filter((k) => {
-        const metric = supportedMetrics[k]
-        const metricNameLower = metric.name.toLowerCase()
-        return metricNameLower.indexOf(searchTextLower) > -1
-      })
   const searchResultsMessage = searchTextLower.length === 0
     ? "Showing all Metrics"
     : `Showing results for ${searchText}`
     
-  
-  console.log(supportedMetrics)
-  console.log(tagDictionary)
-  console.log(tagDictArray)
   
   return (
     <div className="selectorModal" onClick={onClose} >
@@ -87,24 +75,12 @@ function Modal(props){
               <p>{searchResultsMessage}</p>
             
             </div>
-            <div className="searchResults">
-              {searchResults.map((k, i) => (
-                <p
-                className="metricChoice"
-                key={i} 
-                onClick={ () => {
-                  selectMetric(k)
-                  onClose()  
-                }}
-                >
-                {supportedMetrics[k].name}
-                  <ul className="metricMetaData">
-                    <li>Dataset: {supportedMetrics[k].dataset}</li>
-                    <li>Description: {supportedMetrics[k].description}</li>
-                  </ul>
-                </p>
-              ))}
-            </div>
+            <SimpleMetricSearchResults 
+              searchText={searchText} 
+              supportedMetrics={supportedMetrics} 
+              onClose={onClose}
+              selectMetric={selectMetric}
+            />
           </div>
           <div className="modalFooter" >
             <button className="closeButton" onClick={onClose} >Close</button>
@@ -112,6 +88,56 @@ function Modal(props){
         </div>
       </div>
     )
+}
+
+function SimpleMetricSearchResults(props){
+  const { searchText, supportedMetrics, onClose, selectMetric, } = props
+  const searchTextLower = searchText.toLowerCase().trim()
+  const searchResults = searchTextLower.length === 0 
+    ? Object.keys(supportedMetrics)
+    : Object.keys(supportedMetrics)
+      .filter((k) => {
+        const metric = supportedMetrics[k]
+        const metricNameLower = metric.name.toLowerCase()
+        return metricNameLower.indexOf(searchTextLower) > -1
+      })
+      
+  return ( 
+    <div className="searchResults">
+      {searchResults.map((k, i) => (
+        <p
+          className="metricChoice"
+          key={i} 
+          onClick={ () => {
+            selectMetric(k)
+            onClose()  
+            }}
+        >
+          {supportedMetrics[k].name}
+            <ul className="metricMetaData">
+              <li>Dataset: {supportedMetrics[k].dataset}</li>
+              <li>Description: {supportedMetrics[k].description}</li>
+            </ul>
+          </p>
+              ))}
+    </div>
+  )
+  
+}
+
+function GroupedMetricSearchResults(props){
+  const { searchText, supportedMetrics, onClose, selectMetric } = props
+  const searchTextLower = searchText.toLowerCase().trim()
+  const searchResults = searchTextLower === 0
+    ? Object.keys(supportedMetrics)
+    : Object.keys(supportedMetrics)
+      .filter((k) => {
+        const metric = supportedMetrics[k]
+        const metricNameLower = metric.name.toLowerCase()
+        return metricNameLower.indexOf(searchTextLower) > -1
+      })
+      
+      
 }
 
 export default function SearchableMetricSelector(props) {
