@@ -266,8 +266,9 @@ input {
     cursor: pointer;
 }
 
-.metricChoice .metricMetaData {
-    padding-left: 20px;
+.metricChoice .metricMetaData p {
+    margin-top: 2px;
+    margin-bottom: 2px;
     font-size: 0.8em;
 }
 

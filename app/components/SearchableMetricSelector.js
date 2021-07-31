@@ -140,43 +140,45 @@ function GroupedMetricSearchResults(props){
       })
 
   var elements = [];
-  for (var metric in tagDictionary){
-    var metricArr = tagDictionary[metric]
-    var count = 0;
-    for (var j = 0; j < searchResults.length; j++){
-      if (supportedMetrics[searchResults[j]].dataset.indexOf(metric) > -1 && count < 1){
-        elements.push(
-        <p
-          className="metricGroup"
-          key={metric}
-        > 
-          {metric}
-        </p>
-        
-        )
-        for (var i = 0; i < metricArr.length; i++){
-        if(searchResults.indexOf(metricArr[i]) > -1){
+  for (var i = 0; i < tagDictArray.length; i++){
+    for (var key in tagDictArray[i]){
+      var metricArr = tagDictionary[key]
+      var count = 0;
+      for (var j = 0; j < searchResults.length; j++){
+        if (supportedMetrics[searchResults[j]].dataset.indexOf(key) > -1 && count < 1){
           elements.push(
-              <p
-                className="metricChoice"
-                key={metricArr[i]} 
-                onClick={ () => {
-                  selectMetric(metricArr[i])
-                  onClose()  
-                  }}
-              >
-                {supportedMetrics[metricArr[i]].name}
-                <ul className="metricMetaData">
-                  <li>Dataset: {supportedMetrics[metricArr[i]].dataset}</li>
-                  <li>Description: {supportedMetrics[metricArr[i]].description}</li>
-                </ul>
-               </p>
-            )
+          <p
+            className="metricGroup"
+            key={key}
+          > 
+            {key}
+          </p>
+          
+          )
+          for (var k = 0; k < metricArr.length; k++){
+          if(searchResults.indexOf(metricArr[k]) > -1){
+            elements.push(
+                <p
+                  className="metricChoice"
+                  key={metricArr[k]} 
+                  onClick={ () => {
+                    selectMetric(metricArr[k])
+                    onClose()  
+                    }}
+                >
+                  {supportedMetrics[metricArr[k]].name}
+                  <div className="metricMetaData">
+                    <p>Description: {supportedMetrics[metricArr[k]].description}</p>
+                  </div>
+                 </p>
+              )
+          }
+        }
+        count++
         }
       }
-      count++
-      }
     }
+   
   }
   
   return (
