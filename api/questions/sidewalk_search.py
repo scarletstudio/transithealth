@@ -12,16 +12,27 @@ class SidewalkCafePermitSearch:
         """
         Returns permits for restaurants that match the search query.
         """
-        query = """
-        SELECT
-            doing_business_as_name
-        FROM sidewalk_cafe
-        WHERE LOWER(doing_business_as_name) LIKE '%{search}%'
-        ORDER BY issued_date_dt DESC
-        """.format(search=search)
+        # Create a view for matching results
+        statements = """
         
+        -- Remove this view if it exists
+        DROP VIEW IF EXISTS sidewalk_search;
+        
+        -- Get matching sidewalk permits
+        CREATE VIEW sidewalk_search AS
+        SELECT *
+        FROM sidewalk_cafe
+        WHERE LOWER(doing_business_as_name) LIKE '%{search}%';
+        
+        """.format(search=search)
+        # Then sort the results
+        query = """
+        SELECT *
+        FROM sidewalk_search
+        ORDER BY issued_date_dt DESC
+        """
         cur = self.con.cursor()
+        cur.executescript(statements)
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
-        print(rows)
         return rows
