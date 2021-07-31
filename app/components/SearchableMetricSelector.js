@@ -75,11 +75,13 @@ function Modal(props){
               <p>{searchResultsMessage}</p>
             
             </div>
-            <SimpleMetricSearchResults 
+            <GroupedMetricSearchResults 
               searchText={searchText} 
               supportedMetrics={supportedMetrics} 
               onClose={onClose}
               selectMetric={selectMetric}
+              tagDictArray={tagDictArray}
+              tagDictionary={tagDictionary}
             />
           </div>
           <div className="modalFooter" >
@@ -101,7 +103,7 @@ function SimpleMetricSearchResults(props){
         const metricNameLower = metric.name.toLowerCase()
         return metricNameLower.indexOf(searchTextLower) > -1
       })
-  console.log(searchResults)
+      
   return ( 
     <div className="searchResults">
       {searchResults.map((k, i) => (
@@ -126,7 +128,7 @@ function SimpleMetricSearchResults(props){
 }
 
 function GroupedMetricSearchResults(props){
-  const { searchText, supportedMetrics, onClose, selectMetric } = props
+  const { searchText, supportedMetrics, onClose, selectMetric, tagDictionary, tagDictArray } = props
   const searchTextLower = searchText.toLowerCase().trim()
   const searchResults = searchTextLower.length === 0 
     ? Object.keys(supportedMetrics)
@@ -136,9 +138,52 @@ function GroupedMetricSearchResults(props){
         const metricNameLower = metric.name.toLowerCase()
         return metricNameLower.indexOf(searchTextLower) > -1
       })
-      
+
+  var elements = [];
+  for (var metric in tagDictionary){
+    var metricArr = tagDictionary[metric]
+    var count = 0;
+    for (var j = 0; j < searchResults.length; j++){
+      if (supportedMetrics[searchResults[j]].dataset.indexOf(metric) > -1 && count < 1){
+        elements.push(
+        <p
+          className="metricGroup"
+          key={metric}
+        > 
+          {metric}
+        </p>
+        
+        )
+        for (var i = 0; i < metricArr.length; i++){
+        if(searchResults.indexOf(metricArr[i]) > -1){
+          elements.push(
+              <p
+                className="metricChoice"
+                key={metricArr[i]} 
+                onClick={ () => {
+                  selectMetric(metricArr[i])
+                  onClose()  
+                  }}
+              >
+                {supportedMetrics[metricArr[i]].name}
+                <ul className="metricMetaData">
+                  <li>Dataset: {supportedMetrics[metricArr[i]].dataset}</li>
+                  <li>Description: {supportedMetrics[metricArr[i]].description}</li>
+                </ul>
+               </p>
+            )
+        }
+      }
+      count++
+      }
+    }
+  }
   
-      
+  return (
+  <div className="searchResults">
+  {elements}
+  </div>
+  )
       
 }
 
