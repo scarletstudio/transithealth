@@ -75,7 +75,7 @@ function Modal(props){
               <p>{searchResultsMessage}</p>
             
             </div>
-            <GroupedMetricSearchResults 
+            <GroupedMetricSearchResults
               searchText={searchText} 
               supportedMetrics={supportedMetrics} 
               onClose={onClose}
@@ -93,7 +93,7 @@ function Modal(props){
 }
 
 function SimpleMetricSearchResults(props){
-  const { searchText, supportedMetrics, onClose, selectMetric, } = props
+  const { searchText, supportedMetrics, onClose, selectMetric } = props
   const searchTextLower = searchText.toLowerCase().trim()
   const searchResults = searchTextLower.length === 0 
     ? Object.keys(supportedMetrics)
@@ -108,12 +108,12 @@ function SimpleMetricSearchResults(props){
     <div className="searchResults">
       {searchResults.map((k, i) => (
         <p
-          className="metricChoice"
+          className="metricResult"
           key={i} 
           onClick={ () => {
             selectMetric(k)
             onClose()  
-            }}
+          }}
         >
           {supportedMetrics[k].name}
             <ul className="metricMetaData">
@@ -142,7 +142,7 @@ function GroupedMetricSearchResults(props){
   var elements = [];
   for (var i = 0; i < tagDictArray.length; i++){
     for (var key in tagDictArray[i]){
-      var metricArr = tagDictionary[key]
+      const metricArr = tagDictionary[key]
       var count = 0;
       for (var j = 0; j < searchResults.length; j++){
         if (supportedMetrics[searchResults[j]].dataset.indexOf(key) > -1 && count < 1){
@@ -155,22 +155,24 @@ function GroupedMetricSearchResults(props){
           </p>
           
           )
-          for (var k = 0; k < metricArr.length; k++){
+          for (let k = 0; k < metricArr.length; k++){
           if(searchResults.indexOf(metricArr[k]) > -1){
             elements.push(
-                <p
-                  className="metricChoice"
-                  key={metricArr[k]} 
-                  onClick={ () => {
-                    selectMetric(metricArr[k])
-                    onClose()  
-                    }}
-                >
+              <div 
+                className="metricResult"
+                key={metricArr[k]} 
+                onClick={ () => {
+                  selectMetric(metricArr[k])
+                  onClose()  
+                }}
+              >
+                <p className="metric">
                   {supportedMetrics[metricArr[k]].name}
-                  <div className="metricMetaData">
-                    <p>Description: {supportedMetrics[metricArr[k]].description}</p>
-                  </div>
-                 </p>
+                </p>
+                <div className="metricMetaData">
+                  <p>Description: {supportedMetrics[metricArr[k]].description}</p>
+                </div>
+                </div>
               )
           }
         }
@@ -193,7 +195,6 @@ export default function SearchableMetricSelector(props) {
   const { label, supportedMetrics, defaultValue, onChange } = props;
   const [show, setShow] = useState(0)
   const [selectedMetric, setSelectedMetric] = useState(defaultValue)
-  
   return (
     <div className="searchableMetricSelector">
     

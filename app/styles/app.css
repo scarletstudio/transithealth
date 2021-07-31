@@ -257,19 +257,27 @@ input {
     font-weight: bold;
 }
 
-.searchableMetricSelector .metricChoice {
+.searchableMetricSelector .metricResult {
     border-bottom: 1px solid #D3D3D3;
 }
 
-.searchableMetricSelector .metricChoice:hover {
+.searchableMetricSelector .metricResult:hover{
+    background-color: rgba(180, 180, 180, 0.5);
+    cursor: pointer;
+}
+.searchableMetricSelector .metricChoice:hover{
     background-color: rgba(180, 180, 180, 0.5);
     cursor: pointer;
 }
 
-.metricChoice .metricMetaData p {
+.metricResult .metricMetaData p {
     margin-top: 2px;
     margin-bottom: 2px;
+}
+
+.searchResults .metricMetaData {
     font-size: 0.8em;
+    padding-left: 20px;
 }
 
 .searchableMetricSelector .modalHeader, 
