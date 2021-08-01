@@ -49,12 +49,6 @@ export const communityMetrics = {
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
-  total_population_2000: {
-    name: "2000 Total Population",
-    units: "people",
-    format: Formatter.numberInThousands,
-    fullFormat: Formatter.numberWithCommas,
-  },
   total_population_2010: {
     name: "2010 Total Population",
     units: "people",

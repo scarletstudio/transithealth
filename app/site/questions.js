@@ -6,7 +6,11 @@ import ResidentsWithDisabilities from '../components/questions/ResidentsWithDisa
 import BelongingRates from '../components/questions/BelongingRates'
 import RentBurdenedRates from '../components/questions/RentBurdenRates'
 import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermitsYears'
+<<<<<<< HEAD
 import DisabilitiesAndTransportation from '../components/questions/DisabilitiesAndTransportation'
+=======
+import SidewalkCafePermitSearch from '../components/questions/SidewalkCafePermitSearch'
+>>>>>>> main
 
 export const questionComponents = {
   "sample": Sample,
@@ -17,7 +21,11 @@ export const questionComponents = {
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
   "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
+<<<<<<< HEAD
   "disabilities-and-transportation" : DisabilitiesAndTransportation,
+=======
+  "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
+>>>>>>> main
 };
 
 export const questionsParams = {
@@ -38,6 +46,18 @@ export const questionsParams = {
     author: "Maria Garcia",
     component: "residents-with-disabilities",
     description: "Burnside is the neighborhood with the highest disability rate. What percentage of residents in Burnside, Chicago have an included disability?",
+  },
+  "taxi-most-common-dropoff": {
+    title: "Where are people usually getting dropped off by taxis?",
+    author: "Leilah Alkatout",
+    component: "sample",
+    description: "People get dropped off in different community areas by taxis but, what's the most common dropoff area per pickup area?",
+  },
+  "taxi-popular-payment-method":{
+    title: "What is the most popular payment method for taxis?",
+    author: "Leilah Alkatout",
+    component: "sample",
+    description: "People in different areas of Chicago prefer using different methods of payment- what's the most popular method for each pickup and dropoff area for taxis?",
   },
   "belonging-example": {
     title: "Belonging Rates of Chicago",
@@ -62,6 +82,12 @@ export const questionsParams = {
     author: "Maria Garcia",
     component: "disabilities-and-transportation",
     description: "It is common for individuals with disabilities to also have underlying diseases that make them at risk for COVID-19. How has COVID-19 impacted the ability of those with disabilities to travel throughout Chicago?",
+  },
+  "sidewalk-cafe-permit-search": {
+    title: "Search Sidewalk Cafe Permits",
+    author: "Vinesh Kannan",
+    component: "sidewalk-cafe-permit-search",
+    description: "Which restaurants have sidewalk cafe permits?",
   },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
