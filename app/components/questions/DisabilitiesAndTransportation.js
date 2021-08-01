@@ -93,7 +93,7 @@ const CTA_ADA_CHANGE_COLS = [
   },
   {
     key:"pct_change_ada",
-    name: "AVG Trips After",
+    name: "%Change",
     format: Formatter.percentChangeWithOneDecimal
   },
   ];
