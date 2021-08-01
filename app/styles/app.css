@@ -11,6 +11,7 @@
     --color-highlight: var(--color-accent);
     --color-success: rgb(9, 145, 120);
     --color-failure: rgb(204, 102, 119);
+    --color-metric-hover: rgba(180, 180, 180, 0.5);
 }
 
 html {
@@ -248,15 +249,38 @@ input {
 
 .searchableMetricSelector .searchBar {
     border-bottom: 1px solid #eee;
+    position: sticky;
+    top: 0;
+    background-color: white;
 }
 
-.searchableMetricSelector .searchResults p {
+.searchableMetricSelector .metricGroup {
+    font-weight: bold;
+}
+
+.searchableMetricSelector .metricResult {
     border-bottom: 1px solid #D3D3D3;
 }
 
-.searchableMetricSelector .searchResults p:hover {
-    background-color: rgba(180, 180, 180, 0.5);
+.searchableMetricSelector .metricResult:hover{
+    background-color: var(--color-metric-hover);
     cursor: pointer;
+}
+
+.searchableMetricSelector .metricChoice:hover{
+    background-color: var(--color-metric-hover);
+    cursor: pointer;
+}
+
+.metricResult .metric {
+    margin-bottom: 0px;
+}
+
+.metricResult .metricMetaData p {
+    margin-top: 0.125em;
+    margin-bottom: 0.125em;
+    font-size: 0.8em;
+    padding-left: 1.25em;
 }
 
 .searchableMetricSelector .modalHeader, 
