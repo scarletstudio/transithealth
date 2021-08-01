@@ -72,6 +72,31 @@ const CTA_STATION_RIDERSHIP_COLS = [
     alpha: (v) => (v / MIN_PCT_CHANGE_RIDES),
   }
 ];
+const CTA_ADA_CHANGE_COLS = [
+  {
+    key:"ada",
+    name: "ADA",
+  },
+  {
+    key:"num_stations",
+    name: "Num Stations",
+  },
+  {
+    key:"avg_rides_before",
+    name: "AVG Trips Before",
+    format: Formatter.numberWithCommas
+  },
+  {
+    key:"avg_rides_after",
+    name: "AVG Trips After",
+    format: Formatter.numberWithCommas
+  },
+  {
+    key:"pct_change_ada",
+    name: "AVG Trips After",
+    format: Formatter.percentChangeWithOneDecimal
+  },
+  ];
 
 function booleanResult(x){
   return (x == 1) ? "Yes" : "No";
@@ -211,7 +236,15 @@ export default function CTARides(props) {
         </p>
       </div>
       <Table rows={cta_station_ridership_metrics} cols={CTA_STATION_RIDERSHIP_COLS} />
-    
+      
+      <div className="center medium-width">
+        <span></span>
+        <hr/>
+        <h2>Ridership Change Based on Station Accessibility</h2>
+        <p>How much of a difference did it make if a station is ADA accessible or not? </p>
+      </div>
+     
+      
       {errorMsg}
     </div>
   );
