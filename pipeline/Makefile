@@ -54,6 +54,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/traffic_intensity.txt
+	make data/loaded/escooter.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
 	make data/loaded/sidewalk_cafe.txt
@@ -137,6 +138,13 @@ data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
 		--input_file="data/transformed/cta_train_ridership.csv" \
 		--create_sql="load/cta_train_ridership.sql" \
 		--table_name="cta_train_ridership"
+		
+data/loaded/cta_train_stops.txt: data/transformed/cta_train_stops.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/cta_train_stops.csv" \
+		--create_sql="load/cta_train_stops.sql" \
+		--table_name="cta_train_stops"
 
 data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	python3 load/create_table.py \
@@ -149,7 +157,7 @@ data/loaded/escooter.txt: data/transformed/ESCOOTERMOD.csv
 	python3 load/create_table.py \
 		--database="database.db" \
 		--input_file="data/transformed/ESCOOTERMOD.csv" \
-		--create_sql="load/escooter2019.sql" \
+		--create_sql="load/escooterSchema.sql" \
 		--table_name="Escooter"
 
 # Transform Operations
@@ -221,6 +229,11 @@ data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
 		--input_file="data/extracted/cta_train_ridership.csv" \
 		--output_file="data/transformed/cta_train_ridership.csv"
 
+data/transformed/cta_train_stops.csv: data/extracted/cta_train_stops.csv data/transformed/community_area.csv
+	python3 transform/cta_train_stops.py \
+		--input_file="data/extracted/cta_train_stops.csv" \
+		--area_file="data/transformed/community_area.csv" \
+		--output_file="data/transformed/cta_train_stops.csv"
 
 data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 	python3 transform/sidewalk_cafe.py \
