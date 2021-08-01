@@ -11,6 +11,7 @@
     --color-highlight: var(--color-accent);
     --color-success: rgb(9, 145, 120);
     --color-failure: rgb(204, 102, 119);
+    --color-metric-hover: rgba(180, 180, 180, 0.5);
 }
 
 html {
@@ -262,12 +263,12 @@ input {
 }
 
 .searchableMetricSelector .metricResult:hover{
-    background-color: rgba(180, 180, 180, 0.5);
+    background-color: var(--color-metric-hover);
     cursor: pointer;
 }
 
 .searchableMetricSelector .metricChoice:hover{
-    background-color: rgba(180, 180, 180, 0.5);
+    background-color: var(--color-metric-hover);
     cursor: pointer;
 }
 

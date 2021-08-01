@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 
 function sortDictionary(dictionary){
+    // Object.entries is used to give each element as an array of [key, value]. This array is then sorted based on the length of the value, which is an array itself.
+    // These arrays contain all metrics who share the same key
     var sortedTagsArr = Object.entries(dictionary).sort((a,b) => b[1].length - a[1].length)
     var retArr = [];
     for(let i = 0; i < sortedTagsArr.length; i++){
@@ -22,7 +24,7 @@ function createTagDictionary(supportedMetrics){
     var groupedRecords = [];
     for(var j in Object.keys(supportedMetrics)){
       var record = Object.keys(supportedMetrics)[j]
-      if(groups[i].indexOf(supportedMetrics[record].dataset) > -1 ){
+      if(groups[i] === supportedMetrics[record].dataset){
         groupedRecords.push(metricRecords[j])
       }
     }
@@ -34,10 +36,15 @@ function createTagDictionary(supportedMetrics){
 
 //Creates an array of dictionaries, each belonging to a dataset/tag that holds an array of all metrics belonging to that tag/dataset
 function createDictArray(tagDictionary){
-  var tagDictArray = [];
-  var chunk_size = 1;
-  for ( var cols = Object.entries( tagDictionary ); cols.length; ){
-    tagDictArray.push( cols.splice(0, chunk_size).reduce( (o,[k,v])=>(o[k]=v,o), {}));
+  const tagDictArray = [];
+  var dictArr = Object.entries(tagDictionary)
+  
+  for (let i = 0; i < dictArr.length; i++){
+    var tempArr = dictArr[i]
+    var key = tempArr[0]
+    var val = tempArr[1]
+    var tempDict = { key : val }
+    tagDictArray.push(tempDict)
   }
   return tagDictArray;
 }
@@ -144,7 +151,10 @@ function GroupedMetricSearchResults(props){
     for (var key in tagDictArray[i]){
       const metricArr = tagDictionary[key]
       var count = 0;
-      for (var j = 0; j < searchResults.length; j++){
+      for (var j = 0; j < searchResults.length; j++){ 
+        
+        // An if conditional checks if the key, which is a dataset, is a member of the datasets for any metric in the search results. 
+        // A count is kept so each group is only printed once
         if (supportedMetrics[searchResults[j]].dataset.indexOf(key) > -1 && count < 1){
           elements.push(
           <p
