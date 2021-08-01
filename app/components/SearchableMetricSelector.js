@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function SortDictionary(dictionary){
+function sortDictionary(dictionary){
     var sortedTagsArr = Object.entries(dictionary).sort((a,b) => b[1].length - a[1].length)
     var retArr = [];
     for(let i = 0; i < sortedTagsArr.length; i++){
@@ -12,7 +12,8 @@ function SortDictionary(dictionary){
     return retArr
   }
   
-function CreateTagDictionary(supportedMetrics){
+
+function createTagDictionary(supportedMetrics){
   const groups = [...new Set(Object.keys(supportedMetrics).map(q => supportedMetrics[q].dataset))];
   const metricRecords = Object.keys(supportedMetrics)
   var tagDictionary = {};
@@ -31,7 +32,7 @@ function CreateTagDictionary(supportedMetrics){
   return tagDictionary
 }
 
-function CreateDictArray(tagDictionary){
+function createDictArray(tagDictionary){
   var tagDictArray = [];
   var chunk_size = 1;
   for ( var cols = Object.entries( tagDictionary ); cols.length; ){
@@ -105,24 +106,23 @@ function SimpleMetricSearchResults(props){
       })
       
   return ( 
-    <div className="searchResults">
-      {searchResults.map((k, i) => (
-        <p
-          className="metricResult"
+      searchResults.map((k, i) => (
+        <div className="metricResult"
           key={i} 
           onClick={ () => {
             selectMetric(k)
             onClose()  
           }}
         >
+          <p className="metric">
           {supportedMetrics[k].name}
-            <ul className="metricMetaData">
-              <li>Dataset: {supportedMetrics[k].dataset}</li>
-              <li>Description: {supportedMetrics[k].description}</li>
-            </ul>
           </p>
-              ))}
-    </div>
+          <div className="metricMetaData">
+            <p>Dataset: {supportedMetrics[k].dataset}</p>
+            <p>Description: {supportedMetrics[k].description}</p>
+          </div>
+        </div>
+              ))
   )
   
 }
