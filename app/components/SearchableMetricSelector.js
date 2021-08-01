@@ -62,9 +62,6 @@ function Modal(props){
   if(!show){
     return null;
   }
-  var tagDictionary = createTagDictionary(supportedMetrics);
-  var tagDictArray = createDictArray(tagDictionary);
-  tagDictArray = sortDictionary(tagDictionary)
   
   const searchTextLower = searchText.toLowerCase().trim()
       
@@ -96,8 +93,6 @@ function Modal(props){
               supportedMetrics={supportedMetrics} 
               onClose={onClose}
               selectMetric={selectMetric}
-              tagDictArray={tagDictArray}
-              tagDictionary={tagDictionary}
             />
           </div>
           <div className="modalFooter" >
@@ -136,9 +131,13 @@ function SimpleMetricSearchResults(props){
 }
 
 function GroupedMetricSearchResults(props){
-  const { searchText, supportedMetrics, onClose, selectMetric, tagDictionary, tagDictArray } = props
+  const { searchText, supportedMetrics, onClose, selectMetric } = props
   const searchTextLower = searchText.toLowerCase().trim()
   const searchResults = filterSearchResults(supportedMetrics, searchText)
+  
+  var tagDictionary = createTagDictionary(supportedMetrics);
+  var tagDictArray = createDictArray(tagDictionary);
+  tagDictArray = sortDictionary(tagDictionary)
 
   var elements = [];
   for (var i = 0; i < tagDictArray.length; i++){

@@ -276,8 +276,8 @@ input {
 }
 
 .metricResult .metricMetaData p {
-    margin-top: 2px;
-    margin-bottom: 2px;
+    margin-top: 0.125em;
+    margin-bottom: 0.125em;
     font-size: 0.8em;
     padding-left: 1.25em;
 }
