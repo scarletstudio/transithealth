@@ -7,6 +7,7 @@ import BelongingRates from '../components/questions/BelongingRates'
 import RentBurdenedRates from '../components/questions/RentBurdenRates'
 import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermitsYears'
 import SidewalkCafePermitSearch from '../components/questions/SidewalkCafePermitSearch'
+import DisabilitiesAndTransportation from '../components/questions/DisabilitiesAndTransportation'
 
 export const questionComponents = {
   "sample": Sample,
@@ -18,6 +19,7 @@ export const questionComponents = {
   "rent-burden-rates": RentBurdenedRates,
   "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
+  "disabilities-and-transportation" : DisabilitiesAndTransportation,
 };
 
 export const questionsParams = {
@@ -69,6 +71,12 @@ export const questionsParams = {
     component: "sidewalk-cafe-permits-years",
     description: "How many sidewalk cafe permits issued each year?",
   },
+  "disabilities-and-transportation": {
+    title: "Transportation for Individuals with Disabilities",
+    author: "Maria Garcia",
+    component: "disabilities-and-transportation",
+    description: "It is common for individuals with disabilities to also have underlying diseases that make them at risk for COVID-19. How has COVID-19 impacted the ability of those with disabilities to travel throughout Chicago?",
+  },
   "sidewalk-cafe-permit-search": {
     title: "Search Sidewalk Cafe Permits",
     author: "Vinesh Kannan",
@@ -80,12 +88,6 @@ export const questionsParams = {
     author: "Templates",
     component: "template-with-pie-chart",
     description: "This page has a pie chart.",
-  },
-  "sample": {
-    title: "Sample Question",
-    author: "Student A",
-    component: "sample",
-    description: "This is a sample question.",
   },
   "another": {
     title: "Another Question",
