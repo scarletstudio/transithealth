@@ -49,8 +49,6 @@ def test_escooter():
         { "sum(count_trip_id)" : 9}
     ], "Not same number of total trips"
     
-    print (metric.number_of_trips_based_on_end_cn())
-    
     assert metric.number_of_trips_based_on_end_cn() == [
         {"end_community_area_number": 3, "sum(count_trip_id)": 1},
         {"end_community_area_number": 25, "sum(count_trip_id)": 6},
