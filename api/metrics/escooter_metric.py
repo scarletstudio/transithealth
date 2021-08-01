@@ -9,117 +9,103 @@ class EscooterMetric:
     def __init__(self, con):
         self.con = con
         
-    def avg_distance_x_to_y(self, x, y):
+    def avg_distance_x_to_y(self):
         """
-        Returns the average distance riders take from a location x to a location y
-        Args:
-            x (int)
-            y (int)
+        Returns the average distance riders take throughout
+        the city
         """
         query = """
         SELECT
-            avg_trip_distance
+            start_community_area_number, end_community_area_number, avg_trip_distance
         From 
             Escooter
-        Where
-            start_community_area_number == {x} And end_community_area_number == {y}
-        """.format(x = x, y = y)
+        """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
 
-    def avg_distance_based_on_start(self, start_location):
+    def avg_distance_based_on_start_can(self):
         """
-        Returns the avg distance traveled by riders starting a specific location to different locations
-        Args:
-            start_location (int)
+        Returns the avg distance traveled based on starting community area numbers
         """
         query = """
         SELECT
-            avg_trip_distance
+            start_community_area_number, avg(avg_trip_distance)
         From 
             Escooter
-        Where
-            start_community_area_number == {start_location}
-        """.format(start_location= start_location)
+        Group by
+            start_community_area_number
+        """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
     
-    def avg_distance_based_on_end(self, end_location):
+    def avg_distance_based_on_end_can(self):
         """
-        Returns the avg distance traveled by riders starting at different locations to a specific end location
-        Args:
-            end_location (int)
+        Returns the avg distance traveled based on end community area numbers
         """
         query = """
         SELECT
-            avg_trip_distance
-        From
+            end_community_area_number, avg(avg_trip_distance)
+        From 
             Escooter
-        Where
-            end_community_area_number = {end_location}
-        """.format(end_location = end_location)
+        Group by
+            end_community_area_number
+        """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
     
-    def number_of_trips_x_to_y (self, x, y):
+    def number_of_trips_x_to_y (self):
         """
-        Returns the number of trips from one specific area to another specific area
-        Args:
-            x (int)
-            y (int)
+        Returns the number of trips logged from one specific area
+        to another
         """
         query = """
         SELECT
-            count_trip_id
+            start_community_area_number, end_community_area_number, count_trip_id
         From 
             Escooter
-        Where
-            start_community_area_number == {x} And end_community_area_number == {y}
-        """.format(x = x, y = y)
+        """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
     
-    def number_of_trips_from_this_start (self, x):
+    def number_of_trips_based_on_start_cn (self):
         """
-        Returns the number of trips from one specific area
-        Args:
-            x (int)
+        Returns the number of trips from all communities that had at least
+        one ride start there
         """
         query = """
         SELECT
-            sum(count_trip_id)
+            start_community_area_number, sum(count_trip_id)
         From 
             Escooter
-        Where
-            start_community_area_number == {x}
-        """.format(x = x)
+        Group by
+            start_community_area_number
+        """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
         
-    def number_of_trips_from_this_end (self, y):
+    def number_of_trips_based_on_end_cn (self):
         """
-        Returns the number of trips from one specific end
-        Args:
-            x (int)
+        Returns the number of trips from all communities that had
+        at least one ride end there
         """
         query = """
         SELECT
-            sum(count_trip_id)
+            end_community_area_number, sum(count_trip_id)
         From 
             Escooter
-        Where
-            end_community_area_number == {x}
-        """.format(y = y)
+        Group by
+            end_community_area_number
+        """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())

@@ -38,17 +38,22 @@ def test_escooter():
 
     metric = EscooterMetric(con)
 
-    assert metric.number_of_trips_x_to_y(x = 7, y = 31) == [
-        { "count_trip_id" : 2}
-    ], "Should have one result for start= 7 to end = 31."
+    assert metric.avg_distance_based_on_start_can() == [
+        { "start_community_area_number": 3, "avg(avg_trip_distance)": 31},
+        { "start_community_area_number": 7, "avg(avg_trip_distance)": 2089},
+        { "start_community_area_number": 31, "avg(avg_trip_distance)": 14903}
+        
+    ], "Should have three results for this method"
     
     assert metric.total_escooter_rides() == [
         { "sum(count_trip_id)" : 9}
     ], "Not same number of total trips"
     
-    print(metric.avg_distance_x_to_y(7 , 31))
+    print (metric.number_of_trips_based_on_end_cn())
     
-    assert metric.avg_distance_x_to_y(x = 7, y = 31) == [
-        {"avg_trip_distance" : 2089}
-    ], "Not same avg trip distance"
+    assert metric.number_of_trips_based_on_end_cn() == [
+        {"end_community_area_number": 3, "sum(count_trip_id)": 1},
+        {"end_community_area_number": 25, "sum(count_trip_id)": 6},
+        {"end_community_area_number": 31, "sum(count_trip_id)": 2}
+    ], "Should have three results for this method//"
         
