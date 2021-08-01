@@ -60,8 +60,10 @@ class DisabilitiesMetrics:
         query = """
         SELECT 
             c.station_id,
+            c.station_name,
             c.ada,
-            r.*
+            r.avg_trips_before,
+            r.avg_trips_since
         FROM cta_train_stops c
             LEFT JOIN (
                 SELECT
@@ -77,7 +79,7 @@ class DisabilitiesMetrics:
                     station_id
                 ) r
             ON c.station_id = r.station_id
-            GROUP BY station_id
+            GROUP BY c.station_id
         """
         cur = self.con.cursor()
         cur.execute(query)
