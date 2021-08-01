@@ -54,11 +54,20 @@ data/loaded/all_tables.txt:
 	make data/loaded/income.txt
 	make data/loaded/covid_spread.txt
 	make data/loaded/traffic_intensity.txt
+	make data/loaded/escooter.txt
 	make data/loaded/rideshare.txt
 	make data/loaded/cta_train_ridership.txt
-	make data/loaded/sidewalk_cafe.txt 
+	make data/loaded/sidewalk_cafe.txt
+	make data/loaded/taxi_trips.txt
 	touch "data/loaded/all_tables.txt"
-
+	
+data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/taxi_trips.csv" \
+		--create_sql="load/taxi_trip.sql" \
+		--table_name="taxitrips"
+		
 data/loaded/community_area.txt: data/transformed/community_area.csv
 	python3 load/create_table.py \
 		--database="database.db" \
@@ -129,6 +138,13 @@ data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
 		--input_file="data/transformed/cta_train_ridership.csv" \
 		--create_sql="load/cta_train_ridership.sql" \
 		--table_name="cta_train_ridership"
+		
+data/loaded/cta_train_stops.txt: data/transformed/cta_train_stops.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/cta_train_stops.csv" \
+		--create_sql="load/cta_train_stops.sql" \
+		--table_name="cta_train_stops"
 
 data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	python3 load/create_table.py \
@@ -136,6 +152,13 @@ data/loaded/sidewalk_cafe.txt: data/transformed/sidewalk_cafe.csv
 	--input_file="data/transformed/sidewalk_cafe.csv" \
 	--create_sql="load/sidewalk_cafe.sql" \
 	--table_name="sidewalk_cafe"
+
+data/loaded/escooter.txt: data/transformed/ESCOOTERMOD.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/ESCOOTERMOD.csv" \
+		--create_sql="load/escooterSchema.sql" \
+		--table_name="Escooter"
 
 # Transform Operations
 
@@ -159,6 +182,11 @@ data/transformed/zip_code_to_community_area.csv: data/extracted/zip_code_to_comm
 	python3 transform/zip_code_to_community_area.py \
 		--input_file="data/extracted/zip_code_to_community_area.csv" \
 		--output_file="data/transformed/zip_code_to_community_area.csv"
+		
+data/transformed/ESCOOTERMOD.csv: data/extracted/daily_escooter.csv
+	python3 transform/escooter.py \
+		--input_file="data/extracted/daily_escooter.csv" \
+		--output_file="data/transformed/ESCOOTERMOD.csv"
 
 data/transformed/population.csv: data/extracted/population.csv
 	python3 transform/population.py \
@@ -201,6 +229,11 @@ data/transformed/cta_train_ridership.csv: data/extracted/cta_train_ridership.csv
 		--input_file="data/extracted/cta_train_ridership.csv" \
 		--output_file="data/transformed/cta_train_ridership.csv"
 
+data/transformed/cta_train_stops.csv: data/extracted/cta_train_stops.csv data/transformed/community_area.csv
+	python3 transform/cta_train_stops.py \
+		--input_file="data/extracted/cta_train_stops.csv" \
+		--area_file="data/transformed/community_area.csv" \
+		--output_file="data/transformed/cta_train_stops.csv"
 
 data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 	python3 transform/sidewalk_cafe.py \
@@ -208,7 +241,6 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_to_name="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
-		
 
 # Extract Operations
 
@@ -311,7 +343,7 @@ data/extracted/belonging_coverage.json:
 		--create-dirs -o "data/extracted/belonging_coverage.json" \
 		-d layers="neighborhood,place"
 
-data/extracted/daily_ESCOOTER.csv:
+data/extracted/daily_escooter.csv:
 	python3 extract/from_data_portal.py \
 		--json_url="$(PORTAL_ESCOOTER)" \
 		--soql_file="extract/scooterRidesByArea2019.sql" \
@@ -356,9 +388,8 @@ resources:
 # Archive for files that take a long time to make
 
 archive.tgz: data/transformed/rideshare.csv data/extracted/daily_rideshare.csv
-	mkdir archive
-	mkdir archive/extracted
-	mkdir archive/transformed
+	mkdir -p archive/extracted
+	mkdir -p archive/transformed
 	cp data/extracted/daily_rideshare.csv archive/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv archive/transformed/rideshare.csv
 	tar cfz archive.tgz archive/
@@ -383,10 +414,9 @@ clean:
 	rm -f database.db
 	rm -rf data
 	rm -rf compressed
-	mkdir data
-	mkdir data/extracted
-	mkdir data/transformed
-	mkdir data/loaded
+	mkdir -p data/extracted
+	mkdir -p data/transformed
+	mkdir -p data/loaded
 
 clean-resources:
 	rm -f ../app/public/resources/community_area.json
@@ -398,9 +428,9 @@ clean-except:
 	# Exceptions are meant for files that:
 	# - (a) take a long time to make
 	# - (b) AND have no dependencies (OR their dependencies also have exceptions)
-	mkdir tempdata
-	mkdir tempdata/extracted
-	mkdir tempdata/transformed
+	rm -rf tempdata
+	mkdir -p tempdata/extracted
+	mkdir -p tempdata/transformed
 	cp data/extracted/daily_rideshare.csv tempdata/extracted/daily_rideshare.csv
 	cp data/transformed/rideshare.csv tempdata/transformed/rideshare.csv
 	make clean

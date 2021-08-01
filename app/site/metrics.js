@@ -11,6 +11,8 @@ export const Formatter = {
   percentWithNoDecimal: (v) => ((v * 100).toFixed(0) + "%"),
   percentWithOneDecimal: (v) => ((v * 100).toFixed(1) + "%"),
   dollarsUSD: (v) => ("$" + v.toFixed(2)),
+  dollarsUSDWithCommas: (v) => `$${numberEn.format(Math.floor(v))}`,
+  dollarsUSDInThousands: (v) => `$${numberEn.format((v / 1000).toFixed(1))}K`,
   centsToDollarsUSD: (v) => ("$" + (v / 100).toFixed(2)),
   percentChangeWithNoDecimal: (v) => ((v >= 0 ? "+" : "") + (v * 100).toFixed(0) + "%"),
   percentChangeWithOneDecimal: (v) => ((v >= 0 ? "+" : "") + (v * 100).toFixed(1) + "%"),
@@ -47,12 +49,6 @@ export const communityMetrics = {
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
-  total_population_2000: {
-    name: "2000 Total Population",
-    units: "people",
-    format: Formatter.numberInThousands,
-    fullFormat: Formatter.numberWithCommas,
-  },
   total_population_2010: {
     name: "2010 Total Population",
     units: "people",
@@ -68,26 +64,26 @@ export const communityMetrics = {
   median_income_2010: {
     name: "2010 Median Income",
     units: "dollars",
-    format: Formatter.dollarsUSD,
-    fullFormat: Formatter.dollarsUSD,
+    format: Formatter.dollarsUSDInThousands,
+    fullFormat: Formatter.dollarsUSDWithCommas,
   },
   median_income_2017: {
     name: "2017 Median Income",
     units: "dollars",
-    format: Formatter.dollarsUSD,
-    fullFormat: Formatter.dollarsUSD,
+    format: Formatter.dollarsUSDInThousands,
+    fullFormat: Formatter.dollarsUSDWithCommas,
   },
   median_income_2018: {
     name: "2018 Median Income",
     units: "dollars",
-    format: Formatter.dollarsUSD,
-    fullFormat: Formatter.dollarsUSD,
+    format: Formatter.dollarsUSDInThousands,
+    fullFormat: Formatter.dollarsUSDWithCommas,
   },
   median_income_2019: {
     name: "2019 Median Income",
     units: "dollars",
-    format: Formatter.dollarsUSD,
-    fullFormat: Formatter.dollarsUSD,
+    format: Formatter.dollarsUSDInThousands,
+    fullFormat: Formatter.dollarsUSDWithCommas,
   },
   total_covid_cases: {
     name: "Total COVID Cases",
@@ -154,7 +150,20 @@ export const communityMetrics = {
     units: "of households",
     format: Formatter.percentWithOneDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
-  }
+  },
+  avg_speed_per_dropoff: {
+    name: "Average Taxi Trip Speed Per Dropoff Area",
+    units: "mph",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas
+  },
+  avg_speed_per_pickup: {
+    name: "Average Taxi Trip Speed Per Pickup Area",
+    units: "mph",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  
 };
 
 export const timelineMetrics = {
@@ -217,6 +226,30 @@ export const timelineMetrics = {
     units: "of people",
     format: Formatter.percentWithNoDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
+  },
+  weekly_cta_train_ridership: {
+    name: "Weekly CTA Train Ridership",
+    units: "trips",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  weekly_cta_train_ridership_covid: {
+    name: "Weekly CTA Train Ridership Since COVID-19",
+    units: "trips",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  daily_sidewalk_cafe_permit: {
+    name: "Daily Sidewalk Cafe Permits",
+    units: "permits",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
+  yearly_sidewalk_cafe_permit: {
+    name: "Yearly Sidewalk Cafe Permits",
+    units: "permits",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
   },
 };
 

@@ -49,8 +49,7 @@ function transformData(response, error, selectedArea) {
       valueFormatted: Formatter.percentWithOneDecimal(1 - areaData.belonging_rate_2018),
       color: Color.Salmon
     }
-    ]
-
+  ]
   
   return {
     chartData: data,
@@ -61,6 +60,9 @@ function transformData(response, error, selectedArea) {
 function ExamplePieChart(props) {
   const { data } = props
   
+  if(!data?.[0]?.value){
+    return null;
+  }
   
   const tooltipStyle = {
     backgroundColor: "white", 
@@ -156,7 +158,27 @@ function AreaSelector(props) {
         ))}
       </select>
     </div>
-  )
+  );
+}
+
+function AreaBelongingMessage(props) {
+  const { areaData } = props; 
+  
+  if(!areaData){
+    return (
+      <p>Waiting for data...</p>  
+    )
+  }
+  
+  if(!areaData.belonging_rate_2018){
+    return (
+      <span>There is no data for {areaData.name}</span>
+    )
+  } else {
+    return (
+      <span>Based on the data from 2018, {areaData.belongingRateFormatted} of people in {areaData.name} agree or strongly agree that they feel a sense of belonging in their community</span>
+    )
+  }
 }
 
 export default function BelongingRates(props) {
@@ -185,7 +207,7 @@ export default function BelongingRates(props) {
       </div>
       <div className="center medium-width">
         <p>
-        <span>Based on data from 2018, {areaData.belongingRateFormatted} of people in {areaData.name} agree or strongly agree that they feel a sense of belonging in their community.</span>
+        <AreaBelongingMessage areaData={areaData} />
         </p>
       </div>
     </div>

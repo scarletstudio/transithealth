@@ -201,6 +201,10 @@ nav a:hover {
 
 /* Forms */
 
+input {
+    font-family: 'Noto Sans SC', sans-serif;
+}
+
 .SelectorContainer {
     margin: var(--font-size);
 }
@@ -209,6 +213,82 @@ nav a:hover {
     display: inline-block;
     padding: 0.5em 0;
     padding-right: 1em;
+}
+
+.searchableMetricSelector {
+    display: inline-block;
+    padding: 0.5em 0;
+    padding-right: 1em;
+}
+
+.searchableMetricSelector .selectorModal {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.searchableMetricSelector .modalContent {
+    width: 500px;
+    background-color: white;
+}
+
+.searchableMetricSelector .modalBody {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+
+.searchableMetricSelector .searchBar {
+    border-bottom: 1px solid #eee;
+}
+
+.searchableMetricSelector .searchResults p {
+    border-bottom: 1px solid #D3D3D3;
+}
+
+.searchableMetricSelector .searchResults p:hover {
+    background-color: rgba(180, 180, 180, 0.5);
+    cursor: pointer;
+}
+
+.searchableMetricSelector .modalHeader, 
+.searchableMetricSelector .modalFooter {
+    padding: 10px
+}
+
+.searchableMetricSelector .selectorButton {
+    width: 500px;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    
+}
+
+@media screen and (max-width: 500px) {
+    
+    .searchableMetricSelector .selectorButton{
+        width: calc(100vw - 4em);
+        display: block;
+    }
+    
+    .searchableMetricSelector .modalContent {
+        width:100%;
+    }
+    
+    .searchableMetricSelector .selectorLabel{
+        margin: 1em 0;
+        display: block;
+    }
+    
 }
 
 button {
@@ -293,6 +373,12 @@ a.btn {
     opacity: 0.9;
 }
 
+/* Scatter Explorer */
+
+.ScatterMap .MapLabel {
+    max-width: 325px;
+}
+
 /* Timeline Explorer */
 
 .TimelineMetrics {
@@ -323,6 +409,14 @@ a.btn {
     height: 2em;
     line-height: 2em;
     margin-right: 0.5em;
+}
+
+@media screen and (max-width: 500px) {
+    
+    .TimelineMetrics .MetricSelector select {
+        width: 100%;
+    }
+
 }
 
 .TimelineMetrics .MetricSelector {
@@ -522,4 +616,21 @@ a.btn {
 
 .QuestionPooledTrips .recharts-legend-item {
     line-height: 1.5em;
+}
+
+.SidewalkCafePermitSearch .SearchInput {
+    font-size: 1em;
+    line-height: 1.35em;
+    margin: var(--font-size);
+    padding: var(--font-size);
+    width: 350px;
+}
+
+
+@media screen and (max-width: 400px) {
+    
+    .SidewalkCafePermitSearch .SearchInput {
+        width: calc(100% - 4 * var(--font-size));
+    }
+
 }

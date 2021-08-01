@@ -1,5 +1,5 @@
 SELECT date_trunc_ymd(trip_start_timestamp) as ymd, 
-    trip_id, 
+    trip_id , 
     taxi_id, 
     trip_miles, 
     trip_seconds/60 as trip_minutes,

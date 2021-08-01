@@ -62,3 +62,4 @@ df_pop.to_csv(args.output_file, index=False)
 end = timer()
 secs = end - start
 print(f"Fetched {len(df_pop)} records in {secs:.1f} secs.")
+
