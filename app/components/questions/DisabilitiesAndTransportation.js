@@ -82,12 +82,12 @@ const CTA_ADA_CHANGE_COLS = [
     name: "Num Stations",
   },
   {
-    key:"avg_rides_before",
+    key:"avg_trips_before",
     name: "AVG Trips Before",
     format: Formatter.numberWithCommas
   },
   {
-    key:"avg_rides_after",
+    key:"avg_trips_since",
     name: "AVG Trips After",
     format: Formatter.numberWithCommas
   },
@@ -112,6 +112,10 @@ function augmentMetrics(metrics) {
         d["avg_trips_since"],
       ),
       "ada" : booleanResult(d["ada"]),
+      "pct_change_ada": calculatePercentChange(
+        d["avg_trips_before"],
+        d["avg_trips_since"],
+      ),
     };
   });
 }
@@ -119,11 +123,13 @@ function augmentMetrics(metrics) {
 
 function transformData(res) {
   if (res) {
-    const cta_area_metrics = res.cta_area_metrics;
-    const cta_change_metrics = res.cta_change_metrics;
     const cta_station_ridership_metrics = augmentMetrics(res.cta_station_ridership_metrics);
-    return [ cta_station_ridership_metrics, 
-    cta_area_metrics, cta_change_metrics];
+    const cta_change_metrics = augmentMetrics(res.cta_change_metrics);
+    const cta_area_metrics = res.cta_area_metrics;
+    return [ 
+      cta_station_ridership_metrics,
+      cta_change_metrics,
+      cta_area_metrics,];
   }
   return [ [], [], [] ];
 }
@@ -172,7 +178,7 @@ function transformData(res) {
 
 export default function CTARides(props) {
   const { loading, error, data } = useFetch(DISABILITIES_ENDPOINT, {}, []);
-  const [ cta_station_ridership_metrics, rideshare_metrics, cta_area_metrics, cta_change_metrics] = transformData(data);
+  const [ cta_station_ridership_metrics, cta_change_metrics, cta_area_metrics] = transformData(data);
 
   useEffect(() => {
     props.setContentIsLoading(loading);
@@ -241,10 +247,9 @@ export default function CTARides(props) {
         <span></span>
         <hr/>
         <h2>Ridership Change Based on Station Accessibility</h2>
-        <p>How much of a difference did it make if a station is ADA accessible or not? </p>
+        <p>How much of a difference does it make if a station is ADA accessible or not? </p>
       </div>
-     
-      
+     <Table rows={cta_change_metrics} cols={CTA_ADA_CHANGE_COLS} />
       {errorMsg}
     </div>
   );
