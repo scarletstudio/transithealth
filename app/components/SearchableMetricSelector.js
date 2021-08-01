@@ -15,15 +15,15 @@ function sortDictionary(dictionary){
   }
   
 //Create a dictionary of all unique tags/datasets that exist, each key holding an array of metrics belonging to that tag/dataset
-function createTagDictionary(supportedMetrics){
+function createTagDictionary(supportedMetrics, searchResults){
   const groups = [...new Set(Object.keys(supportedMetrics).map(q => supportedMetrics[q].dataset))];
-  const metricRecords = Object.keys(supportedMetrics)
+  const metricRecords = searchResults
   var tagDictionary = {};
   
   for (var i in groups){
     var groupedRecords = [];
-    for(var j in Object.keys(supportedMetrics)){
-      var record = Object.keys(supportedMetrics)[j]
+    for(var j in searchResults){
+      var record = searchResults[j]
       if(groups[i] === supportedMetrics[record].dataset){
         groupedRecords.push(metricRecords[j])
       }
@@ -142,7 +142,7 @@ function GroupedMetricSearchResults(props){
   const searchTextLower = searchText.toLowerCase().trim()
   const searchResults = filterSearchResults(supportedMetrics, searchText)
   
-  var tagDictionary = createTagDictionary(supportedMetrics);
+  var tagDictionary = createTagDictionary(supportedMetrics, searchResults);
   var tagDictArray = createDictArray(tagDictionary);
   tagDictArray = sortDictionary(tagDictionary)
 
