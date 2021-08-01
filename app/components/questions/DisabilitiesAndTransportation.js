@@ -72,6 +72,31 @@ const CTA_STATION_RIDERSHIP_COLS = [
     alpha: (v) => (v / MIN_PCT_CHANGE_RIDES),
   }
 ];
+const CTA_ADA_CHANGE_COLS = [
+  {
+    key:"ada",
+    name: "ADA",
+  },
+  {
+    key:"num_stations",
+    name: "Num Stations",
+  },
+  {
+    key:"avg_trips_before",
+    name: "AVG Trips Before",
+    format: Formatter.numberWithCommas
+  },
+  {
+    key:"avg_trips_since",
+    name: "AVG Trips After",
+    format: Formatter.numberWithCommas
+  },
+  {
+    key:"pct_change_ada",
+    name: "%Change",
+    format: Formatter.percentChangeWithOneDecimal
+  },
+];
 
 function booleanResult(x){
   return (x == 1) ? "Yes" : "No";
@@ -87,6 +112,10 @@ function augmentMetrics(metrics) {
         d["avg_trips_since"],
       ),
       "ada" : booleanResult(d["ada"]),
+      "pct_change_ada": calculatePercentChange(
+        d["avg_trips_before"],
+        d["avg_trips_since"],
+      ),
     };
   });
 }
@@ -95,10 +124,13 @@ function augmentMetrics(metrics) {
 function transformData(res) {
   if (res) {
     const cta_area_metrics = res.cta_area_metrics;
-    const cta_change_metrics = res.cta_change_metrics;
     const cta_station_ridership_metrics = augmentMetrics(res.cta_station_ridership_metrics);
-    return [ cta_station_ridership_metrics, 
-    cta_area_metrics, cta_change_metrics];
+    const cta_change_metrics = augmentMetrics(res.cta_change_metrics);
+    return [ 
+      cta_station_ridership_metrics, 
+      cta_change_metrics,
+      cta_area_metrics
+      ];
   }
   return [ [], [], [] ];
 }
@@ -147,7 +179,7 @@ function transformData(res) {
 
 export default function CTARides(props) {
   const { loading, error, data } = useFetch(DISABILITIES_ENDPOINT, {}, []);
-  const [ cta_station_ridership_metrics, rideshare_metrics, cta_area_metrics, cta_change_metrics] = transformData(data);
+  const [ cta_station_ridership_metrics, cta_change_metrics, cta_area_metrics] = transformData(data);
 
   useEffect(() => {
     props.setContentIsLoading(loading);
@@ -188,13 +220,6 @@ export default function CTARides(props) {
   return (
     <div className="QuestionCTARidershipChange">
       <div className="center medium-width">
-        <h2>CTA Rides by Station Community Area</h2>
-        <p>*****EDIT****</p>
-      </div>
-      
- 
-      <br />
-      <div className="center medium-width">
         <h2>Daily Ridership Change Per CTA Station Since COVID</h2>
         <p>This table shows the average daily ridership in the year before and the year since COVID per CTA station.</p>
         <p>
@@ -211,7 +236,13 @@ export default function CTARides(props) {
         </p>
       </div>
       <Table rows={cta_station_ridership_metrics} cols={CTA_STATION_RIDERSHIP_COLS} />
-    
+      <div className="center medium-width">
+        <br/>
+        <hr/>
+        <h2>Ridership Change Based on Station Accessibility</h2>
+        <p>How much of a difference does it make if a station is ADA accessible or not? </p>
+      </div>
+     <Table rows={cta_change_metrics} cols={CTA_ADA_CHANGE_COLS} />
       {errorMsg}
     </div>
   );
