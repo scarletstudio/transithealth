@@ -31,7 +31,7 @@ const CITY_PART_COLOR = {
   "Southwest Side": "#AA4499",
   "West Side": "#882255",
 };
-const MIN_PCT_CHANGE_RIDES = -0.8;
+const MIN_PCT_CHANGE_RIDES = -1.0;
 const CTA_STATION_RIDERSHIP_COLS = [
   {
     key: "station_id",
@@ -49,14 +49,14 @@ const CTA_STATION_RIDERSHIP_COLS = [
     name: "ADA",
   },
   {
-    key: "avg_trips_per_day_before",
+    key: "avg_trips_before",
     group: "Rides/Day",
     name: "Before",
     format: Formatter.numberWithCommas,
     rowClasses: ["right"],
   },
   {
-    key: "avg_trips_per_day_since",
+    key: "avg_trips_since",
     group: "Rides/Day",
     name: "Since",
     format: Formatter.numberWithCommas,
@@ -73,6 +73,10 @@ const CTA_STATION_RIDERSHIP_COLS = [
   }
 ];
 
+function booleanResult(x){
+  return (x == 1) ? "Yes" : "No";
+}
+
 
 function augmentMetrics(metrics) {
   return metrics.map((d) => {
@@ -82,6 +86,7 @@ function augmentMetrics(metrics) {
         d["avg_trips_before"],
         d["avg_trips_since"],
       ),
+      "ada" : booleanResult(d["ada"]),
     };
   });
 }
@@ -190,8 +195,8 @@ export default function CTARides(props) {
  
       <br />
       <div className="center medium-width">
-        <h2>Change Since COVID</h2>
-        <p>This chart shows the number of CTA rides that were taken in the year before and the year since COVID, by community area where the station was located.</p>
+        <h2>Daily Ridership Change Per CTA Station Since COVID</h2>
+        <p>This table shows the average daily ridership in the year before and the year since COVID per CTA station.</p>
         <p>
           <span className="bold">Before</span>
           <span> is the 12-month period from February 2019-2020.</span>
