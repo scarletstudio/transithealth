@@ -10,7 +10,6 @@ PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
 PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
 PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
-
 TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 
 # Environment Variables
@@ -47,6 +46,7 @@ database.db: data/loaded/all_tables.txt
 data/loaded/all_tables.txt:
 	mkdir -p data/loaded
 	make data/loaded/community_area.txt
+	make data/loaded/cta_train_stops.txt
 	make data/loaded/belonging.txt
 	make data/loaded/disabilities.txt
 	make data/loaded/population.txt
