@@ -12,7 +12,7 @@ function sortDictionary(dictionary){
     return retArr
   }
   
-
+//Create a dictionary of all unique tags/datasets that exist, each key holding an array of metrics belonging to that tag/dataset
 function createTagDictionary(supportedMetrics){
   const groups = [...new Set(Object.keys(supportedMetrics).map(q => supportedMetrics[q].dataset))];
   const metricRecords = Object.keys(supportedMetrics)
@@ -32,6 +32,7 @@ function createTagDictionary(supportedMetrics){
   return tagDictionary
 }
 
+//Creates an array of dictionaries, each belonging to a dataset/tag that holds an array of all metrics belonging to that tag/dataset
 function createDictArray(tagDictionary){
   var tagDictArray = [];
   var chunk_size = 1;
@@ -41,15 +42,29 @@ function createDictArray(tagDictionary){
   return tagDictArray;
 }
 
+function filterSearchResults(supportedMetrics, searchText){
+  const searchTextLower = searchText.toLowerCase().trim()
+  const searchResults = searchTextLower.length === 0 
+    ? Object.keys(supportedMetrics)
+    : Object.keys(supportedMetrics)
+      .filter((k) => {
+        const metric = supportedMetrics[k]
+        const metricNameLower = metric.name.toLowerCase()
+        return metricNameLower.indexOf(searchTextLower) > -1
+      })
+      
+  return searchResults
+}
+
 function Modal(props){
   const { supportedMetrics, onClose, selectMetric, show } = props;
   const [searchText, setSearchText] = useState("")
   if(!show){
     return null;
   }
-  var tagDictionary = CreateTagDictionary(supportedMetrics);
-  var tagDictArray = CreateDictArray(tagDictionary);
-  tagDictArray = SortDictionary(tagDictionary)
+  var tagDictionary = createTagDictionary(supportedMetrics);
+  var tagDictArray = createDictArray(tagDictionary);
+  tagDictArray = sortDictionary(tagDictionary)
   
   const searchTextLower = searchText.toLowerCase().trim()
       
@@ -96,15 +111,8 @@ function Modal(props){
 function SimpleMetricSearchResults(props){
   const { searchText, supportedMetrics, onClose, selectMetric } = props
   const searchTextLower = searchText.toLowerCase().trim()
-  const searchResults = searchTextLower.length === 0 
-    ? Object.keys(supportedMetrics)
-    : Object.keys(supportedMetrics)
-      .filter((k) => {
-        const metric = supportedMetrics[k]
-        const metricNameLower = metric.name.toLowerCase()
-        return metricNameLower.indexOf(searchTextLower) > -1
-      })
-      
+  const searchResults = filterSearchResults(supportedMetrics, searchText)
+  
   return ( 
       searchResults.map((k, i) => (
         <div className="metricResult"
@@ -130,14 +138,7 @@ function SimpleMetricSearchResults(props){
 function GroupedMetricSearchResults(props){
   const { searchText, supportedMetrics, onClose, selectMetric, tagDictionary, tagDictArray } = props
   const searchTextLower = searchText.toLowerCase().trim()
-  const searchResults = searchTextLower.length === 0 
-    ? Object.keys(supportedMetrics)
-    : Object.keys(supportedMetrics)
-      .filter((k) => {
-        const metric = supportedMetrics[k]
-        const metricNameLower = metric.name.toLowerCase()
-        return metricNameLower.indexOf(searchTextLower) > -1
-      })
+  const searchResults = filterSearchResults(supportedMetrics, searchText)
 
   var elements = [];
   for (var i = 0; i < tagDictArray.length; i++){
