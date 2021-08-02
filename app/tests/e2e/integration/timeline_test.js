@@ -40,6 +40,10 @@ describe('Timeline Testing', () => {
     
     cy.get('.recharts-tooltip-wrapper').should('be.visible')
     
+    cy.get('.CustomToolTip > p').should(($items) => {
+      expect($items.eq(0)).to.contain('Daily Sidewalk Cafe Permits')
+    })
+    
   })
 })
 
