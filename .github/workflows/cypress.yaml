@@ -12,26 +12,22 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v2
         with:
-          start: |
-            cd app
-            echo "NEXT_PUBLIC_API=https://transithealth.herokuapp.com" > .env.local
-            yarn install
-            yarn build
-            yarn export
-            touch transithealth/.nojekyll
-            rm .env.local
-            python3 -m http.server 8001
+          install: yarn install
+          build: yarn build:ci
+          start: yarn start:ci
           wait-on: "http://localhost:8001"
           wait-on-timeout: 120
           record: true
           config-file: app/cypress.json
           headless: true
-          spec: app/tests/e2e/integration/timeline_test.js
+          spec: tests/e2e/integration/timeline_test.js
+          working-directory: app
         
       - name: Upload Artifacts
         uses: actions/upload-artifact@v1
         if: always()
         with:
           name: test-videos
-          path: app/tests/e2e/videos
+          path: tests/e2e/videos
+          working-directory: app
           
