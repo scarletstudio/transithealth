@@ -47,6 +47,8 @@ describe('Timeline Testing', () => {
       expect($items.eq(0)).to.contain('Daily Sidewalk Cafe Permits')
     })
     
+    cy.wait(2000)
+    
   })
 })
 
