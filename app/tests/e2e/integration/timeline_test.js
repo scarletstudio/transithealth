@@ -9,7 +9,10 @@ describe('Timeline Testing', () => {
     
     cy.url().should('include', 'transithealth/timeline')
     
-    cy.contains('Button','Weekly Rideshare Pickups').click()
+    cy.get('.RemoveMetric').first().click()
+    cy.get('.RemoveMetric').first().click()
+    
+    cy.get('.selectorButton').click()
     
     cy.get('.selectorModal').should('be.visible')
     
@@ -30,8 +33,12 @@ describe('Timeline Testing', () => {
     cy.contains('Button','Add Metric').click()
     
     cy.get('.MetricEditor').should(($spans) => {
-      expect($spans.eq(2)).to.contain('Daily Sidewalk Cafe Permits')
+      expect($spans.eq(0)).to.contain('Daily Sidewalk Cafe Permits')
     })
+    
+    cy.get('g').first().click({force:true})
+    
+    cy.get('.recharts-tooltip-wrapper').should('be.visible')
     
   })
 })

@@ -6,6 +6,8 @@
 app/build/
 app/node_modules/
 app/transithealth/
+app/tests/e2e/screenshots
+app/tests/e2e/videos
 
 pipeline/data/*
 pipeline/database.db
