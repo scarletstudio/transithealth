@@ -9,6 +9,7 @@ import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermit
 import SidewalkCafePermitSearch from '../components/questions/SidewalkCafePermitSearch'
 import DisabilitiesAndTransportation from '../components/questions/DisabilitiesAndTransportation'
 import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff'
+import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
 
 export const questionComponents = {
   "sample": Sample,
@@ -21,7 +22,8 @@ export const questionComponents = {
   "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
   "disabilities-and-transportation" : DisabilitiesAndTransportation,
-  "taxi-most-common-dropoff": TaxiMostCommonDropoff
+  "taxi-most-common-dropoff": TaxiMostCommonDropoff,
+  "taxi-payment-method": TaxiPaymentMethod
 };
 
 export const questionsParams = {
@@ -52,7 +54,7 @@ export const questionsParams = {
   "taxi-popular-payment-method":{
     title: "What is the most popular payment method for taxis?",
     author: "Leilah Alkatout",
-    component: "sample",
+    component: "taxi-payment-method",
     description: "People in different areas of Chicago prefer using different methods of payment- what's the most popular method for each pickup and dropoff area for taxis?",
   },
   "belonging-example": {

@@ -22,12 +22,16 @@ const COMMON_DROPOFF_COLS = [
     key: "max_count",
     name: "# of Dropoffs",
     rowClasses: ["center"],
+    rgb: "255, 165, 0",
+    alpha: (v) => (v/200),
   },
   {
     key: "percentage",
     name: "% from Total Dropoffs",
     format: Formatter.percentWithOneDecimal,
     rowClasses: ["center"],
+    rgb: "136, 34, 85",
+    alpha: (v) => (v / 0.5),
   },
 ];
 
