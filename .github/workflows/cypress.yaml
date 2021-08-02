@@ -28,6 +28,5 @@ jobs:
         if: always()
         with:
           name: test-videos
-          path: tests/e2e/videos
-          working-directory: app
+          path: app/tests/e2e/videos
           
