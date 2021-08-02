@@ -23,13 +23,14 @@ jobs:
           spec: tests/e2e/integration/timeline_test.js
           working-directory: app
         
-      - name: Upload Artifacts
+      - name: Upload Screenshot Artifacts
         uses: actions/upload-artifact@v1
         if: failure()
         with:
           name: test-screenshots
           path: app/tests/e2e/screenshots
         
+      - name: Upload Video Artifacts
         uses: actions/upload-artifact@v1
         if: always()
         with:
