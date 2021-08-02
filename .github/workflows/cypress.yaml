@@ -1,0 +1,38 @@
+name: Run Cypress Tests
+
+on: [pull_request]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+        
+      - name: Run Cypress
+        uses: cypress-io/github-action@v2
+        with:
+          install: yarn install
+          build: yarn build:ci
+          start: yarn start:ci, yarn start-api:ci
+          wait-on: "http://localhost:8001, http://localhost:5000"
+          wait-on-timeout: 120
+          record: false
+          config-file: cypress.json
+          headless: true
+          spec: tests/e2e/integration/timeline_test.js
+          working-directory: app
+        
+      - name: Upload Artifacts
+        - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: test-screenshots
+          path: app/tests/e2e/screenshots
+        
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: test-videos
+          path: app/tests/e2e/videos
+          
