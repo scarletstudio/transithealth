@@ -1,0 +1,40 @@
+name: Run Cypress Tests
+
+on: 
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/cypress.yaml
+      - app/**
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2.3.1
+        
+      - name: Install and Build 🔧
+        run: |
+          cd app
+          echo "NEXT_PUBLIC_API=https://transithealth.herokuapp.com" > .env.local
+          yarn install
+          yarn build
+          yarn export
+          touch transithealth/.nojekyll
+          rm .env.local
+          
+      - name: Cypress tests
+        uses: cypress-io/github-action@v2
+        with:
+          config-file: app/cypress.json
+          headless: true
+          spec: app/tests/e2e/integration/timeline_test.json
+          
+        name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        if: always()
+        with:
+          name: test-videos
+          path: app/tests/e2e/videos
