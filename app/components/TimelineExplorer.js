@@ -150,7 +150,14 @@ function TimelineChart({ data, metrics }) {
         {metrics.filter((m) => m.axis !== "none").map((m, i) => {
           const color = m.color || defaultColors[i % defaultColors.length];
           return (
-            <Area key={`${i}-${m.id}`} yAxisId={m.axis} dataKey={m.id} stroke={color} fill={color} />
+            <Area
+              key={`${i}-${m.id}`}
+              yAxisId={m.axis}
+              dataKey={m.id}
+              stroke={color}
+              fill={color}
+              connectNulls={true}
+            />
           );
         })}
         <Tooltip content={ <CustomToolTip metrics={metrics} /> } />
