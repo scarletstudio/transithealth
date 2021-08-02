@@ -8,6 +8,7 @@ import RentBurdenedRates from '../components/questions/RentBurdenRates'
 import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermitsYears'
 import SidewalkCafePermitSearch from '../components/questions/SidewalkCafePermitSearch'
 import DisabilitiesAndTransportation from '../components/questions/DisabilitiesAndTransportation'
+import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff'
 
 export const questionComponents = {
   "sample": Sample,
@@ -20,6 +21,7 @@ export const questionComponents = {
   "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
   "disabilities-and-transportation" : DisabilitiesAndTransportation,
+  "taxi-most-common-dropoff": TaxiMostCommonDropoff
 };
 
 export const questionsParams = {
@@ -44,7 +46,7 @@ export const questionsParams = {
   "taxi-most-common-dropoff": {
     title: "Where are people usually getting dropped off by taxis?",
     author: "Leilah Alkatout",
-    component: "sample",
+    component: "taxi-most-common-dropoff",
     description: "People get dropped off in different community areas by taxis but, what's the most common dropoff area per pickup area?",
   },
   "taxi-popular-payment-method":{

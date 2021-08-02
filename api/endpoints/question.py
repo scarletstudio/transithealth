@@ -43,20 +43,17 @@ def make_blueprint(con):
             "cta_station_ridership_metrics" : cta_station_ridership_metrics
         })
 
-    @app.route("/question/most_common_dropoff")
-    def most_common_dropoff():
+    @app.route("/question/taxitrips")
+    def taxitrips():
         most_common_dropoff = metric_tt.most_common_dropoff()
-        return jsonify({ "most_common_dropoff": most_common_dropoff })
-        
-    @app.route("/question/payment_per_pickup")
-    def payment_per_pickup():
         payment_per_pickup = metric_tt.get_payment_type_by_pickup()
-        return jsonify({ "payment_per_pickup": payment_per_pickup })
-        
-    @app.route("/question/payment_per_dropoff")
-    def payment_per_dropoff():
         payment_per_dropoff = metric_tt.get_payment_type_by_dropoff()
-        return jsonify({ "payment_per_dropoff": payment_per_dropoff })
+        return jsonify({
+            "most_common_dropoff": most_common_dropoff,
+            "payment_per_pickup": payment_per_pickup,
+            "payment_per_dropoff": payment_per_dropoff
+        })
+        
 
     @app.route("/question/sidewalk_search", methods=["POST"])
     def question_sidewalk_search():

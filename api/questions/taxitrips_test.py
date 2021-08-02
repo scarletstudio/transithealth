@@ -38,8 +38,8 @@ def test_most_common_dropoff():
     metric = TaxiTripQuestions(connection)
 
     assert metric.most_common_dropoff() == [
-        { "pickup_community_area": 45, "dropoff_community_area": 3, "max_count": 2},
-        { "pickup_community_area": 67, "dropoff_community_area": 90, "max_count": 1}
+        { "pickup_community_area": 45, "dropoff_community_area": 3, "max_count": 2, "percentage": (2/3) },
+        { "pickup_community_area": 67, "dropoff_community_area": 90, "max_count": 1, "percentage": (1) }
     ], "Should have two results for each pickup_community_area."
     
     
@@ -76,8 +76,8 @@ def test_payment_type_by_pickup():
     metric = TaxiTripQuestions(connection)
 
     assert metric.get_payment_type_by_pickup() == [
-        { "pickup_community_area": 3, "payment_type": "credit card", "max_count": 1},
-        { "pickup_community_area": 57, "payment_type": "cash", "max_count": 2}
+        { "pickup_community_area": 3, "payment_type": "credit card", "max_count": 1, "percentage": (1)},
+        { "pickup_community_area": 57, "payment_type": "cash", "max_count": 2, "percentage": (2/3)}
     ], "Should have two results for each pickup_community_area."
     
 def test_payment_type_by_dropoff():
@@ -113,6 +113,6 @@ def test_payment_type_by_dropoff():
     metric = TaxiTripQuestions(connection)
 
     assert metric.get_payment_type_by_dropoff() == [
-        { "dropoff_community_area": 44, "payment_type": "credit card", "max_count": 1},
-        { "dropoff_community_area": 87, "payment_type": "credit card", "max_count": 2}
+        { "dropoff_community_area": 44, "payment_type": "credit card", "max_count": 1, "percentage": (1)},
+        { "dropoff_community_area": 87, "payment_type": "credit card", "max_count": 2, "percentage": (2/3)}
     ], "Should have two results for each dropoff_community_area."
