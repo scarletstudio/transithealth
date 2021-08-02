@@ -265,4 +265,65 @@ def test_disabilities():
     
     assert metric.disability_rate(year=2015, segment="all") == [], "Checks that segment filter works. Should have no results."
     
+def test_total_cefe_permits_by_area():
+    
+    sidewalk_cafe_table = [ 
+    
+        { "permit_number" : 1017732,
+          "doing_business_as_name" : "THAI ROOM RESTAURANT INC.",
+          "area_number" : 5.0,
+          "issued_date_dt": "2002-05-07", 
+          "expiration_date_dt" : "2002-11-01", 
+          "zip_code" : 60618
+        },
+            
+        { "permit_number" : 1017710,
+          "doing_business_as_name" : "TRE KRONOR RESTAURANT",
+          "area_number" : 13.0,
+          "issued_date_dt": "2002-05-07", 
+          "expiration_date_dt" : "2002-11-01", 
+          "zip_code" : 60625
+        },
+        
+        { "permit_number" : 1531096,
+          "doing_business_as_name" : "CAFE COLAO",
+          "area_number" : 24.0,
+          "issued_date_dt": "2021-06-04", 
+          "expiration_date_dt" : "2022-02-28", 
+          "zip_code" : 60622
+        },
+        
+        { "permit_number" : 1017363,
+          "doing_business_as_name" : "KARMA CROSSING",
+          "area_number" : 22.0,
+          "issued_date_dt": "2005-06-09", 
+          "expiration_date_dt" : "2005-12-01", 
+          "zip_code" : 60647
+        },
+        
+        { "permit_number" : 1017874,
+          "doing_business_as_name" : "LULA CAFE",
+          "area_number" : 22.0,
+          "issued_date_dt": "2002-07-01", 
+          "expiration_date_dt" : "2002-11-01", 
+          "zip_code" : 60647
+        }
+    ]
+    
+   
+    con, cur = create_test_db(
+        scripts = ["./pipeline/load/sidewalk_cafe.sql"],
+        tables={ "sidewalk_cafe": sidewalk_cafe_table }
+        )
+
+    metric = CommunityMetrics(con)
+
+    
+    assert metric.total_cafe_permits_by_area() == [
+        { "area_number": 5.0, "value": 1},
+        { "area_number": 13.0, "value": 1},
+         { "area_number": 22.0, "value": 2},
+        { "area_number": 24.0, "value": 1}
+       
+        ], "Should have 4 results. Check if number of permits are correct"
     

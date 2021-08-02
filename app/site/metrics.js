@@ -163,7 +163,12 @@ export const communityMetrics = {
     format: Formatter.numberWithCommas,
     fullFormat: Formatter.numberWithCommas,
   },
-  
+  sidewalk_cafe_permits_area: {
+    name: "Number of Sidewalk Cafe Permits by Area",
+    units: "permits",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
 };
 
 export const timelineMetrics = {
