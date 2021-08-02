@@ -41,6 +41,7 @@ export const communityMetrics = {
   rideshare_pickups_covid: {
     name: "Rideshare Pickups Since March 2020",
     units: "trips",
+    dataset: "Rideshare",
     description: "",
     format: Formatter.numberInMillions,
     fullFormat: Formatter.numberWithCommas,
