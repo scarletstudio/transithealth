@@ -9,31 +9,13 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
         
-      - name: Run API
-        run: |
-          cat pipeline/compressed/db-part-* > pipeline/compressed.db.tgz
-          tar -xf pipeline/compressed.db.tgz -C pipeline
-          rm pipeline/compressed.db.tgz
-          pip3 install -r requirements.txt
-          echo "PORT=5000" >> .env
-          echo "ALLOW=http://127.0.0.1:8001" >> .env
-          echo "DATABASE=pipeline/database.db" >> .env
-          gunicorn --bind 127.0.0.1:5000 api:app
-      
-      - name: Run App
-        run: |
-          cd app
-          echo "NEXT_PUBLIC_API=http://127.0.0.1:5000" > .env.local
-          yarn install
-          yarn build
-          yarn export
-          touch transithealth/.nojekyll
-          rm .env.local
-          python3 -m http.server 8001
-          
-      - name: Cypress tests
+      - name: Run Cypress
         uses: cypress-io/github-action@v2
         with:
+          start: ./app/dev.sh 0 static with-prod-api
+          wait-on: "http://localhost:8001"
+          wait-on-timeout: 120
+          record: true
           config-file: app/cypress.json
           headless: true
           spec: app/tests/e2e/integration/timeline_test.js

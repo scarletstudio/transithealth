@@ -23,6 +23,15 @@ if [ "$2" == "api" ]; then
     sed -i "s,NEXT_PUBLIC_API=.*,NEXT_PUBLIC_API=$BACKEND_URL," app/.env.local
 fi
 
+# For Cypress: Use the production API instead of your local API
+if [ "$3" == "with-prod-api" ]; then
+    echo "Connecting to prod API instead of local. It may take some time to wake up..."
+    BACKEND_URL="http://transithealth.herokuapp.com"
+    echo "Connecting to Backend: $BACKEND_URL"
+    echo $(curl "$BACKEND_URL")
+    sed -i "s,NEXT_PUBLIC_API=.*,NEXT_PUBLIC_API=$BACKEND_URL," app/.env.local
+fi
+
 # Enter app directory
 cd app
 
