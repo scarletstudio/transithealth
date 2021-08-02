@@ -214,6 +214,7 @@ export const communityMetrics = {
   sidewalk_cafe_permits_area: {
     name: "Number of Sidewalk Cafe Permits by Area",
     units: "permits",
+    dataset: "Sidewalk Cafe",
     format: Formatter.numberWithCommas,
     fullFormat: Formatter.numberWithCommas,
   },
