@@ -20,6 +20,7 @@ Test Cases
 
 def test_table_counts():
     test.assert_table_count("community_area", 77)
+    test.assert_table_count("cta_train_stops", 300)
     test.assert_table_count("belonging",220)
     test.assert_table_count("disabilities", 616)
     test.assert_table_count("population", 770)

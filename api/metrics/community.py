@@ -35,7 +35,7 @@ class CommunityMetrics:
             area_number,
             name,
             part
-        FROM community_area
+        FROM community_area\
         """
         cur = self.con.cursor()
         cur.execute(query)
@@ -185,6 +185,25 @@ class CommunityMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+        
+    def traffic_intensity(self, year, segment):
+        """
+        Returns the dataset of traffic_intensity in the given year.
+        Args:
+            year (int): period ending year to filter by
+            segment (str): population segment to filter by
+        """
+        query = """
+        SELECT
+            *
+        FROM traffic_intensity
+        WHERE period = '{year}'
+        AND segment == "{segment}"
+        """.format(year=year, segment=segment)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
     
     def total_cafe_permits_by_area(self):
         """
@@ -202,4 +221,3 @@ class CommunityMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
-    
