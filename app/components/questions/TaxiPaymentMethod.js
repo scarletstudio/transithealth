@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import useFetch from 'use-http'
 import { Table } from '../../components/Table'
 import { Notification } from '../../components/Notification'
+import { FailureNotification } from '../../components/Notification'
 import {
   Formatter
 } from '../../site/metrics'
@@ -82,11 +83,6 @@ export default function TaxiTrips(props) {
     props.setContentIsLoading(loading);
   }, [loading]);
   
-  const errorMsg = error ? (
-    <Notification classes={["Bottom", "Wide", "Failure"]} visible={true}>
-      <p>Failed to get data from server. Please reload.</p>
-    </Notification>
-  ) : null;
   return (
       <div className="QuestionPaymentMethod">
           <div className="center medium-width">
@@ -96,6 +92,7 @@ export default function TaxiTrips(props) {
             <p>
               <span> This is for the 6-month period from January 2021 - July 2021.</span>
             </p>
+            <FailureNotification error={error} data={data} />
           </div>
           <Table rows={payment_per_pickup} cols={COMMON_PPAYMENT_COLS} />
           
@@ -108,8 +105,6 @@ export default function TaxiTrips(props) {
             </p>
           </div>
           <Table rows={payment_per_dropoff} cols={COMMON_DPAYMENT_COLS} />
-          
-          {errorMsg}
         </div>
     );
 };
