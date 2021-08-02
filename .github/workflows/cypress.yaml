@@ -14,8 +14,8 @@ jobs:
         with:
           install: yarn install
           build: yarn build:ci
-          start: yarn start:ci
-          wait-on: "http://localhost:8001"
+          start: yarn start:ci, yarn start-api:ci
+          wait-on: "http://localhost:8001, http://localhost:5000"
           wait-on-timeout: 120
           record: false
           config-file: cypress.json
