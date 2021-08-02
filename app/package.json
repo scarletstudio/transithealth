@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start -p 8001",
     "export": "next export -o transithealth",
-    "clean": "rm -rf build && rm -rf transithealth"
+    "clean": "rm -rf build && rm -rf transithealth",
+    "cy:run": "cypress run",
+    "cy:run-example": "cypress run --spec 'tests/e2e/integration/sample_spec.js'",
+    "cy:test-timeline" : "cypress run --spec 'tests/e2e/integration/timeline_test.js'"
   },
   "dependencies": {
     "d3-geo": "^2.0.1",
