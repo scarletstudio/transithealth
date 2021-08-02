@@ -14,7 +14,7 @@ def make_blueprint(con):
     metric = CommunityMetrics(con)
     metric_rbu = RentBurdenedMetrics(con)
     metric_tt = TaxiTripMetrics(con)
-
+    
     supported_metrics = {
         "rideshare_pickups_covid": metric.rideshare_total_pickups,
         "rideshare_pooled_trip_rate_2018": lambda: metric.rideshare_pooled_trip_rate(year=2018),
@@ -32,6 +32,7 @@ def make_blueprint(con):
         "disability_rate_2019":lambda: metric.disability_rate(year=2019, segment="all"),
         "belonging_rate_2017": lambda: metric.belonging(year=2017, segment="all"),
         "belonging_rate_2018": lambda: metric.belonging(year=2018, segment="all"),
+        "sidewalk_cafe_permits_area": metric.total_cafe_permits_by_area,
         "rent_burdened_2017": lambda: metric_rbu.rent_burdened(year=2017, segment="all"),
         "rent_burdened_2018": lambda: metric_rbu.rent_burdened(year=2018, segment="all"),
         "rent_burdened_2019": lambda: metric_rbu.rent_burdened(year=2019, segment="all"),
