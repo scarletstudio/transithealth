@@ -1,12 +1,6 @@
 name: Run Cypress Tests
 
-on: 
-  push:
-    branches:
-      - main
-    paths:
-      - .github/workflows/cypress.yaml
-      - app/**
+on: [push, pull_request]
 
 jobs:
   cypress-run:
@@ -15,26 +9,35 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v2.3.1
         
-      - name: Install and Build 🔧
+      - name: Run API
+        run: |
+          cat pipeline/compressed/db-part-* > pipeline/compressed.db.tgz
+          tar -xf pipeline/compressed.db.tgz -C pipeline
+          rm pipeline/compressed.db.tgz
+          pip3 install -r requirements.txt
+          gunicorn --bind 127.0.0.1:5000 api:app
+      
+      - name: Run App
         run: |
           cd app
-          echo "NEXT_PUBLIC_API=https://transithealth.herokuapp.com" > .env.local
+          echo "NEXT_PUBLIC_API=http://127.0.0.1:5000" > .env.local
           yarn install
           yarn build
           yarn export
           touch transithealth/.nojekyll
           rm .env.local
+          python3 -m http.server 8001
           
       - name: Cypress tests
         uses: cypress-io/github-action@v2
         with:
           config-file: app/cypress.json
           headless: true
-          spec: app/tests/e2e/integration/timeline_test.json
-          
-        name: Upload Artifact
+          spec: app/tests/e2e/integration/timeline_test.js
+        
         uses: actions/upload-artifact@v1
         if: always()
         with:
           name: test-videos
           path: app/tests/e2e/videos
+          

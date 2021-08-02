@@ -1,6 +1,9 @@
+/* global cy */
+/* global expect */
 describe('Timeline Testing', () => {
   it('Visits Transithealth', () => {
-    cy.visit('https://scarletstudio.github.io/transithealth')
+    
+    cy.visit('http://localhost:8001/transithealth')
     cy.contains('Explorer').click()
     
     cy.url().should('include', 'transithealth/explorer')
