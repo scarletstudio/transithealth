@@ -24,6 +24,12 @@ jobs:
           working-directory: app
         
       - name: Upload Artifacts
+        - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: test-screenshots
+          path: app/tests/e2e/screenshots
+        
         uses: actions/upload-artifact@v1
         if: always()
         with:

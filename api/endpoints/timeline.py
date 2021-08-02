@@ -36,7 +36,7 @@ def make_blueprint(con):
         "yearly_belonging_rate_H": lambda: yearly_metric.belonging("H"),
         "weekly_cta_train_ridership": lambda: train_weekly_metric.cta_train_ridership_weekly(since = start_2019_trains),
         "weekly_cta_train_ridership_covid": lambda: train_weekly_metric.cta_train_ridership_weekly(since = start_covid_trains),
-        "daily_sidewalk_cafe_permits": sidewalk_cafe_metric.get_total_permits_day,
+        "daily_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_day,
         "yearly_sidewalk_cafe_permit": sidewalk_cafe_metric.get_total_permits_year,
     }
 
