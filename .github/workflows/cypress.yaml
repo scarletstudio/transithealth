@@ -12,7 +12,15 @@ jobs:
       - name: Run Cypress
         uses: cypress-io/github-action@v2
         with:
-          start: ./app/dev.sh 0 static with-prod-api
+          start: |
+            cd app
+            echo "NEXT_PUBLIC_API=https://transithealth.herokuapp.com" > .env.local
+            yarn install
+            yarn build
+            yarn export
+            touch transithealth/.nojekyll
+            rm .env.local
+            python3 -m http.server 8001
           wait-on: "http://localhost:8001"
           wait-on-timeout: 120
           record: true
