@@ -14,7 +14,7 @@ def make_blueprint(con):
     metric = CommunityMetrics(con)
     metric_rbu = RentBurdenedMetrics(con)
     metric_tt = TaxiTripMetrics(con)
-
+    
     supported_metrics = {
         "rideshare_pickups_covid": metric.rideshare_total_pickups,
         "rideshare_pooled_trip_rate_2018": lambda: metric.rideshare_pooled_trip_rate(year=2018),
@@ -27,11 +27,17 @@ def make_blueprint(con):
         "median_income_2017": lambda: metric.income(year=2017, segment="all"),
         "median_income_2018": lambda: metric.income(year=2018, segment="all"),
         "median_income_2019": lambda: metric.income(year=2019, segment="all"),
+        "traffic_intensity_2016": lambda: metric.traffic_intensity(year=2016, segment="all"),
+        "traffic_intensity_2017": lambda: metric.traffic_intensity(year=2017, segment="all"),
+        "traffic_intensity_2018": lambda: metric.traffic_intensity(year=2018, segment="all"),
+        "traffic_intensity_2019": lambda: metric.traffic_intensity(year=2019, segment="all"),
+        "traffic_intensity_2020": lambda: metric.traffic_intensity(year=2020, segment="all"),
         "total_covid_cases": lambda: metric.covid_spread_sum_by_area("cases_weekly"),
         "disability_rate_2018":lambda: metric.disability_rate(year=2018, segment="all"),
         "disability_rate_2019":lambda: metric.disability_rate(year=2019, segment="all"),
         "belonging_rate_2017": lambda: metric.belonging(year=2017, segment="all"),
         "belonging_rate_2018": lambda: metric.belonging(year=2018, segment="all"),
+        "sidewalk_cafe_permits_area": metric.total_cafe_permits_by_area,
         "rent_burdened_2017": lambda: metric_rbu.rent_burdened(year=2017, segment="all"),
         "rent_burdened_2018": lambda: metric_rbu.rent_burdened(year=2018, segment="all"),
         "rent_burdened_2019": lambda: metric_rbu.rent_burdened(year=2019, segment="all"),
