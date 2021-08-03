@@ -11,17 +11,18 @@ class TaxiTripQuestions:
         SELECT
             pickup_community_area,
             dropoff_community_area,
-            max(count) as max_count
+            max(count) as max_count,
+            CAST(max(count) as FLOAT) / sum(count)  as percentage
         FROM (
             SELECT
                 pickup_community_area,
                 dropoff_community_area,
-                count(1) as count
+                CAST(count(1) as FLOAT) as count
             FROM taxitrips
             GROUP BY
                 pickup_community_area,
                 dropoff_community_area
-            )
+            ) 
         GROUP BY pickup_community_area
         """
         cur = self.connection.cursor()
@@ -35,12 +36,13 @@ class TaxiTripQuestions:
         SELECT
             pickup_community_area,
             payment_type,
-            max(count) as max_count
+            max(count) as max_count,
+            CAST(max(count) as FLOAT) / sum(count) as percentage
         FROM (
             SELECT
                 pickup_community_area,
                 payment_type,
-                count(1) as count
+                CAST(count(1) as FLOAT) as count
             FROM taxitrips
             GROUP BY
                 pickup_community_area,
@@ -59,12 +61,13 @@ class TaxiTripQuestions:
         SELECT
             dropoff_community_area,
             payment_type,
-            max(count) as max_count
+            max(count) as max_count,
+            CAST(max(count) as FLOAT) / sum(count) as percentage
         FROM (
             SELECT
                 dropoff_community_area,
                 payment_type,
-                count(1) as count
+                CAST(count(1) as FLOAT) as count
             FROM taxitrips
             GROUP BY
                 dropoff_community_area,
