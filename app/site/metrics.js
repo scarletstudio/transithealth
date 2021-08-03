@@ -214,6 +214,46 @@ export const communityMetrics = {
     format: Formatter.percentWithOneDecimal,
     fullFormat: Formatter.percentWithOneDecimal,
   },
+  traffic_intensity_2016: {
+    name: "2016 traffic_intensity",
+    units: "intensity",
+    dataset: "Traffic Intensity",
+    description: "Traffic Intensity dataset for year 2016",
+    format: Formatter.numberInThousands,
+    fullFormat: Formatter.numberInThousands,
+  },
+  traffic_intensity_2017: {
+    name: "2017 traffic_intensity",
+    units: "intensity",
+    dataset: "Traffic Intensity",
+    description: "Traffic Intensity dataset for year 2017",
+    format: Formatter.numberInThousands,
+    fullFormat: Formatter.numberInThousands,
+  },
+  traffic_intensity_2018: {
+    name: "2018 traffic_intensity",
+    units: "intensity",
+    dataset: "Traffic Intensity",
+    description: "Traffic Intensity dataset for year 2018",
+    format: Formatter.numberInThousands,
+    fullFormat: Formatter.numberInThousands,
+  },
+  traffic_intensity_2019: {
+    name: "2019 traffic_intensity",
+    units: "intensity",
+    dataset: "Traffic Intensity",
+    description: "Traffic Intensity dataset for year 2019",
+    format: Formatter.numberInThousands,
+    fullFormat: Formatter.numberInThousands,
+  },
+  traffic_intensity_2020: {
+    name: "2020 traffic_intensity",
+    units: "intensity",
+    dataset: "Traffic Intensity",
+    description: "Traffic Intensity dataset for year 2020",
+    format: Formatter.numberInThousands,
+    fullFormat: Formatter.numberInThousands,
+  },
   avg_speed_per_dropoff: {
     name: "Average Taxi Trip Speed Per Dropoff Area",
     units: "mph",
@@ -238,7 +278,6 @@ export const communityMetrics = {
     fullFormat: Formatter.numberWithCommas,
   },
 };
-
 export const timelineMetrics = {
   weekly_rideshare_pickups: {
     name: "Weekly Rideshare Pickups",
