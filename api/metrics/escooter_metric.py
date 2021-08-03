@@ -16,7 +16,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            start_community_area_number AS area_number, end_community_area_number AS area_number, avg_trip_distance AS value
+            start_community_area_number, end_community_area_number, avg_trip_distance
         From 
             Escooter
         """.format()
@@ -66,7 +66,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            start_community_area_number as area_number, end_community_area_number AS area_number, count_trip_id AS value
+            start_community_area_number, end_community_area_number, count_trip_id
         From 
             Escooter
         """.format()
