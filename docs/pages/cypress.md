@@ -50,7 +50,7 @@ npm run cy:run --spec {your-file-here}
 
 Setting up a GitHub Action can be very useful when you're trying to ensure that each new feature or addition to the codebase is implemented correctly, and that the Frontend continues to work properly. In order to do this, we can use Cypress tests to perform these integration tests and make sure it all fits together.
 
-For TransitHealth, it is important that any GitHub Action added to test a particular set of commands and assertions does so on a local development version of the website. A real working example of this can be found [in the integration folder.](../blob/main/app/tests/e2e/integration/timeline_test.js)
+For TransitHealth, it is important that any GitHub Action added to test a particular set of commands and assertions does so on a local development version of the website. A real working example of this can be found [in the integration folder.](../../app/tests/e2e/integration/timeline_test.js)
 
 In this test file, the frontend and backend are locally built after all necessary dependencies are installed. Once this is done, Cypress runs the test file, which is set up to go to this local site build and test its components. Since this particular test runs as a GitHub Action for all new pull requests, the local site will be using all changes made to the frontend and backend to ensure the functionality is not broken.
 
