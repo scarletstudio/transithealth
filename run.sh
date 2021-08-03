@@ -75,6 +75,7 @@ elif [ "$1" == "update" ]; then
   nvm install 14
   nvm use 14
   # Install app dependencies
+  npm install --global yarn
   yarn install
   cd ..
   # Install backend dependencies
