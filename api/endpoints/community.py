@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from api.metrics.community import CommunityMetrics
 from api.metrics.rent_burdened import RentBurdenedMetrics
 from api.metrics.taxitrips import TaxiTripMetrics
+from api.metrics.escooter_metric import EscooterMetric
 
 
 def make_blueprint(con):
@@ -14,6 +15,7 @@ def make_blueprint(con):
     metric = CommunityMetrics(con)
     metric_rbu = RentBurdenedMetrics(con)
     metric_tt = TaxiTripMetrics(con)
+    metric_em = EscooterMetric(con)
     
     supported_metrics = {
         "rideshare_pickups_covid": metric.rideshare_total_pickups,
@@ -45,7 +47,14 @@ def make_blueprint(con):
         "rent_min": lambda: metric_rbu.rent_min_burdened(),
         "rent_average": lambda: metric_rbu.rent_average_burden_area(),
         "avg_speed_per_dropoff": lambda: metric_tt.get_avg_speed_per_dropoff(),
-        "avg_speed_per_pickup": lambda: metric_tt.get_avg_speed_per_pickup()
+        "avg_speed_per_pickup": lambda: metric_tt.get_avg_speed_per_pickup(),
+        "avg_distance_x_to_y": lambda: metric_em.avg_distance_x_to_y(),
+        "avg_distance_based_on_start_can": lambda: metric_em.avg_distance_based_on_start_can(),
+        "avg_distance_based_on_end_can": lambda: metric_em.avg_distance_based_on_end_can(),
+        "number_of_trips_x_to_y": lambda: metric_em.number_of_trips_x_to_y(),
+        "number_of_trips_based_on_start_cn": lambda: metric_em.number_of_trips_based_on_start_cn(),
+        "number_of_trips_based_on_end_cn": lambda: metric_em.number_of_trips_based_on_end_cn(),
+        "total_escooter_rides": lambda: metric_em.total_escooter_rides(),
     }
 
 
