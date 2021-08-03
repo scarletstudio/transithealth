@@ -22,6 +22,12 @@ Installation of Cypress is done through yarn like all other Frontend dependencie
 - [Cypress Installation](https://docs.cypress.io/guides/getting-started/installing-cypress)
 - [Cypress Dependencies](https://docs.cypress.io/guides/continuous-integration/introduction#Dependencies)
 
+You can also double check that Cypress is installed by running the following command while in `transithealth/app/`
+
+```bash
+npm run cy:info
+```
+
 ## Write Tests
 
 Detailed information on how to write Cypress tests can be found in the official documentation.
