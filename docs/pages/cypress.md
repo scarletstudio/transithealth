@@ -32,7 +32,7 @@ Tests meant for the TransitHealth app should be placed in the specific integrati
 
 `transithealth/app/tests/e2e/integration/`
 
-A test file contains several JavaScript commands that perform different types of actions and assertions in order to test the app. An very simple example of one of these tests can be run with the following:
+A test file contains several JavaScript commands that perform different types of actions and assertions in order to test the app. A very simple example of one of these tests can be run with the following:
 
 ```bash
 npm run cy:run-example
@@ -50,14 +50,12 @@ npm run cy:run --spec {your-file-here}
 
 Setting up a GitHub Action can be very useful when you're trying to ensure that each new feature or addition to the codebase is implemented correctly, and that the Frontend continues to work properly. In order to do this, we can use Cypress tests to perform these integration tests and make sure it all fits together.
 
-For TransitHealth, it is important that any GitHub Action added to test a particular set of commands and assertions does so on a local development version of the website. A real working example of this can be found in the integration folder
-
-`app/tests/e2e/integration/timeline_test.js`
+For TransitHealth, it is important that any GitHub Action added to test a particular set of commands and assertions does so on a local development version of the website. A real working example of this can be found [in the integration folder.](blob/main/app/tests/e2e/integration/timeline_test.js)
 
 In this test file, the frontend and backend are locally built after all necessary dependencies are installed. Once this is done, Cypress runs the test file, which is set up to go to this local site build and test its components. Since this particular test runs as a GitHub Action for all new pull requests, the local site will be using all changes made to the frontend and backend to ensure the functionality is not broken.
 
 For more information on writing new GitHub actions, you can visit the official documentation, as well as the official GitHub action page for Cypress
 
 - [GitHub Actions Documentation](https://docs.cypress.io/guides/continuous-integration/github-actions)
-- [Cypress GitHub Actions Examples](https://github.com/cypress-io/github-action)
+- [Cypress GitHub Actions Examples](https://github.com/cypress-io/github-action#basic)
 - [Real World App Example](https://github.com/cypress-io/cypress-realworld-app/blob/develop/.github/workflows/main.yml)
