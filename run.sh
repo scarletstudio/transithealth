@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Load nvm for use in shell
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+
 # Tells the script to exit if a command fails instead of continuing
 set -e
 
@@ -68,8 +71,13 @@ elif [ "$1" == "test" ]; then
 elif [ "$1" == "update" ]; then
   echo "Updating dependencies..."
   cd app
+  # Activate Node v14
+  nvm install 14
+  nvm use 14
+  # Install app dependencies
   yarn install
   cd ..
+  # Install backend dependencies
   source .venv/bin/activate
   pip3 install -r requirements.txt
 

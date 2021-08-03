@@ -1,7 +1,21 @@
 #!/bin/bash
 
+# Load nvm for use in shell
+[[ -s $HOME/.nvm/nvm.sh ]] && . $HOME/.nvm/nvm.sh
+
+# Enter app directory to set up dependencies
+cd app
+
+# Activate Node v14
+nvm install 14
+nvm use 14
+
 # Install dependencies
+npm install --global yarn
 yarn install
+
+# Return to root directory to run Cloud9 tasks
+cd ..
 
 # Refresh IP address for Cloud9 instance
 if [ "$1" == "9" ]; then
@@ -23,7 +37,7 @@ if [ "$2" == "api" ]; then
     sed -i "s,NEXT_PUBLIC_API=.*,NEXT_PUBLIC_API=$BACKEND_URL," app/.env.local
 fi
 
-# Enter app directory
+# Enter app directory to start the frontend
 cd app
 
 # Check whether to run static or dynamic site
