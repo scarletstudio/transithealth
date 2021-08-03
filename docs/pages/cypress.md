@@ -13,7 +13,7 @@ Cypress is a front end testing tool that allows a team to write and perform inte
 
 Cypress comes with a variety of useful features. It allows for easy debuggability and supports cross browser testing, which it does locally. Cypress also automatically waits for commands and assertions to execute, without the need for you to add waits or sleeps to the tests.
 
-During test execution, Cypress takes "snapshots" of every command and assertion it performs to see what happened at each one. This is useful when using the Test Runner UI. When these tests are added to the GitHub workflow or done from a Command Line Interface, Cypress provides the ability to store screenshots on failure, or videos of the entire test. This ensures better understanding for debugging.
+During test execution, Cypress takes "snapshots" of every command and assertion it performs to see what happened at each one. This is useful when using the Test Runner UI. When these tests are added to the GitHub workflow or done from a Command Line Interface, Cypress provides the ability to store screenshots on failure, or videos of the entire test. This helps you get better understanding of what occurred during the test for debugging.
 
 ## Installation
 
@@ -51,6 +51,8 @@ In order to run a different test file within the Integration folder, you can run
 ```bash
 npm run cy:run --spec {your-file-here}
 ```
+
+It's important to note that Cloud9 may not have enough free resources for Cypress to run tests other than the example. Using a local machine or a VM with a higher allocation of memory will allow you to run your own tests without issue.
 
 ## GitHub Actions
 
