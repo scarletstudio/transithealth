@@ -12,6 +12,7 @@ import {
   Bar,
   Cell,
 } from 'recharts'
+import { Color } from '../../site/theme'
 import { Table } from '../../components/Table'
 import { Notification } from '../../components/Notification'
 import {
@@ -30,6 +31,10 @@ const CITY_PART_COLOR = {
   "South Side": "#CC6677",
   "Southwest Side": "#AA4499",
   "West Side": "#882255",
+};
+const ADA_COLOR = {
+  "Yes": "#332288",
+  "No": "#1978AD",
 };
 const MIN_PCT_CHANGE_RIDES = -1.0;
 const CTA_STATION_RIDERSHIP_COLS = [
@@ -72,6 +77,31 @@ const CTA_STATION_RIDERSHIP_COLS = [
     alpha: (v) => (v / MIN_PCT_CHANGE_RIDES),
   }
 ];
+const CTA_ADA_CHANGE_COLS = [
+  {
+    key:"ada",
+    name: "ADA",
+  },
+  {
+    key:"num_stations",
+    name: "Num Stations",
+  },
+  {
+    key:"avg_trips_before",
+    name: "AVG Trips Before",
+    format: Formatter.numberWithCommas
+  },
+  {
+    key:"avg_trips_since",
+    name: "AVG Trips After",
+    format: Formatter.numberWithCommas
+  },
+  {
+    key:"pct_change_avg_trips",
+    name: "%Change",
+    format: Formatter.percentChangeWithOneDecimal
+  },
+];
 
 function booleanResult(x){
   return (x == 1) ? "Yes" : "No";
@@ -80,13 +110,15 @@ function booleanResult(x){
 
 function augmentMetrics(metrics) {
   return metrics.map((d) => {
+    const ada_key = booleanResult(d["ada"]);
+    const pct_change = calculatePercentChange(
+        d["avg_trips_before"],
+        d["avg_trips_since"]);
     return {
       ...d,
-      "pct_change_avg_trips": calculatePercentChange(
-        d["avg_trips_before"],
-        d["avg_trips_since"],
-      ),
-      "ada" : booleanResult(d["ada"]),
+      "pct_change_avg_trips": pct_change,
+      "ada" : ada_key,
+      [ada_key] : pct_change,
     };
   });
 }
@@ -95,59 +127,62 @@ function augmentMetrics(metrics) {
 function transformData(res) {
   if (res) {
     const cta_area_metrics = res.cta_area_metrics;
-    const cta_change_metrics = res.cta_change_metrics;
     const cta_station_ridership_metrics = augmentMetrics(res.cta_station_ridership_metrics);
-    return [ cta_station_ridership_metrics, 
-    cta_area_metrics, cta_change_metrics];
+    const cta_change_metrics = augmentMetrics(res.cta_change_metrics);
+    return [ 
+      cta_station_ridership_metrics, 
+      cta_change_metrics,
+      cta_area_metrics
+      ];
   }
   return [ [], [], [] ];
 }
 
-// function QuestionBarChart({ data }) {
-//   return (
-//     <ResponsiveContainer width="100%" height={400}>
-//       <BarChart
-//         data={data}
-//         margin={{ left: 30, right: 30, bottom: 30, top: 30 }}
-//       >
-//         <CartesianGrid strokeDashArray="3 3" />
-//         <XAxis dataKey="name" tick={{ dy: 5 }}>
-//           <Label
-//             value="Station Community Area"
-//             position="bottom"
-//             offset={10}
-//           />
-//         </XAxis>
-//         <YAxis type="number" tickFormatter={Formatter.percentWithNoDecimal}>
-//           <Label
-//             value="Pooled Trip Rate"
-//             position="left"
-//             angle={-90}
-//             offset={15}
-//             style={{ textAnchor: "middle" }}
-//           />
-//         </YAxis>
-//         <Tooltip
-//           formatter={
-//             (value, name, props) => ([
-//               Formatter.percentWithOneDecimal(value),
-//               "Pooled Trip Rate",
-//               props,
-//             ])
-//           }
-//         />
-//         {Object.keys(CITY_PART_COLOR).map((partName, j) => (
-//           <Bar key={j} dataKey={partName} stackId="a" fill={CITY_PART_COLOR[partName]} />
-//         ))}
-//         <Legend layout="horizontal" verticalAlign="top" align="center" wrapperStyle={{ top: 5 }} />
-//       </BarChart>
-//     </ResponsiveContainer>
-//   )
-// }
+function QuestionBarChart({ data }) {
+  console.log(data);
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart
+        data={data}
+        margin={{ left: 30, right: 30, bottom: 30, top: 30 }}
+      >
+        <CartesianGrid strokeDashArray="3 3" />
+        <XAxis dataKey="ada" tick={{ dy: 5 }}>
+          <Label
+            value="Accessible"
+            position="bottom"
+            offset={5}
+          />
+        </XAxis>
+        <YAxis type="number" tickFormatter={Formatter.percentWithNoDecimal}>
+          <Label
+            value="%Change in Ridership"
+            position="left"
+            angle={-90}
+            offset={15}
+            style={{ textAnchor: "middle" }}
+          />
+        </YAxis>
+        <Tooltip
+          formatter={
+            (value, name, props) => ([
+              Formatter.numberInThousands(value),
+              name,
+              props,
+            ])
+          }
+        />
+        <Bar  dataKey="avg_trips_before"  fill={Color.Forest} />
+        <Bar  dataKey="avg_trips_since"  fill={Color.Magenta} />
+        <Legend layout="horizontal" verticalAlign="top" align="center" wrapperStyle={{ top: 5 }} />
+      </BarChart>
+    </ResponsiveContainer>
+  )
+}
 
 export default function CTARides(props) {
   const { loading, error, data } = useFetch(DISABILITIES_ENDPOINT, {}, []);
-  const [ cta_station_ridership_metrics, rideshare_metrics, cta_area_metrics, cta_change_metrics] = transformData(data);
+  const [ cta_station_ridership_metrics, cta_change_metrics, cta_area_metrics] = transformData(data);
 
   useEffect(() => {
     props.setContentIsLoading(loading);
@@ -188,13 +223,6 @@ export default function CTARides(props) {
   return (
     <div className="QuestionCTARidershipChange">
       <div className="center medium-width">
-        <h2>CTA Rides by Station Community Area</h2>
-        <p>*****EDIT****</p>
-      </div>
-      
- 
-      <br />
-      <div className="center medium-width">
         <h2>Daily Ridership Change Per CTA Station Since COVID</h2>
         <p>This table shows the average daily ridership in the year before and the year since COVID per CTA station.</p>
         <p>
@@ -211,7 +239,16 @@ export default function CTARides(props) {
         </p>
       </div>
       <Table rows={cta_station_ridership_metrics} cols={CTA_STATION_RIDERSHIP_COLS} />
+      <div className="center medium-width">
+        <br/>
+        <hr/>
+        <h2>Ridership Change Based on Station Accessibility</h2>
+        <p>How much of a difference does it make if a station is ADA accessible or not? </p>
+      </div>
+      <QuestionBarChart data={cta_change_metrics} />
+      <br/>
     
+     <Table rows={cta_change_metrics} cols={CTA_ADA_CHANGE_COLS} />
       {errorMsg}
     </div>
   );

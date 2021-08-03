@@ -8,6 +8,8 @@ import RentBurdenedRates from '../components/questions/RentBurdenRates'
 import SidewalkCafePermitsYears from '../components/questions/SidewalkCafePermitsYears'
 import SidewalkCafePermitSearch from '../components/questions/SidewalkCafePermitSearch'
 import DisabilitiesAndTransportation from '../components/questions/DisabilitiesAndTransportation'
+import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff'
+import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
 
 export const questionComponents = {
   "sample": Sample,
@@ -20,6 +22,8 @@ export const questionComponents = {
   "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
   "disabilities-and-transportation" : DisabilitiesAndTransportation,
+  "taxi-most-common-dropoff": TaxiMostCommonDropoff,
+  "taxi-payment-method": TaxiPaymentMethod
 };
 
 export const questionsParams = {
@@ -44,13 +48,13 @@ export const questionsParams = {
   "taxi-most-common-dropoff": {
     title: "Where are people usually getting dropped off by taxis?",
     author: "Leilah Alkatout",
-    component: "sample",
+    component: "taxi-most-common-dropoff",
     description: "People get dropped off in different community areas by taxis but, what's the most common dropoff area per pickup area?",
   },
   "taxi-popular-payment-method":{
     title: "What is the most popular payment method for taxis?",
     author: "Leilah Alkatout",
-    component: "sample",
+    component: "taxi-payment-method",
     description: "People in different areas of Chicago prefer using different methods of payment- what's the most popular method for each pickup and dropoff area for taxis?",
   },
   "belonging-example": {

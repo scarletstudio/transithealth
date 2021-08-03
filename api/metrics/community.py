@@ -204,3 +204,20 @@ class CommunityMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+    
+    def total_cafe_permits_by_area(self):
+        """
+        Returns the number of sidewalk cafe permits issued in a community_area.
+        """
+        query = """
+        SELECT
+            area_number, 
+            count(area_number) as value
+        FROM sidewalk_cafe
+        GROUP BY area_number
+        """
+        
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows

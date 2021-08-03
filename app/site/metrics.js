@@ -18,6 +18,25 @@ export const Formatter = {
   percentChangeWithOneDecimal: (v) => ((v >= 0 ? "+" : "") + (v * 100).toFixed(1) + "%"),
 };
 
+/*
+ * Check whether the metrics have the required fields
+ */
+function validateMetrics(metricsMap) {
+  const requiredFields = [
+    "name",
+    "units",
+    "dataset",
+    "format",
+  ];
+  Object.entries(metricsMap).forEach(([key, metric]) => {
+    requiredFields.forEach((field) => {
+      if (!metric?.[field]) {
+        throw new Error(`Metric ${key} is missing the ${field} field.`);
+      }
+    });
+  });
+}
+
 export const communityMetrics = {
   rideshare_pickups_covid: {
     name: "Rideshare Pickups Since March 2020",
@@ -211,7 +230,13 @@ export const communityMetrics = {
     format: Formatter.numberWithCommas,
     fullFormat: Formatter.numberWithCommas,
   },
-  
+  sidewalk_cafe_permits_area: {
+    name: "Number of Sidewalk Cafe Permits by Area",
+    units: "permits",
+    dataset: "Sidewalk Cafe",
+    format: Formatter.numberWithCommas,
+    fullFormat: Formatter.numberWithCommas,
+  },
 };
 
 export const timelineMetrics = {
@@ -347,3 +372,7 @@ export const timelineExplorerDefaults = {
     },
   ],
 };
+
+// Hacky way to cause site build to fail if a field is missing:
+validateMetrics(communityMetrics);
+validateMetrics(timelineMetrics);
