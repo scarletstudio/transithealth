@@ -21,10 +21,10 @@ app
 ├── site/               Data or functions to access site-wide, such as metrics and questions metadata.
 ├── styles/             CSS stylesheets.
 ├── tests/e2e           Cypress file structure
-    ├── fixtures/       Files that are used as external pieces of static data for Cypress tests.
-    ├── integration/    JavaScript test files that are run by Cypress for End-to-End Testing.
-    ├── plugins/        A special file that gives Cypress tests access to the file system and OS.
-    └── support/        Reusable behavior such as custom commands or global overrides.
+|   ├── fixtures/       Files that are used as external pieces of static data for Cypress tests.
+|   ├── integration/    JavaScript test files that are run by Cypress for End-to-End Testing.
+|   ├── plugins/        A special file that gives Cypress tests access to the file system and OS.
+|   └── support/        Reusable behavior such as custom commands or global overrides.
 ├── transithealth/      (Ignore, not committed) Built version of the app to deploy.
 ├── .env.local          Stores variables to access site-wide or configure the app.
 ├── cypress.json        Configuration file for Cypress' file structure and other options.

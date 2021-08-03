@@ -48,6 +48,8 @@ Engineers are not expected to write integration tests for TransitHealth features
 - Run the API, automatically simulate requests, and check if the results are as expected.
 - Run the offline pipeline from scratch and check if the results are as expected.
 
+A good example of Integration Testing can be [read about here](cypress.md)
+
 ## Quality Assurance Testing
 
 In QA testing, engineers try to use the system and find flaws. Usually, QA starts with use cases that users of the software will want as well as situations that developers of the software may not have anticipated.
