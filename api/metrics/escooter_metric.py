@@ -16,7 +16,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            start_community_area_number, end_community_area_number, avg_trip_distance
+            start_community_area_number AS area_number, end_community_area_number AS area_number, avg_trip_distance AS value
         From 
             Escooter
         """.format()
@@ -31,7 +31,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            start_community_area_number, avg(avg_trip_distance)
+            start_community_area_number AS area_number, avg(avg_trip_distance) AS value
         From 
             Escooter
         Group by
@@ -48,7 +48,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            end_community_area_number, avg(avg_trip_distance)
+            end_community_area_number AS area_number, avg(avg_trip_distance) AS value
         From 
             Escooter
         Group by
@@ -66,7 +66,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            start_community_area_number, end_community_area_number, count_trip_id
+            start_community_area_number as area_number, end_community_area_number AS area_number, count_trip_id AS value
         From 
             Escooter
         """.format()
@@ -82,7 +82,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            start_community_area_number, sum(count_trip_id)
+            start_community_area_number AS area_number, sum(count_trip_id) AS value
         From 
             Escooter
         Group by
@@ -100,7 +100,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            end_community_area_number, sum(count_trip_id)
+            end_community_area_number AS area_number, sum(count_trip_id) AS value
         From 
             Escooter
         Group by
@@ -117,7 +117,7 @@ class EscooterMetric:
         """
         query = """
         SELECT
-            sum(count_trip_id)
+            sum(count_trip_id) AS value
         From 
             Escooter
         """.format()
