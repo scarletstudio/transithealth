@@ -17,7 +17,7 @@ During test execution, Cypress takes "snapshots" of every command and assertion 
 
 ## Installation
 
-Installation of Cypress is done through yarn like all other Frontend dependencies, and should be already completed. However, in case of any troubles trying to run tests or access its features, you can refer to the official documentation for Cypress.
+Installation of Cypress is done through yarn like all other Frontend dependencies, and should be already completed for this repository. However, in case of any troubles trying to run tests or access its features, you can refer to the official documentation for Cypress.
 
 - [Cypress Installation](https://docs.cypress.io/guides/getting-started/installing-cypress)
 - [Cypress Dependencies](https://docs.cypress.io/guides/continuous-integration/introduction#Dependencies)
