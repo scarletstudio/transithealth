@@ -44,7 +44,7 @@ A test file contains several JavaScript commands that perform different types of
 npm run cy:run-example
 ```
 
-This will show what a test looks like when run from the command line. This test in particular contains one that will pass and one that will fail. 
+This will show what a test looks like when run from the command line. This test in particular is only asserting that true is true, and does not test anything important.
 
 In order to run a different test file within the Integration folder, you can run the following:
 
