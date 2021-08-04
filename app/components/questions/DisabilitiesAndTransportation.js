@@ -172,8 +172,8 @@ function QuestionBarChart({ data }) {
             ])
           }
         />
-        <Bar name="avg Trips Before" dataKey= "avg_trips_before"  fill={Color.Forest} />
-        <Bar name="avg Trips Since" dataKey="avg_trips_since"  fill={Color.Magenta} />
+        <Bar name="Avg Trips Before" dataKey= "avg_trips_before"  fill={Color.Forest} />
+        <Bar name="Avg Trips Since" dataKey="avg_trips_since"  fill={Color.Magenta} />
         <Legend layout="horizontal" verticalAlign="top" align="center" wrapperStyle={{ top: 5 }} />
       </BarChart>
     </ResponsiveContainer>
@@ -195,38 +195,12 @@ export default function CTARides(props) {
     </Notification>
   ) : null;
 
-  // const sortedByPooledRate = metrics.sort((a, b) => {
-  //   return b[METRIC_POOLED_TRIP_RATE] - a[METRIC_POOLED_TRIP_RATE];
-  // });
-  // const highestByPooledRate = sortedByPooledRate[0];
-  // const lowestByPooledRate = sortedByPooledRate[sortedByPooledRate.length - 1];
-  // const detailForPooledRate = sortedByPooledRate.length > 1 ? (
-  //     <p className="center">
-  //       <span className="bold">
-  //         {highestByPooledRate.name}
-  //       </span>
-  //       <span> has the highest rate of residents with an included disability (</span>
-  //       <span className="bold">
-  //         {Formatter.percentWithOneDecimal(highestByPooledRate[METRIC_POOLED_TRIP_RATE])}
-  //       </span>
-  //       <span>) while </span>
-  //       <span className="bold">
-  //         {lowestByPooledRate.name}
-  //       </span>
-  //       <span> has the lowest (</span>
-  //       <span className="bold">
-  //         {Formatter.percentWithOneDecimal(lowestByPooledRate[METRIC_POOLED_TRIP_RATE])}
-  //       </span>
-  //       <span>).</span>
-  //     </p>
-  //   ) : null;
-
   return (
     <div className="QuestionCTARidershipChange">
       <div className="center medium-width">
         <br/>
         <h2>Ridership Change Based on Station Accessibility</h2>
-        <p>How much of a difference does it make if a station is ADA (American's with Disabilities Act) accessible or not? </p>
+        <p>How much of a difference does it make if a station is ADA (Americans with Disabilities Act) approved or not? </p>
       </div>
       <QuestionBarChart data={cta_change_metrics} />
       <br/>
