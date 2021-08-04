@@ -63,7 +63,7 @@ All Cypress tests meant for the TransitHealth app should be placed in the specif
 
 Detailed information on how to write Cypress tests, as well as the commands and assertions supported by Cypress, can be found in the official documentation.
 
-- [Writing Cypress Tests](https://docs.cypress.io/guides/getting-started/writing-your-first-test#Write-your-first-test)
+- [Writing Cypress Tests](https://docs.cypress.io/guides/getting-started/writing-your-first-test)
 - [Cypress API, Assertions, and Commands](https://docs.cypress.io/api/table-of-contents)
 
 
