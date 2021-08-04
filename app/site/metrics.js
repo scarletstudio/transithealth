@@ -215,40 +215,40 @@ export const communityMetrics = {
     fullFormat: Formatter.percentWithOneDecimal,
   },
   traffic_intensity_2016: {
-    name: "2016 traffic_intensity",
-    units: "intensity",
+    name: "2016 Traffic Intensity",
+    units: "vehicle density",
     dataset: "Traffic Intensity",
     description: "Traffic Intensity dataset for year 2016",
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberInThousands,
   },
   traffic_intensity_2017: {
-    name: "2017 traffic_intensity",
-    units: "intensity",
+    name: "2017 Traffic Intensity",
+    units: "vehicle density",
     dataset: "Traffic Intensity",
     description: "Traffic Intensity dataset for year 2017",
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberInThousands,
   },
   traffic_intensity_2018: {
-    name: "2018 traffic_intensity",
-    units: "intensity",
+    name: "2018 Traffic Intensity",
+    units: "vehicle density",
     dataset: "Traffic Intensity",
     description: "Traffic Intensity dataset for year 2018",
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberInThousands,
   },
   traffic_intensity_2019: {
-    name: "2019 traffic_intensity",
-    units: "intensity",
+    name: "2019 Traffic Intensity",
+    units: "vehicle density",
     dataset: "Traffic Intensity",
     description: "Traffic Intensity dataset for year 2019",
     format: Formatter.numberInThousands,
     fullFormat: Formatter.numberInThousands,
   },
   traffic_intensity_2020: {
-    name: "2020 traffic_intensity",
-    units: "intensity",
+    name: "2020 Traffic Intensity",
+    units: "vehicle density",
     dataset: "Traffic Intensity",
     description: "Traffic Intensity dataset for year 2020",
     format: Formatter.numberInThousands,
@@ -278,6 +278,7 @@ export const communityMetrics = {
     fullFormat: Formatter.numberWithCommas,
   },
 };
+
 export const timelineMetrics = {
   weekly_rideshare_pickups: {
     name: "Weekly Rideshare Pickups",
