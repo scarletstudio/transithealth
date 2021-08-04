@@ -45,7 +45,7 @@ In order to run a different test file within the Integration folder, you can run
 npm run cy:run --spec {your-file-here}
 ```
 
-It's important to note that Cloud9 may not have enough free resources for Cypress to run tests other than the example. Using a local machine or a VM with a higher allocation of memory will allow you to run your own tests without issue. Even then, Cypress tests are rarely run directly in your own Command Line. Instead, we implement these tests using [GitHub Actions](#github-actions)
+**NOTE:** Cloud9 may not have enough free resources for Cypress to run tests other than the example. Using a local machine or a VM with a higher allocation of memory will allow you to run your own tests without issue. Even then, Cypress tests are rarely run directly in your own Command Line. Instead, we implement these tests using [GitHub Actions](#github-actions)
 
 ## Writing Tests
 
