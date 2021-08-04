@@ -55,7 +55,7 @@ With Cypress, however, you can program the test to perform assertions, similar t
 
 A working example of one of these tests can be seen [in the integration folder.](../../app/tests/e2e/integration/timeline_test.js)
 
-Attempting to read this file can be a bit overwhelming, but [Cypress provides excellent documentation on reading test files.](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress)
+Attempting to read this file can be a bit overwhelming, but Cypress provides [excellent documentation](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress) on reading test files and being introduced to Cypress as a whole.
 These examples, and others provided in the official documentation, can be very helpful in determining every step a test takes when being run.
 
 All Cypress tests meant for the TransitHealth app should be placed in the specific integration folder in the tests file.
