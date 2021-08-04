@@ -10,11 +10,7 @@ PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
 PORTAL_BUS_RIDERSHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
-<<<<<<< HEAD
 PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
-=======
-
->>>>>>> 10d8a0e (:added daily bus ridership files)
 TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 
 # Environment Variables

@@ -1,3 +1,6 @@
+import sys
+sys.path.append("../")
+
 import argparse
 import pandas as pd
 from pipeline.utils.data import extract_data_portal_dates
