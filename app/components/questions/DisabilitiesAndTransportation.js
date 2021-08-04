@@ -144,7 +144,7 @@ function QuestionBarChart({ data }) {
     <ResponsiveContainer width="100%" height={400}>
       <BarChart
         data={data}
-        margin={{ left: 30, right: 30, bottom: 30, top: 30 }}
+        margin={{ left: 45, right: 45, bottom: 30, top: 30 }}
       >
         <CartesianGrid strokeDashArray="3 3" />
         <XAxis dataKey="ada" tick={{ dy: 5 }}>
@@ -154,12 +154,12 @@ function QuestionBarChart({ data }) {
             offset={5}
           />
         </XAxis>
-        <YAxis type="number" tickFormatter={Formatter.percentWithNoDecimal}>
+        <YAxis type="number" tickFormatter={Formatter.numberInThousands()}>
           <Label
-            value="%Change in Ridership"
+            value="Average Ridership"
             position="left"
             angle={-90}
-            offset={15}
+            offset={27}
             style={{ textAnchor: "middle" }}
           />
         </YAxis>
@@ -172,13 +172,14 @@ function QuestionBarChart({ data }) {
             ])
           }
         />
-        <Bar  dataKey="avg_trips_before"  fill={Color.Forest} />
-        <Bar  dataKey="avg_trips_since"  fill={Color.Magenta} />
+        <Bar name="avg Trips Before" dataKey= "avg_trips_before"  fill={Color.Forest} />
+        <Bar name="avg Trips Since" dataKey="avg_trips_since"  fill={Color.Magenta} />
         <Legend layout="horizontal" verticalAlign="top" align="center" wrapperStyle={{ top: 5 }} />
       </BarChart>
     </ResponsiveContainer>
   )
 }
+
 
 export default function CTARides(props) {
   const { loading, error, data } = useFetch(DISABILITIES_ENDPOINT, {}, []);
@@ -223,6 +224,15 @@ export default function CTARides(props) {
   return (
     <div className="QuestionCTARidershipChange">
       <div className="center medium-width">
+        <br/>
+        <h2>Ridership Change Based on Station Accessibility</h2>
+        <p>How much of a difference does it make if a station is ADA (American's with Disabilities Act) accessible or not? </p>
+      </div>
+      <QuestionBarChart data={cta_change_metrics} />
+      <br/>
+    
+     <Table rows={cta_change_metrics} cols={CTA_ADA_CHANGE_COLS} />
+      <div className="center medium-width">
         <h2>Daily Ridership Change Per CTA Station Since COVID</h2>
         <p>This table shows the average daily ridership in the year before and the year since COVID per CTA station.</p>
         <p>
@@ -233,22 +243,8 @@ export default function CTARides(props) {
           <span className="bold">After</span>
           <span> is the 12-month period from March 2020-2021.</span>
         </p>
-        <p>
-          <span className="bold">ADA</span>
-          <span> refers to the American's with Disabilities Act.  ADA stations are accessible.</span>
-        </p>
       </div>
       <Table rows={cta_station_ridership_metrics} cols={CTA_STATION_RIDERSHIP_COLS} />
-      <div className="center medium-width">
-        <br/>
-        <hr/>
-        <h2>Ridership Change Based on Station Accessibility</h2>
-        <p>How much of a difference does it make if a station is ADA accessible or not? </p>
-      </div>
-      <QuestionBarChart data={cta_change_metrics} />
-      <br/>
-    
-     <Table rows={cta_change_metrics} cols={CTA_ADA_CHANGE_COLS} />
       {errorMsg}
     </div>
   );
