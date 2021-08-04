@@ -54,6 +54,7 @@ Writing tests yourself can be fairly straightforward depending on what exactly y
 With Cypress, however, you can program the test to perform assertions, similar to conditionals in conventional programming. These assertions can be used to check if a value or element has changed or exists as a result of a command it has executed. If the first command is to click a button, you can assert the URL changed to be as expected, or if a menu appeared or the webpage changed as a result of that button press. Every component on the app can be manipulated by Cypress commands, and tested with Cypress assertions. 
 
 A working example of one of these tests can be seen [in the integration folder.](../../app/tests/e2e/integration/timeline_test.js)
+
 Attempting to read this file can be a bit overwhelming, but [Cypress provides excellent documentation on reading test files.](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress)
 These examples, and others provided in the official documentation, can be very helpful in determining every step a test takes when being run.
 
