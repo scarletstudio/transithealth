@@ -8,6 +8,7 @@ PORTAL_COVID_SPREAD := https://data.cityofchicago.org/resource/yhhz-zm2v.json
 PORTAL_ESCOOTER := https://data.cityofchicago.org/resource/2kfw-zvte.json
 PORTAL_SIDEWALK_CAFE := https://data.cityofchicago.org/resource/nxj5-ix6z.json
 PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
+PORTAL_BUS_RIDERSHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
 PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
@@ -60,6 +61,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/popular_train_stops.txt
 	make data/loaded/sidewalk_cafe.txt
 	make data/loaded/taxi_trips.txt
+	make data/loaded/daily_bus_ridership.txt
 	touch "data/loaded/all_tables.txt"
 	
 data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
@@ -139,6 +141,13 @@ data/loaded/cta_train_ridership.txt: data/transformed/cta_train_ridership.csv
 		--input_file="data/transformed/cta_train_ridership.csv" \
 		--create_sql="load/cta_train_ridership.sql" \
 		--table_name="cta_train_ridership"
+		
+data/loaded/daily_bus_ridership.txt: data/transformed/daily_bus_ridership.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/daily_bus_ridership.csv" \
+		--create_sql="load/daily_bus_ridership.sql" \
+		--table_name="daily_bus_ridership"
 
 data/loaded/popular_train_stops.txt: data/transformed/popular_train_stops.csv
 	python3 load/create_table.py \
@@ -253,6 +262,11 @@ data/transformed/sidewalk_cafe.csv: data/extracted/sidewalk_cafe.csv
 		--area_file="data/transformed/community_area.csv" \
 		--input_file="data/extracted/sidewalk_cafe.csv" \
 		--output_file="data/transformed/sidewalk_cafe.csv"
+		
+data/transformed/daily_bus_ridership.csv: data/extracted/daily_bus_ridership.csv
+	python3 transform/daily_bus_ridership.py \
+		--input_file="data/extracted/daily_bus_ridership.csv" \
+		--output_file="data/transformed/daily_bus_ridership.csv"
 
 # Extract Operations
 
@@ -379,12 +393,11 @@ data/extracted/popular_train_stops.csv:
 		--soql_file="extract/popular_train_stops.sql" \
 		--output_file="data/extracted/popular_train_stops.csv"
 
-
-data/extracted/daily_bus_rideship.csv:
+data/extracted/daily_bus_ridership.csv:
 	python3 extract/from_data_portal.py \
-		--json_url="$(PORTAL_BUS_RIDESHIP)" \
-		--soql_file="extract/daily_bus_rideship.sql" \
-		--output_file="data/extracted/daily_bus_rideship.csv"
+		--json_url="$(PORTAL_BUS_RIDERSHIP)" \
+		--soql_file="extract/daily_bus_ridership.sql" \
+		--output_file="data/extracted/daily_bus_ridership.csv"
 
 data/extracted/cta_train_stops.csv:
 	python3 extract/from_data_portal.py \
