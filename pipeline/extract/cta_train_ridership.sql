@@ -5,5 +5,5 @@ SELECT
     daytype,
     rides
 WHERE
-    date >= "2019-01-01" AND date <= "2020-12-31"
-LIMIT 105000
+    date >= "2019-01-01" AND date <= "2021-02-28"
+LIMIT 115000
