@@ -10,7 +10,7 @@
 
 ## Overview
 
-Cypress is a front end testing tool that allows a team to write and perform integration tests on its project. It differs from other unit tests by testing the project by running it in a browser.
+[Cypress](https://www.cypress.io/) is a front end testing tool that allows a team to write and perform integration tests on its project. It differs from other unit tests by testing the project by running it in a browser.
 
 Cypress comes with a variety of useful features. It allows for easy debuggability and supports cross browser testing, which it does locally. Cypress also automatically waits for commands and assertions to execute, without the need for you to add waits or sleeps to the tests.
 
