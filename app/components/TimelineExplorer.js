@@ -94,8 +94,17 @@ function TimelineChart({ data, metrics }) {
   const selectedMetricIds = metrics
     .filter(m => m.axis !== "none")
     .map(m => m.id);
+    
+  const dataWithSelectedMetric = data
+    .filter((d) => (
+        selectedMetricIds.filter(m => m in d).length > 0
+      ));
   
-  if (data?.length === 0 || selectedMetricIds.length === 0) return null;
+  if (data?.length === 0 ||
+      selectedMetricIds.length === 0 ||
+      dataWithSelectedMetric.length == 0) {
+    return null;
+  }
 
   const chartData = data
     // Only keep dates with values for selected metrics
@@ -141,7 +150,14 @@ function TimelineChart({ data, metrics }) {
         {metrics.filter((m) => m.axis !== "none").map((m, i) => {
           const color = m.color || defaultColors[i % defaultColors.length];
           return (
-            <Area key={`${i}-${m.id}`} yAxisId={m.axis} dataKey={m.id} stroke={color} fill={color} />
+            <Area
+              key={`${i}-${m.id}`}
+              yAxisId={m.axis}
+              dataKey={m.id}
+              stroke={color}
+              fill={color}
+              connectNulls={true}
+            />
           );
         })}
         <Tooltip content={ <CustomToolTip metrics={metrics} /> } />

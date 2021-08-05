@@ -20,16 +20,20 @@ Test Cases
 
 def test_table_counts():
     test.assert_table_count("community_area", 77)
+    test.assert_table_count("cta_train_stops", 300)
     test.assert_table_count("belonging",220)
     test.assert_table_count("disabilities", 616)
     test.assert_table_count("population", 770)
     test.assert_table_count("income", 770)
     test.assert_table_count("covid_spread", 13375)
     test.assert_table_count("rideshare", 671938)
-    test.assert_table_count("cta_train_ridership", 104564)
+    test.assert_table_count("cta_train_ridership", 113001)
+    test.assert_table_count("popular_train_stops", 74993)
     test.assert_table_count("taxitrips", 100000)
     test.assert_table_count("sidewalk_cafe", 19858)
     test.assert_table_count("escooter", 411)
+    test.assert_table_count("traffic_intensity", 385)
+    test.assert_table_count("daily_bus_ridership", 48248)
 
 def test_population():
     years_2010_to_2019 = set(range(2010, 2020, 1))
