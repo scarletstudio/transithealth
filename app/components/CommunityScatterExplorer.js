@@ -155,6 +155,34 @@ export default function CommunityScatterExplorer({ communityAreas }) {
   const selectedAreaData = mapData[areaNumber] || {};
   const metricXDetails = supportedMetrics[metricX];
   const metricYDetails = supportedMetrics[metricY];
+  
+   useEffect(() => {
+    const url =  window.location.search;
+    
+    function getAttribute(url, param){
+      const start = url.indexOf(param) + 2;
+      const remainder = url.slice(start);
+      if(remainder.includes("&")){
+        return remainder.slice(0, remainder.indexOf ("&"));
+      }
+      return remainder;
+    }
+    
+    if(url){
+      if(url.includes("x=")){
+        const x = getAttribute(url, "x=")
+        if ( x in supportedMetrics){
+          setMetricX(x);
+        }
+      }
+      if(url.includes("y=")){
+        const y = getAttribute(url, "y=")
+        if ( y in supportedMetrics){
+          setMetricY(y);
+        }
+      }
+    }
+  }, [])
 
   useEffect(() => {
     let isSubscribed = true;
