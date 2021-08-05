@@ -1,4 +1,5 @@
 import fs from 'fs'
+import { useEffect } from 'react'
 import Head from 'next/head'
 import Nav from '../components/Nav'
 import CommunityScatterExplorer from '../components/CommunityScatterExplorer'
@@ -16,6 +17,9 @@ export async function getStaticProps() {
 }
 
 export default function ScatterView({ communityAreas }) {
+  useEffect(() => {
+    console.log(window.location.search);
+  }, [])
   return (
     <div>
       <Head>
