@@ -17,9 +17,6 @@ export async function getStaticProps() {
 }
 
 export default function ScatterView({ communityAreas }) {
-  useEffect(() => {
-    console.log(window.location.search);
-  }, [])
   return (
     <div>
       <Head>
