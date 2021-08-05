@@ -76,6 +76,26 @@ For TransitHealth, it is important that any GitHub Action added to test a partic
 
 In this test file, the frontend and backend are locally built after all necessary dependencies are installed. Once this is done, Cypress runs the test file, which is set up to go to this local site build and test its components. Since this particular test runs as a GitHub Action for all new pull requests, the local site will be using all changes made to the frontend and backend to ensure the functionality is not broken.
 
+In order to have other test additions run under the same action, it may be necessary to modify the workflow file. In particular, the spec option can be changed to include more than one test using multi-line parameters. For example:
+
+```bash
+...
+spec: tests/e2e/integration/timeline_test.js
+...
+```
+
+Will become:
+
+```bash
+...
+spec: |
+  tests/e2e/integration/timeline_test.js
+  tests/e2e/integration/{file-name-here}.js
+...
+```
+
+Which serves as a simple drop in for future tests that may deal with other parts of the TransitHealth website.
+
 For more information on writing new GitHub actions, you can visit the official documentation, as well as the official GitHub action page for Cypress
 
 - [GitHub Actions Documentation](https://docs.cypress.io/guides/continuous-integration/github-actions)
