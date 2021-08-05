@@ -1,5 +1,4 @@
 import fs from 'fs'
-import { useEffect } from 'react'
 import Head from 'next/head'
 import Nav from '../components/Nav'
 import CommunityScatterExplorer from '../components/CommunityScatterExplorer'
