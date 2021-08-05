@@ -42,7 +42,7 @@ The most common way engineers test TransitHealth features is through manual test
 
 Integration tests check a system by running all its components end-to-end. This method can catch problems at the intersection of components, but can be challenging to maintain, especially if the system changes frequently and no longer resembles the integration test environment.
 
-Engineers are not expected to write integration tests for TransitHealth features. However, adding integration testing to parts of our system could be a good stretch project. A working example of Integration Testing used for TransitHealth can be [read about here](cypress.md)
+Engineers are not expected to write integration tests for TransitHealth features. However, adding integration testing to parts of our system could be a good stretch project. A working example of Integration Testing used for TransitHealth can be [read about here.](cypress.md)
 
 - Run the app, automatically simulate user activity, and check if the results are as expected.
 - Run the API, automatically simulate requests, and check if the results are as expected.

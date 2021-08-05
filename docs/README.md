@@ -81,7 +81,7 @@ Guides to explain the layout of the codebase and common commands for working wit
 
 - [Cloud9](pages/cloud9.md)
 - [Jupyter Notebooks](pages/notebooks.md)
-- [Cypress (Work-in-Progress)](pages/cypress.md)
+- [Cypress](pages/cypress.md)
 
 ### Deployment
 

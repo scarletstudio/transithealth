@@ -31,6 +31,8 @@ npm run cy:info
 
 ## Running Tests
 
+**IMPORTANT NOTE:** Cloud9 may not have enough free resources for Cypress to run tests other than the example. Using a local machine or a VM with a higher allocation of memory will allow you to run your own tests without issue. Even then, Cypress tests are rarely run directly in your own Command Line. Instead, we implement these tests using [GitHub Actions](#github-actions)
+
 A test file contains several JavaScript commands that perform different types of actions and assertions in order to test the app. A very simple example of one of these tests can be run with the following:
 
 ```bash
@@ -44,8 +46,6 @@ In order to run a different test file within the Integration folder, you can run
 ```bash
 npm run cy:run --spec {your-file-here}
 ```
-
-**IMPORTANT NOTE:** Cloud9 may not have enough free resources for Cypress to run tests other than the example. Using a local machine or a VM with a higher allocation of memory will allow you to run your own tests without issue. Even then, Cypress tests are rarely run directly in your own Command Line. Instead, we implement these tests using [GitHub Actions](#github-actions)
 
 ## Writing Tests
 
