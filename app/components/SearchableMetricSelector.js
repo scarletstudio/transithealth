@@ -205,6 +205,9 @@ export default function SearchableMetricSelector(props) {
   const { label, supportedMetrics, defaultValue, onChange } = props;
   const [show, setShow] = useState(0)
   const [selectedMetric, setSelectedMetric] = useState(defaultValue)
+  useEffect(() => {
+    setSelectedMetric(defaultValue);
+  }, [defaultValue])
   return (
     <div className="searchableMetricSelector">
     
