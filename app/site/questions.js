@@ -10,6 +10,7 @@ import SidewalkCafePermitSearch from '../components/questions/SidewalkCafePermit
 import DisabilitiesAndTransportation from '../components/questions/DisabilitiesAndTransportation'
 import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff'
 import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
+import EscooterCity from '../components/questions/EscooterCity'
 
 export const questionComponents = {
   "sample": Sample,
@@ -23,7 +24,8 @@ export const questionComponents = {
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
   "disabilities-and-transportation" : DisabilitiesAndTransportation,
   "taxi-most-common-dropoff": TaxiMostCommonDropoff,
-  "taxi-payment-method": TaxiPaymentMethod
+  "taxi-payment-method": TaxiPaymentMethod,
+  "escooter-city": EscooterCity,
 };
 
 export const questionsParams = {
@@ -74,6 +76,12 @@ export const questionsParams = {
     author: "Asude Ozturk",
     component: "sidewalk-cafe-permits-years",
     description: "How many sidewalk cafe permits issued each year?",
+  },
+  "escooter-city": {
+    title: "What parts of the city use escooters the most?",
+    author: "Tabor Alemu",
+    component: "escooter-city",
+    description: "The city started tracking escooter use across the city. Find out which parts of the city escooters were used the most.",
   },
   "disabilities-and-transportation": {
     title: "Transportation for Individuals with Disabilities",
