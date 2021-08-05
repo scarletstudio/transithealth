@@ -61,3 +61,4 @@ class RideshareMetrics:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+        
