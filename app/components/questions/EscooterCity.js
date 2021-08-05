@@ -105,7 +105,6 @@ export default function EscooterCity(props) {
       metrics: ["number_of_trips_based_on_start_cn"]
     })
   }, []);
-  console.log(data);
   const { chartData, mostTrips } = transformData(data, error);
   
   useEffect(() => {
