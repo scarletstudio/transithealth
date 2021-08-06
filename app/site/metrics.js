@@ -281,17 +281,17 @@ export const communityMetrics = {
   },
   avg_distance_based_on_start_can: {
     name: "Escooter Average Distance by Start Area (2019)",
-    units: "meters",
+    units: "miles",
     dataset: "Escooter",
-    format: Formatter.numberWithCommas,
-    fullFormat: Formatter.numberWithCommas,
+    format: Formatter.numberWithTwoDecimals,
+    fullFormat: Formatter.numberWithTwoDecimals,
   },
   avg_distance_based_on_end_can: {
     name: "Escooter Average Distance by End Area (2019)",
-    units: "meters",
+    units: "miles",
     dataset: "Escooter",
-    format: Formatter.numberWithCommas,
-    fullFormat: Formatter.numberWithCommas,
+    format: Formatter.numberWithTwoDecimals,
+    fullFormat: Formatter.numberWithTwoDecimals,
   },
   number_of_trips_based_on_start_cn: {
     name: "Number of Escooter Trips by Start Area (2019)",
