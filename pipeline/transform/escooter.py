@@ -20,17 +20,19 @@ df = pd.DataFrame(raw_df.dropna(subset=[
 	"start_community_area_number",
 	"end_community_area_number",
 	"count_trip_id",
-	"avg_trip_distance"
+	"avg_trip_distance",
 ]))
 print(f"Dropped {(len(raw_df) - len(df)):,d} rows with nulls.")
 
 # Parse dates and add week column
 
 # Convert community area numbers to integers
-df["avg_trip_distance"] = df["avg_trip_distance"].astype(int)
+df["avg_trip_distance"] = df["avg_trip_distance"].astype(float)
 
 #Sort data by average trip distance
-df["avg_trip_distance"] = sorted(df["avg_trip_distance"])
+
+#transform avg trip distance from meters to miles
+df["avg_trip_distance_miles"] = df["avg_trip_distance"] / 1609.0
 print("dataframe was sorted successfully!") 
 
 df.to_csv(args.output_file, index=False) 
