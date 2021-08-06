@@ -16,6 +16,7 @@
     "export": "next export -o transithealth",
     "clean": "rm -rf build && rm -rf transithealth",
     "cy:run": "cypress run",
+    "cy:info": "cypress verify && cypress version && cypress info",
     "cy:run-example": "cypress run --spec 'tests/e2e/integration/sample_spec.js'",
     "cy:test-timeline" : "cypress run --spec 'tests/e2e/integration/timeline_test.js'"
   },
