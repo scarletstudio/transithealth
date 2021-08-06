@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import CovidRideshareRatio from '../../components/CovidRideshareRatio'
+import HomeDemo from '../../components/HomeDemo'
 
 export default function CovidCasesPerRideshare(props) {
   useEffect(() => {
@@ -8,7 +8,7 @@ export default function CovidCasesPerRideshare(props) {
   return (
     <div className="CovidCasesPerRideshare">
       <div className="center">
-        <CovidRideshareRatio communityAreas={props.communityAreas} />
+        <HomeDemo communityAreas={props.communityAreas} />
       </div>
     </div>
   );
