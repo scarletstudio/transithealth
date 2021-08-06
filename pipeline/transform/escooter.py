@@ -29,11 +29,9 @@ print(f"Dropped {(len(raw_df) - len(df)):,d} rows with nulls.")
 # Convert community area numbers to integers
 df["avg_trip_distance"] = df["avg_trip_distance"].astype(float)
 
-#Sort data by average trip distance
 
 #transform avg trip distance from meters to miles
 df["avg_trip_distance_miles"] = df["avg_trip_distance"] / 1609.0
-print("dataframe was sorted successfully!") 
 
 df.to_csv(args.output_file, index=False) 
 
