@@ -11,6 +11,7 @@ import DisabilitiesAndTransportation from '../components/questions/DisabilitiesA
 import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff'
 import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
 import EscooterCity from '../components/questions/EscooterCity'
+import CovidCasesPerRideshare from '../components/questions/CovidCasesPerRideshare'
 
 export const questionComponents = {
   "sample": Sample,
@@ -20,12 +21,13 @@ export const questionComponents = {
   "residents-with-disabilities": ResidentsWithDisabilities,
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
-  "sidewalk-cafe-permits-years" : SidewalkCafePermitsYears,
+  "sidewalk-cafe-permits-years": SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
-  "disabilities-and-transportation" : DisabilitiesAndTransportation,
+  "disabilities-and-transportation": DisabilitiesAndTransportation,
   "taxi-most-common-dropoff": TaxiMostCommonDropoff,
   "taxi-payment-method": TaxiPaymentMethod,
   "escooter-city": EscooterCity,
+  "covid-cases-per-rideshare": CovidCasesPerRideshare,
 };
 
 export const questionsParams = {
@@ -95,34 +97,24 @@ export const questionsParams = {
     component: "sidewalk-cafe-permit-search",
     description: "Which restaurants have sidewalk cafe permits?",
   },
+  "covid-cases-per-rideshare": {
+    title: "How do COVID cases compare to rideshare usage around the city?",
+    author: "Vinesh Kannan",
+    component: "covid-cases-per-rideshare",
+    description: "What is the ratio of COVID cases to rideshare trips in each community area?",
+    loadCommunityAreas: true,
+  },
   "example-with-pie-chart": {
     title: "Example with Pie Chart",
     author: "Templates",
     component: "template-with-pie-chart",
     description: "This page has a pie chart.",
-  },
-  "another": {
-    title: "Another Question",
-    author: "Student B",
-    component: "sample",
-    description: "This is a another question.",
-  },
-  "evenmore": {
-    title: "Even More Questions",
-    author: "Student C",
-    component: "sample",
-    description: "Even more questions!",
-  },
-  "nextrow": {
-    title: "Next Row Question",
-    author: "Student D",
-    component: "sample",
-    description: "We have enough to fill another row.",
+    hidden: true,
   },
 };
 
 export function getAllQuestions() {
     return Object.keys(questionsParams).map((id) => ({
         params: { id, ...questionsParams[id] }
-    }));
+    })).filter(p => !p.params.hidden);
 };
