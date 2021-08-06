@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Nav from '../components/Nav'
 import { ServerLoadingNotification } from '../components/Notification'
+import InsightSearch from '../components/InsightSearch'
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
           </div>
           <br />
           <div className="center">
-            <p>New home page content coming soon...</p>
+            <InsightSearch />
           </div>
         </div>
       </main>

@@ -8,7 +8,7 @@ export const insights = [
   {
     name: "COVID Rates by Community Rate of Belonging",
     type: "scatter",
-    x: "yearly_belonging_rate_all",
+    x: "belonging_rate_2018",
     y: "total_covid_cases",
   },
   {
