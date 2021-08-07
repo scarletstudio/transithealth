@@ -1,6 +1,5 @@
 import fs from 'fs'
 import Head from 'next/head'
-import Link from 'next/link'
 import Nav from '../components/Nav'
 import CommunityScatterExplorer from '../components/CommunityScatterExplorer'
 import { ServerLoadingNotification } from '../components/Notification'
