@@ -75,7 +75,7 @@ class RideTrips:
         SELECT
             CAST(strftime('%Y', week) as INTEGER) as year,
             pickup_community_area,
-            sum(n_trips_pooled) as total_trips_pooled
+            sum(n_trips) as total_trips
         FROM 
             rideshare
         WHERE 
