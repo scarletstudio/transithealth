@@ -21,6 +21,9 @@ export default function TimelineView() {
           </div>
           <br />
           <TimelineExplorer metrics={timelineExplorerDefaults.defaultMetrics} />
+          <div className="center">
+            <p>Data Sources: <a href="https://data.cityofchicago.org" target="_blank">Chicago Data Portal</a>, <a href="https://chicagohealthatlas.org" target="_blank">Chicago Health Atlas</a></p>
+          </div>
         </div>
       </main>
       <ServerLoadingNotification />
