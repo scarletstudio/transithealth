@@ -12,6 +12,7 @@ import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff
 import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
 import EscooterCity from '../components/questions/EscooterCity'
 import CovidCasesPerRideshare from '../components/questions/CovidCasesPerRideshare'
+import RideTrips from '../components/questions/RideTripsOhare'
 
 export const questionComponents = {
   "sample": Sample,
@@ -21,6 +22,7 @@ export const questionComponents = {
   "residents-with-disabilities": ResidentsWithDisabilities,
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
+  "ridetrips-ohare": RideTrips,
   "sidewalk-cafe-permits-years": SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
   "disabilities-and-transportation": DisabilitiesAndTransportation,
@@ -72,6 +74,12 @@ export const questionsParams = {
     author: "William Javier",
     component: "rent-burden-rates",
     description: "What is the rent burden rate of a given neighborhood for the year?",
+  },
+  "ridetrips-ohare": {
+    title: "Ride Trips from O'hare",
+    author: "William Javier",
+    component: "ridetrips-ohare",
+    description: "How has the pandemic affected the pickup and dropoff trips from O'hare?",
   },
   "sidewalk-cafe-permits-years": {
     title: "Sidewalk Cafe Permits Over the Years",
