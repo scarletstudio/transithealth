@@ -119,3 +119,103 @@ class RideTrips:
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
+        
+    def get_total_trips_by_pickup_ohare_2019(self):
+        """
+        Returns the total number of total number of pickups from ohare in 2019
+        """
+        query = """
+        SELECT
+            CAST(strftime('%Y', week) as INTEGER) as pickup_year_2019,
+            pickup_community_area,
+            sum(n_trips) as total_trips
+        FROM 
+            rideshare
+        WHERE 
+            pickup_year_2019 == 2019 AND pickup_community_area == 76
+        GROUP BY
+            pickup_year_2019
+            AND pickup_community_area
+        HAVING
+            pickup_community_area not null
+            AND pickup_year_2019 not null
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
+    def get_total_trips_by_pickup_ohare_2020(self):
+        """
+        Returns the total number of total number of pickups from ohare in 2020
+        """
+        query = """
+        SELECT
+            CAST(strftime('%Y', week) as INTEGER) as pickup_year_2020,
+            pickup_community_area,
+            sum(n_trips) as total_trips
+        FROM 
+            rideshare
+        WHERE 
+            pickup_year_2020 == 2020 AND pickup_community_area == 76
+        GROUP BY
+            pickup_year_2020
+            AND pickup_community_area
+        HAVING
+            pickup_community_area not null
+            AND pickup_year_2020 not null
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+    
+    def get_total_trips_by_dropoff_ohare_2019(self):
+        """
+        Returns the total number of dropoffs from ohare in 2019.
+        """
+        query = """
+        SELECT
+            CAST(strftime('%Y', week) as INTEGER) as dropoff_year_2019,
+            dropoff_community_area,
+            sum(n_trips) as total_trips
+        FROM 
+            rideshare
+        WHERE 
+            dropoff_year_2019 == 2019 AND pickup_community_area == 76
+        GROUP BY 
+            dropoff_community_area
+        HAVING
+            dropoff_year_2019 not null
+            AND pickup_community_area not null
+            AND dropoff_community_area not null
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
+    def get_total_trips_by_dropoff_ohare_2020(self):
+        """
+        Returns the total number of dropoffs from ohare in 2020.
+        """
+        query = """
+        SELECT
+            CAST(strftime('%Y', week) as INTEGER) as dropoff_year_2020,
+            dropoff_community_area,
+            sum(n_trips) as total_trips
+        FROM 
+            rideshare
+        WHERE 
+            dropoff_year_2020 == 2020 AND pickup_community_area == 76
+        GROUP BY 
+            dropoff_community_area
+        HAVING
+            dropoff_year_2020 not null
+            AND pickup_community_area not null
+            AND dropoff_community_area not null
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
