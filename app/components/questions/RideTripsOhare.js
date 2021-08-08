@@ -29,6 +29,19 @@ const RIDETRIPS_DROPOFF = [
   },
   ]
   
+  const RIDETRIPS_DROPOFF_2019 = [
+  {
+    key: "dropoff_community_area",
+    name: "Dropoff Location",
+  },
+  {
+    key: "total_trips",
+    name: "Dropoffs in 2019",
+    format: Formatter.numberWithCommas,
+    rowClasses: ["right"],
+  },
+  ]
+  
   const RIDETRIPS_DROPOFF_2020 = [
   {
     key: "dropoff_community_area",
@@ -61,22 +74,42 @@ const RIDETRIPS_DROPOFF = [
   },
   ]
   
+  
   function transformData(res) {
   if (res) {
-    console.log("res ohare_dropoff_2020 is ",res.ohare_dropoff_2020)
+    const ohare_dropoff_2019 = res.ohare_dropoff_2019;
     const ohare_dropoff_2020 = res.ohare_dropoff_2020;
     return [ 
+      ohare_dropoff_2019,
       ohare_dropoff_2020
       ];
   }
   return [ [] ];
 }
+function TableDropoff(props){
+  
+  const errorMsg = props.error ? (
+    <Notification classes={["Bottom", "Wide", "Failure"]} visible={true}>
+      <p>Failed to get data from server. Please reload.</p>
+    </Notification>
+  ) : null;
+  
+  return (
+    <div className="DropoffTrips">
+      <div className="center medium-width">
+        <h2>Most Common Dropoff Locations</h2>
+        <p>This table shows the common dropoff trips for each locations from O'hare for the year {props.year}.</p>
+        <Table rows={props.rRow} cols={props.cColumn} />
+        {errorMsg}
+      </div>
+    </div>
+    );
+}
   
   export default function RideTrips(props) {
   const { loading, error, data } = useFetch(RIDETRIPS_ENDPOINT, {}, []);
-  const [ ohare_dropoff_2020 ] = transformData(data);
-  //const [ payment_per_pickup, payment_per_dropoff ] = transformData(data);
-  
+  const [ ohare_dropoff_2019, ohare_dropoff_2020 ] = transformData(data);
+
   useEffect(() => {
     props.setContentIsLoading(loading);
   }, [loading]);
@@ -87,17 +120,12 @@ const RIDETRIPS_DROPOFF = [
     </Notification>
   ) : null;
   
-  return (
-    <div className="DropoffTrips">
-      <div className="center medium-width">
-        <h2>Most Common Dropoff Locations</h2>
-        <p>This table shows the most common dropoff locations from O'hare for each dropoff community area.</p>
-        <p>
-          <span> This is for the 12-month period from January 2020 - December 2020.</span>
-        </p>
-      </div>
-      <Table rows={ohare_dropoff_2020} cols={RIDETRIPS_DROPOFF_2020} />
-      {errorMsg}
+  //TableDropoff(ohare_dropoff_2019,RIDETRIPS_DROPOFF_2019)
+  //TableDropoff(ohare_dropoff_2020,RIDETRIPS_DROPOFF_2020)
+  return(
+    <div className="center medium-width">
+    <TableDropoff rRow={ohare_dropoff_2019} cColumn={RIDETRIPS_DROPOFF_2019} error={error} year={2019}/>
+    <TableDropoff rRow={ohare_dropoff_2020} cColumn={RIDETRIPS_DROPOFF_2020} error={error} year={2020}/>
     </div>
-);
+    );
 };
