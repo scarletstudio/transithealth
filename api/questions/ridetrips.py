@@ -128,7 +128,7 @@ class RideTrips:
         SELECT
             CAST(strftime('%Y', week) as INTEGER) as pickup_year_2019,
             pickup_community_area,
-            sum(n_trips) as total_trips
+            sum(n_trips) as pickup_2019
         FROM 
             rideshare
         WHERE 
@@ -153,7 +153,7 @@ class RideTrips:
         SELECT
             CAST(strftime('%Y', week) as INTEGER) as pickup_year_2020,
             pickup_community_area,
-            sum(n_trips) as total_trips
+            sum(n_trips) as pickup_2020
         FROM 
             rideshare
         WHERE 
@@ -178,7 +178,7 @@ class RideTrips:
         SELECT
             CAST(strftime('%Y', week) as INTEGER) as dropoff_year_2019,
             dropoff_community_area,
-            sum(n_trips) as total_trips
+            sum(n_trips) as dropoff_2019
         FROM 
             rideshare
         WHERE 
@@ -203,7 +203,7 @@ class RideTrips:
         SELECT
             CAST(strftime('%Y', week) as INTEGER) as dropoff_year_2020,
             dropoff_community_area,
-            sum(n_trips) as total_trips
+            sum(n_trips) as dropoff_2020
         FROM 
             rideshare
         WHERE 
