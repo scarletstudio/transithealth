@@ -23,14 +23,14 @@ export default function InsightSearch(){
     : "Showing All Results";
   return (
     <div className="insightsSearch left medium-width">
-      <div className="searchBar">
+      <div className="searchBar center">
         <input
           type="text"
-          placeholder="What do you want to know about?"
+          placeholder="What do you want to know?"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
-        <p>{resultsMessage}</p>
+        <p className="results">{resultsMessage}</p>
       </div>
       <div className ="searchResultContainer">
         {results.map((d) => {
@@ -38,12 +38,18 @@ export default function InsightSearch(){
           const config = INSIGHT_TYPE[d.type]
           return (
             <div className="searchResult">
-              <h3>{d.name}</h3>
-              <p>{config.name}</p>
-              <Link href={url}>
-                <a className="btn secondary">View Insight</a>
-              </Link>
+              <div className="insights-name">
+                <h3>{d.name}</h3>
+                <p>{config.name}</p>
+              </div>
+              <div className="insights-btn center">
+                <Link href={url}>
+                  <a className="btn secondary">View Insight</a>
+                </Link>
+              </div>
+              <hr/>
             </div>
+  
           )
         })}
       </div>
