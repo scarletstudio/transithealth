@@ -26,7 +26,7 @@ export default function InsightSearch(){
       <div className="searchBar center">
         <input
           type="text"
-          placeholder="What do you want to know about?"
+          placeholder="What do you want to know?"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
@@ -40,15 +40,16 @@ export default function InsightSearch(){
             <div className="searchResult">
               <div className="insights-name">
                 <h3>{d.name}</h3>
+                <p>{config.name}</p>
               </div>
-              <div>
+              <div className="insights-btn center">
                 <Link href={url}>
                   <a className="btn secondary">View Insight</a>
                 </Link>
               </div>
-              <p>{config.name}</p>
               <hr/>
             </div>
+  
           )
         })}
       </div>

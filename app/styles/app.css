@@ -372,32 +372,48 @@ a.btn {
 /* Home Page Search*/
 
 .insightsSearch .searchBar input{
-  width: 50%;
-  border: 3px solid rgb(9, 145, 120);
-  padding: 1em;
-  font-size: 0.9em;
-}
-
-.insightsSearch .searchResult div{
-    display: inline-block;
-    margin-bottom: 0;
+    min-width: 50%;
+    border: 3px solid rgb(9, 145, 120);
+    padding: 1em;
+    font-size: 0.9em;
 }
 
 .insightsSearch .searchResult .insights-name{
+    display: inline-block;
     max-width: 70%;
     margin-bottom: 0;
 }
 
-.insightsSearch .searchResult h3{
-    margin-top: .5em;
-    margin-bottom: .5em;
+.insightsSearch .searchResult .insights-name p{
+    color: rgb(50, 50, 50, .6);
 }
 
-.insightsSearch .searchResult p{
-    margin-top: 0;
-    font-weight: lighter;
-    color: rgba(50,50,50,0.6);
+.insightsSearch .searchResult .insights-btn{
+    float: right;
+    margin: 8% 0;
 }
+
+@media screen and (max-width: 600px) {
+    .insightsSearch .searchBar input{
+        font-size: 0.8em;
+        text-align:center;
+    }
+    .insightsSearch .searchResult .insights-name{
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+    }
+    
+    .insightsSearch .searchResult .insights-name p{
+        margin-bottom: 1em;
+    }
+    
+    .insightsSearch .searchResult .insights-btn{
+        float: none;
+        margin-bottom: 2em
+    }
+}
+
 
 /* Plots */
 
