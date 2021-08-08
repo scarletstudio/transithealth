@@ -31,6 +31,9 @@ export default function ScatterView({ communityAreas }) {
             <h1>Scatter View</h1>
           </div>
           <CommunityScatterExplorer communityAreas={communityAreas} />
+          <div className="center">
+            <p>Data Sources: <a href="https://data.cityofchicago.org" target="_blank">Chicago Data Portal</a>, <a href="https://chicagohealthatlas.org" target="_blank">Chicago Health Atlas</a></p>
+          </div>
         </div>
       </main>
       <ServerLoadingNotification />
