@@ -370,10 +370,34 @@ a.btn {
 }
 
 /* Home Page Search*/
-/*TODO: Maria add styles for search here */
-/*.insightsSearch{*/
-    
-/*}*/
+
+.insightsSearch .searchBar input{
+  width: 50%;
+  border: 3px solid rgb(9, 145, 120);
+  padding: 1em;
+  font-size: 0.9em;
+}
+
+.insightsSearch .searchResult div{
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.insightsSearch .searchResult .insights-name{
+    max-width: 70%;
+    margin-bottom: 0;
+}
+
+.insightsSearch .searchResult h3{
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+.insightsSearch .searchResult p{
+    margin-top: 0;
+    font-weight: lighter;
+    color: rgba(50,50,50,0.6);
+}
 
 /* Plots */
 
