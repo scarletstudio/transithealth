@@ -80,7 +80,7 @@ function Modal(props){
     
   
   return (
-    <div className="selectorModal" {...(!focus && { onClick: {onClose} })} >
+    <div className="selectorModal" onClick={focus ? undefined : onClose} >
         <div className="modalContent" onClick={e => e.stopPropagation() } >
           <div className="modalHeader" >
             <h4 className="modalTitle">Select your Metric</h4>
