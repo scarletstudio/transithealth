@@ -67,7 +67,7 @@ function Modal(props){
   const { supportedMetrics, onClose, selectMetric, show } = props;
   const [searchText, setSearchText] = useState("")
   const [focus, setFocus] = useState(0)
-  console.log(focus)
+  
   if(!show){
     return null;
   }
