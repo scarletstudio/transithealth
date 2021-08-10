@@ -66,6 +66,8 @@ function filterSearchResults(supportedMetrics, searchText){
 function Modal(props){
   const { supportedMetrics, onClose, selectMetric, show } = props;
   const [searchText, setSearchText] = useState("")
+  const [focus, setFocus] = useState(0)
+  
   if(!show){
     return null;
   }
@@ -78,7 +80,7 @@ function Modal(props){
     
   
   return (
-    <div className="selectorModal" onClick={onClose} >
+    <div className="selectorModal" onClick={focus ? undefined : onClose} >
         <div className="modalContent" onClick={e => e.stopPropagation() } >
           <div className="modalHeader" >
             <h4 className="modalTitle">Select your Metric</h4>
@@ -90,6 +92,8 @@ function Modal(props){
                 value={searchText} 
                 placeholder="Search Metrics..."
                 onChange={(e) => setSearchText(e.target.value)}
+                onFocus={() => setFocus(1)}
+                onBlur={() => setFocus(0)}
               /> </p>
               
               <p>{searchResultsMessage}</p>
