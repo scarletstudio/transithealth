@@ -9,53 +9,8 @@ import {
 } from '../../site/metrics'
 
 const RIDETRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ridetrips`;
-
-const RIDETRIPS_DROPOFF = [
-  {
-    key: "dropoff_community_area",
-    name: "Dropoff Location",
-  },
-  {
-    key: "dropoff_2019",
-    name: "Dropoffs in 2019",
-    format: Formatter.numberWithCommas,
-    rowClasses: ["right"],
-  },
-  {
-    key: "dropoff_2020",
-    name: "Dropoffs in 2020",
-    format: Formatter.numberWithCommas,
-    rowClasses: ["right"],
-  },
-  ]
   
-  const RIDETRIPS_DROPOFF_2019 = [
-  {
-    key: "dropoff_community_area",
-    name: "Dropoff Location",
-  },
-  {
-    key: "total_trips",
-    name: "Dropoffs in 2019",
-    format: Formatter.numberWithCommas,
-    rowClasses: ["right"],
-  },
-  ]
-  
-  const RIDETRIPS_DROPOFF_2020 = [
-  {
-    key: "dropoff_community_area",
-    name: "Dropoff Location",
-  },
-  {
-    key: "total_trips",
-    name: "Dropoffs in 2020",
-    format: Formatter.numberWithCommas,
-    rowClasses: ["right"],
-  },
-  ]
-  
-  ////
+  const MAX_PCT_CHANGE = -0.76;
   const RIDETRIPS_DROPOFF_ALL = [
   {
     key: "dropoff_community_area",
@@ -73,42 +28,59 @@ const RIDETRIPS_DROPOFF = [
     format: Formatter.numberWithCommas,
     rowClasses: ["right"],
   },
-  ]
-  
-  const RIDETRIPS_PICKUP = [
   {
-    key: "pickup_community_area",
-    name: "Dropoff Location",
-  },
-  {
-    key: "pickup_2019",
-    name: "Pickups in 2019",
-    format: Formatter.numberWithCommas,
+    key: "pct_change",
+    name: "Change",
+    format: Formatter.percentChangeWithNoDecimal,
     rowClasses: ["right"],
+    rgb: "209, 31, 0",
+    alpha: (v) => (v / MAX_PCT_CHANGE),
   },
-  {
-    key: "pickup_2020",
-    name: "Pickups in 2020",
-    format: Formatter.numberWithCommas,
-    rowClasses: ["right"],
-  },
-  ]
+  ];
+
+function addTotalTripsYear(before,since) {
+
+  //creating key:value pairs
+  var dropoffs = before.map(({
+    total_trips: total_trips_2019,
+    dropoff_community_area: dropoff_community_area,
+  }) => ({
+    total_trips_2019,
+    dropoff_community_area,
+  }));
   
+  const dropoffs_2020 = since.map(({
+    total_trips: total_trips_2020,
+
+  }) => ({
+    total_trips_2020,
+
+  }));
   
-  function transformData(res) {
+  //adding 2020 trips within the same object as the 2019 trips
+  for (var i = 0; i < dropoffs.length ; i++){
+    dropoffs[i]["total_trips_2020"] = dropoffs_2020[i]["total_trips_2020"];
+    dropoffs[i]["pct_change"] = calculatePercentChange(dropoffs[i]["total_trips_2019"],dropoffs_2020[i]["total_trips_2020"]);
+  }
+
+  return dropoffs;
+} 
+
+
+function transformData(res) {
   
   if (res) {
     const ohare_dropoff_2019 = res.ohare_dropoff_2019;
     const ohare_dropoff_2020 = res.ohare_dropoff_2020;
-    console.log("This is res ",res)
-    
+    const ohare_dropoff = addTotalTripsYear(ohare_dropoff_2019,ohare_dropoff_2020);
+
     return [ 
-      ohare_dropoff_2019,
-      ohare_dropoff_2020
+      ohare_dropoff
       ];
   }
-  return [ [],[] ];
+  return [ [] ];
 }
+
 function TableDropoff(props){
   
   const errorMsg = props.error ? (
@@ -131,7 +103,7 @@ function TableDropoff(props){
   
   export default function RideTrips(props) {
   const { loading, error, data } = useFetch(RIDETRIPS_ENDPOINT, {}, []);
-  const [ ohare_dropoff_2019, ohare_dropoff_2020 ] = transformData(data);
+  const [ ohare_dropoff] = transformData(data);
 
   useEffect(() => {
     props.setContentIsLoading(loading);
@@ -143,11 +115,10 @@ function TableDropoff(props){
     </Notification>
   ) : null;
   
-  
   return(
     <div className="center medium-width">
-    <TableDropoff rRow={ohare_dropoff_2019} cColumn={RIDETRIPS_DROPOFF_2019} error={error} year={2019}/>
-    <TableDropoff rRow={ohare_dropoff_2020} cColumn={RIDETRIPS_DROPOFF_2020} error={error} year={2020}/>
+    <TableDropoff rRow={ohare_dropoff} cColumn={RIDETRIPS_DROPOFF_ALL}/>
+    {errorMsg}
     </div>
     );
-};
+}
