@@ -195,7 +195,7 @@ class CommunityMetrics:
         """
         query = """
         SELECT
-            *
+            * , ROUND(value, 2) AS value
         FROM traffic_intensity
         WHERE period = '{year}'
         AND segment == "{segment}"
@@ -205,24 +205,6 @@ class CommunityMetrics:
         rows = rows_to_dicts(cur, cur.fetchall())
         return rows
     
-    def traffic_intensity_grouping(self, year, segment):
-        """
-        Returns the dataset of traffic_intensity grouped by area in the given year.
-        Args:
-            year (int): period ending year to filter by
-            segment (str): population segment to filter by
-        """
-        query = """
-        SELECT
-            *
-        FROM traffic_intensity
-        WHERE period = '{year}'
-        AND segment == "{segment}"
-        """.format(year=year, segment=segment)
-        cur = self.con.cursor()
-        cur.execute(query)
-        rows = rows_to_dicts(cur, cur.fetchall())
-        return rows
     def total_cafe_permits_by_area(self):
         """
         Returns the number of sidewalk cafe permits issued in a community_area.
