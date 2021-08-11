@@ -13,6 +13,7 @@ import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
 import EscooterCity from '../components/questions/EscooterCity'
 import CovidCasesPerRideshare from '../components/questions/CovidCasesPerRideshare'
 import RideTrips from '../components/questions/RideTripsOhare'
+import TrafficIntensityAcrossCity from '../components/questions/TrafficIntensity'
 
 export const questionComponents = {
   "sample": Sample,
@@ -30,6 +31,7 @@ export const questionComponents = {
   "taxi-payment-method": TaxiPaymentMethod,
   "escooter-city": EscooterCity,
   "covid-cases-per-rideshare": CovidCasesPerRideshare,
+  "traffic-intensity-across-the-city": TrafficIntensityAcrossCity,
 };
 
 export const questionsParams = {
@@ -118,6 +120,12 @@ export const questionsParams = {
     component: "template-with-pie-chart",
     description: "This page has a pie chart.",
     hidden: true,
+  },
+  "traffic-intensity": {
+    title: "Traffic Intensity in Chicago",
+    author: "Shahzia Perveen",
+    component: "traffic-intensity-across-the-city",
+    description: "What is the vehical density in Chicago for a given year?",
   },
 };
 
