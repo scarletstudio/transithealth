@@ -195,7 +195,7 @@ class CommunityMetrics:
         """
         query = """
         SELECT
-            *
+            * 
         FROM traffic_intensity
         WHERE period = '{year}'
         AND segment == "{segment}"
