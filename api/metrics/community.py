@@ -195,7 +195,7 @@ class CommunityMetrics:
         """
         query = """
         SELECT
-            * , ROUND(value, 2) AS value
+            * 
         FROM traffic_intensity
         WHERE period = '{year}'
         AND segment == "{segment}"
