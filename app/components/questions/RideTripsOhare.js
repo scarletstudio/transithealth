@@ -55,6 +55,26 @@ const RIDETRIPS_DROPOFF = [
   },
   ]
   
+  ////
+  const RIDETRIPS_DROPOFF_ALL = [
+  {
+    key: "dropoff_community_area",
+    name: "Dropoff Location",
+  },
+  {
+    key: "total_trips_2019",
+    name: "Dropoffs in 2019",
+    format: Formatter.numberWithCommas,
+    rowClasses: ["right"],
+  },
+  {
+    key: "total_trips_2020",
+    name: "Dropoffs in 2020",
+    format: Formatter.numberWithCommas,
+    rowClasses: ["right"],
+  },
+  ]
+  
   const RIDETRIPS_PICKUP = [
   {
     key: "pickup_community_area",
@@ -76,15 +96,18 @@ const RIDETRIPS_DROPOFF = [
   
   
   function transformData(res) {
+  
   if (res) {
     const ohare_dropoff_2019 = res.ohare_dropoff_2019;
     const ohare_dropoff_2020 = res.ohare_dropoff_2020;
+    console.log("This is res ",res)
+    
     return [ 
       ohare_dropoff_2019,
       ohare_dropoff_2020
       ];
   }
-  return [ [] ];
+  return [ [],[] ];
 }
 function TableDropoff(props){
   
@@ -120,8 +143,7 @@ function TableDropoff(props){
     </Notification>
   ) : null;
   
-  //TableDropoff(ohare_dropoff_2019,RIDETRIPS_DROPOFF_2019)
-  //TableDropoff(ohare_dropoff_2020,RIDETRIPS_DROPOFF_2020)
+  
   return(
     <div className="center medium-width">
     <TableDropoff rRow={ohare_dropoff_2019} cColumn={RIDETRIPS_DROPOFF_2019} error={error} year={2019}/>
