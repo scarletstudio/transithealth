@@ -11,7 +11,6 @@ import datetime
 
 
 cli = argparse.ArgumentParser(description="Transform raw COVID spread data.")
-cli.add_argument("--zip_to_area_file", help="File path to equivalency factors.")
 cli.add_argument("--input_file", help="File path to read raw data from.")
 cli.add_argument("--output_file", help="File path to write results to.")
 args = cli.parse_args()
@@ -53,14 +52,16 @@ df.rename(
     }
 )
 
-#change the month number to the month name
-i = 0
 
-df['WeekDate'] = df['week_start']
+# change format of week to yyyy-mm-dd
+df = extract_data_portal_dates(df, col="week_start", prefix="")
 
-for x in df['week_start']:
-    df['WeekDate'][i] = x[0:10:1]
-    i += 1
+df.drop([
+    "week_start",
+    "week_end",
+    "dt",
+    "week_num"
+], axis=1, inplace=True)
 
 
 df.to_csv(args.output_file, index=False)

@@ -419,7 +419,7 @@ data/extracted/cta_train_stops.csv:
 		--soql_file="extract/cta_train_stops.sql" \
 		--output_file="data/extracted/cta_train_stops.csv"
 
-data/extracted/covid_cases_deaths_data.csv:
+data/extracted/covid_cdd.csv:
 	python3 extract/from_data_portal.py \
 		--json_url="$(PORTAL_COVID)" \
 		--soql_file="extract/Covid_cases_deaths_data.sql" \

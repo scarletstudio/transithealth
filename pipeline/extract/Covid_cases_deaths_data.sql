@@ -19,6 +19,8 @@ select
     sum(deaths_80_yrs),
     Min(lab_report_date) as week_start,
     Max(lab_report_date) as week_end
+Where
+    lab_report_date <= "2021-8-12"
 Group by
     year,week
 Order by
