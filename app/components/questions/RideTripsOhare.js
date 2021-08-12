@@ -99,7 +99,7 @@ function TableDropoff(props){
     <div className="DropoffTrips">
       <div className="center medium-width">
         <h2>Most Common Dropoff Locations</h2>
-        <p>This table shows the common dropoff trips for each locations from O'hare for the year {props.year}.</p>
+        <p>This table shows the dropoff trips for each locations from O'hare for the year {props.year}.</p>
         <Table rows={props.rRow} cols={props.cColumn} />
         {errorMsg}
       </div>
