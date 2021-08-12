@@ -8,10 +8,10 @@ import {
   calculatePercentChange,
 } from '../../site/metrics'
 
-const RIDETRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ohare/rideshare`;
+const RIDESHARE_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ohare/rideshare`;
   
   const MAX_PCT_CHANGE = -0.76;
-  const RIDETRIPS_DROPOFF_ALL = [
+  const RIDESHARE_DROPOFF_ALL = [
   {
     key: "dropoff_community_area",
     name: "Area Number",
@@ -112,8 +112,8 @@ function TableDropoff(props){
     );
 }
   
-  export default function RideTrips(props) {
-  const { loading, error, data } = useFetch(RIDETRIPS_ENDPOINT, {}, []);
+  export default function RIDESHARE(props) {
+  const { loading, error, data } = useFetch(RIDESHARE_ENDPOINT, {}, []);
   const [ ohare_dropoff] = transformData(data);
 
   useEffect(() => {
@@ -128,7 +128,7 @@ function TableDropoff(props){
   
   return(
     <div className="center medium-width">
-    <TableDropoff rRow={ohare_dropoff} cColumn={RIDETRIPS_DROPOFF_ALL}/>
+    <TableDropoff rRow={ohare_dropoff} cColumn={RIDESHARE_DROPOFF_ALL}/>
     {errorMsg}
     </div>
     );

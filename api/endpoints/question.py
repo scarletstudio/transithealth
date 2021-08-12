@@ -68,7 +68,7 @@ def make_blueprint(con):
         return jsonify({ "results": [] })
 
     @app.route("/question/ohare/rideshare")
-    def ridetrips():
+    def rideshare():
         #Area number of o'hare is 76
         #ohare_pickup_2019 = metric_oHareRideshare.metrics_by_area(metric_oHareRideshare.get_total_trips_by_pickup_specific_area_and_year(2019,76))
         #ohare_pickup_2020 = metric_oHareRideshare.metrics_by_area(metric_oHareRideshare.get_total_trips_by_pickup_specific_area_and_year(2020,76))
