@@ -77,12 +77,6 @@ export const questionsParams = {
     component: "rent-burden-rates",
     description: "What is the rent burden rate of a given neighborhood for the year?",
   },
-  "ridetrips-ohare": {
-    title: "Ride Trips from O'hare",
-    author: "William Javier",
-    component: "ridetrips-ohare",
-    description: "How has the pandemic affected the pickup and dropoff trips from O'hare?",
-  },
   "sidewalk-cafe-permits-years": {
     title: "Sidewalk Cafe Permits Over the Years",
     author: "Asude Ozturk",
@@ -126,6 +120,12 @@ export const questionsParams = {
     author: "Shahzia Perveen",
     component: "traffic-intensity-across-the-city",
     description: "What is the vehical density in Chicago for a given year?",
+  },
+  "ridetrips-ohare": {
+    title: "Ride Trips from O'hare",
+    author: "William Javier",
+    component: "ridetrips-ohare",
+    description: "How has the pandemic affected the pickup and dropoff trips from O'hare?",
   },
 };
 

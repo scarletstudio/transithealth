@@ -14,6 +14,10 @@ const RIDETRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ridetrips`;
   const RIDETRIPS_DROPOFF_ALL = [
   {
     key: "dropoff_community_area",
+    name: "Area Number",
+  },
+  {
+    key: "area_name",
     name: "Dropoff Location",
   },
   {
@@ -40,13 +44,15 @@ const RIDETRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ridetrips`;
 
 function addTotalTripsYear(before,since) {
 
-  //creating key:value pairs
+  //retrieving key:value pairs
   var dropoffs = before.map(({
     total_trips: total_trips_2019,
     dropoff_community_area: dropoff_community_area,
+    area_name: area_name
   }) => ({
     total_trips_2019,
     dropoff_community_area,
+    area_name: area_name
   }));
   
   const dropoffs_2020 = since.map(({
@@ -63,7 +69,7 @@ function addTotalTripsYear(before,since) {
     dropoffs[i]["pct_change"] = calculatePercentChange(dropoffs[i]["total_trips_2019"],dropoffs_2020[i]["total_trips_2020"]);
   }
 
-  return dropoffs;
+  return dropoffs; //returns the rows with the 2019 and 2020 trips together
 } 
 
 

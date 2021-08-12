@@ -70,16 +70,16 @@ def make_blueprint(con):
     @app.route("/question/ridetrips")
     def ridetrips():
         #Area number of o'hare is 76
-        ohare_pickup_2019 = metric_ridetrips.get_total_trips_by_pickup_specific_area_and_year(2019,76)
-        ohare_pickup_2020 = metric_ridetrips.get_total_trips_by_pickup_specific_area_and_year(2020,76)
-        ohare_pickup_2021 = metric_ridetrips.get_total_trips_by_pickup_specific_area_and_year(2021,76)
-        ohare_dropoff_2019 = metric_ridetrips.get_total_trips_by_dropoff_specific_area_and_year(2019,76)
-        ohare_dropoff_2020 = metric_ridetrips.get_total_trips_by_dropoff_specific_area_and_year(2020,76)
-        ohare_dropoff_2021 = metric_ridetrips.get_total_trips_by_dropoff_specific_area_and_year(2021,76)
+        #ohare_pickup_2019 = metric_ridetrips.metrics_by_area(metric_ridetrips.get_total_trips_by_pickup_specific_area_and_year(2019,76))
+        #ohare_pickup_2020 = metric_ridetrips.metrics_by_area(metric_ridetrips.get_total_trips_by_pickup_specific_area_and_year(2020,76))
+        #ohare_pickup_2021 = metric_ridetrips.metrics_by_area(metric_ridetrips.get_total_trips_by_pickup_specific_area_and_year(2021,76))
+        ohare_dropoff_2019 = metric_ridetrips.metrics_by_area(metric_ridetrips.get_total_trips_by_dropoff_specific_area_and_year(2019,76))
+        ohare_dropoff_2020 = metric_ridetrips.metrics_by_area(metric_ridetrips.get_total_trips_by_dropoff_specific_area_and_year(2020,76))
+        ohare_dropoff_2021 = metric_ridetrips.metrics_by_area(metric_ridetrips.get_total_trips_by_dropoff_specific_area_and_year(2021,76))
         return jsonify({
-            "ohare_pickup_2019": ohare_pickup_2019,
-            "ohare_pickup_2020": ohare_pickup_2020,
-            "ohare_pickup_2021": ohare_pickup_2021,
+        #    "ohare_pickup_2019": ohare_pickup_2019,
+        #    "ohare_pickup_2020": ohare_pickup_2020,
+        #    "ohare_pickup_2021": ohare_pickup_2021,
             "ohare_dropoff_2019": ohare_dropoff_2019,
             "ohare_dropoff_2020": ohare_dropoff_2020,
             "ohare_dropoff_2021": ohare_dropoff_2021,
