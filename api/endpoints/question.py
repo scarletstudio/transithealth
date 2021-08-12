@@ -3,7 +3,7 @@ from api.questions.disabilities import DisabilitiesMetrics
 from api.questions.pooled_trips import PooledTripMetrics
 from api.questions.taxitrips import TaxiTripQuestions
 from api.questions.sidewalk_search import SidewalkCafePermitSearch
-from api.questions.ridetrips import OHareRideshareQuestion
+from api.questions.rideshare_ohare import OHareRideshareQuestion
 
 
 def make_blueprint(con):
