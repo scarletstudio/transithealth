@@ -145,7 +145,7 @@ class OHareRideshareQuestion:
         for area in self.community_areas():
             res[area["area_number"]] = area
         for row in rows:
-            if row['dropoff_community_area'] in res.keys():
+            if row['dropoff_community_area'] in res:
                 row['area_name'] = res.get(row['dropoff_community_area'])['name']
                 row['part'] = res.get(row['dropoff_community_area'])['part']
         return rows
