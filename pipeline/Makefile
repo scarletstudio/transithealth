@@ -11,6 +11,7 @@ PORTAL_CTA_TRAIN := https://data.cityofchicago.org/resource/5neh-572f.json
 PORTAL_BUS_RIDERSHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
 PORTAL_CTA_TRAIN_STOPS := https://data.cityofchicago.org/resource/8pix-ypme.json
 PORTAL_BUS_RIDESHIP := https://data.cityofchicago.org/resource/jyb9-n7fm.json
+PORTAL_COVID := https://data.cityofchicago.org/resource/naz8-j4nc.json
 TAXI_TRIPS := https://data.cityofchicago.org/resource/wrvz-psew.json
 
 # Environment Variables
@@ -62,6 +63,7 @@ data/loaded/all_tables.txt:
 	make data/loaded/sidewalk_cafe.txt
 	make data/loaded/taxi_trips.txt
 	make data/loaded/daily_bus_ridership.txt
+	make data/loaded/Covid_cases_deaths_data.txt
 	touch "data/loaded/all_tables.txt"
 	
 data/loaded/taxi_trips.txt: data/transformed/taxi_trips.csv
@@ -177,6 +179,13 @@ data/loaded/escooter.txt: data/transformed/ESCOOTERMOD.csv
 		--create_sql="load/escooterSchema.sql" \
 		--table_name="Escooter"
 
+data/loaded/Covid_cases_deaths_data.txt: data/transformed/covid_cdd_transformed.csv
+	python3 load/create_table.py \
+		--database="database.db" \
+		--input_file="data/transformed/covid_cdd_transformed.csv" \
+		--create_sql="load/covid_cdd_load.sql" \
+		--table_name="Covid_cases_deaths_data"
+
 # Transform Operations
 
 data/transformed/taxi_trips.csv: data/extracted/taxi_trips.csv
@@ -267,6 +276,11 @@ data/transformed/daily_bus_ridership.csv: data/extracted/daily_bus_ridership.csv
 	python3 transform/daily_bus_ridership.py \
 		--input_file="data/extracted/daily_bus_ridership.csv" \
 		--output_file="data/transformed/daily_bus_ridership.csv"
+		
+data/transformed/covid_cdd_transformed.csv: data/extracted/covid_cdd.csv
+	python3 transform/covid_cdd_transform.py \
+		--input_file="data/extracted/covid_cdd.csv" \
+		--output_file="data/transformed/covid_cdd_transformed.csv"
 
 # Extract Operations
 
@@ -404,6 +418,12 @@ data/extracted/cta_train_stops.csv:
 		--json_url="$(PORTAL_CTA_TRAIN_STOPS)" \
 		--soql_file="extract/cta_train_stops.sql" \
 		--output_file="data/extracted/cta_train_stops.csv"
+
+data/extracted/covid_cases_deaths_data.csv:
+	python3 extract/from_data_portal.py \
+		--json_url="$(PORTAL_COVID)" \
+		--soql_file="extract/Covid_cases_deaths_data.sql" \
+		--output_file="data/extracted/covid_cdd.csv"
 
 
 # Exports For Frontend App
