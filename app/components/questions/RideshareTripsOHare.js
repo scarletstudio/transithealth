@@ -10,8 +10,8 @@ import {
 
 const RIDESHARE_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ohare/rideshare`;
   
-  const MAX_PCT_CHANGE = -0.76;
-  const RIDESHARE_DROPOFF_ALL = [
+const MAX_PCT_CHANGE = -0.76;
+const RIDESHARE_DROPOFF_ALL = [
   {
     key: "dropoff_community_area",
     name: "Area Number",
@@ -40,7 +40,7 @@ const RIDESHARE_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ohare/ridesh
     rgb: "209, 31, 0",
     alpha: (v) => (v / MAX_PCT_CHANGE),
   },
-  ];
+];
 
 function addTotalTripsYear(before,since) {
 
@@ -109,10 +109,10 @@ function TableDropoff(props){
         {errorMsg}
       </div>
     </div>
-    );
+  );
 }
   
-  export default function RIDESHARE(props) {
+export default function RIDESHARE(props) {
   const { loading, error, data } = useFetch(RIDESHARE_ENDPOINT, {}, []);
   const [ ohare_dropoff] = transformData(data);
 
@@ -131,5 +131,5 @@ function TableDropoff(props){
     <TableDropoff rRow={ohare_dropoff} cColumn={RIDESHARE_DROPOFF_ALL}/>
     {errorMsg}
     </div>
-    );
+  );
 }
