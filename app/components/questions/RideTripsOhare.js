@@ -8,7 +8,7 @@ import {
   calculatePercentChange,
 } from '../../site/metrics'
 
-const RIDETRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ridetrips`;
+const RIDETRIPS_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ohare/rideshare`;
   
   const MAX_PCT_CHANGE = -0.76;
   const RIDETRIPS_DROPOFF_ALL = [
