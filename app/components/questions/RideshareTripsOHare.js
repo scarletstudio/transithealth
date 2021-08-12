@@ -18,7 +18,7 @@ const RIDESHARE_ENDPOINT = `${process.env.NEXT_PUBLIC_API}/question/ohare/ridesh
   },
   {
     key: "area_name",
-    name: "Dropoff Location",
+    name: "Community Area",
   },
   {
     key: "total_trips_2019",

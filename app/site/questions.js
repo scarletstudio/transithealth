@@ -12,7 +12,7 @@ import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff
 import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
 import EscooterCity from '../components/questions/EscooterCity'
 import CovidCasesPerRideshare from '../components/questions/CovidCasesPerRideshare'
-import RideTrips from '../components/questions/RideTripsOhare'
+import RideShare from '../components/questions/RideshareTripsOHare'
 import TrafficIntensityAcrossCity from '../components/questions/TrafficIntensity'
 
 export const questionComponents = {
@@ -23,7 +23,7 @@ export const questionComponents = {
   "residents-with-disabilities": ResidentsWithDisabilities,
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
-  "ridetrips-ohare": RideTrips,
+  "rideshare-ohare": RideShare,
   "sidewalk-cafe-permits-years": SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
   "disabilities-and-transportation": DisabilitiesAndTransportation,
@@ -121,10 +121,10 @@ export const questionsParams = {
     component: "traffic-intensity-across-the-city",
     description: "What is the vehical density in Chicago for a given year?",
   },
-  "ridetrips-ohare": {
-    title: "Ride Trips Dropoff from O'Hare Area",
+  "rideshare-ohare": {
+    title: "Rideshare Trips Dropoff from O'Hare Area",
     author: "William Javier",
-    component: "ridetrips-ohare",
+    component: "rideshare-ohare",
     description: "How has the pandemic affected the dropoff trips from the O'Hare Area?",
   },
 };
