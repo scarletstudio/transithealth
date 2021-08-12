@@ -125,7 +125,7 @@ export const questionsParams = {
     title: "Ride Trips from O'hare",
     author: "William Javier",
     component: "ridetrips-ohare",
-    description: "How has the pandemic affected the pickup and dropoff trips from O'hare?",
+    description: "How has the pandemic affected the dropoff trips from O'hare?",
   },
 };
 
