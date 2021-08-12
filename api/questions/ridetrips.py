@@ -1,6 +1,6 @@
 from api.utils.database import rows_to_dicts
 
-class RideTrips:
+class OHareRideshareQuestion:
     """
     Pooled rideshares and dropoffs by areas.
     """

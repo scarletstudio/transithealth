@@ -1,7 +1,7 @@
 import sys
 sys.path.append("../")
 
-from api.questions.ridetrips import RideTrips
+from api.questions.OHareRideshareQuestion import OHareRideshareQuestion
 from api.utils.testing import create_test_db
 
 def test_total_trips_pooled_by_pickup_specific_area_and_year():
@@ -25,7 +25,7 @@ def test_total_trips_pooled_by_pickup_specific_area_and_year():
         }
     )
 
-    trips = RideTrips(con)
+    trips = OHareRideshareQuestion(con)
 
     assert trips.get_total_trips_pooled_by_pickup_specific_area_and_year(2020,76) == [
         { "year": 2020, "pickup_community_area": 76, "total_trips_pooled":30 },
@@ -59,7 +59,7 @@ def test_total_trips_pooled_by_dropoff_specific_area_and_year():
         }
     )
 
-    trips = RideTrips(con)
+    trips = OHareRideshareQuestion(con)
     
 
     assert trips.get_total_trips_pooled_by_dropoff_specific_area_and_year(2019,5) == [
@@ -93,7 +93,7 @@ def test_total_trips_by_pickup_specific_area_and_year():
         }
     )
 
-    trips = RideTrips(con)
+    trips = OHareRideshareQuestion(con)
 
     assert trips.get_total_trips_by_pickup_specific_area_and_year(2020,76) == [
         { "year": 2020, "pickup_community_area": 76, "total_trips":30 },
@@ -127,7 +127,7 @@ def test_total_trips_by_dropoff_specific_area_and_year():
         }
     )
 
-    trips = RideTrips(con)
+    trips = OHareRideshareQuestion(con)
     
 
     assert trips.get_total_trips_by_dropoff_specific_area_and_year(2019,5) == [

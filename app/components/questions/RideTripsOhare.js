@@ -98,8 +98,13 @@ function TableDropoff(props){
   return (
     <div className="DropoffTrips">
       <div className="center medium-width">
-        <h2>Most Common Dropoff Locations</h2>
-        <p>This table shows the dropoff trips for each locations from O'hare for the year {props.year}.</p>
+        <h2>Why this question?</h2>
+        <p>The pandemic has severely affected the amount of flights. 
+        While the data shows the dropoff trips from the O'Hare Area, 
+        we can also assume that a large majority of these dropoffs 
+        came from the O'Hare airport if not all.</p>
+        <h2>Dropoff Trips From The O'Hare Area to Places in Chicago</h2>
+        <p>This table shows the dropoff trips from the O'Hare Area to different locations in Chicago for 2019 and 2020.</p>
         <Table rows={props.rRow} cols={props.cColumn} />
         {errorMsg}
       </div>

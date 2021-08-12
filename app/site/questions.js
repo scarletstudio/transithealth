@@ -122,10 +122,10 @@ export const questionsParams = {
     description: "What is the vehical density in Chicago for a given year?",
   },
   "ridetrips-ohare": {
-    title: "Ride Trips from O'hare",
+    title: "Ride Trips from O'Hare Area",
     author: "William Javier",
     component: "ridetrips-ohare",
-    description: "How has the pandemic affected the dropoff trips from O'hare?",
+    description: "How has the pandemic affected the dropoff trips from the O'Hare Area?",
   },
 };
 
