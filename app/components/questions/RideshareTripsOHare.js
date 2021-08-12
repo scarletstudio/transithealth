@@ -112,7 +112,7 @@ function TableDropoff(props){
   );
 }
   
-export default function RIDESHARE(props) {
+export default function RideshareTripsOHare(props) {
   const { loading, error, data } = useFetch(RIDESHARE_ENDPOINT, {}, []);
   const [ ohare_dropoff] = transformData(data);
 
