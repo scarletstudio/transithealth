@@ -140,13 +140,12 @@ class OHareRideshareQuestion:
         """
         Returns the rows, but with a new column that contains the area names
         """
-        ls = self.community_areas()
+        res = {}
         
-        for area in ls:
-            y = area['area_number'] 
-            #x = rows[y-1]['dropoff_community_area']
-            x = rows[y-1]['dropoff_community_area']
-            if x == y:
-                rows[y-1]['area_name'] = area['name']
-                
+        for area in self.community_areas():
+            res[area["area_number"]] = area
+        for row in rows:
+            if row['dropoff_community_area'] in res.keys():
+                row['area_name'] = res.get(row['dropoff_community_area'])['name']
+                row['part'] = res.get(row['dropoff_community_area'])['part']
         return rows

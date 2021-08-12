@@ -122,7 +122,7 @@ export default function RIDESHARE(props) {
   
   const errorMsg = error ? (
     <Notification classes={["Bottom", "Wide", "Failure"]} visible={true}>
-      <p>Failed to get data from server. Please reload.</p>
+    <p>Failed to get data from server. Please reload.</p>
     </Notification>
   ) : null;
   
