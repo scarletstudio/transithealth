@@ -21,7 +21,7 @@ Test Cases
 def test_table_counts():
     test.assert_table_count("community_area", 77)
     test.assert_table_count("cta_train_stops", 300)
-    test.assert_table_count("belonging",220)
+    test.assert_table_count("belonging",237)
     test.assert_table_count("disabilities", 616)
     test.assert_table_count("population", 770)
     test.assert_table_count("income", 770)
@@ -47,9 +47,9 @@ def test_income():
     test.assert_distinct_values("income", "segment", {"all"})
     
 def test_belonging():
-    years_2015_to_2018 = set(range(2015, 2019, 1))
+    years_belonging = set([2015, 2016, 2017, 2018, 2020])
     all_segments = set(["all","W","B","A","H","F","M","S","G","K","N","E","L","R","U","V","Z"])
-    test.assert_distinct_values("belonging", "period_end_year", years_2015_to_2018)
+    test.assert_distinct_values("belonging", "period_end_year", years_belonging)
     test.assert_distinct_values("belonging", "segment", all_segments)
 
 def test_disabilities():
