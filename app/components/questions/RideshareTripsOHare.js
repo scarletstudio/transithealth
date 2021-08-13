@@ -21,13 +21,13 @@ const RIDESHARE_DROPOFF_ALL = [
     name: "Community Area",
   },
   {
-    key: "total_trips_2019",
+    key: "total_trips",
     name: "Dropoffs in 2019",
     format: Formatter.numberWithCommas,
     rowClasses: ["right"],
   },
   {
-    key: "total_trips_2020",
+    key: "total_trips_since",
     name: "Dropoffs in 2020",
     format: Formatter.numberWithCommas,
     rowClasses: ["right"],
@@ -44,34 +44,27 @@ const RIDESHARE_DROPOFF_ALL = [
 
 function addTotalTripsYear(before,since) {
 
-  //retrieving key:value pairs
-  var dropoffs = before.map(({
-    total_trips: total_trips_2019,
-    dropoff_community_area: dropoff_community_area,
-    area_name: area_name
-  }) => ({
-    total_trips_2019,
-    dropoff_community_area,
-    area_name: area_name
-  }));
-  
-  const dropoffs_2020 = since.map(({
-    total_trips: total_trips_2020,
-
-  }) => ({
-    total_trips_2020,
-
-  }));
-  
-  //adding 2020 trips within the same object as the 2019 trips
-  for (var i = 0; i < dropoffs.length ; i++){
-    dropoffs[i]["total_trips_2020"] = dropoffs_2020[i]["total_trips_2020"];
-    dropoffs[i]["pct_change"] = calculatePercentChange(dropoffs[i]["total_trips_2019"],dropoffs_2020[i]["total_trips_2020"]);
+  var ds = {};
+  for(var key in before) {
+    ds[before[key]["dropoff_community_area"]] = before[key];
   }
+  for(var key in since) {
+    var sinceAreaNum = since[key]["dropoff_community_area"];
+    if (ds[sinceAreaNum]["area_name"] == since[key]["area_name"] && ds[sinceAreaNum]["dropoff_community_area"] == since[key]["dropoff_community_area"]){
+      //The area number of the other data is used as the key and see if they have the same area name. J
+      //Just to be sure, I also had it check the area number if they're the same for both
+      ds[sinceAreaNum]["total_trips_since"] = since[key]["total_trips"];
+      ds[sinceAreaNum]["pct_change"] = calculatePercentChange(ds[sinceAreaNum]["total_trips"],ds[sinceAreaNum]["total_trips_since"]);
+    } 
+    else {
+      console.log("Something wrong. Mismatching area names and area numbers from both datas");
+    }
+  }
+  
+  const fin = Object.values(ds); //turns key:value of the original object into elements of an array
 
-  return dropoffs; //returns the rows with the 2019 and 2020 trips together
-} 
-
+  return fin; //returns the rows with the 2019 and 2020 trips together
+}
 
 function transformData(res) {
   
