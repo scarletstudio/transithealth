@@ -21,6 +21,10 @@ const RIDESHARE_DROPOFF_ALL = [
     name: "Community Area",
   },
   {
+    key:"part",
+    name:"Part"
+  },
+  {
     key: "total_trips",
     name: "Dropoffs in 2019",
     format: Formatter.numberWithCommas,
@@ -62,7 +66,7 @@ function addTotalTripsYear(before,since) {
   }
   
   const fin = Object.values(ds); //turns key:value of the original object into elements of an array
-
+  console.log("fin is ",fin)
   return fin; //returns the rows with the 2019 and 2020 trips together
 }
 
