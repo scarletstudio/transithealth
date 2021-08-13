@@ -25,7 +25,7 @@ const RIDESHARE_DROPOFF_ALL = [
     name:"Part"
   },
   {
-    key: "total_trips",
+    key: "total_trips_before",
     name: "Dropoffs in 2019",
     format: Formatter.numberWithCommas,
     rowClasses: ["right"],
@@ -54,20 +54,18 @@ function addTotalTripsYear(before,since) {
   }
   for(var key in since) {
     var sinceAreaNum = since[key]["dropoff_community_area"];
-    if (ds[sinceAreaNum]["area_name"] == since[key]["area_name"] && ds[sinceAreaNum]["dropoff_community_area"] == since[key]["dropoff_community_area"]){
-      //The area number of the other data is used as the key and see if they have the same area name. J
-      //Just to be sure, I also had it check the area number if they're the same for both
       ds[sinceAreaNum]["total_trips_since"] = since[key]["total_trips"];
       ds[sinceAreaNum]["pct_change"] = calculatePercentChange(ds[sinceAreaNum]["total_trips"],ds[sinceAreaNum]["total_trips_since"]);
-    } 
-    else {
-      console.log("Something wrong. Mismatching area names and area numbers from both datas");
-    }
   }
-  
-  const fin = Object.values(ds); //turns key:value of the original object into elements of an array
-  console.log("fin is ",fin)
-  return fin; //returns the rows with the 2019 and 2020 trips together
+
+  const fin1 = Object.values(ds); //turns key:value of the original object into elements of an array
+  const fin2 = fin1.map(elm => 
+  ({ area_name: elm.area_name, dropoff_community_area: elm.dropoff_community_area,
+    part: elm.part, pct_change: elm.pct_change, total_trips_before: elm.total_trips, 
+    total_trips_since: elm.total_trips_since, year: elm.year
+  }));
+
+  return fin2; //returns the rows with the 2019 and 2020 trips together
 }
 
 function transformData(res) {
