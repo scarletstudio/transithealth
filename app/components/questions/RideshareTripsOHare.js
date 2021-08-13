@@ -58,14 +58,12 @@ function addTotalTripsYear(before,since) {
       ds[sinceAreaNum]["pct_change"] = calculatePercentChange(ds[sinceAreaNum]["total_trips"],ds[sinceAreaNum]["total_trips_since"]);
   }
 
-  const fin1 = Object.values(ds); //turns key:value of the original object into elements of an array
-  const fin2 = fin1.map(elm => 
-  ({ area_name: elm.area_name, dropoff_community_area: elm.dropoff_community_area,
-    part: elm.part, pct_change: elm.pct_change, total_trips_before: elm.total_trips, 
-    total_trips_since: elm.total_trips_since, year: elm.year
+  const fin = Object.values(ds).map(elm => 
+  ({ ...elm,
+  total_trips_before: elm.total_trips,
   }));
 
-  return fin2; //returns the rows with the 2019 and 2020 trips together
+  return fin; //returns the rows with the 2019 and 2020 trips together
 }
 
 function transformData(res) {

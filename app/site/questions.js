@@ -12,7 +12,7 @@ import TaxiMostCommonDropoff from '../components/questions/TaxiMostCommonDropoff
 import TaxiPaymentMethod from '../components/questions/TaxiPaymentMethod'
 import EscooterCity from '../components/questions/EscooterCity'
 import CovidCasesPerRideshare from '../components/questions/CovidCasesPerRideshare'
-import RideShare from '../components/questions/RideshareTripsOHare'
+import RideshareTripsOHare from '../components/questions/RideshareTripsOHare'
 import TrafficIntensityAcrossCity from '../components/questions/TrafficIntensity'
 
 export const questionComponents = {
@@ -23,7 +23,7 @@ export const questionComponents = {
   "residents-with-disabilities": ResidentsWithDisabilities,
   "belonging-rates": BelongingRates,
   "rent-burden-rates": RentBurdenedRates,
-  "rideshare-ohare": RideShare,
+  "rideshare-ohare": RideshareTripsOHare,
   "sidewalk-cafe-permits-years": SidewalkCafePermitsYears,
   "sidewalk-cafe-permit-search": SidewalkCafePermitSearch,
   "disabilities-and-transportation": DisabilitiesAndTransportation,
