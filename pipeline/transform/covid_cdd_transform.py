@@ -53,7 +53,7 @@ df.rename(
 )
 
 
-# change format of week to yyyy-mm-dd
+# change format of week to yyyy-mm-dd //
 df = extract_data_portal_dates(df, col="week_start", prefix="")
 
 df.drop([
