@@ -1,21 +1,9 @@
-import fs from 'fs'
 import Head from 'next/head'
 import Nav from '../components/Nav'
-import HomeDemo from '../components/HomeDemo'
 import { ServerLoadingNotification } from '../components/Notification'
+import InsightSearch from '../components/InsightSearch'
 
-export async function getStaticProps() {
-  const communityAreas = JSON.parse(fs.readFileSync(
-    "./public/resources/community_area.json"
-  ));
-  return {
-    props: {
-      communityAreas,
-    },
-  };
-}
-
-export default function Home({ communityAreas }) {
+export default function Home() {
   return (
     <div>
       <Head>
@@ -32,7 +20,9 @@ export default function Home({ communityAreas }) {
             <p>Explore public transit and public health data across Chicago.</p>
           </div>
           <br />
-          <HomeDemo communityAreas={communityAreas} />
+          <div className="center">
+            <InsightSearch />
+          </div>
         </div>
       </main>
       <ServerLoadingNotification />

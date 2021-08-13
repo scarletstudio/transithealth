@@ -1,5 +1,5 @@
+import fs from 'fs'
 import Head from 'next/head'
-import Link from 'next/link'
 import Nav from '../../components/Nav'
 import { ServerLoadingNotification } from '../../components/Notification'
 import { useState } from 'react'
@@ -17,7 +17,19 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  return { props: questionsParams[params.id] };
+  const questionParams = questionsParams[params.id];
+  // Only load community area GeoJSON if needed
+  const communityAreas = questionParams.loadCommunityAreas
+    ? JSON.parse(fs.readFileSync(
+        "./public/resources/community_area.json"
+      ))
+    : {};
+  return {
+    props: {
+      ...questionParams,
+      communityAreas,
+    }
+  };
 }
 
 export default function Question(props) {
@@ -44,7 +56,10 @@ export default function Question(props) {
             <p className="center">Loading...</p>
           </div>
           <div className={isLoading ? "hidden" : "block"}>
-            <BodyComponent setContentIsLoading={setIsLoading} />
+            <BodyComponent
+              setContentIsLoading={setIsLoading}
+              communityAreas={props.communityAreas}
+            />
           </div>
           <br />
         </div>
