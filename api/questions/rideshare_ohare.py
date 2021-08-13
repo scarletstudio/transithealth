@@ -1,6 +1,6 @@
 from api.utils.database import rows_to_dicts
 
-class RideTrips:
+class OHareRideshareQuestion:
     """
     Pooled rideshares and dropoffs by areas.
     """
@@ -75,7 +75,7 @@ class RideTrips:
         SELECT
             CAST(strftime('%Y', week) as INTEGER) as year,
             pickup_community_area,
-            sum(n_trips_pooled) as total_trips_pooled
+            sum(n_trips) as total_trips
         FROM 
             rideshare
         WHERE 
@@ -118,4 +118,34 @@ class RideTrips:
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+        
+    def community_areas(self):
+        """
+        Returns all of the community areas.
+        """
+        query = """
+        SELECT
+            area_number,
+            name,
+            part
+        FROM community_area
+        """
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+
+    def metrics_by_area(self,rows):
+        """
+        Returns the rows, but with a new column that contains the area names
+        """
+        res = {}
+        
+        for area in self.community_areas():
+            res[area["area_number"]] = area
+        for row in rows:
+            if row['dropoff_community_area'] in res:
+                row['area_name'] = res.get(row['dropoff_community_area'])['name']
+                row['part'] = res.get(row['dropoff_community_area'])['part']
         return rows
