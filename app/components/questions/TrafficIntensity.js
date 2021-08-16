@@ -26,6 +26,26 @@ const CITY_PART_COLOR = {
   "West Side": "#882255",
 };
 
+const TEXT_TRANSLATION = {
+  "English": {
+  "Title": "Traffic Intensity by Area", 
+  "Sub_Title": "How congested traffic is around the city?",
+  "YearSelector_Title": "Select the Year",
+  "SelectLanguage_Title": "Select Language",
+  
+  },
+  "Urdu": {
+  "Title": "ر قبںہ کے حسا ب سے ٹر یفک مین شد ت", 
+  "Sub_Title":" شھر کے ا ر گر د  ٹر یفک کتنی ز یا د ہ ھے؟",
+  "YearSelector_Title": "سا ل کا ا نتخا ب کر ین",
+  "SelectLanguage_Title": "ز با ن کا ا نتخا ب کر ین",
+  
+  }
+  
+  
+  
+};
+
 const EMPTY_MOST_TRIPS = {
   name: "?",
   totalTripsFormatted: "?",
@@ -87,9 +107,10 @@ function YearSelector(props) {
   
   const handleChange = (e) => props.handleChange(parseInt(e.target.value))
 
+  const Language = props.Language
   return (
     <div style={{display:'inline-block'}}>
-      <p>Select the Year</p>
+      <p>{TEXT_TRANSLATION[Language]["YearSelector_Title"]}</p>
       <select onChange={handleChange}>
         {props.data.map((d, i) => (
           <option key={i} value={d}>{d}</option>
@@ -99,6 +120,26 @@ function YearSelector(props) {
   );
 }
 
+function LanguageSelector(props) {
+  if(!props.data){
+    return (
+      <p>Waiting for data...</p>
+    )
+  }
+  
+  const handleChange = (e) => props.handleChange(e.target.value)
+  const Language = props.Language
+  return (
+    <div style={{display:'inline-block'}}>
+      <p>{TEXT_TRANSLATION[Language]["SelectLanguage_Title"]}</p> 
+      <select onChange={handleChange}>
+        {props.data.map((d, i) => (
+          <option key={i} value={d}>{d}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
 function ExamplePieChart(props) {
   const { data } = props
   console.log("examplepiechart",data)
@@ -148,7 +189,9 @@ export default function TrafficIntensityAcrossCity(props) {
    const years = [
     2020,2019,2018,2017,2016
   ]
+ const language = ["English", "Urdu"]
  const [selectedYear, setSelectedYear] = useState(2016)
+ const [selectedLanguage, setSelectedLanguage] = useState("English")
   //console.log(data);
   const { chartData, mostTrips } = transformData(data, error,selectedYear);
   
@@ -159,9 +202,10 @@ export default function TrafficIntensityAcrossCity(props) {
   return (
     <div>
       <div className="center medium-width">
-        <h2>Traffic Intensity by Area</h2>
-         <YearSelector data={years} handleChange={setSelectedYear} />
-        <p>How congested traffic is around the city? </p>
+        <h2>{TEXT_TRANSLATION[selectedLanguage]["Title"]}</h2>
+         <YearSelector data={years} Language={selectedLanguage} handleChange={setSelectedYear} />
+          <LanguageSelector data={language} Language={selectedLanguage} handleChange={setSelectedLanguage} />
+        <p>{TEXT_TRANSLATION[selectedLanguage]["Sub_Title"]} </p>
         <FailureNotification error={error} data={data} />
       </div>
       <div className="center">
