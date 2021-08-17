@@ -137,7 +137,7 @@ function LanguageSelector(props) {
 }
 function ExamplePieChart(props) {
   const { data } = props
-   return (
+  return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart
         width={400}
