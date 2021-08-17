@@ -28,22 +28,17 @@ const CITY_PART_COLOR = {
 
 const TEXT_TRANSLATION = {
   "English": {
-  "Title": "Traffic Intensity by Area", 
-  "Sub_Title": "How congested traffic is around the city?",
-  "YearSelector_Title": "Select the Year",
-  "SelectLanguage_Title": "Select Language",
-  
+    "Title": "Traffic Intensity by Area", 
+    "Sub_Title": "How congested traffic is around the city?",
+    "YearSelector_Title": "Select the Year",
+    "SelectLanguage_Title": "Select Language",
   },
   "Urdu": {
-  "Title": "ر قبںہ کے حسا ب سے ٹر یفک مین شد ت", 
-  "Sub_Title":" شھر کے ا ر گر د  ٹر یفک کتنی ز یا د ہ ھے؟",
-  "YearSelector_Title": "سا ل کا ا نتخا ب کر ین",
-  "SelectLanguage_Title": "ز با ن کا ا نتخا ب کر ین",
-  
+    "Title": "ر قبںہ کے حسا ب سے ٹر یفک مین شد ت", 
+    "Sub_Title":"شھر کے ارد گر د ٹر یفک کتنی ز یا د ہ ھے؟",
+    "YearSelector_Title": "سا ل کا ا نتخا ب کر ین",
+    "SelectLanguage_Title": "ز با ن کا ا نتخا ب کر ین"
   }
-  
-  
-  
 };
 
 const EMPTY_MOST_TRIPS = {
@@ -142,8 +137,7 @@ function LanguageSelector(props) {
 }
 function ExamplePieChart(props) {
   const { data } = props
-  console.log("examplepiechart",data)
-  return (
+   return (
     <ResponsiveContainer width="100%" height={400}>
       <PieChart
         width={400}
@@ -192,7 +186,6 @@ export default function TrafficIntensityAcrossCity(props) {
  const language = ["English", "Urdu"]
  const [selectedYear, setSelectedYear] = useState(2016)
  const [selectedLanguage, setSelectedLanguage] = useState("English")
-  //console.log(data);
   const { chartData, mostTrips } = transformData(data, error,selectedYear);
   
   useEffect(() => {
