@@ -117,7 +117,7 @@ export const questionsParams = {
     title: "Traffic Intensity in Chicago",
     author: "Shahzia Perveen",
     component: "traffic-intensity-across-the-city",
-    description: "What is the vehical density in Chicago for a given year?",
+    description: "What is the vehicle density in Chicago for a given year?",
   },
 };
 
