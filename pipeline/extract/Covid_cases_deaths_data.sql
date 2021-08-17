@@ -1,6 +1,8 @@
 select
     date_extract_y(lab_report_date) as year,
     date_extract_woy(lab_report_date) as week,
+    sum(cases_total),
+    sum(deaths_total),
     sum(cases_age_0_17),
     sum(cases_age_18_29),
     sum(cases_age_30_39),

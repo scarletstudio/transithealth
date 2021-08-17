@@ -33,6 +33,8 @@ print(f"Dropped {(len(raw_df) - len(df)):,d} rows with nulls.")
 df.rename(
     inplace=True,
     columns={
+        "sum_deaths_total": "deaths_total",
+        "sum_cases_total": "cases_total",
         "sum_cases_age_0_17" : "cases_age_0_17" ,
     	"sum_cases_age_18_29" : "cases_age_18_29",
     	"sum_cases_age_30_39": "cases_age_30_39",
@@ -60,7 +62,8 @@ df.drop([
     "week_start",
     "week_end",
     "dt",
-    "week_num"
+    "week_num",
+    "year"
 ], axis=1, inplace=True)
 
 

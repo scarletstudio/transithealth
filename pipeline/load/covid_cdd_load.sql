@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS Covid_cases_deaths_data;
 CREATE TABLE Covid_cases_deaths_data (
-	year INTEGER,
 	week text,
+	cases_total INTEGER,
+	deaths_total INTEGER,
 	cases_age_0_17 INTEGER,
 	cases_age_18_29 INTEGER,
 	cases_age_30_39 INTEGER,

@@ -1,6 +1,6 @@
 from api.utils.database import rows_to_dicts
 
-class CommunityMetrics:
+class Covid_CDD_Metric:
     """
     Metrics for community area data.
     """
@@ -8,44 +8,67 @@ class CommunityMetrics:
     def __init__(self, con):
         self.con = con
 
-    def cases_by_age_given_week(self, date):
+    def cases_for_given_age(self, givenAge):
         """
-        Returns the number of cases grouped demographically
-        by age
+        Returns the number of cases week by week from March 2020 - July 2021 given 
+        age (in "minAge_maxAge" format in following increments:
+            0_17, 18_29, 30_39, 40_49, 50_59, 60_69, 70_79, 80_)
         """
         query = """
         SELECT
-            
+            week as date, cases_age_{givenAge} as value
         From 
             Covid_cases_deaths_data
-        Group by
-            year, month
+        """.format(givenAge = givenAge)
+        print(query)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+        
+    def deaths_for_given_age(self, givenAge):
+        """
+        Returns the number of cases week by week from March 2020 - July 2021 given 
+        age (in "minAge_maxAge" format in following increments:
+            0_17, 18_29, 30_39, 40_49, 50_59, 60_69, 70_79, 80_)
+        """
+        query = """
+        SELECT
+            week as date, deaths_{givenAge}yrs as value
+        From 
+            Covid_cases_deaths_data
+        """.format(givenAge = givenAge)
+        cur = self.con.cursor()
+        cur.execute(query)
+        rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
+    
+    def totalCases(self):
+        """
+        Returns the number of cases week by week from March 2020 - July 2021 
+        """
+        query = """
+        SELECT
+            week as date, cases_total as value
+        From 
+            Covid_cases_deaths_data
         """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
         
-    def deaths_by_age_given_month(self, m, y):
+    def totalDeaths(self):
         """
-        Returns the number of cases grouped demographically
-        by age
+        Returns the number of deaths week by week from March 2020 - July 2021 
         """
         query = """
         SELECT
-            deaths_age_0_17,
-            deaths_age_18_29,
-            deaths_age_30_39,
-            deaths_age_40_49,
-            deaths_age_50_59,
-            deaths_age_60_69,
-            deaths_age_70_79,
-            deaths_age_80_
+            week as date, deaths_total as value
         From 
             Covid_cases_deaths_data
-        Where
-            month == {m}
-            AND year == {y}
-        """.format( m = m, y = y)
+        """.format()
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())
+        return rows
