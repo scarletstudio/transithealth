@@ -424,7 +424,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_0_17: {
     name: "Covid cases for ages 0-17 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -432,7 +432,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_18_29: {
     name: "Covid cases for ages 18-29 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -440,7 +440,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_30_39: {
     name: "Covid cases for ages 30-39 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -448,7 +448,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_40_49: {
     name: "Covid cases for ages 40-49 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -456,7 +456,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_50_59: {
     name: "Covid cases for ages 50-59 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -464,7 +464,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_60_69: {
     name: "Covid cases for ages 60-69 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -472,7 +472,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_70_79: {
     name: "Covid cases for ages 70-79 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -480,7 +480,7 @@ export const timelineMetrics = {
   },
   cases_for_given_age_80_: {
     name: "Covid cases for ages 80+ in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -488,7 +488,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_0_17: {
     name: "Covid deaths for ages 0-17 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -496,7 +496,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_18_29: {
     name: "Covid deaths for ages 18-29 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -504,7 +504,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_30_39: {
     name: "Covid deaths for ages 30-39 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -512,7 +512,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_40_49: {
     name: "Covid deaths for ages 40-49 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -520,7 +520,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_50_59: {
     name: "Covid deaths for ages 50-59 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -528,7 +528,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_60_69: {
     name: "Covid deaths for ages 60-69 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -536,7 +536,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_70_79: {
     name: "Covid deaths for ages 70-79 in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -544,7 +544,7 @@ export const timelineMetrics = {
   },
   deaths_for_given_age_80_: {
     name: "Covid deaths for ages 80+ in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -552,7 +552,7 @@ export const timelineMetrics = {
   },
   totalCases: {
     name: "Total covid cases in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,
@@ -560,7 +560,7 @@ export const timelineMetrics = {
   },
   totalDeaths: {
     name: "Total covid deaths in the city of Chicago",
-    units: "of people",
+    units: "people",
     dataset: "Covid_cases_deaths_data",
     description: "",
     format: Formatter.numberWithCommas,

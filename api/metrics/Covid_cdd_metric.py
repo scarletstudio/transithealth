@@ -28,16 +28,17 @@ class Covid_CDD_Metric:
         
     def deaths_for_given_age(self, givenAge):
         """
-        Returns the number of cases week by week from March 2020 - July 2021 given 
+        Returns the number of deaths week by week from March 2020 - July 2021 given 
         age (in "minAge_maxAge" format in following increments:
             0_17, 18_29, 30_39, 40_49, 50_59, 60_69, 70_79, 80_)
         """
         query = """
         SELECT
-            week as date, deaths_{givenAge}yrs as value
+            week as date, deaths_age_{givenAge} as value
         From 
             Covid_cases_deaths_data
         """.format(givenAge = givenAge)
+        print(query)
         cur = self.con.cursor()
         cur.execute(query)
         rows = rows_to_dicts(cur, cur.fetchall())

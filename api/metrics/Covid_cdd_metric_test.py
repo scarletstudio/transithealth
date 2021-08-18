@@ -20,14 +20,14 @@ def test_CDD():
             "cases_age_60_69": 462,
             "cases_age_70_79": 265,
             "cases_age_80_": 204,
-            "deaths_0_17_yrs": 0,
-            "deaths_18_29_yrs": 0,
-            "deaths_30_39_yrs": 3,
-            "deaths_40_49_yrs": 14,
-            "deaths_50_59_yrs": 17,
-            "deaths_60_69_yrs": 20,
-            "deaths_70_79_yrs": 43,
-            "deaths_80_yrs": 42
+            "deaths_age_0_17":23,
+            "deaths_age_18_29":363,
+            "deaths_age_30_39": 473,
+            "deaths_age_40_49": 537,
+            "deaths_age_50_59": 587,
+            "deaths_age_60_69": 462,
+            "deaths_age_70_79": 265,
+            "deaths_age_80_": 204,
         },
         {
             "week" : "2020-04-26",
@@ -41,14 +41,14 @@ def test_CDD():
             "cases_age_60_69": 555,
             "cases_age_70_79": 666,
             "cases_age_80_": 777,
-            "deaths_0_17_yrs": 0,
-            "deaths_18_29_yrs": 0,
-            "deaths_30_39_yrs": 3,
-            "deaths_40_49_yrs": 14,
-            "deaths_50_59_yrs": 17,
-            "deaths_60_69_yrs": 20,
-            "deaths_70_79_yrs": 43,
-            "deaths_80_yrs": 69
+            "deaths_age_0_17": 453,
+            "deaths_age_18_29":111,
+            "deaths_age_30_39": 222,
+            "deaths_age_40_49": 333,
+            "deaths_age_50_59": 444,
+            "deaths_age_60_69": 555,
+            "deaths_age_70_79": 666,
+            "deaths_age_80_": 777,
         }
     ]
     con, cur = create_test_db(
@@ -69,8 +69,8 @@ def test_CDD():
     ], "Should have two results for this method"
     
     assert metric.deaths_for_given_age("80_") == [
-        { "date": "2020-04-05", "value": 42},
-        { "date": "2020-04-26", "value": 69}
+        { "date": "2020-04-05", "value": 204},
+        { "date": "2020-04-26", "value": 777}
         
     ], "Should have two results for this method"
     

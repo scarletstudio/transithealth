@@ -43,14 +43,14 @@ df.rename(
     	"sum_cases_age_60_69": "cases_age_60_69",
     	"sum_cases_age_70_79": "cases_age_70_79",
     	"sum_cases_age_80_": "cases_age_80_",
-    	"sum_deaths_0_17_yrs": "deaths_0_17_yrs",
-    	"sum_deaths_18_29_yrs": "deaths_18_29_yrs",
-    	"sum_deaths_30_39_yrs": "deaths_30_39_yrs",
-    	"sum_deaths_40_49_yrs": "deaths_40_49_yrs",
-    	"sum_deaths_50_59_yrs": "deaths_50_59_yrs",
-    	"sum_deaths_60_69_yrs": "deaths_60_69_yrs",
-    	"sum_deaths_70_79_yrs": "deaths_70_79_yrs",
-    	"sum_deaths_80_yrs": "deaths_80_yrs"
+    	"sum_deaths_0_17_yrs": "deaths_age_0_17",
+    	"sum_deaths_18_29_yrs": "deaths_age_18_29",
+    	"sum_deaths_30_39_yrs": "deaths_age_30_39",
+    	"sum_deaths_40_49_yrs": "deaths_age_40_49",
+    	"sum_deaths_50_59_yrs": "deaths_age_50_59",
+    	"sum_deaths_60_69_yrs": "deaths_age_60_69",
+    	"sum_deaths_70_79_yrs": "deaths_age_70_79",
+    	"sum_deaths_80_yrs": "deaths_age_80_"
     }
 )
 
