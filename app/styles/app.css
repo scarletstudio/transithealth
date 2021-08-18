@@ -249,6 +249,7 @@ input {
 
 .searchableMetricSelector .searchBar {
     border-bottom: 1px solid #eee;
+    border-top: 1px solid #fff;
     position: sticky;
     top: 0;
     background-color: white;
