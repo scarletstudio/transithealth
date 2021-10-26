@@ -51,7 +51,7 @@ def make_blueprint(con):
         "avg_distance_based_on_start_can": lambda: metric_em.avg_distance_based_on_start_can(),
         "avg_distance_based_on_end_can": lambda: metric_em.avg_distance_based_on_end_can(),
         "number_of_trips_based_on_start_cn": lambda: metric_em.number_of_trips_based_on_start_cn(),
-        "number_of_trips_based_on_end_cn": lambda: metric_em.number_of_trips_based_on_end_cn(),
+        "number_of_trips_based_on_end_cn": lambda: metric_em.number_of_trips_based_on_end_cn()
     }
 
 
